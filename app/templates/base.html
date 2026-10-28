@@ -171,8 +171,6 @@
         .reads .was code { text-decoration: underline dotted var(--rule); }
 
         /* The score block, the one place numbers are the content. */
-        .tally { margin: 0; }
-        .tally > div, .tally dt, .tally dd { }
         dl.tally {
             display: grid;
             grid-template-columns: 9rem 1fr;
@@ -232,6 +230,63 @@
         .index .idx { color: var(--faint); font-size: 0.85rem; }
 
         .onward { margin: 1.5rem 0 0; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+
+        /* Where this cycle is in the sequence. Four steps, because the routes
+           enforce exactly four and refuse anything out of order. The current
+           step is the only one in full ink. */
+        .rail {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5rem;
+            margin: 1rem 0 0;
+            padding: 0;
+            font-size: 0.85rem;
+        }
+        .rail li { color: var(--faint); }
+        .rail li + li::before { content: "/"; margin-right: 0.5rem; color: var(--rule); }
+        .rail .step-done::after { content: " done"; color: var(--rule); }
+        .rail .step-now {
+            color: var(--ink);
+            font-weight: 600;
+            border-bottom: 2px solid var(--mark);
+        }
+
+        /* The next action, stated as something to do rather than a status. */
+        .next {
+            margin: 1rem 0 0;
+            padding: 0.9rem 1rem;
+            background: #fff;
+            border: 1px solid var(--rule);
+            border-left: 3px solid var(--ink);
+        }
+        .next > :first-child { margin-top: 0; }
+        .next > :last-child { margin-bottom: 0; }
+        .next-what { margin: 0 0 0.35rem; font-weight: 600; }
+        .next .onward { margin: 0.6rem 0 0; }
+
+        /* Fill-in-the-blank form rows, so a claim reads as the sentence it is
+           rather than as four unrelated fields. */
+        .sentence {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.4rem 0.5rem;
+            margin: 0.4rem 0 0;
+        }
+        .sentence input, .sentence select { padding: 0.3rem 0.4rem; }
+        .sentence .metric-in { width: 11rem; }
+        .sentence .number-in { width: 6rem; font-variant-numeric: tabular-nums; }
+        .sentence .lead { color: var(--faint); }
+
+        .vocab { list-style: none; margin: 0.4rem 0 0; padding: 0; columns: 2; }
+        .vocab li { color: var(--faint); font-size: 0.9rem; padding: 0.05rem 0; }
+
+        /* The four steps of a cycle, on the index. Numbered because this one
+           really is a sequence: the routes refuse it in any other order. */
+        .how { margin: 0.75rem 0 0; padding-left: 1.6rem; max-width: 46rem; }
+        .how li { padding: 0.15rem 0; color: var(--faint); }
+        .how b { color: var(--ink); font-weight: 600; }
 
         .empty { color: var(--faint); font-style: normal; }
 

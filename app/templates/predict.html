@@ -10,6 +10,8 @@
     </div>
     <p class="says">{{ cycle.question }}</p>
 
+    {% include "_progress.html" %}
+
     <h3>Claims</h3>
     {% if cycle.claims %}
         <ol class="rows">
@@ -20,7 +22,7 @@
                         <p class="says">{{ claim.text }}</p>
                         <div class="facts">
                             <div>
-                                <span class="k">wrong if</span>
+                                <span class="k">predicted</span>
                                 <span class="v"><code>{{ claim.metric }} {{ claim.comparator }} {{ claim.threshold }}</code></span>
                             </div>
                             <div>
@@ -43,42 +45,67 @@
     {% endif %}
 
     {% if cycle.stage == "open" %}
+        {% set comparator_words = {
+            "lt": "below",
+            "lte": "at or below",
+            "gt": "above",
+            "gte": "at or above",
+        } %}
+
         <h3>Add a claim</h3>
         <p class="note">
-            In your own words: what will fail, which metric shows it, and at
-            what threshold you would be proven wrong. A claim with no metric
-            or no threshold is refused, because a prediction that cannot be
-            shown wrong teaches you nothing.
+            A claim is a prediction plus the number that would prove it wrong.
+            Write the prediction in your own words, then name the measurement
+            and the threshold that settles it. A claim with no metric or no
+            threshold is refused, because a prediction you cannot lose teaches
+            you nothing.
         </p>
         <form method="post" action="/cycles/{{ cycle.id }}/claims">
-            <label for="text">Claim</label>
+            <label for="text">What will fail, and why</label>
             <textarea id="text" name="text" required></textarea>
 
-            <label for="metric">Metric</label>
-            <input id="metric" name="metric" type="text" required>
+            <label for="metric">The measurement that settles it</label>
+            <div class="sentence">
+                <span class="lead">I predict</span>
+                <input id="metric" name="metric" type="text" class="metric-in" required>
+                <span class="lead">will come in</span>
+                <select id="comparator" name="comparator" required>
+                    {% for comparator in comparators %}
+                        <option value="{{ comparator }}">{{ comparator_words[comparator] }}</option>
+                    {% endfor %}
+                </select>
+                <input id="threshold" name="threshold" type="number" step="any" class="number-in" required>
+            </div>
 
-            <label for="comparator">Comparator</label>
-            <select id="comparator" name="comparator" required>
-                {% for comparator in comparators %}
-                    <option value="{{ comparator }}">{{ comparator }}</option>
-                {% endfor %}
-            </select>
-
-            <label for="threshold">Threshold</label>
-            <input id="threshold" name="threshold" type="number" step="any" required>
-
-            <label for="probability">Confidence, 0 to 1</label>
-            <input id="probability" name="probability" type="number" step="any" min="0" max="1" required>
+            <label for="probability">How sure are you</label>
+            <div class="sentence">
+                <input id="probability" name="probability" type="number" step="any" min="0" max="1" class="number-in" required>
+                <span class="lead">where 1 is certain it will happen and 0 is certain it will not</span>
+            </div>
 
             <button type="submit">Add claim</button>
         </form>
+
+        <h3>Metric names</h3>
+        <p class="note">
+            Any name your harness reports will work. These are the ones this
+            project's library can already compute, so they cost you nothing to
+            measure. The number after the name is yours to pick: a harness that
+            reports recall at 5 calls it <code>recall_at_5</code>.
+        </p>
+        <ul class="vocab">
+            <li><code>recall_at_k</code> how much of what should have been found was found</li>
+            <li><code>precision_at_k</code> how much of what was returned belonged</li>
+            <li><code>ndcg_at_k</code> whether the good results came back near the top</li>
+            <li><code>flip_rate</code> how often a judge changes its mind when the order is swapped</li>
+        </ul>
 
         <h3>Seal</h3>
         <p class="note">
             Sealing hashes these claims into a chain and commits the chain head
             to git. After that, no claim can be added or edited, and only then
-            can the harness run. This is the step that makes the prediction
-            worth scoring, and it cannot be undone.
+            can the harness run. This is the step that makes the score mean
+            something, and it cannot be undone.
         </p>
         <form method="post" action="/cycles/{{ cycle.id }}/seal">
             <button type="submit">Seal this prediction</button>
@@ -90,11 +117,4 @@
             lets the score mean something.
         </p>
     {% endif %}
-
-    <p class="onward">
-        <a href="/cycles/{{ cycle.id }}/runs">Harness runs</a>
-        {% if cycle.stage == "scored" %}
-            <a href="/cycles/{{ cycle.id }}/teardown">Teardown</a>
-        {% endif %}
-    </p>
 {% endblock %}

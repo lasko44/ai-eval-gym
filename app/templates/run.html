@@ -9,14 +9,39 @@
         <span class="stage">{{ cycle.stage }}</span>
     </div>
 
+    {% include "_progress.html" %}
+
     <h3>Reporting a run</h3>
     <p class="note">
-        Your harness posts its own numbers here. There is no form for this on
-        purpose: the measurements should come from code you wrote, not from
-        you typing them in. A run is refused until the prediction is sealed.
+        Your harness posts its own numbers. There is no form for this on
+        purpose: the measurements should come from code you wrote, not from you
+        typing them in. Save this as <code>harness.py</code> in the project
+        root, put your real retrieval in it, and run
+        <code>.venv/bin/python harness.py</code>.
     </p>
-    <pre>POST /cycles/{{ cycle.id }}/runs
-{"notes": "...", "measurements": {"metric_name": 0.0}}</pre>
+    <pre>import httpx
+from app.metrics import recall_at_k
+
+# Replace these two with what your system actually returned, and
+# what should have come back.
+retrieved = ["doc-7", "doc-2", "doc-9"]
+relevant = {"doc-2", "doc-4"}
+
+httpx.post(
+    "http://127.0.0.1:8765/cycles/{{ cycle.id }}/runs",
+    json={
+        "notes": "say how you measured, in your own words",
+        "measurements": {
+            "recall_at_5": recall_at_k(retrieved, relevant, k=5),
+        },
+    },
+).raise_for_status()</pre>
+    <p class="note">
+        A run is refused with 409 until this cycle is sealed, and refused again
+        once it is scored. A measurement that is not a finite number is refused
+        with 422, because a harness that cannot produce a number has not
+        measured anything.
+    </p>
 
     <h3>Recorded</h3>
     {% if cycle.runs %}
@@ -47,7 +72,8 @@
         <p class="note">
             Scoring resolves every sealed claim against the measurements above.
             A claim whose metric no run reported stays unresolved and is left
-            out of the Brier score.
+            out of the Brier score, so re-run the harness first if you meant to
+            measure it.
         </p>
         <form method="post" action="/cycles/{{ cycle.id }}/score">
             <button type="submit">
@@ -55,11 +81,4 @@
             </button>
         </form>
     {% endif %}
-
-    <p class="onward">
-        <a href="/cycles/{{ cycle.id }}/predict">Sealed prediction</a>
-        {% if cycle.stage == "scored" %}
-            <a href="/cycles/{{ cycle.id }}/teardown">Teardown</a>
-        {% endif %}
-    </p>
 {% endblock %}

@@ -1,0 +1,59 @@
+{# Where this cycle is, and the one thing to do next.
+
+   A cycle moves open, sealed, measured, scored, and the order is enforced by
+   the routes: nothing can be measured before it is sealed, and nothing can be
+   scored before it is measured. That sequence is the whole mechanism, so it is
+   worth stating on the page rather than leaving the reader to infer it from a
+   stage token in the corner.
+
+   Included by every page that belongs to one cycle. Needs `cycle` in context.
+#}
+{% set steps = ["predict", "seal", "measure", "score"] %}
+{% set done = {"open": 0, "sealed": 2, "measured": 3, "scored": 4}[cycle.stage] %}
+
+<ol class="rail">
+    {% for step in steps %}
+        {% if loop.index0 < done %}
+            <li class="step-done">{{ step }}</li>
+        {% elif loop.index0 == done %}
+            <li class="step-now">{{ step }}</li>
+        {% else %}
+            <li class="step-todo">{{ step }}</li>
+        {% endif %}
+    {% endfor %}
+</ol>
+
+<div class="next">
+    {% if cycle.stage == "open" %}
+        <p class="next-what">Write what you think will break, then seal it.</p>
+        <p class="note">
+            Each claim needs a metric and a threshold, so that a number can
+            show you were wrong. Sealing commits the claims to git and locks
+            them. Nothing can be measured until you seal.
+        </p>
+        <p class="onward"><a href="/cycles/{{ cycle.id }}/predict">Write predictions</a></p>
+    {% elif cycle.stage == "sealed" %}
+        <p class="next-what">Run your harness and post the numbers it produced.</p>
+        <p class="note">
+            Your predictions are locked now, so the measurement cannot be bent
+            to fit them. The runs page has a script you can copy.
+        </p>
+        <p class="onward"><a href="/cycles/{{ cycle.id }}/runs">Report a run</a></p>
+    {% elif cycle.stage == "measured" %}
+        <p class="next-what">Score the cycle against what you measured.</p>
+        <p class="note">
+            Every sealed claim resolves correct, wrong, or unresolved if no run
+            reported its metric. You get a Brier score over the ones that
+            resolved.
+        </p>
+        <p class="onward"><a href="/cycles/{{ cycle.id }}/runs">Score it</a></p>
+    {% else %}
+        <p class="next-what">Read the teardown, then publish it.</p>
+        <p class="note">
+            The teardown carries your claims, the measurements, the score and
+            the seal commit, so a reader can check it. Your wrong calls stay in
+            it, which is the part worth publishing.
+        </p>
+        <p class="onward"><a href="/cycles/{{ cycle.id }}/teardown">Read the teardown</a></p>
+    {% endif %}
+</div>
