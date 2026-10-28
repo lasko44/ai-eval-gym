@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}AI Eval Gym{% endblock %}</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 48rem; margin: 2rem auto; padding: 0 1rem; color: #1a1a1a; }
+        a { color: #1a4fd6; }
+        form { display: flex; flex-direction: column; gap: 0.5rem; max-width: 32rem; }
+        label { font-weight: 600; }
+        input, textarea { padding: 0.4rem; font-size: 1rem; }
+        .stage { display: inline-block; padding: 0.1rem 0.5rem; border-radius: 0.3rem; background: #eee; font-size: 0.85rem; }
+        .cycle-list { list-style: none; padding: 0; }
+        .cycle-list li { padding: 0.5rem 0; border-bottom: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="/">AI Eval Gym</a></h1>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

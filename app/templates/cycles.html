@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Cycles{% endblock %}
+{% block content %}
+    <h2>Start a teardown cycle</h2>
+    <form method="post" action="/cycles">
+        <label for="target_name">Target name</label>
+        <input id="target_name" name="target_name" type="text" required>
+
+        <label for="target_url">Target URL</label>
+        <input id="target_url" name="target_url" type="text" required>
+
+        <label for="question">Question under test</label>
+        <textarea id="question" name="question" required></textarea>
+
+        <button type="submit">Create cycle</button>
+    </form>
+
+    <h2>Cycles</h2>
+    {% if cycles %}
+        <ul class="cycle-list">
+            {% for cycle in cycles %}
+                <li>
+                    <a href="/cycles/{{ cycle.id }}">{{ cycle.target_name }}</a>
+                    <span class="stage">{{ cycle.stage }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No cycles yet.</p>
+    {% endif %}
+{% endblock %}

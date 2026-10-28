@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ cycle.target_name }}{% endblock %}
+{% block content %}
+    <p><a href="/">&larr; All cycles</a></p>
+    <h2>{{ cycle.target_name }}</h2>
+    <p><span class="stage">{{ cycle.stage }}</span></p>
+    <p><a href="{{ cycle.target_url }}">{{ cycle.target_url }}</a></p>
+    <h3>Question</h3>
+    <p>{{ cycle.question }}</p>
+    <p>Created {{ cycle.created_at }}</p>
+    {% if cycle.sealed_at %}
+        <p>Sealed {{ cycle.sealed_at }}</p>
+    {% endif %}
+{% endblock %}
