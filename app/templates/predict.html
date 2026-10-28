@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Prediction: {{ cycle.target_name }}{% endblock %}
+{% block content %}
+    <p><a href="/cycles/{{ cycle.id }}">&larr; {{ cycle.target_name }}</a></p>
+    <h2>Sealed prediction</h2>
+    <p><span class="stage">{{ cycle.stage }}</span></p>
+    <p>{{ cycle.question }}</p>
+
+    <h3>Claims</h3>
+    {% if cycle.claims %}
+        <ol>
+            {% for claim in cycle.claims %}
+                <li>
+                    <p>{{ claim.text }}</p>
+                    <p>
+                        <code>{{ claim.metric }} {{ claim.comparator }} {{ claim.threshold }}</code>
+                        at probability {{ claim.probability }}
+                    </p>
+                    {% if claim.sealed_hash %}
+                        <p><small>sealed <code>{{ claim.sealed_hash }}</code></small></p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>No claims yet.</p>
+    {% endif %}
+
+    {% if cycle.stage == "open" %}
+        <h3>Add a claim</h3>
+        <p>
+            In your own words: what will fail, which metric shows it, and at
+            what threshold you would be proven wrong.
+        </p>
+        <form method="post" action="/cycles/{{ cycle.id }}/claims">
+            <label for="text">Claim</label>
+            <textarea id="text" name="text" required></textarea>
+
+            <label for="metric">Metric</label>
+            <input id="metric" name="metric" type="text" required>
+
+            <label for="comparator">Comparator</label>
+            <select id="comparator" name="comparator" required>
+                {% for comparator in comparators %}
+                    <option value="{{ comparator }}">{{ comparator }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="threshold">Threshold</label>
+            <input id="threshold" name="threshold" type="number" step="any" required>
+
+            <label for="probability">Probability (0 to 1)</label>
+            <input id="probability" name="probability" type="number" step="any" min="0" max="1" required>
+
+            <button type="submit">Add claim</button>
+        </form>
+
+        <h3>Seal</h3>
+        <p>
+            Sealing hashes these claims into a chain and commits the chain head
+            to git. After that, no claim can be added or edited, and only then
+            can the harness run.
+        </p>
+        <form method="post" action="/cycles/{{ cycle.id }}/seal">
+            <button type="submit">Seal this prediction</button>
+        </form>
+    {% else %}
+        <p>
+            This prediction was sealed{% if cycle.sealed_at %} at {{ cycle.sealed_at }}{% endif %}.
+            Its claims can no longer be added to or edited.
+        </p>
+    {% endif %}
+{% endblock %}

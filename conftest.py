@@ -40,6 +40,13 @@ class SyncASGIClient:
     a synchronous call surface without reaching for FastAPI's deprecated
     TestClient (itself a thin, now-discouraged wrapper that depends on the
     same sync ASGI support httpx has dropped).
+
+    Two traps, both established by probe, both inherited from the transport:
+    this client never runs the app's lifespan, because httpx.ASGITransport
+    dispatches only type "http" scopes, so a startup or shutdown hook added
+    to the app later will silently never fire in tests; and it does not
+    follow redirects unless the call passes follow_redirects=True, unlike
+    the TestClient it replaced, so a 303 from a POST route arrives as a 303.
     """
 
     def __init__(self, app):
