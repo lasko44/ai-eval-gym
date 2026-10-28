@@ -7,105 +7,11 @@ sealed from the project tree would append a commit to the branch this project
 is being built on.
 """
 
-import subprocess
-
 import pytest
 
 from app.models import Claim, Cycle
 from app.sealing import SealError, chain_hashes, seal_cycle
-
-VALID_CLAIM = {
-    "text": "retrieval misses the second hop on multi-hop questions",
-    "metric": "recall_at_5",
-    "comparator": "lt",
-    "threshold": "0.5",
-    "probability": "0.7",
-}
-
-
-def _git(cwd, *args):
-    """Run git in cwd, failing the test loudly if git itself fails."""
-    return subprocess.run(
-        ["git", *args], cwd=cwd, capture_output=True, text=True, check=True
-    ).stdout
-
-
-@pytest.fixture()
-def git_repo(tmp_path, monkeypatch):
-    """A throwaway git repository, with the process chdir'd into it.
-
-    Local user.name and user.email are set so committing works without
-    depending on global git config.
-    """
-    repo = tmp_path / "repo"
-    repo.mkdir()
-    _git(repo, "init", "-q", "-b", "main")
-    _git(repo, "config", "user.name", "Sealing Test")
-    _git(repo, "config", "user.email", "sealing-test@example.invalid")
-    (repo / "README.md").write_text("throwaway repository for sealing tests\n")
-    _git(repo, "add", "README.md")
-    _git(repo, "commit", "-q", "-m", "initial commit")
-    monkeypatch.chdir(repo)
-    return repo
-
-
-@pytest.fixture()
-def git_repo_that_refuses_commits(git_repo):
-    """A real git repository whose pre-commit hook rejects every commit.
-
-    This is the only way to reach seal_cycle's rollback with real git: the
-    earlier refusals (no repository, a dirty seal file) happen before the
-    database is touched at all, so they cannot prove the rollback works. A
-    repository with a hook that says no (a lint gate, a secret scanner) fails
-    at the commit, after the seal file has been written and staged.
-    """
-    hook = git_repo / ".git" / "hooks" / "pre-commit"
-    hook.write_text("#!/bin/sh\nexit 1\n")
-    hook.chmod(0o755)
-    return git_repo
-
-
-@pytest.fixture()
-def cycle(session):
-    record = Cycle(
-        target_name="example/rag-demo",
-        target_url="https://example.invalid/rag-demo",
-        question="Is multi-hop retrieval any good?",
-    )
-    session.add(record)
-    session.commit()
-    session.refresh(record)
-    return record
-
-
-@pytest.fixture()
-def cycle_with_two_claims(session, cycle):
-    session.add_all([
-        Claim(
-            cycle_id=cycle.id,
-            text="multi-hop recall is poor",
-            metric="recall_at_5",
-            comparator="lt",
-            threshold=0.5,
-            probability=0.7,
-        ),
-        Claim(
-            cycle_id=cycle.id,
-            text="the judge flips when the two answers are swapped",
-            metric="flip_rate",
-            comparator="gt",
-            threshold=0.2,
-            probability=0.4,
-        ),
-    ])
-    session.commit()
-    return cycle
-
-
-@pytest.fixture()
-def sealed_cycle(session, cycle_with_two_claims, git_repo):
-    seal_cycle(session, cycle_with_two_claims.id)
-    return cycle_with_two_claims
+from conftest import VALID_CLAIM, _git
 
 
 def test_claim_requires_a_falsification_test(client, cycle):

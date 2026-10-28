@@ -8,9 +8,10 @@ from pathlib import Path
 from fastapi import FastAPI, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
 
 from app.db import get_session
-from app.models import COMPARATORS, Claim, Cycle
+from app.models import COMPARATORS, Claim, Cycle, HarnessRun, Measurement
 from app.sealing import SealError, seal_cycle
 
 # Schema creation does not happen here. Run `python -m app.initdb` once
@@ -189,6 +190,65 @@ def add_claim(
     finally:
         session.close()
     return RedirectResponse(url=f"/cycles/{cycle_id}/predict", status_code=303)
+
+
+class RunPayload(BaseModel):
+    """The JSON body a harness run posts.
+
+    This is the one route in the app a machine calls rather than a browser
+    form, so it takes JSON instead of the Form(...) fields used everywhere
+    else.
+    """
+
+    notes: str
+    measurements: dict[str, float]
+
+
+@app.get("/cycles/{cycle_id}/runs")
+def show_runs(request: Request, cycle_id: int):
+    session = get_session()
+    try:
+        cycle = session.get(Cycle, cycle_id)
+        if cycle is None:
+            raise HTTPException(status_code=404, detail="Cycle not found")
+        return templates.TemplateResponse(
+            request, "run.html", {"cycle": cycle}
+        )
+    finally:
+        session.close()
+
+
+@app.post("/cycles/{cycle_id}/runs", status_code=201)
+def create_run(cycle_id: int, payload: RunPayload):
+    session = get_session()
+    try:
+        cycle = session.get(Cycle, cycle_id)
+        if cycle is None:
+            raise HTTPException(status_code=404, detail="Cycle not found")
+        if cycle.stage not in ("sealed", "measured"):
+            # Refused, not ignored: predict-before-measure only holds if a
+            # run cannot happen before the prediction is sealed, and a
+            # scored cycle is final, the same way a seal is made once and
+            # never redone.
+            raise HTTPException(
+                status_code=409,
+                detail=(
+                    f"Cycle {cycle_id} is {cycle.stage}. A harness run "
+                    "requires a sealed prediction first, and a scored cycle "
+                    "cannot be measured again."
+                ),
+            )
+        run = HarnessRun(cycle_id=cycle_id, notes=payload.notes)
+        session.add(run)
+        session.flush()
+        for metric, value in payload.measurements.items():
+            session.add(Measurement(run_id=run.id, metric=metric, value=float(value)))
+        cycle.stage = "measured"
+        session.commit()
+        run_id = run.id
+    finally:
+        session.close()
+    return {"id": run_id}
 
 
 @app.post("/cycles/{cycle_id}/seal")
