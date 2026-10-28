@@ -37,13 +37,61 @@ def _fake_response(input_tokens: int, output_tokens: int, text: str = "ok"):
 
 
 def test_a_request_that_would_cross_the_ceiling_raises_before_calling(session, monkeypatch):
-    session.add(SpendLedger(month="2026-10", spent_cents=4990))
+    # Fix for review finding 2: the brief's literal body hardcodes
+    # month="2026-10". complete() keys on current_month(), so that string
+    # only matches "today" while the real calendar is still in October
+    # 2026; from November 1 onward complete() would find no row, create
+    # one at 0 cents, pass the (still-worst-case) check, and call the
+    # stubbed _send, which returns None, failing the test on an unrelated
+    # AttributeError instead of raising BudgetExceeded. Seeding with
+    # current_month() keeps the test pinned to "this month" forever.
+    session.add(SpendLedger(month=current_month(), spent_cents=4990))
     session.commit()
     called = []
     monkeypatch.setattr("app.llm._send", lambda *a, **k: called.append(1))
     with pytest.raises(BudgetExceeded):
         complete(session, "hi", model="claude-sonnet-5", max_tokens=100_000)
     assert called == []
+
+
+def test_max_tokens_is_billed_at_the_output_rate_not_the_input_rate(session, monkeypatch):
+    # Review finding 5: the previous ceiling test could not tell the output
+    # rate from the input rate. At 100_000 max_tokens, a (wrong)
+    # implementation that billed max_tokens at the input rate ($2.00 / 1M,
+    # 200 cents/million) would estimate 21 cents total (1 cent for the
+    # prompt's own input cost, plus 20 cents for 100_000 tokens at the
+    # input rate), so 4950 + 21 = 4971 cents stays under the 5000 ceiling
+    # and the request would wrongly be allowed. Billing max_tokens at the
+    # output rate ($10.00 / 1M, 1000 cents/million), which is correct,
+    # estimates 101 cents (1 cent for the prompt plus 100 cents for
+    # 100_000 tokens at the output rate), so 4950 + 101 = 5051 cents
+    # crosses the ceiling and must raise. This discriminates between the
+    # two: it only passes if max_tokens is actually billed at the output
+    # rate.
+    session.add(SpendLedger(month=current_month(), spent_cents=4950))
+    session.commit()
+    called = []
+    monkeypatch.setattr("app.llm._send", lambda *a, **k: called.append(1))
+    with pytest.raises(BudgetExceeded):
+        complete(session, "hi", model="claude-sonnet-5", max_tokens=100_000)
+    assert called == []
+
+
+def test_a_cheap_request_under_the_ceiling_proceeds_and_records_spend(session, monkeypatch):
+    # Review finding 6: nothing in this file previously covered the
+    # "allowed" path near the ceiling, so an inverted comparison in
+    # complete() (refusing when it should allow) would pass every other
+    # test here. Seed the ledger just under the ceiling with a cheap
+    # request that must be allowed, and confirm _send is actually called
+    # and the resulting spend is recorded.
+    session.add(SpendLedger(month=current_month(), spent_cents=4990))
+    session.commit()
+    monkeypatch.setattr("app.llm._send", lambda *a, **k: _fake_response(1, 1))
+
+    result = complete(session, "hi", model="claude-sonnet-5", max_tokens=1)
+
+    assert result == "ok"
+    assert session.query(SpendLedger).filter_by(month=current_month()).one().spent_cents > 4990
 
 
 def test_a_month_with_no_ledger_row_is_created_not_assumed_zero(session, monkeypatch):

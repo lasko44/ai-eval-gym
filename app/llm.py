@@ -97,16 +97,24 @@ def _cost_cents(tokens: int, cents_per_million_tokens: int) -> int:
 
 
 def _estimate_input_tokens(prompt: str) -> int:
-    """A local, offline estimate of how many tokens the prompt will cost as
-    input. This cannot be the real tokenizer: the real count comes from
-    Anthropic's count_tokens endpoint, which is itself a network call, and
-    the entire point of this estimate is to run before anything reaches the
-    network. Anthropic's own documentation gives roughly 4 characters per
-    token for English text as a rule of thumb; dividing by 4 and rounding up
-    leans conservative, which is the right direction for a cap (overcounting
-    input tokens makes the check stricter, never looser).
+    """A local, offline, pessimistic estimate of how many tokens the prompt
+    will cost as input. This cannot be the real tokenizer: the real count
+    comes from Anthropic's count_tokens endpoint, which is itself a network
+    call, and the entire point of this estimate is to run before anything
+    reaches the network.
+
+    Four characters per token is only an average for plain English prose.
+    This client exists to serve things like an LLM-as-judge prompt carrying
+    a model transcript, and JSON, code, markdown tables and non-Latin text
+    commonly tokenize at closer to 2 to 3 characters per token. A divisor
+    that averages real text would *undercount* the input side of exactly
+    the prompts this app sends, which would let a true worst case slip
+    past the check. Dividing by 2 instead over-counts prose but never
+    undercounts the denser formats, which is the direction a cap has to
+    err in: this is the pessimistic estimate the cap checks against, not
+    the most likely one.
     """
-    return max(1, -(-len(prompt) // 4))
+    return max(1, -(-len(prompt) // 2))
 
 
 def _worst_case_cost_cents(prompt: str, model: str, max_tokens: int) -> int:
@@ -135,10 +143,25 @@ def _actual_cost_cents(usage, model: str) -> int:
 
 
 def _extract_text(response) -> str:
-    for block in response.content:
-        if getattr(block, "type", None) == "text":
-            return block.text
-    return ""
+    """Join every text block in the response, in order.
+
+    Joining all of them (not just the first) matches the real-service test
+    in tests/test_llm_budget.py, which joins every text block it finds;
+    the two paths disagreed about multi-block responses before this fix.
+    Raising when there is no text block at all, rather than returning an
+    empty string, is deliberate: a response can stop for a refusal or some
+    other non-text reason, and the harness code calling complete() needs
+    to see that as a failure, not silently receive "" and treat it as a
+    valid, empty completion.
+    """
+    text_blocks = [block.text for block in response.content if getattr(block, "type", None) == "text"]
+    if not text_blocks:
+        raise RuntimeError(
+            "response contained no text content block (for example, a refusal "
+            "or a non-text stop reason); the caller must see this as a failure "
+            "rather than receive a silent empty string"
+        )
+    return "".join(text_blocks)
 
 
 def _send(prompt: str, *, model: str, max_tokens: int):
@@ -162,18 +185,27 @@ def _send(prompt: str, *, model: str, max_tokens: int):
 def complete(session, prompt: str, *, model: str, max_tokens: int) -> str:
     """Run a capped model call and return its text.
 
-    session is the caller's own SQLAlchemy session, and every database
-    operation here (finding or creating this month's ledger row, checking
-    the cap, and recording actual spend) happens inside that same session
-    without complete() ever calling session.commit() itself. That is what
-    makes the row creation, the cap check and the spend write transactional
-    together: they all land or all roll back as one unit with whatever the
-    caller does next, so two concurrent callers reading the same ledger row
-    cannot both see a stale "under budget" state and both go ahead. The
-    SELECT ... FOR UPDATE below (via with_for_update) additionally holds a
-    row lock on an existing ledger row for the duration of the caller's
-    transaction, so a second caller checking the same month's row blocks
-    until the first one commits or rolls back, rather than racing it.
+    session is the caller's own SQLAlchemy session. complete() finds or
+    creates this month's ledger row, checks the cap, and records actual
+    spend, all through that same session via flush(), never calling
+    session.commit() itself. This is not a safety net for the spend write:
+    a successful call to complete() means _send already made a real,
+    billed request, and that charge cannot be rolled back. The caller
+    must commit the session promptly after a successful call, or the
+    recorded spend is lost even though the money was already spent, and a
+    later cap check runs against a ledger that is too low. Only the part
+    before _send runs (the row lookup or creation, and the cap check)
+    benefits from rollback: a caller that aborts before _send is called
+    can discard the created ledger row with no real-world consequence.
+
+    The SELECT ... FOR UPDATE below (via with_for_update) holds a row lock
+    on an existing ledger row for the duration of the caller's transaction,
+    so a second caller checking the same month's row blocks until the
+    first one commits or rolls back, rather than racing it. The first
+    INSERT of a new month's row is not similarly lock-protected, but that
+    race fails closed rather than open: a losing concurrent caller hits
+    the row's unique constraint on month before _send is ever called, so
+    no real spend goes unrecorded in that case.
 
     Raises BudgetExceeded, before _send is ever called, when the worst-case
     cost of this request would push the month's spend past
