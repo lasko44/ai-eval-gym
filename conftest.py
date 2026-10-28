@@ -1,5 +1,6 @@
 import asyncio
 import os
+import subprocess
 
 # Point the app at the test database before anything imports app.db, so the
 # module-level engine it builds never touches the real ai_eval_gym database.
@@ -8,11 +9,13 @@ import os
 # database is exactly how that happens), setdefault would leave it pointed
 # at ai_eval_gym and the session fixture's own drop_all teardown would then
 # drop the real cycles table. The test suite must always run against a test
-# database regardless of what is already in the environment, never against
-# whatever DATABASE_URL happens to hold. TEST_DATABASE_URL lets a worktree
-# point at its own database, for example so concurrent agents do not drop
-# each other's tables, and falls back to the shared ai_eval_gym_test database
-# when it is not set.
+# database regardless of what is already in the environment, and
+# TEST_DATABASE_URL is the only input honored for which one: DATABASE_URL
+# itself is never read here, only written, so an exported DATABASE_URL can
+# never redirect the suite's drop_all at the real database. The override
+# exists so a git worktree can point at its own database, for example so
+# concurrent agents do not drop each other's tables, and it falls back to
+# the shared ai_eval_gym_test database when it is not set.
 os.environ["DATABASE_URL"] = os.environ.get(
     "TEST_DATABASE_URL",
     "postgresql+psycopg://matthewlaszkiewicz@127.0.0.1:5432/ai_eval_gym_test",
@@ -23,6 +26,8 @@ import pytest
 
 from app.db import Base, engine, SessionLocal
 from app.main import app
+from app.models import Claim, Cycle
+from app.sealing import seal_cycle
 
 
 @pytest.fixture()
@@ -77,3 +82,101 @@ def client(session):
         yield test_client
     finally:
         test_client.close()
+
+
+# Shared fixtures below are used by both tests/test_sealing.py and
+# tests/test_runs.py. They live here, not module-local to either file, so
+# both modules share one definition instead of two copies drifting apart.
+
+VALID_CLAIM = {
+    "text": "retrieval misses the second hop on multi-hop questions",
+    "metric": "recall_at_5",
+    "comparator": "lt",
+    "threshold": "0.5",
+    "probability": "0.7",
+}
+
+
+def _git(cwd, *args):
+    """Run git in cwd, failing the test loudly if git itself fails."""
+    return subprocess.run(
+        ["git", *args], cwd=cwd, capture_output=True, text=True, check=True
+    ).stdout
+
+
+@pytest.fixture()
+def git_repo(tmp_path, monkeypatch):
+    """A throwaway git repository, with the process chdir'd into it.
+
+    Local user.name and user.email are set so committing works without
+    depending on global git config.
+    """
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    _git(repo, "init", "-q", "-b", "main")
+    _git(repo, "config", "user.name", "Sealing Test")
+    _git(repo, "config", "user.email", "sealing-test@example.invalid")
+    (repo / "README.md").write_text("throwaway repository for sealing tests\n")
+    _git(repo, "add", "README.md")
+    _git(repo, "commit", "-q", "-m", "initial commit")
+    monkeypatch.chdir(repo)
+    return repo
+
+
+@pytest.fixture()
+def git_repo_that_refuses_commits(git_repo):
+    """A real git repository whose pre-commit hook rejects every commit.
+
+    This is the only way to reach seal_cycle's rollback with real git: the
+    earlier refusals (no repository, a dirty seal file) happen before the
+    database is touched at all, so they cannot prove the rollback works. A
+    repository with a hook that says no (a lint gate, a secret scanner) fails
+    at the commit, after the seal file has been written and staged.
+    """
+    hook = git_repo / ".git" / "hooks" / "pre-commit"
+    hook.write_text("#!/bin/sh\nexit 1\n")
+    hook.chmod(0o755)
+    return git_repo
+
+
+@pytest.fixture()
+def cycle(session):
+    record = Cycle(
+        target_name="example/rag-demo",
+        target_url="https://example.invalid/rag-demo",
+        question="Is multi-hop retrieval any good?",
+    )
+    session.add(record)
+    session.commit()
+    session.refresh(record)
+    return record
+
+
+@pytest.fixture()
+def cycle_with_two_claims(session, cycle):
+    session.add_all([
+        Claim(
+            cycle_id=cycle.id,
+            text="multi-hop recall is poor",
+            metric="recall_at_5",
+            comparator="lt",
+            threshold=0.5,
+            probability=0.7,
+        ),
+        Claim(
+            cycle_id=cycle.id,
+            text="the judge flips when the two answers are swapped",
+            metric="flip_rate",
+            comparator="gt",
+            threshold=0.2,
+            probability=0.4,
+        ),
+    ])
+    session.commit()
+    return cycle
+
+
+@pytest.fixture()
+def sealed_cycle(session, cycle_with_two_claims, git_repo):
+    seal_cycle(session, cycle_with_two_claims.id)
+    return cycle_with_two_claims
