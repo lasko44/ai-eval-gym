@@ -14,7 +14,12 @@ known, so two things have to hold.
    what the database cannot: an append-only history with its own timestamps,
    written by a tool outside this app. If any git step fails, the database
    rolls back and no sealed_hash is persisted, so a seal can never exist in
-   the database without its commit.
+   the database without its commit. The seal commit's own SHA is then read
+   back with rev-parse and stored on the cycle, so the teardown can name the
+   exact commit rather than pointing vaguely at "the git history": a named
+   commit is something a stranger can check, which is the entire reason for
+   involving git at all. Sealing is refused on a detached HEAD, because a
+   commit made there belongs to no branch and is lost at the next checkout.
 
 Everything here resolves git and the seals directory from the process working
 directory, not from a hardcoded project path, so the caller controls which
@@ -35,6 +40,14 @@ from app.models import Claim, Cycle
 GENESIS = "genesis"
 
 SEALS_DIRNAME = "seals"
+
+# Every git step gets a wall-clock limit. Without one, a repository
+# configured with commit.gpgsign=true (or a credential helper that wants a
+# terminal) leaves git waiting on a prompt nobody can answer, and the seal
+# route blocks forever while holding the open database transaction and its
+# row locks on the flushed claims. A seal that cannot finish has to fail,
+# not hang.
+GIT_TIMEOUT_SECONDS = 30
 
 
 class SealError(Exception):
@@ -99,8 +112,21 @@ def _git(*args: str) -> str:
     """Run git in the current working directory, raising SealError if it fails."""
     try:
         result = subprocess.run(
-            ["git", *args], capture_output=True, text=True, check=False
+            ["git", *args],
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=GIT_TIMEOUT_SECONDS,
         )
+    except subprocess.TimeoutExpired as exc:
+        raise SealError(
+            f"git {' '.join(args)} did not finish within "
+            f"{GIT_TIMEOUT_SECONDS} seconds and was killed. A git step that "
+            "hangs is almost always waiting on something interactive (a GPG "
+            "passphrase for commit.gpgsign, or a credential helper wanting a "
+            "terminal), and this one cannot be waited out: it runs inside the "
+            "seal's open database transaction."
+        ) from exc
     except OSError as exc:
         raise SealError(f"Could not run git: {exc}") from exc
     if result.returncode != 0:
@@ -110,12 +136,38 @@ def _git(*args: str) -> str:
 
 
 def _require_git_repository() -> None:
+    """Refuse to seal unless git can actually hold the seal commit.
+
+    Two checks, not one. `git rev-parse --git-dir` only proves there is a
+    repository here; it succeeds just as happily on a detached HEAD, and a
+    detached HEAD is the worse case of the two. There, every step of
+    seal_cycle reports success (git commit returns 0, the read-back finds
+    the head, the database commits), and then the very next `git checkout`
+    makes the seal file vanish from the tree and leaves the seal commit
+    unreachable, to be destroyed by the next `git gc`. The teardown page
+    would still be telling a reader to go and check a commit that no longer
+    exists. HEAD gets detached by ordinary work: `git checkout <sha>` to
+    read an old version, an interrupted rebase, a `git bisect`.
+
+    `git symbolic-ref -q HEAD` is the detachment test: it prints the branch
+    ref and exits 0 when HEAD is on a branch, and exits non-zero (quietly,
+    because of -q) when HEAD is detached. _git turns that non-zero exit into
+    a SealError, which is what the except below catches.
+    """
     try:
         _git("rev-parse", "--git-dir")
     except SealError as exc:
         raise SealError(
             f"No usable git repository in {Path.cwd()}: a seal is only real "
             f"once git holds it. ({exc})"
+        ) from exc
+
+    try:
+        _git("symbolic-ref", "-q", "HEAD")
+    except SealError as exc:
+        raise SealError(
+            "HEAD is detached, so a seal commit would land on no branch and "
+            "be lost at the next checkout. Check out a branch before sealing."
         ) from exc
 
 
@@ -203,9 +255,10 @@ def seal_cycle(session: Session, cycle_id: int) -> str:
 
     Order matters and is the point of this function: validate, then write the
     seal file, then git add, then git commit, then read back what the commit
-    actually holds, and only then commit the database transaction. Any
-    failure before that last commit rolls the session back, so no claim is
-    ever left holding a sealed_hash that git cannot account for. A failure
+    actually holds, then record that commit's SHA on the cycle, and only
+    then commit the database transaction. Any failure before that last
+    commit rolls the session back, so no claim is ever left holding a
+    sealed_hash that git cannot account for. A failure
     that leaves no commit behind also removes the seal file this call wrote,
     so one bad git run does not leave the cycle unsealable for good.
     """
@@ -269,6 +322,11 @@ def seal_cycle(session: Session, cycle_id: int) -> str:
         )
         committed = True
         _require_committed_head(seal_path, head)
+        # Only knowable now: the commit has to exist before it has a SHA.
+        # Recorded inside the same try, before the database transaction
+        # commits, so a failure here still rolls the seal back and the
+        # invariant "never a sealed_hash without its commit" is unchanged.
+        cycle.sealed_commit = _git("rev-parse", "HEAD").strip()
     except SealError:
         session.rollback()
         if not seal_file_existed and not committed:

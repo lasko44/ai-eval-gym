@@ -41,6 +41,18 @@ class Cycle(Base):
     created_at = Column(DateTime(timezone=True), nullable=False, default=_utcnow)
     sealed_at = Column(DateTime(timezone=True), nullable=True)
 
+    # The SHA of the git commit that holds this cycle's seal file, read back
+    # with rev-parse right after the commit lands (see app.sealing). This is
+    # what makes the seal checkable by someone who is not the author: given
+    # the chain head and this SHA, a stranger can run `git show <sha>` and
+    # see the head that was committed, and when.
+    #
+    # Nullable, and it will stay NULL forever for any cycle sealed before
+    # this column existed: there is no SHA to go and find for those. Both
+    # the teardown page and the markdown export have to say so honestly
+    # rather than print "None" or raise, which is why they test it.
+    sealed_commit = Column(String, nullable=True)
+
     # Ordered by id, because the order is what the seal's hash chain commits
     # to: app.sealing hashes each claim onto the previous one's hash, so
     # claims[-1].sealed_hash is the chain head.

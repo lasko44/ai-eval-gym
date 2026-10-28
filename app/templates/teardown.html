@@ -30,6 +30,41 @@
         {% endfor %}
     </ol>
 
+    <h3>Harness runs</h3>
+    {% if runs %}
+        <p>
+            Every run recorded against this cycle, oldest first. Where a
+            metric was reported by more than one run, the score used the
+            latest value: that reading is marked scored and the earlier ones
+            are marked superseded, so a value that was replaced is still on
+            the page rather than gone.
+        </p>
+        <ol>
+            {% for row in runs %}
+                <li>
+                    <p><small>{{ row.run.created_at }}</small></p>
+                    {% if row.run.notes %}
+                        <p>{{ row.run.notes }}</p>
+                    {% endif %}
+                    <ul>
+                        {% for item in row.measurements %}
+                            <li>
+                                <code>{{ item.measurement.metric }} = {{ item.measurement.value }}</code>
+                                {% if item.scored %}
+                                    (scored)
+                                {% else %}
+                                    (superseded by a later run)
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>No harness run was recorded against this cycle.</p>
+    {% endif %}
+
     <h3>Score</h3>
     <dl>
         <dt>Brier score</dt>
@@ -52,10 +87,26 @@
     <p>
         Chain head: <code>{{ cycle.claims[-1].sealed_hash }}</code>
     </p>
-    <p>
-        Committed to <code>seals/cycle-{{ cycle.id }}.txt</code> in this
-        project's git history, where the commit can be checked directly.
-    </p>
+    {% if cycle.sealed_commit %}
+        <p>
+            Committed as <code>seals/cycle-{{ cycle.id }}.txt</code> in commit
+            <code>{{ cycle.sealed_commit }}</code>.
+        </p>
+        <p>
+            Anyone with this repository can check that for themselves:
+            <code>git show {{ cycle.sealed_commit }}</code> prints the seal
+            file as committed, and the chain head above has to be the one in
+            it.
+        </p>
+    {% else %}
+        <p>
+            Committed as <code>seals/cycle-{{ cycle.id }}.txt</code>. This
+            cycle was sealed before the app began recording the seal commit's
+            own SHA, so there is no commit named here. The commit can still be
+            found with
+            <code>git log -- seals/cycle-{{ cycle.id }}.txt</code>.
+        </p>
+    {% endif %}
 
     <p><a href="/cycles/{{ cycle.id }}/teardown.md">Export as markdown</a></p>
 {% endblock %}

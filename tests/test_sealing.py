@@ -234,3 +234,108 @@ def test_the_chain_detects_editing_and_reordering(session, cycle_with_two_claims
 
     claims[0].threshold = 0.6
     assert chain_hashes(claims)[0] != original[0]
+
+
+def test_seal_refuses_a_detached_head_and_writes_nothing(
+    session, cycle_with_two_claims, git_repo
+):
+    """A detached HEAD is the one git state that fakes a successful seal.
+
+    `git rev-parse --git-dir` succeeds here, so the pre-fix code sealed
+    normally: git commit returned 0, every claim got its sealed_hash, the
+    read-back guard passed, and the cycle moved to sealed. The commit
+    belonged to no branch, so the next checkout made seals/cycle-N.txt
+    vanish from the tree and left the commit unreachable, for git gc to
+    collect, while the teardown page still told readers to go and check it.
+    That is worse than the no-git case, which at least fails loudly.
+
+    Same shape as test_seal_fails_loudly_and_writes_nothing_without_git:
+    SealError, and not one claim left holding a sealed_hash.
+    """
+    cycle_id = cycle_with_two_claims.id
+    _git(git_repo, "checkout", "-q", "--detach", "HEAD")
+    # Prove the precondition, so this test cannot pass just because the
+    # checkout above quietly did nothing: on a branch, --abbrev-ref HEAD
+    # prints the branch name, and it prints "HEAD" only when detached.
+    assert _git(git_repo, "rev-parse", "--abbrev-ref", "HEAD").strip() == "HEAD"
+
+    with pytest.raises(SealError) as raised:
+        seal_cycle(session, cycle_id)
+    assert "detached" in str(raised.value)
+
+    assert session.query(Claim).filter(Claim.sealed_hash.isnot(None)).count() == 0
+    cycle = session.get(Cycle, cycle_id)
+    assert cycle.stage == "open"
+    assert cycle.sealed_at is None
+    assert cycle.sealed_commit is None
+
+    # The refusal happens before git or the filesystem is touched, so the
+    # repository is exactly as the fixture left it.
+    assert _git(git_repo, "log", "--oneline").count("\n") == 1
+    assert not (git_repo / "seals" / f"cycle-{cycle_id}.txt").exists()
+    assert _git(git_repo, "status", "--porcelain", "--untracked-files=all") == ""
+
+
+def test_a_successful_seal_records_the_commit_that_holds_it(
+    session, cycle_with_two_claims, git_repo
+):
+    """The chain head alone is not checkable; the head plus a SHA is.
+
+    "Committed somewhere in this project's git history" cannot be verified
+    by a stranger. "Chain head X, committed in SHA Y" can, which is the
+    whole reason this app involves git. This also makes a detached-HEAD
+    style failure self-detecting in future: the recorded SHA is either
+    reachable or it is not.
+    """
+    cycle_id = cycle_with_two_claims.id
+    head = seal_cycle(session, cycle_id)
+
+    cycle = session.get(Cycle, cycle_id)
+    assert cycle.sealed_commit == _git(git_repo, "rev-parse", "HEAD").strip()
+    # The recorded SHA is the commit that actually holds this chain head.
+    assert head in _git(
+        git_repo, "show", f"{cycle.sealed_commit}:seals/cycle-{cycle_id}.txt"
+    )
+
+
+def test_a_failed_seal_records_no_commit(
+    session, cycle_with_two_claims, git_repo_that_refuses_commits
+):
+    """sealed_commit follows sealed_hash: both, or neither."""
+    cycle_id = cycle_with_two_claims.id
+    with pytest.raises(SealError):
+        seal_cycle(session, cycle_id)
+    assert session.get(Cycle, cycle_id).sealed_commit is None
+
+
+def test_a_git_step_that_hangs_fails_the_seal_instead_of_blocking(
+    session, cycle_with_two_claims, git_repo, monkeypatch
+):
+    """A hanging git step must not hold the seal route open forever.
+
+    With commit.gpgsign=true and a passphrase prompt, or a credential helper
+    that wants a tty, git waits for input nobody can give. The seal route
+    would wait with it, holding the open database transaction and its row
+    locks on the already-flushed claims.
+
+    Driven against real git rather than a stubbed subprocess: a pre-commit
+    hook that sleeps is exactly the shape of a commit that will not return.
+    The timeout is turned down to one second for the test, so this costs
+    about a second rather than thirty.
+    """
+    cycle_id = cycle_with_two_claims.id
+    hook = git_repo / ".git" / "hooks" / "pre-commit"
+    hook.write_text("#!/bin/sh\nsleep 30\n")
+    hook.chmod(0o755)
+    monkeypatch.setattr("app.sealing.GIT_TIMEOUT_SECONDS", 1)
+
+    with pytest.raises(SealError) as raised:
+        seal_cycle(session, cycle_id)
+    assert "did not finish within 1 seconds" in str(raised.value)
+
+    # The usual invariant: no commit landed, so nothing is sealed.
+    assert session.query(Claim).filter(Claim.sealed_hash.isnot(None)).count() == 0
+    cycle = session.get(Cycle, cycle_id)
+    assert cycle.stage == "open"
+    assert cycle.sealed_commit is None
+    assert _git(git_repo, "log", "--oneline").count("\n") == 1

@@ -8,7 +8,7 @@ from pathlib import Path
 from fastapi import FastAPI, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
 from fastapi.templating import Jinja2Templates
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 
 from app.db import get_session
 from app.models import COMPARATORS, Claim, Cycle, HarnessRun, Measurement
@@ -204,6 +204,58 @@ class RunPayload(BaseModel):
     notes: str
     measurements: dict[str, float]
 
+    @field_validator("measurements")
+    @classmethod
+    def _measurements_must_be_finite(
+        cls, value: dict[str, float]
+    ) -> dict[str, float]:
+        """Refuse NaN and Infinity, which otherwise score claims silently.
+
+        Both reach this far by default and neither is caught downstream.
+        Starlette's request.json() is json.loads, which accepts the bare
+        NaN, Infinity and -Infinity tokens, pydantic's float allows them
+        unless told not to, and Postgres double precision stores them. From
+        there they resolve claims for real: a NaN loses every comparison, so
+        every claim it touches resolves wrong, while an Infinity wins every
+        gt and gte, so those claims resolve correct with a near-perfect
+        Brier contribution. The bad value then persists into the published
+        teardown as though a harness had measured it.
+
+        The threshold side of a claim is already gated the same way in
+        _claim_from_form, and the metrics in app.metrics.retrieval go out of
+        their way to return 0.0 instead of 0/0, so this is the one remaining
+        door. A harness that cannot produce a number has not measured
+        anything, so the answer is a 422.
+
+        HTTPException, not ValueError, and the difference is not cosmetic.
+        A ValueError raised here becomes a pydantic validation error whose
+        payload includes the offending input value, and FastAPI's default
+        handler renders that payload with Starlette's JSONResponse, which
+        calls json.dumps(allow_nan=False). Serializing a NaN or an Infinity
+        then raises, so the client gets a 500 from the error handler instead
+        of the 422 the refusal was meant to be. Established by probe, not
+        assumed. Raising HTTPException instead keeps the non-finite value
+        out of the response body entirely: pydantic lets an exception that
+        is not a ValueError or AssertionError propagate untouched, and
+        FastAPI's own HTTPException handler turns it into a 422 carrying
+        just this message. That also makes the refusal read the same way as
+        every other 422 in this file.
+        """
+        for metric, measured in value.items():
+            if not math.isfinite(measured):
+                raise HTTPException(
+                    status_code=422,
+                    detail=(
+                        f"measurement {metric!r} is {measured}, which is not "
+                        "a finite number. A harness that cannot produce a "
+                        "number has not measured anything: fix the harness "
+                        "rather than reporting NaN or Infinity, because a "
+                        "non-finite value resolves claims as if it were a "
+                        "real measurement."
+                    ),
+                )
+        return value
+
 
 @app.get("/cycles/{cycle_id}/runs")
 def show_runs(request: Request, cycle_id: int):
@@ -324,6 +376,50 @@ def _require_scored_for_teardown(cycle: Cycle, cycle_id: int) -> None:
         )
 
 
+def _run_rows(cycle: Cycle) -> list[dict]:
+    """Every harness run on this cycle, in order, marking what scored.
+
+    A cycle can be measured more than once, and app.scoring's
+    _latest_measurements takes latest-run-wins per metric, so a second run
+    reporting the same metric silently replaces the first run's number in
+    the score. That rule is correct (a fixed harness means the newer
+    number), but it leaves the measurement side rewritable with nothing in
+    the published artifact to show it: the thresholds are visible on the
+    predict page and the measured values on the runs page, so an author can
+    see a claim resolved wrong and post a second run that resolves it
+    correct instead. The seal makes the prediction tamper-evident; this
+    listing is what makes the measurement tamper-evident, to the author and
+    to any reader of the teardown.
+
+    scored is True for exactly the measurement latest-run-wins actually
+    picked for that metric. It is computed by the same iteration order
+    _latest_measurements uses (runs by id, measurements within a run by
+    id), with the last one seen winning, so the two can only ever agree.
+    Every other reading of that metric is marked superseded and still
+    printed with its value, because the displaced number is the
+    information a reader needs in order to notice an overwrite.
+    """
+    scoring_measurement_id: dict[str, int] = {}
+    for run in cycle.runs:
+        for measurement in run.measurements:
+            scoring_measurement_id[measurement.metric] = measurement.id
+
+    return [
+        {
+            "run": run,
+            "measurements": [
+                {
+                    "measurement": measurement,
+                    "scored": scoring_measurement_id.get(measurement.metric)
+                    == measurement.id,
+                }
+                for measurement in run.measurements
+            ],
+        }
+        for run in cycle.runs
+    ]
+
+
 def _teardown_context(session, cycle: Cycle) -> dict:
     """Everything the teardown page and its markdown export both render.
 
@@ -338,6 +434,11 @@ def _teardown_context(session, cycle: Cycle) -> dict:
     flagged apart. Whether the published markdown keeps them is the
     reader's decision, made by exporting or not, not a decision this
     function makes for them.
+
+    runs carries every harness run, not only the latest, for the same
+    reason: see _run_rows. Nothing in this context is an interpretation of
+    how the author did. It is their claim text, their notes and the
+    numbers.
     """
     measurements = _latest_measurements(cycle)
     claims = [
@@ -349,7 +450,12 @@ def _teardown_context(session, cycle: Cycle) -> dict:
         for claim in cycle.claims
     ]
     score = score_cycle(session, cycle.id)
-    return {"cycle": cycle, "claims": claims, "score": score}
+    return {
+        "cycle": cycle,
+        "claims": claims,
+        "score": score,
+        "runs": _run_rows(cycle),
+    }
 
 
 @app.get("/cycles/{cycle_id}/teardown")

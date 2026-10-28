@@ -12,6 +12,17 @@ Question: {{ cycle.question }}
    - Measured: {% if row.measured is none %}not measured{% else %}`{{ row.claim.metric }} = {{ row.measured }}`{% endif %}
    - Outcome: **{{ row.outcome }}**
 {% endfor %}
+## Harness runs
+{% if runs %}
+Every run recorded against this cycle, oldest first. Where a metric was reported by more than one run, the score used the latest value: that reading is marked scored and the earlier ones are marked superseded, so a value that was replaced is still in this export rather than gone.
+{% for row in runs %}
+{{ loop.index }}. Run at {{ row.run.created_at }}
+   - Notes: {% if row.run.notes %}{{ row.run.notes }}{% else %}none given{% endif %}
+{% for item in row.measurements %}   - `{{ item.measurement.metric }} = {{ item.measurement.value }}` ({% if item.scored %}scored{% else %}superseded by a later run{% endif %})
+{% endfor %}{% endfor %}
+{% else %}
+No harness run was recorded against this cycle.
+{% endif %}
 ## Score
 
 - Brier score: {% if score.brier is none %}none (no claim resolved){% else %}{{ "%.3f"|format(score.brier) }}{% endif %}
@@ -23,4 +34,8 @@ Question: {{ cycle.question }}
 
 Chain head: `{{ cycle.claims[-1].sealed_hash }}`
 
-Committed to `seals/cycle-{{ cycle.id }}.txt` in this project's git history, where the commit can be checked directly.
+{% if cycle.sealed_commit %}Committed as `seals/cycle-{{ cycle.id }}.txt` in commit `{{ cycle.sealed_commit }}`.
+
+Anyone with this repository can check that for themselves: `git show {{ cycle.sealed_commit }}` prints the seal file as committed, and the chain head above has to be the one in it.
+{% else %}Committed as `seals/cycle-{{ cycle.id }}.txt`. This cycle was sealed before the app began recording the seal commit's own SHA, so there is no commit named here. The commit can still be found with `git log -- seals/cycle-{{ cycle.id }}.txt`.
+{% endif %}
