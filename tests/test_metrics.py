@@ -1,3 +1,5 @@
+import math
+
 import pytest
 
 from app.metrics import brier_score, flip_rate, ndcg_at_k, precision_at_k, recall_at_k
@@ -84,6 +86,40 @@ def test_ndcg_at_k_with_k_zero_or_negative_is_zero():
     assert ndcg_at_k(["a", "b"], {"a": 1, "b": 1}, k=-1) == 0.0
 
 
+def test_ndcg_at_k_gives_partial_credit_for_a_merely_good_ordering():
+    # The boundary cases above (ideal order == 1.0, worst binary order ==
+    # 0.0) are both invariant to a whole class of discount-formula bugs:
+    # swapping log2(rank + 1) for log2(rank + 2) consistently in DCG and
+    # IDCG still yields 1.0 and 0.0 in those two cases. This case pins the
+    # actual discount convention with a value that is not a boundary.
+    #
+    # Expected value is derived directly from the DCG/IDCG definition
+    # below (not by calling ndcg_at_k and reading off its answer).
+    # Retrieved order is b, a, c with relevance b=2, a=3, c=1:
+    #   DCG  = 2/log2(2) + 3/log2(3) + 1/log2(4)
+    # The ideal order is a, b, c (relevance 3, 2, 1):
+    #   IDCG = 3/log2(2) + 2/log2(3) + 1/log2(4)
+    # DCG = 2 + 1.892789... + 0.5 = 4.392789...
+    # IDCG = 3 + 1.261860... + 0.5 = 4.761860...
+    # NDCG = DCG / IDCG, approximately 0.922495.
+    dcg = 2 / math.log2(2) + 3 / math.log2(3) + 1 / math.log2(4)
+    idcg = 3 / math.log2(2) + 2 / math.log2(3) + 1 / math.log2(4)
+    expected = dcg / idcg
+
+    assert ndcg_at_k(["b", "a", "c"], {"a": 3, "b": 2, "c": 1}, k=3) == pytest.approx(expected)
+
+
+def test_ndcg_at_k_ignores_relevance_grades_outside_the_cutoff():
+    # len(relevance) == 3 but k == 2, so the ideal normalizer must be built
+    # from only the top 2 grades (10 and 1, a tie between "a" and "b"), not
+    # all 3. Retrieved is already in that ideal top-2 order, so a correctly
+    # truncated IDCG equals DCG exactly and NDCG == 1.0. A bug that
+    # normalized against all 3 grades instead of the top k would inflate
+    # IDCG (adding a 1/log2(4) term that does not belong) and push this
+    # below 1.0, which pytest.approx(1.0) would catch.
+    assert ndcg_at_k(["c", "a", "b"], {"a": 1, "b": 1, "c": 10}, k=2) == pytest.approx(1.0)
+
+
 # --- brier_score ---
 # Mean squared error between a stated probability and the binary outcome
 # (1.0 if it happened, 0.0 if it did not). 0.0 is perfect calibration, 1.0
@@ -116,6 +152,18 @@ def test_brier_score_rejects_probabilities_outside_the_unit_interval():
         brier_score([(1.5, True)])
     with pytest.raises(ValueError):
         brier_score([(-0.1, False)])
+
+
+def test_brier_score_averages_across_multiple_pairs():
+    # Every other brier_score test above uses exactly one pair, where a
+    # sum and a mean are the same number. This pins the averaging itself:
+    # a regression that summed instead of averaging, or that only looked
+    # at one of the pairs, would still pass every single-pair test here
+    # but would be wrong for every real multi-prediction harness run.
+    #
+    # Hand-derived: (0.5 - 1) ** 2 = 0.25, (0.9 - 0) ** 2 = 0.81.
+    # Mean of the two squared errors is (0.25 + 0.81) / 2 = 0.53.
+    assert brier_score([(0.5, True), (0.9, False)]) == pytest.approx(0.53)
 
 
 # --- flip_rate ---
