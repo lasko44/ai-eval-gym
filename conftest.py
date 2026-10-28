@@ -7,9 +7,16 @@ import os
 # already exported in the shell (a manual uvicorn run against the real
 # database is exactly how that happens), setdefault would leave it pointed
 # at ai_eval_gym and the session fixture's own drop_all teardown would then
-# drop the real cycles table. The test suite must always run against
-# ai_eval_gym_test regardless of what is already in the environment.
-os.environ["DATABASE_URL"] = "postgresql+psycopg://matthewlaszkiewicz@127.0.0.1:5432/ai_eval_gym_test"
+# drop the real cycles table. The test suite must always run against a test
+# database regardless of what is already in the environment, never against
+# whatever DATABASE_URL happens to hold. TEST_DATABASE_URL lets a worktree
+# point at its own database, for example so concurrent agents do not drop
+# each other's tables, and falls back to the shared ai_eval_gym_test database
+# when it is not set.
+os.environ["DATABASE_URL"] = os.environ.get(
+    "TEST_DATABASE_URL",
+    "postgresql+psycopg://matthewlaszkiewicz@127.0.0.1:5432/ai_eval_gym_test",
+)
 
 import httpx
 import pytest

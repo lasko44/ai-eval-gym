@@ -34,3 +34,20 @@ class Cycle(Base):
     stage = Column(String, nullable=False, default="open")
     created_at = Column(DateTime(timezone=True), nullable=False, default=_utcnow)
     sealed_at = Column(DateTime(timezone=True), nullable=True)
+
+
+class SpendLedger(Base):
+    """One row per calendar month of model spend, in integer cents.
+
+    app.llm reads and writes this table to enforce the monthly budget cap
+    before any model call leaves the process. The month column is unique
+    because the cap check depends on there being exactly one row per month:
+    two rows for the same month would let a caller add to the wrong one, or
+    let a cap check miss spend that landed in a sibling row by mistake.
+    """
+
+    __tablename__ = "spend_ledger"
+
+    id = Column(Integer, primary_key=True)
+    month = Column(String, nullable=False, unique=True)
+    spent_cents = Column(Integer, nullable=False, default=0)
