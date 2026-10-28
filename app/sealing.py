@@ -139,6 +139,54 @@ def _require_clean_seal_file(seal_path: Path) -> None:
         )
 
 
+def _require_committed_head(seal_path: Path, head: str) -> None:
+    """Read the seal file back out of HEAD and check it holds this head.
+
+    `git commit -- <pathspec>` commits the file's content as of commit time
+    rather than whatever `git add` staged, so asking git what landed is the
+    only way to know. This closes the window between writing the file and
+    committing it: if anything rewrote the seal file in that window, the head
+    in history would not be the head seal_cycle is about to return, and a
+    seal whose committed head does not match the chain is worth nothing.
+
+    The path is passed as HEAD:./<path> so git resolves it relative to the
+    working directory, the same way the file was written.
+    """
+    committed = _git("show", f"HEAD:./{seal_path}")
+    if head not in committed:
+        raise SealError(
+            f"The seal commit for {seal_path} does not contain the chain head "
+            f"{head}. Something rewrote the seal file between writing it and "
+            "committing it, so this seal cannot be trusted."
+        )
+
+
+def _discard_written_seal_file(seal_path: Path) -> None:
+    """Undo seal_cycle's own write of a seal file git never took.
+
+    Called only when seal_cycle created the file itself and no commit landed.
+    Without this, one transient git failure (a pre-commit hook, a stale
+    index.lock, a full disk) would leave an uncommitted seal file that
+    _require_clean_seal_file then refuses for good, so that cycle could never
+    be sealed again without someone cleaning the tree by hand. A seal file
+    that was already there is left alone by the caller, which is what
+    preserves the evidence of an earlier half-finished seal.
+
+    Both steps are best effort on purpose: a failure here must not replace
+    the real SealError the caller is about to see, and if cleanup does fail
+    the tree is left in exactly the state not cleaning up at all would have
+    left it in.
+    """
+    try:
+        _git("reset", "-q", "--", str(seal_path))
+    except SealError:
+        pass
+    try:
+        seal_path.unlink(missing_ok=True)
+    except OSError:
+        pass
+
+
 def _seal_file_body(
     cycle_id: int, sealed_at: datetime, claim_count: int, head: str
 ) -> str:
@@ -154,10 +202,12 @@ def seal_cycle(session: Session, cycle_id: int) -> str:
     """Seal a cycle's claims and return the chain head hash.
 
     Order matters and is the point of this function: validate, then write the
-    seal file, then git add, then git commit, and only then commit the
-    database transaction. Any failure before that last commit rolls the
-    session back, so no claim is ever left holding a sealed_hash that git
-    cannot account for.
+    seal file, then git add, then git commit, then read back what the commit
+    actually holds, and only then commit the database transaction. Any
+    failure before that last commit rolls the session back, so no claim is
+    ever left holding a sealed_hash that git cannot account for. A failure
+    that leaves no commit behind also removes the seal file this call wrote,
+    so one bad git run does not leave the cycle unsealable for good.
     """
     cycle = session.get(Cycle, cycle_id)
     if cycle is None:
@@ -198,6 +248,12 @@ def seal_cycle(session: Session, cycle_id: int) -> str:
     # stays rollback-able until git has succeeded.
     session.flush()
 
+    # Whether this call is the one that created the seal file decides what
+    # may be cleaned up if git fails: seal_cycle undoes its own write and
+    # never touches a file that was already there.
+    seal_file_existed = seal_path.exists()
+    committed = False
+
     try:
         seal_path.parent.mkdir(parents=True, exist_ok=True)
         seal_path.write_text(
@@ -211,14 +267,21 @@ def seal_cycle(session: Session, cycle_id: int) -> str:
             "--",
             str(seal_path),
         )
+        committed = True
+        _require_committed_head(seal_path, head)
     except SealError:
-        # The seal file and any staged change are deliberately left where
-        # they are. Git failing here means something needs a human's eyes,
-        # and the next seal attempt refuses a dirty seal file on purpose.
         session.rollback()
+        if not seal_file_existed and not committed:
+            # No commit landed, so nothing in history refers to this file and
+            # removing it leaves the tree as it was found. Once a commit has
+            # landed the file belongs to git, and deleting it would only make
+            # the tree dirty and refuse the next attempt.
+            _discard_written_seal_file(seal_path)
         raise
     except OSError as exc:
         session.rollback()
+        if not seal_file_existed and not committed:
+            _discard_written_seal_file(seal_path)
         raise SealError(f"Could not write the seal file {seal_path}: {exc}") from exc
 
     session.commit()

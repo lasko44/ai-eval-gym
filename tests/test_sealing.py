@@ -8,11 +8,17 @@ is being built on.
 """
 
 import subprocess
+from pathlib import Path
 
 import pytest
 
 from app.models import Claim, Cycle
-from app.sealing import SealError, chain_hashes, seal_cycle
+from app.sealing import (
+    SealError,
+    _require_committed_head,
+    chain_hashes,
+    seal_cycle,
+)
 
 VALID_CLAIM = {
     "text": "retrieval misses the second hop on multi-hop questions",
@@ -172,6 +178,35 @@ def test_sealing_chains_each_claim_hash(session, cycle_with_two_claims, git_repo
     assert _git(git_repo, "status", "--porcelain") == ""
 
 
+def test_sealing_over_http_commits_the_chain(
+    client, session, cycle_with_two_claims, git_repo
+):
+    cycle_id = cycle_with_two_claims.id
+
+    r = client.post(f"/cycles/{cycle_id}/seal")
+    assert r.status_code == 303
+    assert r.headers["location"] == f"/cycles/{cycle_id}/predict"
+
+    # The route owns its own session, so drop what this one already loaded.
+    session.expire_all()
+    claims = session.query(Claim).order_by(Claim.id).all()
+    assert all(c.sealed_hash for c in claims)
+    assert session.get(Cycle, cycle_id).stage == "sealed"
+    committed = _git(git_repo, "show", f"HEAD:seals/cycle-{cycle_id}.txt")
+    assert claims[-1].sealed_hash in committed
+
+
+def test_sealing_over_http_refuses_a_cycle_with_no_claims(
+    client, session, cycle, git_repo
+):
+    r = client.post(f"/cycles/{cycle.id}/seal")
+    assert r.status_code == 409
+
+    session.expire_all()
+    assert session.get(Cycle, cycle.id).stage == "open"
+    assert _git(git_repo, "log", "--oneline").count("\n") == 1
+
+
 def test_claims_are_immutable_once_sealed(client, sealed_cycle):
     r = client.post(f"/cycles/{sealed_cycle.id}/claims", data=VALID_CLAIM)
     assert r.status_code == 409
@@ -222,8 +257,67 @@ def test_a_failed_git_commit_rolls_the_seal_back(
     assert cycle.stage == "open"
     assert cycle.sealed_at is None
     # Only the fixture's own initial commit is in the repository.
-    log = _git(git_repo_that_refuses_commits, "log", "--oneline")
-    assert log.count("\n") == 1
+    repo = git_repo_that_refuses_commits
+    assert _git(repo, "log", "--oneline").count("\n") == 1
+
+    # The failure must not wedge the cycle. No commit landed, so the seal
+    # file this call wrote is gone and the tree is as it was found, which
+    # means sealing works again as soon as the hook does not refuse it.
+    assert not (repo / "seals" / f"cycle-{cycle_id}.txt").exists()
+    assert _git(repo, "status", "--porcelain", "--untracked-files=all") == ""
+
+    (repo / ".git" / "hooks" / "pre-commit").unlink()
+    head = seal_cycle(session, cycle_id)
+    claims = session.query(Claim).order_by(Claim.id).all()
+    assert head == claims[-1].sealed_hash
+    assert head in _git(repo, "show", f"HEAD:seals/cycle-{cycle_id}.txt")
+
+
+def test_a_failed_seal_leaves_a_pre_existing_seal_file_alone(
+    session, cycle_with_two_claims, git_repo
+):
+    """Cleanup undoes this call's own write, never a file already there.
+
+    A committed seal file for a cycle that is somehow still open is evidence
+    of something odd, so a failed seal must not quietly delete it.
+    """
+    cycle_id = cycle_with_two_claims.id
+    seal_path = git_repo / "seals" / f"cycle-{cycle_id}.txt"
+    seal_path.parent.mkdir()
+    seal_path.write_text("an older seal, put here by hand\n")
+    _git(git_repo, "add", "--", f"seals/cycle-{cycle_id}.txt")
+    _git(git_repo, "commit", "-q", "-m", "an older seal file")
+
+    hook = git_repo / ".git" / "hooks" / "pre-commit"
+    hook.write_text("#!/bin/sh\nexit 1\n")
+    hook.chmod(0o755)
+
+    with pytest.raises(SealError):
+        seal_cycle(session, cycle_id)
+
+    assert seal_path.exists()
+    assert session.query(Claim).filter(Claim.sealed_hash.isnot(None)).count() == 0
+
+
+def test_a_seal_commit_that_does_not_hold_the_head_is_refused(git_repo):
+    """The read-back guard, checked against real git.
+
+    _require_committed_head is reached in production through seal_cycle, but
+    the window it closes (something rewriting the seal file between the write
+    and the commit) cannot be opened from a test without faking git. This
+    drives the guard itself against a real commit whose seal file holds a
+    different head, which is the state it exists to catch.
+    """
+    seal_path = Path("seals") / "cycle-9.txt"
+    (git_repo / "seals").mkdir()
+    (git_repo / seal_path).write_text("chain_head: the-head-that-landed\n")
+    _git(git_repo, "add", "--", str(seal_path))
+    _git(git_repo, "commit", "-q", "-m", "a seal holding another head")
+
+    _require_committed_head(seal_path, "the-head-that-landed")
+
+    with pytest.raises(SealError):
+        _require_committed_head(seal_path, "the-head-being-returned")
 
 
 def test_the_chain_detects_editing_and_reordering(session, cycle_with_two_claims):
