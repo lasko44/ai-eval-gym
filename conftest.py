@@ -1,3 +1,4 @@
+import asyncio
 import os
 
 # Point the app at the test database before anything imports app.db, so the
@@ -7,8 +8,8 @@ os.environ.setdefault(
     "postgresql+psycopg://matthewlaszkiewicz@127.0.0.1:5432/ai_eval_gym_test",
 )
 
+import httpx
 import pytest
-from fastapi.testclient import TestClient
 
 from app.db import Base, engine, SessionLocal
 from app.main import app
@@ -25,7 +26,37 @@ def session():
         Base.metadata.drop_all(engine)
 
 
+class SyncASGIClient:
+    """A plain sync facade over httpx.AsyncClient so tests can stay plain
+    sync functions while still driving the real ASGI app through httpx.
+
+    httpx's own ASGITransport implements only the async transport
+    interface (handle_async_request), so a sync httpx.Client cannot use it
+    directly: calling it raises AttributeError. This wraps an AsyncClient
+    and runs each call with asyncio.run, which is the smallest way to get
+    a synchronous call surface without reaching for FastAPI's deprecated
+    TestClient (itself a thin, now-discouraged wrapper that depends on the
+    same sync ASGI support httpx has dropped).
+    """
+
+    def __init__(self, app):
+        transport = httpx.ASGITransport(app=app)
+        self._async_client = httpx.AsyncClient(transport=transport, base_url="http://test")
+
+    def get(self, url, **kwargs):
+        return asyncio.run(self._async_client.get(url, **kwargs))
+
+    def post(self, url, **kwargs):
+        return asyncio.run(self._async_client.post(url, **kwargs))
+
+    def close(self):
+        asyncio.run(self._async_client.aclose())
+
+
 @pytest.fixture()
 def client(session):
-    with TestClient(app) as test_client:
+    test_client = SyncASGIClient(app)
+    try:
         yield test_client
+    finally:
+        test_client.close()
