@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Score: {{ cycle.target_name }}{% endblock %}
+{% block content %}
+    <p><a href="/cycles/{{ cycle.id }}">&larr; {{ cycle.target_name }}</a></p>
+    <h2>Score</h2>
+    <p><span class="stage">{{ cycle.stage }}</span></p>
+
+    <dl>
+        <dt>Brier score</dt>
+        <dd>
+            {%- if score.brier is none -%}
+                none (no claim resolved)
+            {%- else -%}
+                {{ "%.3f"|format(score.brier) }}
+            {%- endif -%}
+        </dd>
+        <dt>Claims resolved</dt>
+        <dd>{{ score.resolved }}</dd>
+        <dt>Claims unresolved</dt>
+        <dd>{{ score.unresolved }}</dd>
+        <dt>Coverage</dt>
+        <dd>{{ "%.3f"|format(score.coverage) }}</dd>
+    </dl>
+
+    <p>
+        The Brier score is the mean of (probability - outcome) squared over
+        the claims that resolved: 0.000 is perfect calibration, 1.000 is full
+        confidence in the wrong answer, and lower is better. Coverage is
+        resolved claims over all claims on this cycle. A claim whose metric no
+        harness run measured is unresolved: it is counted here, and left out
+        of the Brier score entirely.
+    </p>
+
+    <p><a href="/cycles/{{ cycle.id }}/runs">Harness runs</a></p>
+{% endblock %}

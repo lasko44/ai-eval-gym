@@ -12,6 +12,7 @@ from pydantic import BaseModel
 
 from app.db import get_session
 from app.models import COMPARATORS, Claim, Cycle, HarnessRun, Measurement
+from app.scoring import score_cycle
 from app.sealing import SealError, seal_cycle
 
 # Schema creation does not happen here. Run `python -m app.initdb` once
@@ -264,3 +265,40 @@ def seal(cycle_id: int):
     finally:
         session.close()
     return RedirectResponse(url=f"/cycles/{cycle_id}/predict", status_code=303)
+
+
+@app.post("/cycles/{cycle_id}/score")
+def score(request: Request, cycle_id: int):
+    """Score a measured cycle and render the result.
+
+    This renders score.html directly instead of redirecting to a page of its
+    own, because the score is derived entirely from rows that already exist:
+    there is nothing new to read back, and nothing is stored beyond the move
+    to the scored stage.
+    """
+    session = get_session()
+    try:
+        cycle = session.get(Cycle, cycle_id)
+        if cycle is None:
+            raise HTTPException(status_code=404, detail="Cycle not found")
+        if cycle.stage not in ("measured", "scored"):
+            # Refused, not scored as all-unresolved: a cycle whose harness has
+            # not run yet has no verdicts in it, and recording one would dress
+            # "nothing was measured" up as a finding. A cycle already scored
+            # may be scored again, because scoring is deterministic and reads
+            # the same rows every time.
+            raise HTTPException(
+                status_code=409,
+                detail=(
+                    f"Cycle {cycle_id} is {cycle.stage}. Scoring requires a "
+                    "harness run to measure the sealed claims against."
+                ),
+            )
+        result = score_cycle(session, cycle_id)
+        cycle.stage = "scored"
+        session.commit()
+        return templates.TemplateResponse(
+            request, "score.html", {"cycle": cycle, "score": result}
+        )
+    finally:
+        session.close()
