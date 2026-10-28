@@ -32,5 +32,5 @@ class Cycle(Base):
     target_url = Column(String, nullable=False)
     question = Column(String, nullable=False)
     stage = Column(String, nullable=False, default="open")
-    created_at = Column(DateTime, nullable=False, default=_utcnow)
-    sealed_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime(timezone=True), nullable=False, default=_utcnow)
+    sealed_at = Column(DateTime(timezone=True), nullable=True)

@@ -2,27 +2,19 @@
 as later tasks add them.
 """
 
-from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 
-from app.db import Base, engine, get_session
+from app.db import get_session
 from app.models import Cycle
 
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # A fresh ai_eval_gym database starts empty; this is what makes the
-    # skeleton runnable against it without a separate migration step.
-    # Tests manage their own create/drop in conftest.py and do not rely on this.
-    Base.metadata.create_all(engine)
-    yield
-
-
-app = FastAPI(title="AI Eval Gym", lifespan=lifespan)
+# Schema creation does not happen here. Run `python -m app.initdb` once
+# against a fresh database before starting the app. Tests manage their own
+# create/drop in conftest.py and do not depend on this either.
+app = FastAPI(title="AI Eval Gym")
 
 templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
 

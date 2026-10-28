@@ -1,8 +1,9 @@
 """Database wiring: one engine, one session factory, one declarative base.
 
-The engine is built once from DATABASE_URL at import time. Tests override
-DATABASE_URL (see conftest.py) before this module is first imported, so the
-same code path runs against ai_eval_gym_test instead of ai_eval_gym.
+The engine is built once from DATABASE_URL at import time. conftest.py sets
+DATABASE_URL unconditionally, before this module is first imported, so the
+same code path always runs against ai_eval_gym_test under pytest, regardless
+of whatever DATABASE_URL may already be set to in the shell.
 """
 
 import os

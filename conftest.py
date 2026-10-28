@@ -3,10 +3,13 @@ import os
 
 # Point the app at the test database before anything imports app.db, so the
 # module-level engine it builds never touches the real ai_eval_gym database.
-os.environ.setdefault(
-    "DATABASE_URL",
-    "postgresql+psycopg://matthewlaszkiewicz@127.0.0.1:5432/ai_eval_gym_test",
-)
+# This is an unconditional assignment, not setdefault: if DATABASE_URL is
+# already exported in the shell (a manual uvicorn run against the real
+# database is exactly how that happens), setdefault would leave it pointed
+# at ai_eval_gym and the session fixture's own drop_all teardown would then
+# drop the real cycles table. The test suite must always run against
+# ai_eval_gym_test regardless of what is already in the environment.
+os.environ["DATABASE_URL"] = "postgresql+psycopg://matthewlaszkiewicz@127.0.0.1:5432/ai_eval_gym_test"
 
 import httpx
 import pytest
