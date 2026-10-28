@@ -1,0 +1,26 @@
+# Teardown: {{ cycle.target_name }}
+
+Target: {{ cycle.target_url }}
+
+Question: {{ cycle.question }}
+
+## Claims
+{% for row in claims %}
+{{ loop.index }}. {{ row.claim.text }}
+   - Falsification test: `{{ row.claim.metric }} {{ row.claim.comparator }} {{ row.claim.threshold }}`
+   - Stated probability: {{ row.claim.probability }}
+   - Measured: {% if row.measured is none %}not measured{% else %}`{{ row.claim.metric }} = {{ row.measured }}`{% endif %}
+   - Outcome: **{{ row.outcome }}**
+{% endfor %}
+## Score
+
+- Brier score: {% if score.brier is none %}none (no claim resolved){% else %}{{ "%.3f"|format(score.brier) }}{% endif %}
+- Claims resolved: {{ score.resolved }}
+- Claims unresolved: {{ score.unresolved }}
+- Coverage: {{ "%.3f"|format(score.coverage) }}
+
+## Seal
+
+Chain head: `{{ cycle.claims[-1].sealed_hash }}`
+
+Committed to `seals/cycle-{{ cycle.id }}.txt` in this project's git history, where the commit can be checked directly.

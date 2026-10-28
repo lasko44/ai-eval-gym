@@ -6,13 +6,13 @@ import math
 from pathlib import Path
 
 from fastapi import FastAPI, Form, HTTPException, Request
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, Response
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 
 from app.db import get_session
 from app.models import COMPARATORS, Claim, Cycle, HarnessRun, Measurement
-from app.scoring import score_cycle
+from app.scoring import _latest_measurements, resolve_claim, score_cycle
 from app.sealing import SealError, seal_cycle
 
 # Schema creation does not happen here. Run `python -m app.initdb` once
@@ -300,5 +300,82 @@ def score(request: Request, cycle_id: int):
         return templates.TemplateResponse(
             request, "score.html", {"cycle": cycle, "score": result}
         )
+    finally:
+        session.close()
+
+
+def _require_scored_for_teardown(cycle: Cycle, cycle_id: int) -> None:
+    """Refuse the teardown routes unless the cycle has been scored.
+
+    A teardown without a score is not a teardown, and computing one on
+    demand here would let a reader see a score before the cycle is formally
+    scored through POST /cycles/{id}/score, blurring the predict-measure-
+    score ordering the rest of the app protects. score_cycle itself has no
+    stage guard, so this check is what keeps it from ever being called on an
+    open, sealed or measured cycle.
+    """
+    if cycle.stage != "scored":
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                f"Cycle {cycle_id} is {cycle.stage}. The teardown is only "
+                "available once this cycle has been scored."
+            ),
+        )
+
+
+def _teardown_context(session, cycle: Cycle) -> dict:
+    """Everything the teardown page and its markdown export both render.
+
+    measurements comes from app.scoring's own latest-value-per-metric
+    helper, reused here rather than rebuilt, so this page's idea of "the
+    measured value" can never drift from what score_cycle itself scored
+    against. Each claim's outcome uses resolve_claim directly, for the same
+    reason: one place decides correct, wrong or unresolved.
+
+    Claims scored wrong are included in this list exactly like the others,
+    in cycle.claims order (the sealed order), not sorted, filtered or
+    flagged apart. Whether the published markdown keeps them is the
+    reader's decision, made by exporting or not, not a decision this
+    function makes for them.
+    """
+    measurements = _latest_measurements(cycle)
+    claims = [
+        {
+            "claim": claim,
+            "measured": measurements.get(claim.metric),
+            "outcome": resolve_claim(claim, measurements),
+        }
+        for claim in cycle.claims
+    ]
+    score = score_cycle(session, cycle.id)
+    return {"cycle": cycle, "claims": claims, "score": score}
+
+
+@app.get("/cycles/{cycle_id}/teardown")
+def show_teardown(request: Request, cycle_id: int):
+    session = get_session()
+    try:
+        cycle = session.get(Cycle, cycle_id)
+        if cycle is None:
+            raise HTTPException(status_code=404, detail="Cycle not found")
+        _require_scored_for_teardown(cycle, cycle_id)
+        context = _teardown_context(session, cycle)
+        return templates.TemplateResponse(request, "teardown.html", context)
+    finally:
+        session.close()
+
+
+@app.get("/cycles/{cycle_id}/teardown.md")
+def export_teardown_markdown(cycle_id: int):
+    session = get_session()
+    try:
+        cycle = session.get(Cycle, cycle_id)
+        if cycle is None:
+            raise HTTPException(status_code=404, detail="Cycle not found")
+        _require_scored_for_teardown(cycle, cycle_id)
+        context = _teardown_context(session, cycle)
+        markdown = templates.get_template("teardown.md.jinja").render(context)
+        return Response(content=markdown, media_type="text/markdown")
     finally:
         session.close()

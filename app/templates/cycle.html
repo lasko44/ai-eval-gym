@@ -8,6 +8,10 @@
     <h3>Question</h3>
     <p>{{ cycle.question }}</p>
     <p><a href="/cycles/{{ cycle.id }}/predict">Sealed prediction</a></p>
+    <p><a href="/cycles/{{ cycle.id }}/runs">Harness runs</a></p>
+    {% if cycle.stage == "scored" %}
+        <p><a href="/cycles/{{ cycle.id }}/teardown">Teardown</a></p>
+    {% endif %}
     <p>Created {{ cycle.created_at }}</p>
     {% if cycle.sealed_at %}
         <p>Sealed {{ cycle.sealed_at }}</p>

@@ -36,4 +36,17 @@
     {% else %}
         <p>No runs yet.</p>
     {% endif %}
+
+    {% if cycle.stage in ("measured", "scored") %}
+        <h3>Score</h3>
+        <p>
+            Scoring resolves every sealed claim against the measurements
+            above and moves this cycle to the scored stage.
+        </p>
+        <form method="post" action="/cycles/{{ cycle.id }}/score">
+            <button type="submit">
+                {% if cycle.stage == "scored" %}Re-score{% else %}Score this cycle{% endif %}
+            </button>
+        </form>
+    {% endif %}
 {% endblock %}

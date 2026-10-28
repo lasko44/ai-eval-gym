@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Teardown: {{ cycle.target_name }}{% endblock %}
+{% block content %}
+    <p><a href="/cycles/{{ cycle.id }}">&larr; {{ cycle.target_name }}</a></p>
+    <h2>Teardown: {{ cycle.target_name }}</h2>
+    <p><span class="stage">{{ cycle.stage }}</span></p>
+    <p><a href="{{ cycle.target_url }}">{{ cycle.target_url }}</a></p>
+    <h3>Question</h3>
+    <p>{{ cycle.question }}</p>
+
+    <h3>Claims</h3>
+    <ol>
+        {% for row in claims %}
+            <li>
+                <p>{{ row.claim.text }}</p>
+                <p>
+                    <code>{{ row.claim.metric }} {{ row.claim.comparator }} {{ row.claim.threshold }}</code>
+                    at probability {{ row.claim.probability }}
+                </p>
+                <p>
+                    Measured:
+                    {% if row.measured is none %}
+                        not measured
+                    {% else %}
+                        <code>{{ row.claim.metric }} = {{ row.measured }}</code>
+                    {% endif %}
+                </p>
+                <p>Outcome: <strong>{{ row.outcome }}</strong></p>
+            </li>
+        {% endfor %}
+    </ol>
+
+    <h3>Score</h3>
+    <dl>
+        <dt>Brier score</dt>
+        <dd>
+            {%- if score.brier is none -%}
+                none (no claim resolved)
+            {%- else -%}
+                {{ "%.3f"|format(score.brier) }}
+            {%- endif -%}
+        </dd>
+        <dt>Claims resolved</dt>
+        <dd>{{ score.resolved }}</dd>
+        <dt>Claims unresolved</dt>
+        <dd>{{ score.unresolved }}</dd>
+        <dt>Coverage</dt>
+        <dd>{{ "%.3f"|format(score.coverage) }}</dd>
+    </dl>
+
+    <h3>Seal</h3>
+    <p>
+        Chain head: <code>{{ cycle.claims[-1].sealed_hash }}</code>
+    </p>
+    <p>
+        Committed to <code>seals/cycle-{{ cycle.id }}.txt</code> in this
+        project's git history, where the commit can be checked directly.
+    </p>
+
+    <p><a href="/cycles/{{ cycle.id }}/teardown.md">Export as markdown</a></p>
+{% endblock %}
