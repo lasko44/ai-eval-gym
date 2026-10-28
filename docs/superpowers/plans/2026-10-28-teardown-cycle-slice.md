@@ -6,13 +6,23 @@
 
 **Architecture:** FastAPI serving server-rendered Jinja2 templates, no JS build step, backed by Postgres via SQLAlchemy. Predictions are sealed with a hash chain whose head is committed to git, so ordering is externally checkable. Scoring resolves each sealed claim against a measured metric value and produces a Brier score. The app makes no model calls itself; a capped client is provided for the user's harness code to import.
 
-**Tech Stack:** Python 3.12, FastAPI, Jinja2, SQLAlchemy, Postgres, pytest, httpx, Anthropic SDK.
+**Tech Stack:** Python 3.13, FastAPI, Jinja2, SQLAlchemy, Postgres, pytest, httpx, Anthropic SDK.
 
 **Spec:** `docs/superpowers/specs/2026-10-28-ai-eval-gym-design.md`
 
+## Environment (verified 2026-10-28)
+
+- Postgres 17 at `127.0.0.1:5432`, user `matthewlaszkiewicz`, no password. Binaries are at
+  `/opt/homebrew/opt/postgresql@17/bin`, which is NOT on the default PATH; prepend it.
+- Databases `ai_eval_gym` and `ai_eval_gym_test` already exist.
+- `DATABASE_URL` default: `postgresql+psycopg://matthewlaszkiewicz@127.0.0.1:5432/ai_eval_gym`,
+  and the test database is the same URL with `_test` appended to the database name.
+- Repository is already a git repo on branch `feat/teardown-cycle-slice`. Do not re-init.
+- No `uv`. Use `python3.13 -m venv .venv` and pip.
+
 ## Global Constraints
 
-- Python 3.12. No LangChain, no LlamaIndex, at any point.
+- Python 3.13 (the only interpreter on this machine; the spec's 3.12 is a floor, not a pin). No LangChain, no LlamaIndex, at any point.
 - No em dash (U+2014) in any file, including comments, templates and commit messages.
 - Server-rendered HTML only. No frontend framework and no build step: the user must be able to read and explain every file in this app.
 - Work happens on a branch off `main`, never on `main` directly.
@@ -40,13 +50,7 @@
 - Consumes: nothing.
 - Produces: `app.models.Cycle` with columns `id: int`, `target_name: str`, `target_url: str`, `question: str`, `stage: str` (one of `open`, `sealed`, `measured`, `scored`), `created_at: datetime`, `sealed_at: datetime | None`. `app.db.get_session() -> Session`. FastAPI app object `app.main.app`. Routes `GET /`, `POST /cycles`, `GET /cycles/{id}`.
 
-- [ ] **Step 1: Initialise the repository**
-
-```bash
-cd ~/Projects/ai-eval-gym && git init && git checkout -b feat/teardown-cycle-slice
-```
-
-- [ ] **Step 2: Write the failing test**
+- [ ] **Step 1: Write the failing test**
 
 ```python
 def test_create_cycle_then_see_it_on_its_page(client):
@@ -64,21 +68,21 @@ def test_new_cycle_starts_open(client, session):
     assert session.query(Cycle).one().stage == "open"
 ```
 
-- [ ] **Step 3: Run tests to verify they fail**
+- [ ] **Step 2: Run tests to verify they fail**
 
 Run: `pytest tests/test_cycles.py -v`
 Expected: FAIL, no module named `app`.
 
-- [ ] **Step 4: Implement the skeleton**
+- [ ] **Step 3: Implement the skeleton**
 
 `app/db.py` exposes an engine built from `DATABASE_URL` and `get_session()`. `app/models.py` defines `Cycle` as above. `app/main.py` mounts Jinja2 templates and implements the three routes; `POST /cycles` redirects to `GET /cycles/{id}`. `conftest.py` provides `client` (httpx against the app) and `session` fixtures against a test database, with tables created and dropped per test.
 
-- [ ] **Step 5: Run tests to verify they pass**
+- [ ] **Step 4: Run tests to verify they pass**
 
 Run: `pytest tests/test_cycles.py -v`
 Expected: PASS
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add pyproject.toml app tests conftest.py
