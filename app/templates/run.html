@@ -1,52 +1,65 @@
 {% extends "base.html" %}
 {% block title %}Runs: {{ cycle.target_name }}{% endblock %}
+{% block where %}cycle {{ "%02d"|format(cycle.id) }}{% endblock %}
 {% block content %}
-    <p><a href="/cycles/{{ cycle.id }}">&larr; {{ cycle.target_name }}</a></p>
-    <h2>Harness runs</h2>
-    <p><span class="stage">{{ cycle.stage }}</span></p>
+    <p class="back"><a href="/cycles/{{ cycle.id }}">{{ cycle.target_name }}</a></p>
 
-    <p>
-        A harness run is reported by posting JSON to this cycle's runs
-        endpoint, not through a form on this page:
+    <div class="strip">
+        <h2>Harness runs</h2>
+        <span class="stage">{{ cycle.stage }}</span>
+    </div>
+
+    <h3>Reporting a run</h3>
+    <p class="note">
+        Your harness posts its own numbers here. There is no form for this on
+        purpose: the measurements should come from code you wrote, not from
+        you typing them in. A run is refused until the prediction is sealed.
     </p>
     <pre>POST /cycles/{{ cycle.id }}/runs
 {"notes": "...", "measurements": {"metric_name": 0.0}}</pre>
-    <p>
-        A run is refused with 409 unless this cycle's prediction is already
-        sealed. This app never writes the notes or the measurements for you:
-        they come from your own harness run.
-    </p>
 
+    <h3>Recorded</h3>
     {% if cycle.runs %}
-        <ol>
+        <ol class="rows">
             {% for run in cycle.runs %}
                 <li>
-                    <p><small>{{ run.created_at }}</small></p>
-                    {% if run.notes %}
-                        <p>{{ run.notes }}</p>
-                    {% endif %}
-                    <ul>
-                        {% for measurement in run.measurements %}
-                            <li><code>{{ measurement.metric }} = {{ measurement.value }}</code></li>
-                        {% endfor %}
-                    </ul>
+                    <span class="idx">{{ loop.index }}</span>
+                    <div class="body">
+                        <p class="when num">{{ run.created_at }}</p>
+                        {% if run.notes %}
+                            <p class="says">{{ run.notes }}</p>
+                        {% endif %}
+                        <ul class="reads">
+                            {% for measurement in run.measurements %}
+                                <li><code>{{ measurement.metric }} = {{ measurement.value }}</code></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </li>
             {% endfor %}
         </ol>
     {% else %}
-        <p>No runs yet.</p>
+        <p class="note empty">No run recorded yet.</p>
     {% endif %}
 
     {% if cycle.stage in ("measured", "scored") %}
         <h3>Score</h3>
-        <p>
-            Scoring resolves every sealed claim against the measurements
-            above and moves this cycle to the scored stage.
+        <p class="note">
+            Scoring resolves every sealed claim against the measurements above.
+            A claim whose metric no run reported stays unresolved and is left
+            out of the Brier score.
         </p>
         <form method="post" action="/cycles/{{ cycle.id }}/score">
             <button type="submit">
-                {% if cycle.stage == "scored" %}Re-score{% else %}Score this cycle{% endif %}
+                {% if cycle.stage == "scored" %}Score again{% else %}Score this cycle{% endif %}
             </button>
         </form>
     {% endif %}
+
+    <p class="onward">
+        <a href="/cycles/{{ cycle.id }}/predict">Sealed prediction</a>
+        {% if cycle.stage == "scored" %}
+            <a href="/cycles/{{ cycle.id }}/teardown">Teardown</a>
+        {% endif %}
+    </p>
 {% endblock %}

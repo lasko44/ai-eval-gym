@@ -1,19 +1,41 @@
 {% extends "base.html" %}
 {% block title %}{{ cycle.target_name }}{% endblock %}
+{% block where %}cycle {{ "%02d"|format(cycle.id) }}{% endblock %}
 {% block content %}
-    <p><a href="/">&larr; All cycles</a></p>
-    <h2>{{ cycle.target_name }}</h2>
-    <p><span class="stage">{{ cycle.stage }}</span></p>
-    <p><a href="{{ cycle.target_url }}">{{ cycle.target_url }}</a></p>
-    <h3>Question</h3>
-    <p>{{ cycle.question }}</p>
-    <p><a href="/cycles/{{ cycle.id }}/predict">Sealed prediction</a></p>
-    <p><a href="/cycles/{{ cycle.id }}/runs">Harness runs</a></p>
-    {% if cycle.stage == "scored" %}
-        <p><a href="/cycles/{{ cycle.id }}/teardown">Teardown</a></p>
-    {% endif %}
-    <p>Created {{ cycle.created_at }}</p>
-    {% if cycle.sealed_at %}
-        <p>Sealed {{ cycle.sealed_at }}</p>
-    {% endif %}
+    <p class="back"><a href="/">All cycles</a></p>
+
+    <div class="strip">
+        <h2>{{ cycle.target_name }}</h2>
+        <span class="stage">{{ cycle.stage }}</span>
+    </div>
+    <p class="target"><a href="{{ cycle.target_url }}">{{ cycle.target_url }}</a></p>
+
+    <h3>Question under test</h3>
+    <p class="says">{{ cycle.question }}</p>
+
+    <h3>Record</h3>
+    <dl class="facts">
+        <div>
+            <dt>created</dt>
+            <dd class="num">{{ cycle.created_at }}</dd>
+        </div>
+        <div>
+            <dt>sealed</dt>
+            <dd class="num">
+                {%- if cycle.sealed_at -%}
+                    {{ cycle.sealed_at }}
+                {%- else -%}
+                    not yet
+                {%- endif -%}
+            </dd>
+        </div>
+    </dl>
+
+    <p class="onward">
+        <a href="/cycles/{{ cycle.id }}/predict">Sealed prediction</a>
+        <a href="/cycles/{{ cycle.id }}/runs">Harness runs</a>
+        {% if cycle.stage == "scored" %}
+            <a href="/cycles/{{ cycle.id }}/teardown">Teardown</a>
+        {% endif %}
+    </p>
 {% endblock %}

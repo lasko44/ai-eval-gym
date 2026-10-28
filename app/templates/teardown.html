@@ -1,72 +1,91 @@
 {% extends "base.html" %}
 {% block title %}Teardown: {{ cycle.target_name }}{% endblock %}
+{% block where %}cycle {{ "%02d"|format(cycle.id) }}{% endblock %}
 {% block content %}
-    <p><a href="/cycles/{{ cycle.id }}">&larr; {{ cycle.target_name }}</a></p>
-    <h2>Teardown: {{ cycle.target_name }}</h2>
-    <p><span class="stage">{{ cycle.stage }}</span></p>
-    <p><a href="{{ cycle.target_url }}">{{ cycle.target_url }}</a></p>
-    <h3>Question</h3>
-    <p>{{ cycle.question }}</p>
+    <p class="back"><a href="/cycles/{{ cycle.id }}">{{ cycle.target_name }}</a></p>
+
+    <div class="strip">
+        <h2>Teardown: {{ cycle.target_name }}</h2>
+        <span class="stage">{{ cycle.stage }}</span>
+    </div>
+    <p class="target"><a href="{{ cycle.target_url }}">{{ cycle.target_url }}</a></p>
+
+    <h3>Question under test</h3>
+    <p class="says">{{ cycle.question }}</p>
 
     <h3>Claims</h3>
-    <ol>
+    <ol class="rows">
         {% for row in claims %}
-            <li>
-                <p>{{ row.claim.text }}</p>
-                <p>
-                    <code>{{ row.claim.metric }} {{ row.claim.comparator }} {{ row.claim.threshold }}</code>
-                    at probability {{ row.claim.probability }}
-                </p>
-                <p>
-                    Measured:
-                    {% if row.measured is none %}
-                        not measured
-                    {% else %}
-                        <code>{{ row.claim.metric }} = {{ row.measured }}</code>
-                    {% endif %}
-                </p>
-                <p>Outcome: <strong>{{ row.outcome }}</strong></p>
+            <li class="{{ row.outcome }}">
+                <span class="idx">{{ loop.index }}</span>
+                <div class="body">
+                    <p class="says">{{ row.claim.text }}</p>
+                    <div class="facts">
+                        <div>
+                            <span class="k">wrong if</span>
+                            <span class="v"><code>{{ row.claim.metric }} {{ row.claim.comparator }} {{ row.claim.threshold }}</code></span>
+                        </div>
+                        <div>
+                            <span class="k">confidence</span>
+                            <span class="v num">{{ row.claim.probability }}</span>
+                        </div>
+                        <div>
+                            <span class="k">measured</span>
+                            <span class="v">
+                                {%- if row.measured is none -%}
+                                    not measured
+                                {%- else -%}
+                                    <code>{{ row.claim.metric }} = {{ row.measured }}</code>
+                                {%- endif -%}
+                            </span>
+                        </div>
+                    </div>
+                    <p class="outcome">Outcome: <strong>{{ row.outcome }}</strong></p>
+                </div>
             </li>
         {% endfor %}
     </ol>
 
     <h3>Harness runs</h3>
     {% if runs %}
-        <p>
+        <p class="note">
             Every run recorded against this cycle, oldest first. Where a
             metric was reported by more than one run, the score used the
             latest value: that reading is marked scored and the earlier ones
             are marked superseded, so a value that was replaced is still on
             the page rather than gone.
         </p>
-        <ol>
+        <ol class="rows">
             {% for row in runs %}
                 <li>
-                    <p><small>{{ row.run.created_at }}</small></p>
-                    {% if row.run.notes %}
-                        <p>{{ row.run.notes }}</p>
-                    {% endif %}
-                    <ul>
-                        {% for item in row.measurements %}
-                            <li>
-                                <code>{{ item.measurement.metric }} = {{ item.measurement.value }}</code>
-                                {% if item.scored %}
-                                    (scored)
-                                {% else %}
-                                    (superseded by a later run)
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    <span class="idx">{{ loop.index }}</span>
+                    <div class="body">
+                        <p class="when num">{{ row.run.created_at }}</p>
+                        {% if row.run.notes %}
+                            <p class="says">{{ row.run.notes }}</p>
+                        {% endif %}
+                        <ul class="reads">
+                            {% for item in row.measurements %}
+                                <li class="{% if item.scored %}is{% else %}was{% endif %}">
+                                    <code>{{ item.measurement.metric }} = {{ item.measurement.value }}</code>
+                                    {% if item.scored %}
+                                        (scored)
+                                    {% else %}
+                                        (superseded by a later run)
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </li>
             {% endfor %}
         </ol>
     {% else %}
-        <p>No harness run was recorded against this cycle.</p>
+        <p class="note empty">No harness run was recorded against this cycle.</p>
     {% endif %}
 
     <h3>Score</h3>
-    <dl>
+    <dl class="tally">
         <dt>Brier score</dt>
         <dd>
             {%- if score.brier is none -%}
@@ -84,29 +103,44 @@
     </dl>
 
     <h3>Seal</h3>
-    <p>
-        Chain head: <code>{{ cycle.claims[-1].sealed_hash }}</code>
-    </p>
+    <dl class="facts">
+        <div>
+            <dt>chain head</dt>
+            <dd class="hash">{{ cycle.claims[-1].sealed_hash }}</dd>
+        </div>
+        <div>
+            <dt>seal file</dt>
+            <dd><code>seals/cycle-{{ cycle.id }}.txt</code></dd>
+        </div>
+        {% if cycle.sealed_commit %}
+            <div>
+                <dt>in commit</dt>
+                <dd class="hash">{{ cycle.sealed_commit }}</dd>
+            </div>
+            <div>
+                <dt>verify</dt>
+                <dd><code>git show {{ cycle.sealed_commit }}</code></dd>
+            </div>
+        {% else %}
+            <div>
+                <dt>verify</dt>
+                <dd><code>git log -- seals/cycle-{{ cycle.id }}.txt</code></dd>
+            </div>
+        {% endif %}
+    </dl>
     {% if cycle.sealed_commit %}
-        <p>
-            Committed as <code>seals/cycle-{{ cycle.id }}.txt</code> in commit
-            <code>{{ cycle.sealed_commit }}</code>.
-        </p>
-        <p>
-            Anyone with this repository can check that for themselves:
-            <code>git show {{ cycle.sealed_commit }}</code> prints the seal
-            file as committed, and the chain head above has to be the one in
-            it.
+        <p class="note">
+            Anyone with this repository can check this without trusting the
+            page: that command prints the seal file as committed, and the
+            chain head above has to be the one inside it.
         </p>
     {% else %}
-        <p>
-            Committed as <code>seals/cycle-{{ cycle.id }}.txt</code>. This
-            cycle was sealed before the app began recording the seal commit's
-            own SHA, so there is no commit named here. The commit can still be
-            found with
-            <code>git log -- seals/cycle-{{ cycle.id }}.txt</code>.
+        <p class="note">
+            This cycle was sealed before the app began recording the seal
+            commit's own SHA, so no commit is named here. That command finds
+            the commit that carries the seal file.
         </p>
     {% endif %}
 
-    <p><a href="/cycles/{{ cycle.id }}/teardown.md">Export as markdown</a></p>
+    <p class="onward"><a href="/cycles/{{ cycle.id }}/teardown.md">Export as markdown</a></p>
 {% endblock %}

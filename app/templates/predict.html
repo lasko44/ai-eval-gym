@@ -1,36 +1,54 @@
 {% extends "base.html" %}
 {% block title %}Prediction: {{ cycle.target_name }}{% endblock %}
+{% block where %}cycle {{ "%02d"|format(cycle.id) }}{% endblock %}
 {% block content %}
-    <p><a href="/cycles/{{ cycle.id }}">&larr; {{ cycle.target_name }}</a></p>
-    <h2>Sealed prediction</h2>
-    <p><span class="stage">{{ cycle.stage }}</span></p>
-    <p>{{ cycle.question }}</p>
+    <p class="back"><a href="/cycles/{{ cycle.id }}">{{ cycle.target_name }}</a></p>
+
+    <div class="strip">
+        <h2>Sealed prediction</h2>
+        <span class="stage">{{ cycle.stage }}</span>
+    </div>
+    <p class="says">{{ cycle.question }}</p>
 
     <h3>Claims</h3>
     {% if cycle.claims %}
-        <ol>
+        <ol class="rows">
             {% for claim in cycle.claims %}
                 <li>
-                    <p>{{ claim.text }}</p>
-                    <p>
-                        <code>{{ claim.metric }} {{ claim.comparator }} {{ claim.threshold }}</code>
-                        at probability {{ claim.probability }}
-                    </p>
-                    {% if claim.sealed_hash %}
-                        <p><small>sealed <code>{{ claim.sealed_hash }}</code></small></p>
-                    {% endif %}
+                    <span class="idx">{{ loop.index }}</span>
+                    <div class="body">
+                        <p class="says">{{ claim.text }}</p>
+                        <div class="facts">
+                            <div>
+                                <span class="k">wrong if</span>
+                                <span class="v"><code>{{ claim.metric }} {{ claim.comparator }} {{ claim.threshold }}</code></span>
+                            </div>
+                            <div>
+                                <span class="k">confidence</span>
+                                <span class="v num">{{ claim.probability }}</span>
+                            </div>
+                            {% if claim.sealed_hash %}
+                                <div>
+                                    <span class="k">hash</span>
+                                    <span class="v hash">{{ claim.sealed_hash }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </li>
             {% endfor %}
         </ol>
     {% else %}
-        <p>No claims yet.</p>
+        <p class="note empty">No claims yet. The form below takes the first one.</p>
     {% endif %}
 
     {% if cycle.stage == "open" %}
         <h3>Add a claim</h3>
-        <p>
+        <p class="note">
             In your own words: what will fail, which metric shows it, and at
-            what threshold you would be proven wrong.
+            what threshold you would be proven wrong. A claim with no metric
+            or no threshold is refused, because a prediction that cannot be
+            shown wrong teaches you nothing.
         </p>
         <form method="post" action="/cycles/{{ cycle.id }}/claims">
             <label for="text">Claim</label>
@@ -49,25 +67,34 @@
             <label for="threshold">Threshold</label>
             <input id="threshold" name="threshold" type="number" step="any" required>
 
-            <label for="probability">Probability (0 to 1)</label>
+            <label for="probability">Confidence, 0 to 1</label>
             <input id="probability" name="probability" type="number" step="any" min="0" max="1" required>
 
             <button type="submit">Add claim</button>
         </form>
 
         <h3>Seal</h3>
-        <p>
+        <p class="note">
             Sealing hashes these claims into a chain and commits the chain head
             to git. After that, no claim can be added or edited, and only then
-            can the harness run.
+            can the harness run. This is the step that makes the prediction
+            worth scoring, and it cannot be undone.
         </p>
         <form method="post" action="/cycles/{{ cycle.id }}/seal">
             <button type="submit">Seal this prediction</button>
         </form>
     {% else %}
-        <p>
-            This prediction was sealed{% if cycle.sealed_at %} at {{ cycle.sealed_at }}{% endif %}.
-            Its claims can no longer be added to or edited.
+        <p class="note">
+            Sealed{% if cycle.sealed_at %} at {{ cycle.sealed_at }}{% endif %}.
+            These claims can no longer be added to or edited, which is what
+            lets the score mean something.
         </p>
     {% endif %}
+
+    <p class="onward">
+        <a href="/cycles/{{ cycle.id }}/runs">Harness runs</a>
+        {% if cycle.stage == "scored" %}
+            <a href="/cycles/{{ cycle.id }}/teardown">Teardown</a>
+        {% endif %}
+    </p>
 {% endblock %}

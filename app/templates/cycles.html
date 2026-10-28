@@ -1,7 +1,33 @@
 {% extends "base.html" %}
 {% block title %}Cycles{% endblock %}
 {% block content %}
-    <h2>Start a teardown cycle</h2>
+    <div class="strip">
+        <h2>Cycles</h2>
+        <span class="stage">{{ cycles|length }} recorded</span>
+    </div>
+
+    {% if cycles %}
+        <ul class="index">
+            {% for cycle in cycles %}
+                <li>
+                    <span class="idx">{{ "%02d"|format(cycle.id) }}</span>
+                    <span><a href="/cycles/{{ cycle.id }}">{{ cycle.target_name }}</a></span>
+                    <span class="stage">{{ cycle.stage }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="note empty">
+            Nothing here yet. A cycle starts with a system someone else wrote
+            and a question you cannot already answer.
+        </p>
+    {% endif %}
+
+    <h3>Start a cycle</h3>
+    <p class="note">
+        Name what you are tearing down and write the question you are actually
+        asking. You commit predictions next, before you measure anything.
+    </p>
     <form method="post" action="/cycles">
         <label for="target_name">Target name</label>
         <input id="target_name" name="target_name" type="text" required>
@@ -14,18 +40,4 @@
 
         <button type="submit">Create cycle</button>
     </form>
-
-    <h2>Cycles</h2>
-    {% if cycles %}
-        <ul class="cycle-list">
-            {% for cycle in cycles %}
-                <li>
-                    <a href="/cycles/{{ cycle.id }}">{{ cycle.target_name }}</a>
-                    <span class="stage">{{ cycle.stage }}</span>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No cycles yet.</p>
-    {% endif %}
 {% endblock %}

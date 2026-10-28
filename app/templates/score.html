@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 {% block title %}Score: {{ cycle.target_name }}{% endblock %}
+{% block where %}cycle {{ "%02d"|format(cycle.id) }}{% endblock %}
 {% block content %}
-    <p><a href="/cycles/{{ cycle.id }}">&larr; {{ cycle.target_name }}</a></p>
-    <h2>Score</h2>
-    <p><span class="stage">{{ cycle.stage }}</span></p>
+    <p class="back"><a href="/cycles/{{ cycle.id }}">{{ cycle.target_name }}</a></p>
 
-    <dl>
-        <dt>Brier score</dt>
+    <div class="strip">
+        <h2>Score</h2>
+        <span class="stage">{{ cycle.stage }}</span>
+    </div>
+
+    <h3>Calibration</h3>
+    <dl class="tally">
+        <dt>brier</dt>
         <dd>
             {%- if score.brier is none -%}
                 none (no claim resolved)
@@ -14,28 +19,39 @@
                 {{ "%.3f"|format(score.brier) }}
             {%- endif -%}
         </dd>
-        <dt>Claims resolved</dt>
+        <dt>resolved</dt>
         <dd>{{ score.resolved }}</dd>
-        <dt>Claims unresolved</dt>
+        <dt>unresolved</dt>
         <dd>{{ score.unresolved }}</dd>
-        <dt>Coverage</dt>
+        <dt>coverage</dt>
         <dd>{{ "%.3f"|format(score.coverage) }}</dd>
     </dl>
 
-    <p>
+    <h3>Reading it</h3>
+    <p class="note">
         The Brier score is the mean of (probability - outcome) squared over
         the claims that resolved: 0.000 is perfect calibration and lower is
-        better. 1.000 is the worst possible, and it is earned in either
-        direction: a probability of 1.0 on a claim that resolved wrong, or a
-        probability of 0.0 on a claim that resolved correct. The second shape
-        is a confident denial of a problem that turned out to be real.
+        better. Saying 0.5 to everything scores 0.250, so that is the number
+        to beat before your confidence is carrying any information.
+    </p>
+    <p class="note">
+        1.000 is the worst possible, and it is earned in either direction.
+        A probability of 1.0 on a claim that resolved wrong earns it, and so
+        does a probability of 0.0 on a claim that resolved correct. The
+        second shape is a confident denial of a problem that turned out to
+        be real.
+    </p>
+    <p class="note">
         Coverage is resolved claims over all claims on this cycle. A claim
         whose metric no harness run measured is unresolved: it is counted
-        here, and left out of the Brier score entirely.
+        here, and left out of the Brier score entirely, so a low coverage
+        means the score rests on less than you predicted.
     </p>
 
-    <p><a href="/cycles/{{ cycle.id }}/runs">Harness runs</a></p>
-    {% if cycle.stage == "scored" %}
-        <p><a href="/cycles/{{ cycle.id }}/teardown">Teardown</a></p>
-    {% endif %}
+    <p class="onward">
+        <a href="/cycles/{{ cycle.id }}/runs">Harness runs</a>
+        {% if cycle.stage == "scored" %}
+            <a href="/cycles/{{ cycle.id }}/teardown">Teardown</a>
+        {% endif %}
+    </p>
 {% endblock %}
