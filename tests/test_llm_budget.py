@@ -136,17 +136,36 @@ def test_actual_usage_is_recorded_after_the_call(session, fake_response):
     not os.environ.get("ANTHROPIC_API_KEY"),
     reason="ANTHROPIC_API_KEY not set; skipping the real API call",
 )
-def test_send_against_the_real_api_returns_nonempty_text():
-    """Proves _send actually works against the live API, not just against
-    the stub every other test in this file substitutes for it. Makes
-    exactly one minimal call (max_tokens=16) and only runs when a real key
-    is configured.
+def test_complete_against_the_real_api_returns_text_and_records_spend(session):
+    """Drive complete() itself, end to end, against the live API.
+
+    This test used to call _send directly and then re-implement text
+    extraction inline, which proved only that client.messages.create
+    returns something with a .content. Everything between the cap check and
+    the returned string was therefore exercised only against the
+    SimpleNamespace stand-ins this repo writes: _actual_cost_cents reading
+    the response's real usage attribute names, the ledger write, and
+    _extract_text. Calling complete() is what proves those against a real
+    response, and it is what would catch a renamed usage field in a future
+    SDK instead of agreeing with whatever the stub says.
+
+    One minimal call: at max_tokens=16 the worst case is well under a cent.
+
+    The commit is the caller's obligation, not complete()'s (see its
+    docstring), so this test commits the way a real harness must. The
+    session fixture drops the tables afterwards, so the recorded cent does
+    not outlive the test.
     """
-    from app.llm import _send
-
-    response = _send("Reply with a single word.", model="claude-sonnet-5", max_tokens=16)
-
-    text = "".join(
-        block.text for block in response.content if getattr(block, "type", None) == "text"
+    before = (
+        session.query(SpendLedger).filter_by(month=current_month()).one_or_none()
     )
+    before_cents = before.spent_cents if before else 0
+
+    text = complete(
+        session, "Reply with a single word.", model="claude-sonnet-5", max_tokens=16
+    )
+    session.commit()
+
     assert text.strip() != ""
+    after = session.query(SpendLedger).filter_by(month=current_month()).one()
+    assert after.spent_cents > before_cents

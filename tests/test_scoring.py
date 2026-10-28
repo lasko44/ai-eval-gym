@@ -186,3 +186,30 @@ def test_the_score_page_says_so_when_nothing_resolved(
     r = client.post(f"/cycles/{sealed_cycle_with_unmeasured_claim.id}/score")
     assert r.status_code == 200
     assert "none (no claim resolved)" in r.text
+
+
+def test_the_score_page_links_on_to_the_teardown(client, cycle_one_of_two_measured):
+    """The score page is the moment of highest interest, so it must not be a
+    dead end. It linked to the cycle and to the runs but not onward to the
+    teardown, which is the page the score exists to lead to. Gated on the
+    scored stage, the same way cycle.html gates it.
+    """
+    r = client.post(f"/cycles/{cycle_one_of_two_measured.id}/score")
+    assert r.status_code == 200
+    assert f'href="/cycles/{cycle_one_of_two_measured.id}/teardown"' in r.text
+
+
+def test_the_score_page_explains_both_ways_to_earn_the_worst_brier(
+    client, cycle_certain_denial_that_resolved_correct
+):
+    """A Brier of 1.000 was described only as full confidence in the wrong
+    answer. A probability of 0.0 on a claim that resolves correct scores
+    exactly 1.000 too, and that confident denial of a real problem is the
+    shape this project cares about most. This fixture is that exact case, so
+    the page is read on a cycle that actually scored 1.000 both ways round.
+    """
+    r = client.post(f"/cycles/{cycle_certain_denial_that_resolved_correct.id}/score")
+    assert r.status_code == 200
+    assert "1.000" in r.text
+    assert "probability of 1.0 on a claim that resolved wrong" in r.text
+    assert "probability of 0.0 on a claim that resolved correct" in r.text

@@ -29,8 +29,11 @@ How the cap actually works:
 _send is the single private function that performs the actual network call.
 Every test in tests/test_llm_budget.py replaces it with a stub, which is
 what makes it safe to run this test file as often as you like without
-spending real money, and it is also the one place a real integration test
-can point at to prove the live API path actually works.
+spending real money. The one exception is the real-service test at the
+bottom of that file, which is gated on ANTHROPIC_API_KEY being set and
+calls complete() rather than _send, so a real response has to satisfy the
+whole path: the cap check, the usage attribute names _actual_cost_cents
+reads, the ledger write, and _extract_text.
 """
 
 import os
@@ -145,9 +148,13 @@ def _actual_cost_cents(usage, model: str) -> int:
 def _extract_text(response) -> str:
     """Join every text block in the response, in order.
 
-    Joining all of them (not just the first) matches the real-service test
-    in tests/test_llm_budget.py, which joins every text block it finds;
-    the two paths disagreed about multi-block responses before this fix.
+    Joining all of them, not just the first, is what a multi-block response
+    actually says. This used to be described as matching a parallel
+    extraction in the real-service test, which was alignment by duplication:
+    nothing tested this function against a real response at all. That test
+    now calls complete(), so this is the only extraction code there is and
+    the live path runs through it.
+
     Raising when there is no text block at all, rather than returning an
     empty string, is deliberate: a response can stop for a refusal or some
     other non-text reason, and the harness code calling complete() needs

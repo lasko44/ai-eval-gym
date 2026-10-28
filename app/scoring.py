@@ -113,6 +113,13 @@ def score_cycle(session: Session, cycle_id: int) -> CycleScore:
     resolved wrong pairs with False. That direction is the whole meaning of
     the number: reversed, a well-calibrated user would be told they are
     badly calibrated, and a badly calibrated one would be congratulated.
+
+    This function has no stage guard of its own: it will happily score an
+    open, sealed or measured cycle, and callers are responsible for refusing
+    that. Both current callers do, through app.main's
+    _require_scored_for_teardown and the stage check in POST
+    /cycles/{id}/score. Any new caller has to do the same, or it will report
+    a score for a cycle whose harness has not finished running.
     """
     cycle = session.get(Cycle, cycle_id)
     if cycle is None:
