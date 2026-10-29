@@ -23,17 +23,26 @@ UNIT = Unit(
         "preferences that have nothing to do with quality, and the loudest one is "
         "position. Show it answer A then answer B and it picks A. Swap them and it "
         "picks the other one. Nothing about the answers changed.",
-        "This was measured across 21 production judges and 541,000 judgments. Position "
+        "This was measured across 21 general-purpose LLM judges drawn from nine "
+        "providers, over 541,000 judgments. Position "
         "bias ranged from 0.002 to 0.192 depending on the judge, so at the bad end "
         "nearly one verdict in five turns on ordering alone. If you did not swap the "
         "order, that noise went straight into your eval numbers and you shipped on it.",
         "There is a second trap in the same place, and it catches more people. You "
         "check your judge against human labels, get something like 80 percent "
-        "agreement, and call it validated. But two judges flipping coins agree half "
-        "the time, so raw agreement counts luck as skill. Correcting for chance "
-        "dropped agreement by around 39 percentage points in the same study. A judge "
+        "agreement, and call it validated. But two raters flipping coins agree half "
+        "the time, so raw agreement counts luck as skill. In the same study, "
+        "correcting for chance cut agreement by a cohort mean of 38.6 points on "
+        "MT-Bench, where the range across the 21 judges was 33.8 to 41.3. A judge "
         "you believed was in the eighties can be in the forties once coincidence is "
         "removed.",
+        "How large that correction gets is not a constant, and assuming it is will "
+        "mislead you in the other direction. The same study measured a mean "
+        "deflation of 23.7 points on JudgeBench and 10.4 points on RewardBench, and "
+        "attributes the difference to each benchmark's label distribution: the more "
+        "lopsided the labels, the more agreement you get for free and the bigger the "
+        "correction. So the number to carry is not 39, it is that raw agreement "
+        "always flatters a judge by an amount you cannot guess without computing it.",
         "The detection is cheap, which is what makes skipping it indefensible. Run "
         "every comparison twice, once in each order, and count how often the verdict "
         "changes. That fraction is your flip rate, and it is an upper bound on how "
@@ -45,7 +54,7 @@ UNIT = Unit(
         Probe(
             id="worst-bias",
             asks=(
-                "Across 21 production LLM judges and 541,000 judgments, the worst "
+                "Across 21 general-purpose LLM judges and 541,000 judgments, the worst "
                 "position bias measured was roughly what share of verdicts flipping "
                 "on order alone?"
             ),
@@ -67,24 +76,27 @@ UNIT = Unit(
         Probe(
             id="kappa-gap",
             asks=(
-                "Your judge agrees with human labels 80 percent of the time. You then "
-                "correct for agreement that would happen by chance. What typically "
-                "happens to the number?"
+                "Your judge agrees with human labels 80 percent of the time on an "
+                "MT-Bench style pairwise set. You correct for agreement that would "
+                "happen by chance. What happens to the number?"
             ),
             choices=(
                 Choice("a", "It barely moves, chance correction is a formality"),
                 Choice("b", "It drops a few points, call it 75 percent"),
-                Choice("c", "It drops by roughly 39 points, into the forties"),
+                Choice("c", "It drops by something near 39 points, into the forties"),
                 Choice("d", "It goes up, since chance correction rewards consistency"),
             ),
             answer="c",
             because=(
-                "Raw agreement overstated chance-corrected agreement by about 39 "
-                "percentage points in the same 541,000 judgment study. The mechanism "
-                "is simple: on a two way choice, two raters who both guess agree half "
-                "the time, so half your 80 percent may be coincidence. This is why "
-                "every judge validation should report a chance-corrected statistic. "
-                "Raw agreement is the number that makes a bad judge look fine."
+                "On MT-Bench the cohort mean deflation was 38.6 points, with every one of "
+                "the 21 judges landing between 33.8 and 41.3. The mechanism is simple: "
+                "on a two way choice, two raters who both guess agree half the time, so "
+                "much of your 80 percent can be coincidence. Note the scoping in the "
+                "question, because it is doing real work: the same study found a mean "
+                "deflation of only 10.4 points on RewardBench, whose label distribution "
+                "is different. Had the question not named the benchmark, no single "
+                "number would have been defensible, which is the habit worth taking "
+                "from this probe."
             ),
         ),
         Probe(

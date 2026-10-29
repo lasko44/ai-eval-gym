@@ -44,16 +44,22 @@ UNIT = Unit(
         "a conclusion that would not exist without the chunk that fed it.",
         "ConfusedPilot, published against a production deployment of Microsoft 365 "
         "Copilot running over SharePoint, is a working demonstration of a version of "
-        "this timing gap. In their account, a low-privilege account seeds a fake "
-        "sales report into a shared store, and a compliance or deletion check only "
-        "runs late in the pipeline, after retrieval has already cached the chunk and "
-        "folded it into a draft answer. The deleted or unauthorized content kept "
-        "shaping Copilot's responses to a different, higher-privilege user for "
-        "roughly 164 seconds after the source document was gone, and a related "
-        "phantom-document effect persisted for about 42 seconds past deletion, both "
-        "measured in their experiments. The researchers ran this against real "
-        "enterprise-scale document sets, not a toy corpus, which is why the paper "
-        "reads as an incident report rather than a thought experiment.",
+        "this timing gap. The paper walks the mechanism through a fictional company "
+        "it invents for the purpose, where a low-privilege account seeds a fake "
+        "sales report into a shared store and a compliance or deletion check only "
+        "runs late in the pipeline, after retrieval has already cached the chunk "
+        "and folded it into a draft answer. That narrative is an illustration "
+        "rather than a reported incident, and it is worth reading it as one.",
+        "The measurements behind it are separate, and they are real. The authors "
+        "connected to an actual Microsoft 365 Copilot instance over actual "
+        "SharePoint, then filled it with a corpus they generated from HotpotQA, "
+        "deployed at enterprise scale (500 folders of 1,000 files) but synthetic "
+        "rather than real organizational records. Two timings matter and they are "
+        "easy to transpose. Deleting a seeded malicious document still left it "
+        "shaping answers for 42.4 seconds, plus or minus 2.06. The case closer to "
+        "this unit's subject, a document whose access was revoked after being "
+        "over-shared, kept surfacing for 164.2 seconds, plus or minus 3.25. The "
+        "access-control failure is the longer-lived of the two.",
         "Microsoft's own published guidance about Copilot oversharing makes the same "
         "point from the defender's side instead of the attacker's. Copilot answers "
         "with whatever the asking user's identity can already technically read "
@@ -210,13 +216,15 @@ UNIT = Unit(
         ),
     ),
     sources=(
-        "arXiv:2408.04870 (2024-08-09), ConfusedPilot, tested against production Microsoft 365 "
-        "Copilot over SharePoint: compliance check runs after generation, cached unauthorized "
-        "content shaped answers for a measured 164.2 +/- 3.25 seconds after deletion, phantom "
-        "documents persisted 42.4 +/- 2.06 seconds",
-        "learn.microsoft.com, Protect your Microsoft 365 Copilot data with Microsoft 365 "
-        "security tools (updated 2026-10-26), Microsoft's own guidance that Copilot surfaces "
-        "whatever the asking identity can already read, and that the fix is access review and "
-        "restricted content discovery at the retrieval boundary, not output filtering",
+        "arXiv:2408.04870 (2024-08-09), ConfusedPilot, run against a live Microsoft 365 Copilot "
+        "instance over SharePoint with a HotpotQA-generated corpus at enterprise scale: the "
+        "compliance check runs after generation, and Table IV measures a revoked-access "
+        "document still surfacing for 164.2 +/- 3.25 seconds, a deleted malicious document "
+        "for 42.4 +/- 2.06 seconds",
+        "learn.microsoft.com/en-us/microsoft-365/copilot/microsoft-365-copilot-privacy, Data, "
+        "Privacy, and Security for Microsoft Copilot (updated 2026-10-26), Microsoft's own "
+        "statement that Copilot surfaces only what the asking identity can already read, and "
+        "that Restricted Content Discovery keeps a site out of the candidate set at the "
+        "retrieval boundary rather than filtering the output",
     ),
 )

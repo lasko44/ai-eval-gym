@@ -62,10 +62,19 @@ UNIT = Unit(
         "learning routing approaches were tried against this exact setup, and the "
         "best of them reached at most 13.4 percent augmentation-free routing, while a "
         "simple cost-ascending cascade that defers to the expensive step only when a "
-        "cheap step actually comes back empty reached 72.2 percent, which is the same "
-        "number as one minus the real 27.8 percent augmentation-need rate. That "
-        "cascade was, in effect, hitting the oracle ceiling. The best router was "
-        "capturing roughly a fifth of it.",
+        "cheap step actually comes back empty reached 72.2 percent.",
+        "Now be careful with those two numbers, because the obvious move here is "
+        "the mistake. It is tempting to notice that 72.2 is one minus the 27.8 "
+        "percent augmentation-need rate and conclude the cascade hit the ceiling. "
+        "That is not a ceiling, it is the cascade's own observed rate restated as "
+        "subtraction, and comparing a number to itself always flatters it. The "
+        "paper computes a real ceiling on answer quality, the score a router with "
+        "perfect per-query foresight would reach, and against that ceiling the "
+        "cascade closes about 30 percent of the available gap while every "
+        "pre-retrieval method tested closes at most 2.2 percent. So the cascade is "
+        "better by roughly thirteen times, not by the five times the tautology "
+        "suggests, and it is nowhere near the ceiling. The honest headline is that "
+        "both approaches leave most of the available quality on the table.",
         "The reason pre-retrieval routing failed here is structural, not a modeling "
         "problem you fix with more data: whether a query needs augmentation is a fact "
         "that is only revealed after you have searched the index and seen what came "
@@ -147,11 +156,13 @@ UNIT = Unit(
                 "The best ML router reached at most 13.4 percent augmentation-free "
                 "routing. The cost-ascending cascade, which defers the expensive step "
                 "until a cheap step actually comes back empty rather than predicting "
-                "need in advance, reached 72.2 percent, the same figure as one minus "
-                "the real 27.8 percent augmentation-need rate, meaning it was "
-                "effectively hitting the oracle ceiling. The router was not close, "
-                "because the fact a router needs to predict is only observable after "
-                "retrieval has already happened."
+                "need in advance, reached 72.2 percent. Resist reading 72.2 as the "
+                "ceiling just because it is one minus 27.8: that is the cascade's own "
+                "rate restated, not an independent benchmark. Measured against the "
+                "paper's actual quality ceiling, the cascade closes about 30 percent "
+                "of the gap and the best pre-retrieval router about 2.2 percent, so "
+                "both leave most of it unclaimed. The router loses because the fact it "
+                "must predict is only observable after retrieval has already happened."
             ),
         ),
     ),
