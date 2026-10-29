@@ -45,11 +45,20 @@
 
     <h3>Still to build</h3>
     <p class="note">
-        The research notes carry 17 verified failure modes with their numbers and
-        primary sources, in <code>docs/research/engineering-failure-modes.md</code>.
-        The ones queued next are context rot, stale document poisoning, missing
-        rerankers, retrieval coverage audits, guardrail evasion, indirect prompt
-        injection through retrieved content, runaway retry loops, and permissions
-        checked above retrieval. Each becomes a unit in this same shape.
+        Queued next, each from a measured failure mode with primary sources:
+        embedding capacity ceilings, retrieval coverage audits, chunks that are
+        unintelligible without their document, query rewriting that degrades
+        well-formed queries, semantic cache poisoning, indirect prompt injection
+        through retrieved content, citations that resolve but do not support the
+        claim, and observability that exports the content it was meant to trace.
+    </p>
+    <p class="note">
+        There is one more worth its own shape: the claim that 95 percent of AI
+        pilots fail. It traces to 52 executive interviews and conference-floor
+        surveys, described by its own authors as directionally accurate, and
+        published by a group selling the remedy. Taking that apart is the same
+        muscle as taking apart a retrieval pipeline, but the exercise is a
+        document critique rather than a measurement, so it needs a different
+        kind of checking than the units above.
     </p>
 {% endblock %}

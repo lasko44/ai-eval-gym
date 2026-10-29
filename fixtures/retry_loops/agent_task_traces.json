@@ -1,0 +1,1636 @@
+{
+  "tasks": [
+    {
+      "task_id": "ok-051",
+      "resolved": true,
+      "attempts": [
+        1437,
+        1014,
+        1734
+      ]
+    },
+    {
+      "task_id": "stuck-001",
+      "resolved": false,
+      "attempts": [
+        1057,
+        1445,
+        1778,
+        2206,
+        2617,
+        2952,
+        3417,
+        3782,
+        4174,
+        4536,
+        4957,
+        5324,
+        5766,
+        6120,
+        6523,
+        6948,
+        7327,
+        7748,
+        8113,
+        8510,
+        8911,
+        9298,
+        9725,
+        10043,
+        10451,
+        10867,
+        11228,
+        11619,
+        12038,
+        12468,
+        12843,
+        13252,
+        13631,
+        14039,
+        14444,
+        14789,
+        15199,
+        15572,
+        15983,
+        16345,
+        16793,
+        17167,
+        17599,
+        17952,
+        18371,
+        18744,
+        19138,
+        19546,
+        19952
+      ]
+    },
+    {
+      "task_id": "ok-120",
+      "resolved": true,
+      "attempts": [
+        2036,
+        835
+      ]
+    },
+    {
+      "task_id": "ok-027",
+      "resolved": true,
+      "attempts": [
+        1789
+      ]
+    },
+    {
+      "task_id": "ok-075",
+      "resolved": true,
+      "attempts": [
+        921
+      ]
+    },
+    {
+      "task_id": "ok-009",
+      "resolved": true,
+      "attempts": [
+        1246,
+        1765,
+        1534
+      ]
+    },
+    {
+      "task_id": "ok-054",
+      "resolved": true,
+      "attempts": [
+        1397
+      ]
+    },
+    {
+      "task_id": "ok-140",
+      "resolved": true,
+      "attempts": [
+        971,
+        1161,
+        1369
+      ]
+    },
+    {
+      "task_id": "ok-025",
+      "resolved": true,
+      "attempts": [
+        1572,
+        976
+      ]
+    },
+    {
+      "task_id": "ok-097",
+      "resolved": true,
+      "attempts": [
+        2084,
+        1938
+      ]
+    },
+    {
+      "task_id": "ok-074",
+      "resolved": true,
+      "attempts": [
+        1613
+      ]
+    },
+    {
+      "task_id": "ok-015",
+      "resolved": true,
+      "attempts": [
+        1393
+      ]
+    },
+    {
+      "task_id": "ok-133",
+      "resolved": true,
+      "attempts": [
+        1061,
+        1390
+      ]
+    },
+    {
+      "task_id": "ok-047",
+      "resolved": true,
+      "attempts": [
+        843,
+        1291,
+        2168
+      ]
+    },
+    {
+      "task_id": "ok-128",
+      "resolved": true,
+      "attempts": [
+        1589,
+        1027
+      ]
+    },
+    {
+      "task_id": "ok-117",
+      "resolved": true,
+      "attempts": [
+        1641,
+        2070
+      ]
+    },
+    {
+      "task_id": "ok-001",
+      "resolved": true,
+      "attempts": [
+        958,
+        1095
+      ]
+    },
+    {
+      "task_id": "ok-146",
+      "resolved": true,
+      "attempts": [
+        1288,
+        1549,
+        1594
+      ]
+    },
+    {
+      "task_id": "ok-055",
+      "resolved": true,
+      "attempts": [
+        2048,
+        1874
+      ]
+    },
+    {
+      "task_id": "ok-050",
+      "resolved": true,
+      "attempts": [
+        1766
+      ]
+    },
+    {
+      "task_id": "stuck-006",
+      "resolved": false,
+      "attempts": [
+        1020,
+        1483,
+        1825,
+        2215,
+        2605,
+        3053,
+        3430,
+        3803,
+        4261,
+        4592,
+        5012,
+        5416,
+        5863,
+        6190,
+        6586,
+        7019,
+        7419,
+        7822,
+        8211,
+        8631,
+        9044,
+        9385,
+        9825,
+        10196,
+        10639,
+        10964,
+        11416,
+        11812,
+        12225,
+        12580,
+        13016,
+        13352,
+        13808,
+        14206,
+        14590,
+        14994,
+        15401,
+        15793,
+        16151,
+        16544,
+        17000,
+        17403,
+        17788,
+        18142,
+        18561,
+        18954,
+        19387
+      ]
+    },
+    {
+      "task_id": "ok-069",
+      "resolved": true,
+      "attempts": [
+        1753,
+        2185
+      ]
+    },
+    {
+      "task_id": "ok-049",
+      "resolved": true,
+      "attempts": [
+        2058
+      ]
+    },
+    {
+      "task_id": "ok-145",
+      "resolved": true,
+      "attempts": [
+        1899,
+        2067
+      ]
+    },
+    {
+      "task_id": "ok-100",
+      "resolved": true,
+      "attempts": [
+        1738,
+        867,
+        1250
+      ]
+    },
+    {
+      "task_id": "ok-101",
+      "resolved": true,
+      "attempts": [
+        840
+      ]
+    },
+    {
+      "task_id": "ok-057",
+      "resolved": true,
+      "attempts": [
+        1366,
+        1449
+      ]
+    },
+    {
+      "task_id": "ok-060",
+      "resolved": true,
+      "attempts": [
+        767,
+        1887,
+        1052
+      ]
+    },
+    {
+      "task_id": "ok-114",
+      "resolved": true,
+      "attempts": [
+        1949
+      ]
+    },
+    {
+      "task_id": "ok-103",
+      "resolved": true,
+      "attempts": [
+        1979
+      ]
+    },
+    {
+      "task_id": "ok-072",
+      "resolved": true,
+      "attempts": [
+        1632,
+        1161
+      ]
+    },
+    {
+      "task_id": "ok-062",
+      "resolved": true,
+      "attempts": [
+        1604,
+        947
+      ]
+    },
+    {
+      "task_id": "ok-088",
+      "resolved": true,
+      "attempts": [
+        863,
+        1820
+      ]
+    },
+    {
+      "task_id": "ok-032",
+      "resolved": true,
+      "attempts": [
+        1282,
+        1744,
+        2045
+      ]
+    },
+    {
+      "task_id": "ok-021",
+      "resolved": true,
+      "attempts": [
+        1700
+      ]
+    },
+    {
+      "task_id": "ok-071",
+      "resolved": true,
+      "attempts": [
+        1854,
+        1506
+      ]
+    },
+    {
+      "task_id": "ok-000",
+      "resolved": true,
+      "attempts": [
+        1458
+      ]
+    },
+    {
+      "task_id": "ok-036",
+      "resolved": true,
+      "attempts": [
+        1402,
+        1150
+      ]
+    },
+    {
+      "task_id": "ok-058",
+      "resolved": true,
+      "attempts": [
+        2022
+      ]
+    },
+    {
+      "task_id": "ok-142",
+      "resolved": true,
+      "attempts": [
+        1046
+      ]
+    },
+    {
+      "task_id": "ok-144",
+      "resolved": true,
+      "attempts": [
+        2123
+      ]
+    },
+    {
+      "task_id": "ok-078",
+      "resolved": true,
+      "attempts": [
+        1952,
+        746,
+        2041
+      ]
+    },
+    {
+      "task_id": "ok-076",
+      "resolved": true,
+      "attempts": [
+        2185
+      ]
+    },
+    {
+      "task_id": "ok-093",
+      "resolved": true,
+      "attempts": [
+        1475,
+        1898
+      ]
+    },
+    {
+      "task_id": "stuck-003",
+      "resolved": false,
+      "attempts": [
+        784,
+        1279,
+        1682,
+        2121,
+        2521,
+        2963,
+        3423,
+        3876,
+        4312,
+        4721,
+        5201,
+        5616,
+        6024,
+        6474,
+        6966,
+        7403,
+        7801,
+        8275,
+        8705,
+        9104,
+        9582,
+        10030,
+        10422,
+        10851,
+        11298,
+        11762,
+        12232,
+        12649,
+        13038,
+        13502,
+        13960,
+        14371,
+        14787,
+        15258,
+        15668,
+        16160,
+        16576,
+        16994,
+        17440,
+        17857,
+        18338,
+        18765,
+        19197,
+        19641,
+        20106,
+        20513,
+        20993,
+        21356
+      ]
+    },
+    {
+      "task_id": "ok-033",
+      "resolved": true,
+      "attempts": [
+        1739
+      ]
+    },
+    {
+      "task_id": "ok-095",
+      "resolved": true,
+      "attempts": [
+        1955,
+        1485
+      ]
+    },
+    {
+      "task_id": "ok-044",
+      "resolved": true,
+      "attempts": [
+        1592,
+        1174,
+        984
+      ]
+    },
+    {
+      "task_id": "ok-039",
+      "resolved": true,
+      "attempts": [
+        1553,
+        1058,
+        2046
+      ]
+    },
+    {
+      "task_id": "ok-061",
+      "resolved": true,
+      "attempts": [
+        1391
+      ]
+    },
+    {
+      "task_id": "ok-029",
+      "resolved": true,
+      "attempts": [
+        1713,
+        1731,
+        1977
+      ]
+    },
+    {
+      "task_id": "ok-023",
+      "resolved": true,
+      "attempts": [
+        2192,
+        1896
+      ]
+    },
+    {
+      "task_id": "ok-008",
+      "resolved": true,
+      "attempts": [
+        1179,
+        740
+      ]
+    },
+    {
+      "task_id": "ok-043",
+      "resolved": true,
+      "attempts": [
+        1400,
+        1048
+      ]
+    },
+    {
+      "task_id": "ok-056",
+      "resolved": true,
+      "attempts": [
+        1313
+      ]
+    },
+    {
+      "task_id": "ok-149",
+      "resolved": true,
+      "attempts": [
+        1781,
+        1083,
+        1332
+      ]
+    },
+    {
+      "task_id": "ok-063",
+      "resolved": true,
+      "attempts": [
+        1110
+      ]
+    },
+    {
+      "task_id": "stuck-002",
+      "resolved": false,
+      "attempts": [
+        1107,
+        1570,
+        1974,
+        2372,
+        2757,
+        3225,
+        3575,
+        4019,
+        4460,
+        4853,
+        5252,
+        5677,
+        6101,
+        6488,
+        6876,
+        7330,
+        7738,
+        8158,
+        8516,
+        8923,
+        9380,
+        9731,
+        10149,
+        10619,
+        10999,
+        11398,
+        11800,
+        12244,
+        12636,
+        13040,
+        13440,
+        13838,
+        14252,
+        14715,
+        15097,
+        15521,
+        15932,
+        16306,
+        16714
+      ]
+    },
+    {
+      "task_id": "ok-091",
+      "resolved": true,
+      "attempts": [
+        2034,
+        923
+      ]
+    },
+    {
+      "task_id": "ok-042",
+      "resolved": true,
+      "attempts": [
+        938,
+        727
+      ]
+    },
+    {
+      "task_id": "ok-118",
+      "resolved": true,
+      "attempts": [
+        1859,
+        889
+      ]
+    },
+    {
+      "task_id": "ok-089",
+      "resolved": true,
+      "attempts": [
+        1456,
+        1357
+      ]
+    },
+    {
+      "task_id": "ok-134",
+      "resolved": true,
+      "attempts": [
+        1107,
+        923,
+        804
+      ]
+    },
+    {
+      "task_id": "ok-086",
+      "resolved": true,
+      "attempts": [
+        1357
+      ]
+    },
+    {
+      "task_id": "ok-130",
+      "resolved": true,
+      "attempts": [
+        1004,
+        1583
+      ]
+    },
+    {
+      "task_id": "stuck-000",
+      "resolved": false,
+      "attempts": [
+        1124,
+        1514,
+        1913,
+        2285,
+        2660,
+        3028,
+        3371,
+        3732,
+        4148,
+        4514,
+        4868,
+        5206,
+        5622,
+        5991,
+        6317,
+        6710,
+        7094,
+        7419,
+        7790,
+        8204,
+        8592,
+        8936,
+        9314,
+        9689,
+        10015,
+        10462,
+        10772,
+        11126,
+        11506,
+        11890,
+        12295,
+        12683,
+        12996
+      ]
+    },
+    {
+      "task_id": "ok-121",
+      "resolved": true,
+      "attempts": [
+        779,
+        871
+      ]
+    },
+    {
+      "task_id": "ok-148",
+      "resolved": true,
+      "attempts": [
+        2154,
+        1702,
+        1450
+      ]
+    },
+    {
+      "task_id": "stuck-004",
+      "resolved": false,
+      "attempts": [
+        893,
+        1320,
+        1740,
+        2219,
+        2605,
+        3056,
+        3476,
+        3886,
+        4361,
+        4780,
+        5230,
+        5666,
+        6089,
+        6515,
+        6964,
+        7362,
+        7825,
+        8193,
+        8684,
+        9057,
+        9526,
+        9908,
+        10354,
+        10822,
+        11229,
+        11694,
+        12066,
+        12547,
+        12936,
+        13364,
+        13820,
+        14272,
+        14651,
+        15099,
+        15502,
+        15988,
+        16380
+      ]
+    },
+    {
+      "task_id": "ok-081",
+      "resolved": true,
+      "attempts": [
+        2144,
+        1865,
+        1110
+      ]
+    },
+    {
+      "task_id": "ok-125",
+      "resolved": true,
+      "attempts": [
+        1307
+      ]
+    },
+    {
+      "task_id": "ok-070",
+      "resolved": true,
+      "attempts": [
+        2165
+      ]
+    },
+    {
+      "task_id": "stuck-007",
+      "resolved": false,
+      "attempts": [
+        978,
+        1430,
+        1852,
+        2214,
+        2638,
+        3029,
+        3463,
+        3872,
+        4303,
+        4652,
+        5105,
+        5540,
+        5907,
+        6290,
+        6721,
+        7169,
+        7568,
+        7973,
+        8362,
+        8759,
+        9205,
+        9623,
+        9970,
+        10379,
+        10860,
+        11226,
+        11606,
+        12030,
+        12466,
+        12837,
+        13304,
+        13658,
+        14075,
+        14484,
+        14932,
+        15320,
+        15760,
+        16127,
+        16530,
+        16971,
+        17355,
+        17781
+      ]
+    },
+    {
+      "task_id": "ok-138",
+      "resolved": true,
+      "attempts": [
+        1724,
+        1680,
+        927
+      ]
+    },
+    {
+      "task_id": "ok-083",
+      "resolved": true,
+      "attempts": [
+        1764,
+        2025
+      ]
+    },
+    {
+      "task_id": "ok-077",
+      "resolved": true,
+      "attempts": [
+        2150
+      ]
+    },
+    {
+      "task_id": "ok-090",
+      "resolved": true,
+      "attempts": [
+        1318,
+        1980,
+        1430
+      ]
+    },
+    {
+      "task_id": "ok-096",
+      "resolved": true,
+      "attempts": [
+        1772,
+        2114,
+        2191
+      ]
+    },
+    {
+      "task_id": "ok-106",
+      "resolved": true,
+      "attempts": [
+        1200,
+        1440
+      ]
+    },
+    {
+      "task_id": "ok-038",
+      "resolved": true,
+      "attempts": [
+        1471,
+        1311
+      ]
+    },
+    {
+      "task_id": "ok-087",
+      "resolved": true,
+      "attempts": [
+        1158,
+        1995
+      ]
+    },
+    {
+      "task_id": "ok-141",
+      "resolved": true,
+      "attempts": [
+        1535
+      ]
+    },
+    {
+      "task_id": "ok-020",
+      "resolved": true,
+      "attempts": [
+        1805
+      ]
+    },
+    {
+      "task_id": "ok-067",
+      "resolved": true,
+      "attempts": [
+        2176,
+        1627,
+        2026
+      ]
+    },
+    {
+      "task_id": "ok-048",
+      "resolved": true,
+      "attempts": [
+        769
+      ]
+    },
+    {
+      "task_id": "ok-119",
+      "resolved": true,
+      "attempts": [
+        1943
+      ]
+    },
+    {
+      "task_id": "ok-110",
+      "resolved": true,
+      "attempts": [
+        916,
+        928
+      ]
+    },
+    {
+      "task_id": "ok-041",
+      "resolved": true,
+      "attempts": [
+        752,
+        1113,
+        1029
+      ]
+    },
+    {
+      "task_id": "ok-007",
+      "resolved": true,
+      "attempts": [
+        1093,
+        1524,
+        883
+      ]
+    },
+    {
+      "task_id": "ok-028",
+      "resolved": true,
+      "attempts": [
+        1342,
+        2137,
+        1431
+      ]
+    },
+    {
+      "task_id": "ok-034",
+      "resolved": true,
+      "attempts": [
+        1816,
+        1150,
+        1404
+      ]
+    },
+    {
+      "task_id": "ok-116",
+      "resolved": true,
+      "attempts": [
+        878,
+        895
+      ]
+    },
+    {
+      "task_id": "ok-018",
+      "resolved": true,
+      "attempts": [
+        1758,
+        1125,
+        1890
+      ]
+    },
+    {
+      "task_id": "ok-122",
+      "resolved": true,
+      "attempts": [
+        2038
+      ]
+    },
+    {
+      "task_id": "ok-052",
+      "resolved": true,
+      "attempts": [
+        2150,
+        1004
+      ]
+    },
+    {
+      "task_id": "ok-014",
+      "resolved": true,
+      "attempts": [
+        2053
+      ]
+    },
+    {
+      "task_id": "ok-002",
+      "resolved": true,
+      "attempts": [
+        789,
+        874,
+        980
+      ]
+    },
+    {
+      "task_id": "ok-105",
+      "resolved": true,
+      "attempts": [
+        1250,
+        1267,
+        1994
+      ]
+    },
+    {
+      "task_id": "ok-135",
+      "resolved": true,
+      "attempts": [
+        1838
+      ]
+    },
+    {
+      "task_id": "ok-053",
+      "resolved": true,
+      "attempts": [
+        828,
+        1088,
+        734
+      ]
+    },
+    {
+      "task_id": "ok-080",
+      "resolved": true,
+      "attempts": [
+        1929
+      ]
+    },
+    {
+      "task_id": "ok-143",
+      "resolved": true,
+      "attempts": [
+        1601
+      ]
+    },
+    {
+      "task_id": "ok-035",
+      "resolved": true,
+      "attempts": [
+        724
+      ]
+    },
+    {
+      "task_id": "ok-109",
+      "resolved": true,
+      "attempts": [
+        1775,
+        1100,
+        1453
+      ]
+    },
+    {
+      "task_id": "ok-065",
+      "resolved": true,
+      "attempts": [
+        1480
+      ]
+    },
+    {
+      "task_id": "ok-024",
+      "resolved": true,
+      "attempts": [
+        1285,
+        1841
+      ]
+    },
+    {
+      "task_id": "ok-082",
+      "resolved": true,
+      "attempts": [
+        1169,
+        1363,
+        1776
+      ]
+    },
+    {
+      "task_id": "ok-030",
+      "resolved": true,
+      "attempts": [
+        1332
+      ]
+    },
+    {
+      "task_id": "ok-132",
+      "resolved": true,
+      "attempts": [
+        868
+      ]
+    },
+    {
+      "task_id": "ok-107",
+      "resolved": true,
+      "attempts": [
+        1207
+      ]
+    },
+    {
+      "task_id": "ok-115",
+      "resolved": true,
+      "attempts": [
+        2102
+      ]
+    },
+    {
+      "task_id": "ok-068",
+      "resolved": true,
+      "attempts": [
+        2173
+      ]
+    },
+    {
+      "task_id": "ok-084",
+      "resolved": true,
+      "attempts": [
+        713
+      ]
+    },
+    {
+      "task_id": "ok-064",
+      "resolved": true,
+      "attempts": [
+        1158,
+        1718,
+        1669
+      ]
+    },
+    {
+      "task_id": "ok-102",
+      "resolved": true,
+      "attempts": [
+        1254,
+        1559
+      ]
+    },
+    {
+      "task_id": "ok-131",
+      "resolved": true,
+      "attempts": [
+        833,
+        904,
+        1794
+      ]
+    },
+    {
+      "task_id": "ok-129",
+      "resolved": true,
+      "attempts": [
+        1222
+      ]
+    },
+    {
+      "task_id": "ok-136",
+      "resolved": true,
+      "attempts": [
+        1063,
+        1049,
+        1845
+      ]
+    },
+    {
+      "task_id": "ok-046",
+      "resolved": true,
+      "attempts": [
+        1555,
+        864
+      ]
+    },
+    {
+      "task_id": "ok-104",
+      "resolved": true,
+      "attempts": [
+        1297,
+        1261
+      ]
+    },
+    {
+      "task_id": "ok-031",
+      "resolved": true,
+      "attempts": [
+        1428
+      ]
+    },
+    {
+      "task_id": "ok-017",
+      "resolved": true,
+      "attempts": [
+        1719
+      ]
+    },
+    {
+      "task_id": "stuck-008",
+      "resolved": false,
+      "attempts": [
+        1065,
+        1380,
+        1771,
+        2109,
+        2444,
+        2794,
+        3065,
+        3473,
+        3750,
+        4133,
+        4463,
+        4787,
+        5136,
+        5446,
+        5785,
+        6135,
+        6512,
+        6843,
+        7200,
+        7524,
+        7818,
+        8161,
+        8487,
+        8868,
+        9178
+      ]
+    },
+    {
+      "task_id": "ok-012",
+      "resolved": true,
+      "attempts": [
+        898,
+        829
+      ]
+    },
+    {
+      "task_id": "ok-147",
+      "resolved": true,
+      "attempts": [
+        2106,
+        1461,
+        2117
+      ]
+    },
+    {
+      "task_id": "ok-137",
+      "resolved": true,
+      "attempts": [
+        1369,
+        1304,
+        1196
+      ]
+    },
+    {
+      "task_id": "ok-006",
+      "resolved": true,
+      "attempts": [
+        1499,
+        1713
+      ]
+    },
+    {
+      "task_id": "ok-004",
+      "resolved": true,
+      "attempts": [
+        1520
+      ]
+    },
+    {
+      "task_id": "ok-013",
+      "resolved": true,
+      "attempts": [
+        1970,
+        1472
+      ]
+    },
+    {
+      "task_id": "ok-124",
+      "resolved": true,
+      "attempts": [
+        775,
+        1928,
+        1353
+      ]
+    },
+    {
+      "task_id": "stuck-009",
+      "resolved": false,
+      "attempts": [
+        1055,
+        1378,
+        1735,
+        2008,
+        2377,
+        2724,
+        3052,
+        3350,
+        3678,
+        4027,
+        4369,
+        4730,
+        5034,
+        5379,
+        5756,
+        6085,
+        6368,
+        6711,
+        7085,
+        7354,
+        7731,
+        8070,
+        8370,
+        8715,
+        9093,
+        9404,
+        9770,
+        10087,
+        10407,
+        10721,
+        11067,
+        11422,
+        11710,
+        12119,
+        12392,
+        12733,
+        13077
+      ]
+    },
+    {
+      "task_id": "ok-045",
+      "resolved": true,
+      "attempts": [
+        1855,
+        1613
+      ]
+    },
+    {
+      "task_id": "ok-010",
+      "resolved": true,
+      "attempts": [
+        1476,
+        2186
+      ]
+    },
+    {
+      "task_id": "ok-094",
+      "resolved": true,
+      "attempts": [
+        1120,
+        1294
+      ]
+    },
+    {
+      "task_id": "ok-066",
+      "resolved": true,
+      "attempts": [
+        922
+      ]
+    },
+    {
+      "task_id": "ok-003",
+      "resolved": true,
+      "attempts": [
+        1737
+      ]
+    },
+    {
+      "task_id": "ok-108",
+      "resolved": true,
+      "attempts": [
+        1637,
+        1211,
+        1179
+      ]
+    },
+    {
+      "task_id": "ok-092",
+      "resolved": true,
+      "attempts": [
+        1693
+      ]
+    },
+    {
+      "task_id": "ok-005",
+      "resolved": true,
+      "attempts": [
+        762,
+        1640,
+        1698
+      ]
+    },
+    {
+      "task_id": "ok-026",
+      "resolved": true,
+      "attempts": [
+        1931
+      ]
+    },
+    {
+      "task_id": "ok-011",
+      "resolved": true,
+      "attempts": [
+        2057
+      ]
+    },
+    {
+      "task_id": "ok-079",
+      "resolved": true,
+      "attempts": [
+        1585,
+        1781
+      ]
+    },
+    {
+      "task_id": "ok-059",
+      "resolved": true,
+      "attempts": [
+        1130,
+        824
+      ]
+    },
+    {
+      "task_id": "ok-123",
+      "resolved": true,
+      "attempts": [
+        853,
+        1172
+      ]
+    },
+    {
+      "task_id": "ok-085",
+      "resolved": true,
+      "attempts": [
+        1955,
+        1307
+      ]
+    },
+    {
+      "task_id": "ok-111",
+      "resolved": true,
+      "attempts": [
+        872,
+        2040
+      ]
+    },
+    {
+      "task_id": "ok-127",
+      "resolved": true,
+      "attempts": [
+        933,
+        2177,
+        1948
+      ]
+    },
+    {
+      "task_id": "ok-113",
+      "resolved": true,
+      "attempts": [
+        792,
+        980
+      ]
+    },
+    {
+      "task_id": "ok-098",
+      "resolved": true,
+      "attempts": [
+        1441,
+        2078,
+        1575
+      ]
+    },
+    {
+      "task_id": "ok-019",
+      "resolved": true,
+      "attempts": [
+        1942
+      ]
+    },
+    {
+      "task_id": "stuck-005",
+      "resolved": false,
+      "attempts": [
+        1060,
+        1337,
+        1681,
+        2059,
+        2365,
+        2649,
+        3019,
+        3362,
+        3688,
+        4014,
+        4322,
+        4654,
+        5020,
+        5360,
+        5687,
+        6043,
+        6300,
+        6693,
+        7006,
+        7365,
+        7652,
+        7961,
+        8292,
+        8700,
+        9019,
+        9327,
+        9666
+      ]
+    },
+    {
+      "task_id": "ok-112",
+      "resolved": true,
+      "attempts": [
+        1860
+      ]
+    },
+    {
+      "task_id": "ok-022",
+      "resolved": true,
+      "attempts": [
+        1097,
+        1003,
+        1885
+      ]
+    },
+    {
+      "task_id": "ok-099",
+      "resolved": true,
+      "attempts": [
+        1703
+      ]
+    },
+    {
+      "task_id": "ok-139",
+      "resolved": true,
+      "attempts": [
+        2171,
+        869,
+        981
+      ]
+    },
+    {
+      "task_id": "ok-073",
+      "resolved": true,
+      "attempts": [
+        1104
+      ]
+    },
+    {
+      "task_id": "ok-126",
+      "resolved": true,
+      "attempts": [
+        1432,
+        1369,
+        835
+      ]
+    },
+    {
+      "task_id": "ok-037",
+      "resolved": true,
+      "attempts": [
+        768,
+        1567
+      ]
+    },
+    {
+      "task_id": "ok-040",
+      "resolved": true,
+      "attempts": [
+        938,
+        1040
+      ]
+    },
+    {
+      "task_id": "ok-016",
+      "resolved": true,
+      "attempts": [
+        2115
+      ]
+    }
+  ]
+}

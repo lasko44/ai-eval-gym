@@ -1,0 +1,30 @@
+{
+ "note": "Same question, same gold passage, held fixed at every row. Only the surrounding padding changes with length_tokens.",
+ "results": [
+  {
+   "length_tokens": 500,
+   "correct": 183,
+   "total": 200
+  },
+  {
+   "length_tokens": 4000,
+   "correct": 173,
+   "total": 200
+  },
+  {
+   "length_tokens": 16000,
+   "correct": 144,
+   "total": 200
+  },
+  {
+   "length_tokens": 64000,
+   "correct": 134,
+   "total": 200
+  },
+  {
+   "length_tokens": 113000,
+   "correct": 128,
+   "total": 200
+  }
+ ]
+}

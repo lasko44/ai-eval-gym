@@ -1,0 +1,2396 @@
+{
+ "entitlements": {
+  "contractor_jdoe": [
+   "public",
+   "onboarding"
+  ],
+  "fulltime_asmith": [
+   "public",
+   "onboarding",
+   "finance",
+   "legal",
+   "eng",
+   "hr"
+  ]
+ },
+ "chunk_categories": {
+  "chunk_0001": "legal",
+  "chunk_0002": "onboarding",
+  "chunk_0003": "hr",
+  "chunk_0004": "finance",
+  "chunk_0005": "public",
+  "chunk_0006": "eng",
+  "chunk_0007": "hr",
+  "chunk_0008": "finance",
+  "chunk_0009": "public",
+  "chunk_0010": "onboarding",
+  "chunk_0011": "onboarding",
+  "chunk_0012": "finance",
+  "chunk_0013": "hr",
+  "chunk_0014": "onboarding",
+  "chunk_0015": "finance",
+  "chunk_0016": "onboarding",
+  "chunk_0017": "hr",
+  "chunk_0018": "legal",
+  "chunk_0019": "hr",
+  "chunk_0020": "public",
+  "chunk_0021": "onboarding",
+  "chunk_0022": "onboarding",
+  "chunk_0023": "onboarding",
+  "chunk_0024": "finance",
+  "chunk_0025": "public",
+  "chunk_0026": "legal",
+  "chunk_0027": "public",
+  "chunk_0028": "public",
+  "chunk_0029": "onboarding",
+  "chunk_0030": "public",
+  "chunk_0031": "hr",
+  "chunk_0032": "onboarding",
+  "chunk_0033": "hr",
+  "chunk_0034": "public",
+  "chunk_0035": "hr",
+  "chunk_0036": "hr",
+  "chunk_0037": "legal",
+  "chunk_0038": "hr",
+  "chunk_0039": "finance",
+  "chunk_0040": "finance",
+  "chunk_0041": "eng",
+  "chunk_0042": "finance",
+  "chunk_0043": "hr",
+  "chunk_0044": "hr",
+  "chunk_0045": "public",
+  "chunk_0046": "finance",
+  "chunk_0047": "eng",
+  "chunk_0048": "eng",
+  "chunk_0049": "eng",
+  "chunk_0050": "finance",
+  "chunk_0051": "onboarding",
+  "chunk_0052": "finance",
+  "chunk_0053": "eng",
+  "chunk_0054": "eng",
+  "chunk_0055": "public",
+  "chunk_0056": "eng",
+  "chunk_0057": "finance",
+  "chunk_0058": "legal",
+  "chunk_0059": "public",
+  "chunk_0060": "hr",
+  "chunk_0061": "onboarding",
+  "chunk_0062": "finance",
+  "chunk_0063": "eng",
+  "chunk_0064": "finance",
+  "chunk_0065": "eng",
+  "chunk_0066": "hr",
+  "chunk_0067": "finance",
+  "chunk_0068": "public",
+  "chunk_0069": "eng",
+  "chunk_0070": "finance",
+  "chunk_0071": "hr",
+  "chunk_0072": "finance",
+  "chunk_0073": "onboarding",
+  "chunk_0074": "public",
+  "chunk_0075": "hr",
+  "chunk_0076": "hr",
+  "chunk_0077": "onboarding",
+  "chunk_0078": "eng",
+  "chunk_0079": "eng",
+  "chunk_0080": "legal",
+  "chunk_0081": "hr",
+  "chunk_0082": "eng",
+  "chunk_0083": "onboarding",
+  "chunk_0084": "onboarding",
+  "chunk_0085": "eng",
+  "chunk_0086": "public",
+  "chunk_0087": "finance",
+  "chunk_0088": "finance",
+  "chunk_0089": "eng",
+  "chunk_0090": "public",
+  "chunk_0091": "hr",
+  "chunk_0092": "eng",
+  "chunk_0093": "public",
+  "chunk_0094": "public",
+  "chunk_0095": "public",
+  "chunk_0096": "hr",
+  "chunk_0097": "eng",
+  "chunk_0098": "public",
+  "chunk_0099": "onboarding",
+  "chunk_0100": "legal",
+  "chunk_0101": "eng",
+  "chunk_0102": "eng",
+  "chunk_0103": "hr",
+  "chunk_0104": "onboarding",
+  "chunk_0105": "public",
+  "chunk_0106": "onboarding",
+  "chunk_0107": "eng",
+  "chunk_0108": "public",
+  "chunk_0109": "onboarding",
+  "chunk_0110": "eng",
+  "chunk_0111": "finance",
+  "chunk_0112": "hr",
+  "chunk_0113": "eng",
+  "chunk_0114": "eng",
+  "chunk_0115": "legal",
+  "chunk_0116": "public",
+  "chunk_0117": "public",
+  "chunk_0118": "hr",
+  "chunk_0119": "eng",
+  "chunk_0120": "eng",
+  "chunk_0121": "onboarding",
+  "chunk_0122": "hr",
+  "chunk_0123": "hr",
+  "chunk_0124": "legal",
+  "chunk_0125": "finance",
+  "chunk_0126": "public",
+  "chunk_0127": "public",
+  "chunk_0128": "finance",
+  "chunk_0129": "hr",
+  "chunk_0130": "eng",
+  "chunk_0131": "eng",
+  "chunk_0132": "finance",
+  "chunk_0133": "legal",
+  "chunk_0134": "public",
+  "chunk_0135": "eng",
+  "chunk_0136": "finance",
+  "chunk_0137": "legal",
+  "chunk_0138": "public",
+  "chunk_0139": "public",
+  "chunk_0140": "legal",
+  "chunk_0141": "public",
+  "chunk_0142": "hr",
+  "chunk_0143": "finance",
+  "chunk_0144": "onboarding",
+  "chunk_0145": "finance",
+  "chunk_0146": "public",
+  "chunk_0147": "legal",
+  "chunk_0148": "eng",
+  "chunk_0149": "eng",
+  "chunk_0150": "eng",
+  "chunk_0151": "eng",
+  "chunk_0152": "public",
+  "chunk_0153": "finance",
+  "chunk_0154": "public",
+  "chunk_0155": "public",
+  "chunk_0156": "eng",
+  "chunk_0157": "eng",
+  "chunk_0158": "finance",
+  "chunk_0159": "public",
+  "chunk_0160": "onboarding",
+  "chunk_0161": "public",
+  "chunk_0162": "hr",
+  "chunk_0163": "hr",
+  "chunk_0164": "legal",
+  "chunk_0165": "public",
+  "chunk_0166": "eng",
+  "chunk_0167": "public",
+  "chunk_0168": "public",
+  "chunk_0169": "eng",
+  "chunk_0170": "eng",
+  "chunk_0171": "eng",
+  "chunk_0172": "finance",
+  "chunk_0173": "public",
+  "chunk_0174": "public",
+  "chunk_0175": "hr",
+  "chunk_0176": "public",
+  "chunk_0177": "public",
+  "chunk_0178": "hr",
+  "chunk_0179": "eng",
+  "chunk_0180": "hr",
+  "chunk_0181": "eng",
+  "chunk_0182": "public",
+  "chunk_0183": "finance",
+  "chunk_0184": "onboarding",
+  "chunk_0185": "eng",
+  "chunk_0186": "eng",
+  "chunk_0187": "public",
+  "chunk_0188": "public",
+  "chunk_0189": "hr",
+  "chunk_0190": "public",
+  "chunk_0191": "onboarding",
+  "chunk_0192": "legal",
+  "chunk_0193": "hr",
+  "chunk_0194": "legal",
+  "chunk_0195": "eng",
+  "chunk_0196": "hr",
+  "chunk_0197": "hr",
+  "chunk_0198": "hr",
+  "chunk_0199": "public",
+  "chunk_0200": "hr",
+  "chunk_0201": "public",
+  "chunk_0202": "onboarding",
+  "chunk_0203": "onboarding",
+  "chunk_0204": "public",
+  "chunk_0205": "legal",
+  "chunk_0206": "eng",
+  "chunk_0207": "public",
+  "chunk_0208": "onboarding",
+  "chunk_0209": "eng",
+  "chunk_0210": "finance",
+  "chunk_0211": "legal",
+  "chunk_0212": "hr",
+  "chunk_0213": "eng",
+  "chunk_0214": "eng",
+  "chunk_0215": "finance",
+  "chunk_0216": "finance",
+  "chunk_0217": "legal",
+  "chunk_0218": "public",
+  "chunk_0219": "public",
+  "chunk_0220": "legal",
+  "chunk_0221": "public",
+  "chunk_0222": "finance",
+  "chunk_0223": "eng",
+  "chunk_0224": "hr",
+  "chunk_0225": "finance",
+  "chunk_0226": "finance",
+  "chunk_0227": "public",
+  "chunk_0228": "onboarding",
+  "chunk_0229": "hr",
+  "chunk_0230": "legal",
+  "chunk_0231": "hr",
+  "chunk_0232": "legal",
+  "chunk_0233": "public",
+  "chunk_0234": "legal",
+  "chunk_0235": "legal",
+  "chunk_0236": "onboarding",
+  "chunk_0237": "eng",
+  "chunk_0238": "public",
+  "chunk_0239": "public",
+  "chunk_0240": "eng",
+  "chunk_0241": "public",
+  "chunk_0242": "legal",
+  "chunk_0243": "hr",
+  "chunk_0244": "eng",
+  "chunk_0245": "legal",
+  "chunk_0246": "finance",
+  "chunk_0247": "finance",
+  "chunk_0248": "finance",
+  "chunk_0249": "hr",
+  "chunk_0250": "finance",
+  "chunk_0251": "eng",
+  "chunk_0252": "onboarding",
+  "chunk_0253": "eng",
+  "chunk_0254": "finance",
+  "chunk_0255": "eng",
+  "chunk_0256": "finance",
+  "chunk_0257": "hr",
+  "chunk_0258": "legal",
+  "chunk_0259": "eng",
+  "chunk_0260": "onboarding",
+  "chunk_0261": "legal",
+  "chunk_0262": "eng",
+  "chunk_0263": "public",
+  "chunk_0264": "hr",
+  "chunk_0265": "hr",
+  "chunk_0266": "hr",
+  "chunk_0267": "eng",
+  "chunk_0268": "public",
+  "chunk_0269": "hr",
+  "chunk_0270": "eng",
+  "chunk_0271": "finance",
+  "chunk_0272": "public",
+  "chunk_0273": "public",
+  "chunk_0274": "eng",
+  "chunk_0275": "onboarding",
+  "chunk_0276": "finance",
+  "chunk_0277": "public",
+  "chunk_0278": "onboarding",
+  "chunk_0279": "onboarding",
+  "chunk_0280": "eng",
+  "chunk_0281": "hr",
+  "chunk_0282": "hr",
+  "chunk_0283": "legal",
+  "chunk_0284": "hr",
+  "chunk_0285": "onboarding",
+  "chunk_0286": "finance",
+  "chunk_0287": "eng",
+  "chunk_0288": "hr",
+  "chunk_0289": "eng",
+  "chunk_0290": "finance",
+  "chunk_0291": "public",
+  "chunk_0292": "onboarding",
+  "chunk_0293": "hr",
+  "chunk_0294": "onboarding",
+  "chunk_0295": "legal",
+  "chunk_0296": "finance",
+  "chunk_0297": "finance",
+  "chunk_0298": "onboarding",
+  "chunk_0299": "public",
+  "chunk_0300": "eng",
+  "chunk_0301": "onboarding",
+  "chunk_0302": "public",
+  "chunk_0303": "onboarding",
+  "chunk_0304": "finance",
+  "chunk_0305": "public",
+  "chunk_0306": "hr",
+  "chunk_0307": "legal",
+  "chunk_0308": "eng",
+  "chunk_0309": "public",
+  "chunk_0310": "finance",
+  "chunk_0311": "public",
+  "chunk_0312": "eng",
+  "chunk_0313": "eng",
+  "chunk_0314": "eng",
+  "chunk_0315": "finance",
+  "chunk_0316": "onboarding",
+  "chunk_0317": "hr",
+  "chunk_0318": "hr",
+  "chunk_0319": "hr",
+  "chunk_0320": "onboarding",
+  "chunk_0321": "legal",
+  "chunk_0322": "onboarding",
+  "chunk_0323": "public",
+  "chunk_0324": "onboarding",
+  "chunk_0325": "eng",
+  "chunk_0326": "public",
+  "chunk_0327": "finance",
+  "chunk_0328": "hr",
+  "chunk_0329": "legal",
+  "chunk_0330": "finance",
+  "chunk_0331": "eng",
+  "chunk_0332": "eng",
+  "chunk_0333": "legal",
+  "chunk_0334": "public",
+  "chunk_0335": "public",
+  "chunk_0336": "hr",
+  "chunk_0337": "eng",
+  "chunk_0338": "onboarding",
+  "chunk_0339": "eng",
+  "chunk_0340": "legal",
+  "chunk_0341": "public",
+  "chunk_0342": "eng",
+  "chunk_0343": "eng",
+  "chunk_0344": "onboarding",
+  "chunk_0345": "hr",
+  "chunk_0346": "legal",
+  "chunk_0347": "onboarding",
+  "chunk_0348": "hr",
+  "chunk_0349": "finance",
+  "chunk_0350": "public",
+  "chunk_0351": "eng",
+  "chunk_0352": "eng",
+  "chunk_0353": "finance",
+  "chunk_0354": "public",
+  "chunk_0355": "hr",
+  "chunk_0356": "eng",
+  "chunk_0357": "finance",
+  "chunk_0358": "finance",
+  "chunk_0359": "finance",
+  "chunk_0360": "onboarding",
+  "chunk_0361": "legal",
+  "chunk_0362": "onboarding",
+  "chunk_0363": "hr",
+  "chunk_0364": "eng",
+  "chunk_0365": "legal",
+  "chunk_0366": "eng",
+  "chunk_0367": "onboarding",
+  "chunk_0368": "legal",
+  "chunk_0369": "eng",
+  "chunk_0370": "eng",
+  "chunk_0371": "legal",
+  "chunk_0372": "hr",
+  "chunk_0373": "legal",
+  "chunk_0374": "finance",
+  "chunk_0375": "onboarding",
+  "chunk_0376": "onboarding",
+  "chunk_0377": "finance",
+  "chunk_0378": "public",
+  "chunk_0379": "legal",
+  "chunk_0380": "eng",
+  "chunk_0381": "finance",
+  "chunk_0382": "public",
+  "chunk_0383": "eng",
+  "chunk_0384": "eng",
+  "chunk_0385": "hr",
+  "chunk_0386": "eng",
+  "chunk_0387": "public",
+  "chunk_0388": "legal",
+  "chunk_0389": "legal",
+  "chunk_0390": "legal",
+  "chunk_0391": "legal",
+  "chunk_0392": "finance",
+  "chunk_0393": "eng",
+  "chunk_0394": "public",
+  "chunk_0395": "onboarding",
+  "chunk_0396": "onboarding",
+  "chunk_0397": "eng",
+  "chunk_0398": "finance",
+  "chunk_0399": "hr",
+  "chunk_0400": "hr",
+  "chunk_0401": "hr",
+  "chunk_0402": "eng",
+  "chunk_0403": "finance",
+  "chunk_0404": "public",
+  "chunk_0405": "eng",
+  "chunk_0406": "finance",
+  "chunk_0407": "finance",
+  "chunk_0408": "eng",
+  "chunk_0409": "hr",
+  "chunk_0410": "public",
+  "chunk_0411": "legal",
+  "chunk_0412": "finance",
+  "chunk_0413": "hr",
+  "chunk_0414": "legal",
+  "chunk_0415": "onboarding",
+  "chunk_0416": "public",
+  "chunk_0417": "onboarding",
+  "chunk_0418": "finance",
+  "chunk_0419": "eng",
+  "chunk_0420": "finance"
+ },
+ "queries": [
+  {
+   "query_id": "q001",
+   "text": "what is the office holiday schedule this year (variant 1)"
+  },
+  {
+   "query_id": "q002",
+   "text": "where do I find the brand logo files (variant 1)"
+  },
+  {
+   "query_id": "q003",
+   "text": "how do I set up my laptop on day one (variant 1)"
+  },
+  {
+   "query_id": "q004",
+   "text": "who is my onboarding buddy for the first week (variant 1)"
+  },
+  {
+   "query_id": "q005",
+   "text": "what was Q3 revenue versus forecast (variant 1)"
+  },
+  {
+   "query_id": "q006",
+   "text": "what is the travel reimbursement policy limit (variant 1)"
+  },
+  {
+   "query_id": "q007",
+   "text": "what are the terms in the standard vendor NDA (variant 1)"
+  },
+  {
+   "query_id": "q008",
+   "text": "what is our data retention obligation under the enterprise contract (variant 1)"
+  },
+  {
+   "query_id": "q009",
+   "text": "how is the payments service authenticated internally (variant 1)"
+  },
+  {
+   "query_id": "q010",
+   "text": "what is the on call rotation for the search team (variant 1)"
+  },
+  {
+   "query_id": "q011",
+   "text": "what is the parental leave policy (variant 1)"
+  },
+  {
+   "query_id": "q012",
+   "text": "how are performance review ratings calibrated (variant 1)"
+  },
+  {
+   "query_id": "q013",
+   "text": "what is the office holiday schedule this year (variant 2)"
+  },
+  {
+   "query_id": "q014",
+   "text": "where do I find the brand logo files (variant 2)"
+  },
+  {
+   "query_id": "q015",
+   "text": "how do I set up my laptop on day one (variant 2)"
+  },
+  {
+   "query_id": "q016",
+   "text": "who is my onboarding buddy for the first week (variant 2)"
+  },
+  {
+   "query_id": "q017",
+   "text": "what was Q3 revenue versus forecast (variant 2)"
+  },
+  {
+   "query_id": "q018",
+   "text": "what is the travel reimbursement policy limit (variant 2)"
+  },
+  {
+   "query_id": "q019",
+   "text": "what are the terms in the standard vendor NDA (variant 2)"
+  },
+  {
+   "query_id": "q020",
+   "text": "what is our data retention obligation under the enterprise contract (variant 2)"
+  },
+  {
+   "query_id": "q021",
+   "text": "how is the payments service authenticated internally (variant 2)"
+  },
+  {
+   "query_id": "q022",
+   "text": "what is the on call rotation for the search team (variant 2)"
+  },
+  {
+   "query_id": "q023",
+   "text": "what is the parental leave policy (variant 2)"
+  },
+  {
+   "query_id": "q024",
+   "text": "how are performance review ratings calibrated (variant 2)"
+  },
+  {
+   "query_id": "q025",
+   "text": "what is the office holiday schedule this year (variant 3)"
+  },
+  {
+   "query_id": "q026",
+   "text": "where do I find the brand logo files (variant 3)"
+  },
+  {
+   "query_id": "q027",
+   "text": "how do I set up my laptop on day one (variant 3)"
+  },
+  {
+   "query_id": "q028",
+   "text": "who is my onboarding buddy for the first week (variant 3)"
+  },
+  {
+   "query_id": "q029",
+   "text": "what was Q3 revenue versus forecast (variant 3)"
+  },
+  {
+   "query_id": "q030",
+   "text": "what is the travel reimbursement policy limit (variant 3)"
+  },
+  {
+   "query_id": "q031",
+   "text": "what are the terms in the standard vendor NDA (variant 3)"
+  },
+  {
+   "query_id": "q032",
+   "text": "what is our data retention obligation under the enterprise contract (variant 3)"
+  },
+  {
+   "query_id": "q033",
+   "text": "how is the payments service authenticated internally (variant 3)"
+  },
+  {
+   "query_id": "q034",
+   "text": "what is the on call rotation for the search team (variant 3)"
+  },
+  {
+   "query_id": "q035",
+   "text": "what is the parental leave policy (variant 3)"
+  },
+  {
+   "query_id": "q036",
+   "text": "how are performance review ratings calibrated (variant 3)"
+  },
+  {
+   "query_id": "q037",
+   "text": "what is the office holiday schedule this year (variant 4)"
+  },
+  {
+   "query_id": "q038",
+   "text": "where do I find the brand logo files (variant 4)"
+  },
+  {
+   "query_id": "q039",
+   "text": "how do I set up my laptop on day one (variant 4)"
+  },
+  {
+   "query_id": "q040",
+   "text": "who is my onboarding buddy for the first week (variant 4)"
+  },
+  {
+   "query_id": "q041",
+   "text": "what was Q3 revenue versus forecast (variant 4)"
+  },
+  {
+   "query_id": "q042",
+   "text": "what is the travel reimbursement policy limit (variant 4)"
+  },
+  {
+   "query_id": "q043",
+   "text": "what are the terms in the standard vendor NDA (variant 4)"
+  },
+  {
+   "query_id": "q044",
+   "text": "what is our data retention obligation under the enterprise contract (variant 4)"
+  },
+  {
+   "query_id": "q045",
+   "text": "how is the payments service authenticated internally (variant 4)"
+  },
+  {
+   "query_id": "q046",
+   "text": "what is the on call rotation for the search team (variant 4)"
+  },
+  {
+   "query_id": "q047",
+   "text": "what is the parental leave policy (variant 4)"
+  },
+  {
+   "query_id": "q048",
+   "text": "how are performance review ratings calibrated (variant 4)"
+  },
+  {
+   "query_id": "q049",
+   "text": "what is the office holiday schedule this year (variant 5)"
+  },
+  {
+   "query_id": "q050",
+   "text": "where do I find the brand logo files (variant 5)"
+  },
+  {
+   "query_id": "q051",
+   "text": "how do I set up my laptop on day one (variant 5)"
+  },
+  {
+   "query_id": "q052",
+   "text": "who is my onboarding buddy for the first week (variant 5)"
+  },
+  {
+   "query_id": "q053",
+   "text": "what was Q3 revenue versus forecast (variant 5)"
+  },
+  {
+   "query_id": "q054",
+   "text": "what is the travel reimbursement policy limit (variant 5)"
+  },
+  {
+   "query_id": "q055",
+   "text": "what are the terms in the standard vendor NDA (variant 5)"
+  },
+  {
+   "query_id": "q056",
+   "text": "what is our data retention obligation under the enterprise contract (variant 5)"
+  },
+  {
+   "query_id": "q057",
+   "text": "how is the payments service authenticated internally (variant 5)"
+  },
+  {
+   "query_id": "q058",
+   "text": "what is the on call rotation for the search team (variant 5)"
+  },
+  {
+   "query_id": "q059",
+   "text": "what is the parental leave policy (variant 5)"
+  },
+  {
+   "query_id": "q060",
+   "text": "how are performance review ratings calibrated (variant 5)"
+  },
+  {
+   "query_id": "q061",
+   "text": "what is the office holiday schedule this year (variant 6)"
+  },
+  {
+   "query_id": "q062",
+   "text": "where do I find the brand logo files (variant 6)"
+  },
+  {
+   "query_id": "q063",
+   "text": "how do I set up my laptop on day one (variant 6)"
+  },
+  {
+   "query_id": "q064",
+   "text": "who is my onboarding buddy for the first week (variant 6)"
+  },
+  {
+   "query_id": "q065",
+   "text": "what was Q3 revenue versus forecast (variant 6)"
+  }
+ ],
+ "retrievals": {
+  "contractor_jdoe": [
+   {
+    "query_id": "q001",
+    "chunk_ids": [
+     "chunk_0028",
+     "chunk_0108",
+     "chunk_0204",
+     "chunk_0144",
+     "chunk_0404",
+     "chunk_0015",
+     "chunk_0155",
+     "chunk_0218"
+    ]
+   },
+   {
+    "query_id": "q002",
+    "chunk_ids": [
+     "chunk_0354",
+     "chunk_0219",
+     "chunk_0055",
+     "chunk_0332",
+     "chunk_0061",
+     "chunk_0138",
+     "chunk_0068",
+     "chunk_0280"
+    ]
+   },
+   {
+    "query_id": "q003",
+    "chunk_ids": [
+     "chunk_0142",
+     "chunk_0375",
+     "chunk_0355",
+     "chunk_0396",
+     "chunk_0084",
+     "chunk_0106",
+     "chunk_0391",
+     "chunk_0252"
+    ]
+   },
+   {
+    "query_id": "q004",
+    "chunk_ids": [
+     "chunk_0320",
+     "chunk_0361",
+     "chunk_0203",
+     "chunk_0010",
+     "chunk_0373",
+     "chunk_0362",
+     "chunk_0227",
+     "chunk_0121"
+    ]
+   },
+   {
+    "query_id": "q005",
+    "chunk_ids": [
+     "chunk_0282",
+     "chunk_0250",
+     "chunk_0398",
+     "chunk_0413",
+     "chunk_0181",
+     "chunk_0040",
+     "chunk_0315",
+     "chunk_0271"
+    ]
+   },
+   {
+    "query_id": "q006",
+    "chunk_ids": [
+     "chunk_0046",
+     "chunk_0257",
+     "chunk_0088",
+     "chunk_0012",
+     "chunk_0377",
+     "chunk_0291",
+     "chunk_0256",
+     "chunk_0406"
+    ]
+   },
+   {
+    "query_id": "q007",
+    "chunk_ids": [
+     "chunk_0001",
+     "chunk_0164",
+     "chunk_0232",
+     "chunk_0094",
+     "chunk_0245",
+     "chunk_0382",
+     "chunk_0058",
+     "chunk_0192"
+    ]
+   },
+   {
+    "query_id": "q008",
+    "chunk_ids": [
+     "chunk_0192",
+     "chunk_0389",
+     "chunk_0314",
+     "chunk_0137",
+     "chunk_0272",
+     "chunk_0001",
+     "chunk_0147",
+     "chunk_0403"
+    ]
+   },
+   {
+    "query_id": "q009",
+    "chunk_ids": [
+     "chunk_0213",
+     "chunk_0314",
+     "chunk_0101",
+     "chunk_0356",
+     "chunk_0186",
+     "chunk_0077",
+     "chunk_0380",
+     "chunk_0262"
+    ]
+   },
+   {
+    "query_id": "q010",
+    "chunk_ids": [
+     "chunk_0397",
+     "chunk_0259",
+     "chunk_0300",
+     "chunk_0051",
+     "chunk_0149",
+     "chunk_0171",
+     "chunk_0089",
+     "chunk_0213"
+    ]
+   },
+   {
+    "query_id": "q011",
+    "chunk_ids": [
+     "chunk_0236",
+     "chunk_0066",
+     "chunk_0003",
+     "chunk_0394",
+     "chunk_0017",
+     "chunk_0265",
+     "chunk_0163",
+     "chunk_0060"
+    ]
+   },
+   {
+    "query_id": "q012",
+    "chunk_ids": [
+     "chunk_0265",
+     "chunk_0413",
+     "chunk_0257",
+     "chunk_0003",
+     "chunk_0220",
+     "chunk_0103",
+     "chunk_0196",
+     "chunk_0214"
+    ]
+   },
+   {
+    "query_id": "q013",
+    "chunk_ids": [
+     "chunk_0390",
+     "chunk_0382",
+     "chunk_0341",
+     "chunk_0020",
+     "chunk_0182",
+     "chunk_0126",
+     "chunk_0162",
+     "chunk_0305"
+    ]
+   },
+   {
+    "query_id": "q014",
+    "chunk_ids": [
+     "chunk_0350",
+     "chunk_0176",
+     "chunk_0344",
+     "chunk_0167",
+     "chunk_0315",
+     "chunk_0138",
+     "chunk_0326",
+     "chunk_0336"
+    ]
+   },
+   {
+    "query_id": "q015",
+    "chunk_ids": [
+     "chunk_0121",
+     "chunk_0417",
+     "chunk_0285",
+     "chunk_0301",
+     "chunk_0203",
+     "chunk_0055",
+     "chunk_0252",
+     "chunk_0044"
+    ]
+   },
+   {
+    "query_id": "q016",
+    "chunk_ids": [
+     "chunk_0021",
+     "chunk_0073",
+     "chunk_0087",
+     "chunk_0061",
+     "chunk_0253",
+     "chunk_0002",
+     "chunk_0284",
+     "chunk_0083"
+    ]
+   },
+   {
+    "query_id": "q017",
+    "chunk_ids": [
+     "chunk_0012",
+     "chunk_0052",
+     "chunk_0358",
+     "chunk_0128",
+     "chunk_0260",
+     "chunk_0310",
+     "chunk_0420",
+     "chunk_0208"
+    ]
+   },
+   {
+    "query_id": "q018",
+    "chunk_ids": [
+     "chunk_0215",
+     "chunk_0268",
+     "chunk_0276",
+     "chunk_0357",
+     "chunk_0302",
+     "chunk_0138",
+     "chunk_0072",
+     "chunk_0088"
+    ]
+   },
+   {
+    "query_id": "q019",
+    "chunk_ids": [
+     "chunk_0371",
+     "chunk_0306",
+     "chunk_0258",
+     "chunk_0037",
+     "chunk_0365",
+     "chunk_0164",
+     "chunk_0194",
+     "chunk_0131"
+    ]
+   },
+   {
+    "query_id": "q020",
+    "chunk_ids": [
+     "chunk_0079",
+     "chunk_0261",
+     "chunk_0335",
+     "chunk_0124",
+     "chunk_0026",
+     "chunk_0001",
+     "chunk_0415",
+     "chunk_0329"
+    ]
+   },
+   {
+    "query_id": "q021",
+    "chunk_ids": [
+     "chunk_0065",
+     "chunk_0074",
+     "chunk_0249",
+     "chunk_0419",
+     "chunk_0079",
+     "chunk_0259",
+     "chunk_0156",
+     "chunk_0214"
+    ]
+   },
+   {
+    "query_id": "q022",
+    "chunk_ids": [
+     "chunk_0063",
+     "chunk_0287",
+     "chunk_0356",
+     "chunk_0245",
+     "chunk_0185",
+     "chunk_0170",
+     "chunk_0304",
+     "chunk_0405"
+    ]
+   },
+   {
+    "query_id": "q023",
+    "chunk_ids": [
+     "chunk_0400",
+     "chunk_0249",
+     "chunk_0385",
+     "chunk_0025",
+     "chunk_0234",
+     "chunk_0031",
+     "chunk_0269",
+     "chunk_0200"
+    ]
+   },
+   {
+    "query_id": "q024",
+    "chunk_ids": [
+     "chunk_0182",
+     "chunk_0162",
+     "chunk_0081",
+     "chunk_0066",
+     "chunk_0372",
+     "chunk_0231",
+     "chunk_0351",
+     "chunk_0129"
+    ]
+   },
+   {
+    "query_id": "q025",
+    "chunk_ids": [
+     "chunk_0086",
+     "chunk_0350",
+     "chunk_0394",
+     "chunk_0201",
+     "chunk_0404",
+     "chunk_0078",
+     "chunk_0349",
+     "chunk_0016"
+    ]
+   },
+   {
+    "query_id": "q026",
+    "chunk_ids": [
+     "chunk_0416",
+     "chunk_0034",
+     "chunk_0159",
+     "chunk_0218",
+     "chunk_0221",
+     "chunk_0143",
+     "chunk_0090",
+     "chunk_0116"
+    ]
+   },
+   {
+    "query_id": "q027",
+    "chunk_ids": [
+     "chunk_0133",
+     "chunk_0029",
+     "chunk_0292",
+     "chunk_0324",
+     "chunk_0144",
+     "chunk_0419",
+     "chunk_0110",
+     "chunk_0279"
+    ]
+   },
+   {
+    "query_id": "q028",
+    "chunk_ids": [
+     "chunk_0009",
+     "chunk_0415",
+     "chunk_0301",
+     "chunk_0191",
+     "chunk_0419",
+     "chunk_0042",
+     "chunk_0395",
+     "chunk_0344"
+    ]
+   },
+   {
+    "query_id": "q029",
+    "chunk_ids": [
+     "chunk_0192",
+     "chunk_0225",
+     "chunk_0381",
+     "chunk_0392",
+     "chunk_0215",
+     "chunk_0258",
+     "chunk_0254",
+     "chunk_0024"
+    ]
+   },
+   {
+    "query_id": "q030",
+    "chunk_ids": [
+     "chunk_0169",
+     "chunk_0052",
+     "chunk_0420",
+     "chunk_0246",
+     "chunk_0381",
+     "chunk_0067",
+     "chunk_0183",
+     "chunk_0239"
+    ]
+   },
+   {
+    "query_id": "q031",
+    "chunk_ids": [
+     "chunk_0001",
+     "chunk_0161",
+     "chunk_0245",
+     "chunk_0205",
+     "chunk_0267",
+     "chunk_0124",
+     "chunk_0389",
+     "chunk_0222"
+    ]
+   },
+   {
+    "query_id": "q032",
+    "chunk_ids": [
+     "chunk_0258",
+     "chunk_0232",
+     "chunk_0277",
+     "chunk_0397",
+     "chunk_0140",
+     "chunk_0411",
+     "chunk_0333",
+     "chunk_0080"
+    ]
+   },
+   {
+    "query_id": "q033",
+    "chunk_ids": [
+     "chunk_0366",
+     "chunk_0280",
+     "chunk_0135",
+     "chunk_0065",
+     "chunk_0253",
+     "chunk_0086",
+     "chunk_0269",
+     "chunk_0400"
+    ]
+   },
+   {
+    "query_id": "q034",
+    "chunk_ids": [
+     "chunk_0101",
+     "chunk_0171",
+     "chunk_0006",
+     "chunk_0188",
+     "chunk_0029",
+     "chunk_0069",
+     "chunk_0308",
+     "chunk_0064"
+    ]
+   },
+   {
+    "query_id": "q035",
+    "chunk_ids": [
+     "chunk_0269",
+     "chunk_0128",
+     "chunk_0270",
+     "chunk_0400",
+     "chunk_0193",
+     "chunk_0019",
+     "chunk_0069",
+     "chunk_0385"
+    ]
+   },
+   {
+    "query_id": "q036",
+    "chunk_ids": [
+     "chunk_0282",
+     "chunk_0096",
+     "chunk_0268",
+     "chunk_0319",
+     "chunk_0400",
+     "chunk_0043",
+     "chunk_0318",
+     "chunk_0285"
+    ]
+   },
+   {
+    "query_id": "q037",
+    "chunk_ids": [
+     "chunk_0161",
+     "chunk_0095",
+     "chunk_0177",
+     "chunk_0104",
+     "chunk_0234",
+     "chunk_0122",
+     "chunk_0311",
+     "chunk_0309"
+    ]
+   },
+   {
+    "query_id": "q038",
+    "chunk_ids": [
+     "chunk_0326",
+     "chunk_0087",
+     "chunk_0260",
+     "chunk_0419",
+     "chunk_0138",
+     "chunk_0086",
+     "chunk_0126",
+     "chunk_0055"
+    ]
+   },
+   {
+    "query_id": "q039",
+    "chunk_ids": [
+     "chunk_0107",
+     "chunk_0362",
+     "chunk_0278",
+     "chunk_0298",
+     "chunk_0275",
+     "chunk_0352",
+     "chunk_0252",
+     "chunk_0324"
+    ]
+   },
+   {
+    "query_id": "q040",
+    "chunk_ids": [
+     "chunk_0312",
+     "chunk_0388",
+     "chunk_0360",
+     "chunk_0415",
+     "chunk_0077",
+     "chunk_0316",
+     "chunk_0338",
+     "chunk_0039"
+    ]
+   },
+   {
+    "query_id": "q041",
+    "chunk_ids": [
+     "chunk_0017",
+     "chunk_0310",
+     "chunk_0381",
+     "chunk_0008",
+     "chunk_0254",
+     "chunk_0246",
+     "chunk_0158",
+     "chunk_0063"
+    ]
+   },
+   {
+    "query_id": "q042",
+    "chunk_ids": [
+     "chunk_0050",
+     "chunk_0127",
+     "chunk_0276",
+     "chunk_0125",
+     "chunk_0353",
+     "chunk_0286",
+     "chunk_0071",
+     "chunk_0035"
+    ]
+   },
+   {
+    "query_id": "q043",
+    "chunk_ids": [
+     "chunk_0150",
+     "chunk_0018",
+     "chunk_0164",
+     "chunk_0336",
+     "chunk_0137",
+     "chunk_0010",
+     "chunk_0058",
+     "chunk_0080"
+    ]
+   },
+   {
+    "query_id": "q044",
+    "chunk_ids": [
+     "chunk_0147",
+     "chunk_0193",
+     "chunk_0278",
+     "chunk_0164",
+     "chunk_0124",
+     "chunk_0378",
+     "chunk_0100",
+     "chunk_0205"
+    ]
+   },
+   {
+    "query_id": "q045",
+    "chunk_ids": [
+     "chunk_0301",
+     "chunk_0097",
+     "chunk_0370",
+     "chunk_0148",
+     "chunk_0267",
+     "chunk_0290",
+     "chunk_0224",
+     "chunk_0113"
+    ]
+   },
+   {
+    "query_id": "q046",
+    "chunk_ids": [
+     "chunk_0126",
+     "chunk_0078",
+     "chunk_0107",
+     "chunk_0063",
+     "chunk_0055",
+     "chunk_0393",
+     "chunk_0214",
+     "chunk_0358"
+    ]
+   },
+   {
+    "query_id": "q047",
+    "chunk_ids": [
+     "chunk_0288",
+     "chunk_0163",
+     "chunk_0309",
+     "chunk_0409",
+     "chunk_0212",
+     "chunk_0075",
+     "chunk_0269",
+     "chunk_0198"
+    ]
+   },
+   {
+    "query_id": "q048",
+    "chunk_ids": [
+     "chunk_0257",
+     "chunk_0202",
+     "chunk_0013",
+     "chunk_0094",
+     "chunk_0297",
+     "chunk_0319",
+     "chunk_0007",
+     "chunk_0345"
+    ]
+   },
+   {
+    "query_id": "q049",
+    "chunk_ids": [
+     "chunk_0382",
+     "chunk_0138",
+     "chunk_0074",
+     "chunk_0298",
+     "chunk_0309",
+     "chunk_0016",
+     "chunk_0028",
+     "chunk_0386"
+    ]
+   },
+   {
+    "query_id": "q050",
+    "chunk_ids": [
+     "chunk_0227",
+     "chunk_0293",
+     "chunk_0309",
+     "chunk_0174",
+     "chunk_0336",
+     "chunk_0139",
+     "chunk_0239",
+     "chunk_0311"
+    ]
+   },
+   {
+    "query_id": "q051",
+    "chunk_ids": [
+     "chunk_0379",
+     "chunk_0228",
+     "chunk_0294",
+     "chunk_0362",
+     "chunk_0326",
+     "chunk_0077",
+     "chunk_0022",
+     "chunk_0158"
+    ]
+   },
+   {
+    "query_id": "q052",
+    "chunk_ids": [
+     "chunk_0099",
+     "chunk_0005",
+     "chunk_0202",
+     "chunk_0338",
+     "chunk_0144",
+     "chunk_0049",
+     "chunk_0344",
+     "chunk_0013"
+    ]
+   },
+   {
+    "query_id": "q053",
+    "chunk_ids": [
+     "chunk_0070",
+     "chunk_0132",
+     "chunk_0230",
+     "chunk_0264",
+     "chunk_0012",
+     "chunk_0024",
+     "chunk_0184",
+     "chunk_0008"
+    ]
+   },
+   {
+    "query_id": "q054",
+    "chunk_ids": [
+     "chunk_0172",
+     "chunk_0215",
+     "chunk_0241",
+     "chunk_0039",
+     "chunk_0246",
+     "chunk_0412",
+     "chunk_0373",
+     "chunk_0052"
+    ]
+   },
+   {
+    "query_id": "q055",
+    "chunk_ids": [
+     "chunk_0011",
+     "chunk_0389",
+     "chunk_0383",
+     "chunk_0245",
+     "chunk_0371",
+     "chunk_0321",
+     "chunk_0026",
+     "chunk_0237"
+    ]
+   },
+   {
+    "query_id": "q056",
+    "chunk_ids": [
+     "chunk_0245",
+     "chunk_0147",
+     "chunk_0242",
+     "chunk_0393",
+     "chunk_0244",
+     "chunk_0026",
+     "chunk_0223",
+     "chunk_0058"
+    ]
+   },
+   {
+    "query_id": "q057",
+    "chunk_ids": [
+     "chunk_0386",
+     "chunk_0306",
+     "chunk_0352",
+     "chunk_0079",
+     "chunk_0237",
+     "chunk_0293",
+     "chunk_0186",
+     "chunk_0242"
+    ]
+   },
+   {
+    "query_id": "q058",
+    "chunk_ids": [
+     "chunk_0179",
+     "chunk_0303",
+     "chunk_0166",
+     "chunk_0098",
+     "chunk_0351",
+     "chunk_0330",
+     "chunk_0223",
+     "chunk_0114"
+    ]
+   },
+   {
+    "query_id": "q059",
+    "chunk_ids": [
+     "chunk_0283",
+     "chunk_0331",
+     "chunk_0401",
+     "chunk_0149",
+     "chunk_0017",
+     "chunk_0348",
+     "chunk_0345",
+     "chunk_0288"
+    ]
+   },
+   {
+    "query_id": "q060",
+    "chunk_ids": [
+     "chunk_0031",
+     "chunk_0189",
+     "chunk_0103",
+     "chunk_0234",
+     "chunk_0009",
+     "chunk_0386",
+     "chunk_0007",
+     "chunk_0075"
+    ]
+   },
+   {
+    "query_id": "q061",
+    "chunk_ids": [
+     "chunk_0059",
+     "chunk_0028",
+     "chunk_0056",
+     "chunk_0305",
+     "chunk_0174",
+     "chunk_0279",
+     "chunk_0239",
+     "chunk_0038"
+    ]
+   },
+   {
+    "query_id": "q062",
+    "chunk_ids": [
+     "chunk_0173",
+     "chunk_0188",
+     "chunk_0323",
+     "chunk_0041",
+     "chunk_0350",
+     "chunk_0195",
+     "chunk_0034",
+     "chunk_0372"
+    ]
+   },
+   {
+    "query_id": "q063",
+    "chunk_ids": [
+     "chunk_0002",
+     "chunk_0022",
+     "chunk_0389",
+     "chunk_0073",
+     "chunk_0109",
+     "chunk_0378",
+     "chunk_0197",
+     "chunk_0279"
+    ]
+   },
+   {
+    "query_id": "q064",
+    "chunk_ids": [
+     "chunk_0324",
+     "chunk_0023",
+     "chunk_0034",
+     "chunk_0241",
+     "chunk_0103",
+     "chunk_0303",
+     "chunk_0367",
+     "chunk_0032"
+    ]
+   },
+   {
+    "query_id": "q065",
+    "chunk_ids": [
+     "chunk_0216",
+     "chunk_0254",
+     "chunk_0246",
+     "chunk_0120",
+     "chunk_0225",
+     "chunk_0392",
+     "chunk_0166",
+     "chunk_0347"
+    ]
+   }
+  ],
+  "fulltime_asmith": [
+   {
+    "query_id": "q001",
+    "chunk_ids": [
+     "chunk_0028",
+     "chunk_0108",
+     "chunk_0204",
+     "chunk_0144",
+     "chunk_0404",
+     "chunk_0015",
+     "chunk_0155",
+     "chunk_0218"
+    ]
+   },
+   {
+    "query_id": "q002",
+    "chunk_ids": [
+     "chunk_0354",
+     "chunk_0219",
+     "chunk_0055",
+     "chunk_0332",
+     "chunk_0061",
+     "chunk_0138",
+     "chunk_0068",
+     "chunk_0280"
+    ]
+   },
+   {
+    "query_id": "q003",
+    "chunk_ids": [
+     "chunk_0142",
+     "chunk_0375",
+     "chunk_0355",
+     "chunk_0396",
+     "chunk_0084",
+     "chunk_0106",
+     "chunk_0391",
+     "chunk_0252"
+    ]
+   },
+   {
+    "query_id": "q004",
+    "chunk_ids": [
+     "chunk_0320",
+     "chunk_0361",
+     "chunk_0203",
+     "chunk_0010",
+     "chunk_0373",
+     "chunk_0362",
+     "chunk_0227",
+     "chunk_0121"
+    ]
+   },
+   {
+    "query_id": "q005",
+    "chunk_ids": [
+     "chunk_0282",
+     "chunk_0250",
+     "chunk_0398",
+     "chunk_0413",
+     "chunk_0181",
+     "chunk_0040",
+     "chunk_0315",
+     "chunk_0271"
+    ]
+   },
+   {
+    "query_id": "q006",
+    "chunk_ids": [
+     "chunk_0046",
+     "chunk_0257",
+     "chunk_0088",
+     "chunk_0012",
+     "chunk_0377",
+     "chunk_0291",
+     "chunk_0256",
+     "chunk_0406"
+    ]
+   },
+   {
+    "query_id": "q007",
+    "chunk_ids": [
+     "chunk_0001",
+     "chunk_0164",
+     "chunk_0232",
+     "chunk_0094",
+     "chunk_0245",
+     "chunk_0382",
+     "chunk_0058",
+     "chunk_0192"
+    ]
+   },
+   {
+    "query_id": "q008",
+    "chunk_ids": [
+     "chunk_0192",
+     "chunk_0389",
+     "chunk_0314",
+     "chunk_0137",
+     "chunk_0272",
+     "chunk_0001",
+     "chunk_0147",
+     "chunk_0403"
+    ]
+   },
+   {
+    "query_id": "q009",
+    "chunk_ids": [
+     "chunk_0213",
+     "chunk_0314",
+     "chunk_0101",
+     "chunk_0356",
+     "chunk_0186",
+     "chunk_0077",
+     "chunk_0380",
+     "chunk_0262"
+    ]
+   },
+   {
+    "query_id": "q010",
+    "chunk_ids": [
+     "chunk_0397",
+     "chunk_0259",
+     "chunk_0300",
+     "chunk_0051",
+     "chunk_0149",
+     "chunk_0171",
+     "chunk_0089",
+     "chunk_0213"
+    ]
+   },
+   {
+    "query_id": "q011",
+    "chunk_ids": [
+     "chunk_0236",
+     "chunk_0066",
+     "chunk_0003",
+     "chunk_0394",
+     "chunk_0017",
+     "chunk_0265",
+     "chunk_0163",
+     "chunk_0060"
+    ]
+   },
+   {
+    "query_id": "q012",
+    "chunk_ids": [
+     "chunk_0265",
+     "chunk_0413",
+     "chunk_0257",
+     "chunk_0003",
+     "chunk_0220",
+     "chunk_0103",
+     "chunk_0196",
+     "chunk_0214"
+    ]
+   },
+   {
+    "query_id": "q013",
+    "chunk_ids": [
+     "chunk_0390",
+     "chunk_0382",
+     "chunk_0341",
+     "chunk_0020",
+     "chunk_0182",
+     "chunk_0126",
+     "chunk_0162",
+     "chunk_0305"
+    ]
+   },
+   {
+    "query_id": "q014",
+    "chunk_ids": [
+     "chunk_0350",
+     "chunk_0176",
+     "chunk_0344",
+     "chunk_0167",
+     "chunk_0315",
+     "chunk_0138",
+     "chunk_0326",
+     "chunk_0336"
+    ]
+   },
+   {
+    "query_id": "q015",
+    "chunk_ids": [
+     "chunk_0121",
+     "chunk_0417",
+     "chunk_0285",
+     "chunk_0301",
+     "chunk_0203",
+     "chunk_0055",
+     "chunk_0252",
+     "chunk_0044"
+    ]
+   },
+   {
+    "query_id": "q016",
+    "chunk_ids": [
+     "chunk_0021",
+     "chunk_0073",
+     "chunk_0087",
+     "chunk_0061",
+     "chunk_0253",
+     "chunk_0002",
+     "chunk_0284",
+     "chunk_0083"
+    ]
+   },
+   {
+    "query_id": "q017",
+    "chunk_ids": [
+     "chunk_0012",
+     "chunk_0052",
+     "chunk_0358",
+     "chunk_0128",
+     "chunk_0260",
+     "chunk_0310",
+     "chunk_0420",
+     "chunk_0208"
+    ]
+   },
+   {
+    "query_id": "q018",
+    "chunk_ids": [
+     "chunk_0215",
+     "chunk_0268",
+     "chunk_0276",
+     "chunk_0357",
+     "chunk_0302",
+     "chunk_0138",
+     "chunk_0072",
+     "chunk_0088"
+    ]
+   },
+   {
+    "query_id": "q019",
+    "chunk_ids": [
+     "chunk_0371",
+     "chunk_0306",
+     "chunk_0258",
+     "chunk_0037",
+     "chunk_0365",
+     "chunk_0164",
+     "chunk_0194",
+     "chunk_0131"
+    ]
+   },
+   {
+    "query_id": "q020",
+    "chunk_ids": [
+     "chunk_0079",
+     "chunk_0261",
+     "chunk_0335",
+     "chunk_0124",
+     "chunk_0026",
+     "chunk_0001",
+     "chunk_0415",
+     "chunk_0329"
+    ]
+   },
+   {
+    "query_id": "q021",
+    "chunk_ids": [
+     "chunk_0065",
+     "chunk_0074",
+     "chunk_0249",
+     "chunk_0419",
+     "chunk_0079",
+     "chunk_0259",
+     "chunk_0156",
+     "chunk_0214"
+    ]
+   },
+   {
+    "query_id": "q022",
+    "chunk_ids": [
+     "chunk_0063",
+     "chunk_0287",
+     "chunk_0356",
+     "chunk_0245",
+     "chunk_0185",
+     "chunk_0170",
+     "chunk_0304",
+     "chunk_0405"
+    ]
+   },
+   {
+    "query_id": "q023",
+    "chunk_ids": [
+     "chunk_0400",
+     "chunk_0249",
+     "chunk_0385",
+     "chunk_0025",
+     "chunk_0234",
+     "chunk_0031",
+     "chunk_0269",
+     "chunk_0200"
+    ]
+   },
+   {
+    "query_id": "q024",
+    "chunk_ids": [
+     "chunk_0182",
+     "chunk_0162",
+     "chunk_0081",
+     "chunk_0066",
+     "chunk_0372",
+     "chunk_0231",
+     "chunk_0351",
+     "chunk_0129"
+    ]
+   },
+   {
+    "query_id": "q025",
+    "chunk_ids": [
+     "chunk_0086",
+     "chunk_0350",
+     "chunk_0394",
+     "chunk_0201",
+     "chunk_0404",
+     "chunk_0078",
+     "chunk_0349",
+     "chunk_0016"
+    ]
+   },
+   {
+    "query_id": "q026",
+    "chunk_ids": [
+     "chunk_0416",
+     "chunk_0034",
+     "chunk_0159",
+     "chunk_0218",
+     "chunk_0221",
+     "chunk_0143",
+     "chunk_0090",
+     "chunk_0116"
+    ]
+   },
+   {
+    "query_id": "q027",
+    "chunk_ids": [
+     "chunk_0133",
+     "chunk_0029",
+     "chunk_0292",
+     "chunk_0324",
+     "chunk_0144",
+     "chunk_0419",
+     "chunk_0110",
+     "chunk_0279"
+    ]
+   },
+   {
+    "query_id": "q028",
+    "chunk_ids": [
+     "chunk_0009",
+     "chunk_0415",
+     "chunk_0301",
+     "chunk_0191",
+     "chunk_0419",
+     "chunk_0042",
+     "chunk_0395",
+     "chunk_0344"
+    ]
+   },
+   {
+    "query_id": "q029",
+    "chunk_ids": [
+     "chunk_0192",
+     "chunk_0225",
+     "chunk_0381",
+     "chunk_0392",
+     "chunk_0215",
+     "chunk_0258",
+     "chunk_0254",
+     "chunk_0024"
+    ]
+   },
+   {
+    "query_id": "q030",
+    "chunk_ids": [
+     "chunk_0169",
+     "chunk_0052",
+     "chunk_0420",
+     "chunk_0246",
+     "chunk_0381",
+     "chunk_0067",
+     "chunk_0183",
+     "chunk_0239"
+    ]
+   },
+   {
+    "query_id": "q031",
+    "chunk_ids": [
+     "chunk_0001",
+     "chunk_0161",
+     "chunk_0245",
+     "chunk_0205",
+     "chunk_0267",
+     "chunk_0124",
+     "chunk_0389",
+     "chunk_0222"
+    ]
+   },
+   {
+    "query_id": "q032",
+    "chunk_ids": [
+     "chunk_0258",
+     "chunk_0232",
+     "chunk_0277",
+     "chunk_0397",
+     "chunk_0140",
+     "chunk_0411",
+     "chunk_0333",
+     "chunk_0080"
+    ]
+   },
+   {
+    "query_id": "q033",
+    "chunk_ids": [
+     "chunk_0366",
+     "chunk_0280",
+     "chunk_0135",
+     "chunk_0065",
+     "chunk_0253",
+     "chunk_0086",
+     "chunk_0269",
+     "chunk_0400"
+    ]
+   },
+   {
+    "query_id": "q034",
+    "chunk_ids": [
+     "chunk_0101",
+     "chunk_0171",
+     "chunk_0006",
+     "chunk_0188",
+     "chunk_0029",
+     "chunk_0069",
+     "chunk_0308",
+     "chunk_0064"
+    ]
+   },
+   {
+    "query_id": "q035",
+    "chunk_ids": [
+     "chunk_0269",
+     "chunk_0128",
+     "chunk_0270",
+     "chunk_0400",
+     "chunk_0193",
+     "chunk_0019",
+     "chunk_0069",
+     "chunk_0385"
+    ]
+   },
+   {
+    "query_id": "q036",
+    "chunk_ids": [
+     "chunk_0282",
+     "chunk_0096",
+     "chunk_0268",
+     "chunk_0319",
+     "chunk_0400",
+     "chunk_0043",
+     "chunk_0318",
+     "chunk_0285"
+    ]
+   },
+   {
+    "query_id": "q037",
+    "chunk_ids": [
+     "chunk_0161",
+     "chunk_0095",
+     "chunk_0177",
+     "chunk_0104",
+     "chunk_0234",
+     "chunk_0122",
+     "chunk_0311",
+     "chunk_0309"
+    ]
+   },
+   {
+    "query_id": "q038",
+    "chunk_ids": [
+     "chunk_0326",
+     "chunk_0087",
+     "chunk_0260",
+     "chunk_0419",
+     "chunk_0138",
+     "chunk_0086",
+     "chunk_0126",
+     "chunk_0055"
+    ]
+   },
+   {
+    "query_id": "q039",
+    "chunk_ids": [
+     "chunk_0107",
+     "chunk_0362",
+     "chunk_0278",
+     "chunk_0298",
+     "chunk_0275",
+     "chunk_0352",
+     "chunk_0252",
+     "chunk_0324"
+    ]
+   },
+   {
+    "query_id": "q040",
+    "chunk_ids": [
+     "chunk_0312",
+     "chunk_0388",
+     "chunk_0360",
+     "chunk_0415",
+     "chunk_0077",
+     "chunk_0316",
+     "chunk_0338",
+     "chunk_0039"
+    ]
+   },
+   {
+    "query_id": "q041",
+    "chunk_ids": [
+     "chunk_0017",
+     "chunk_0310",
+     "chunk_0381",
+     "chunk_0008",
+     "chunk_0254",
+     "chunk_0246",
+     "chunk_0158",
+     "chunk_0063"
+    ]
+   },
+   {
+    "query_id": "q042",
+    "chunk_ids": [
+     "chunk_0050",
+     "chunk_0127",
+     "chunk_0276",
+     "chunk_0125",
+     "chunk_0353",
+     "chunk_0286",
+     "chunk_0071",
+     "chunk_0035"
+    ]
+   },
+   {
+    "query_id": "q043",
+    "chunk_ids": [
+     "chunk_0150",
+     "chunk_0018",
+     "chunk_0164",
+     "chunk_0336",
+     "chunk_0137",
+     "chunk_0010",
+     "chunk_0058",
+     "chunk_0080"
+    ]
+   },
+   {
+    "query_id": "q044",
+    "chunk_ids": [
+     "chunk_0147",
+     "chunk_0193",
+     "chunk_0278",
+     "chunk_0164",
+     "chunk_0124",
+     "chunk_0378",
+     "chunk_0100",
+     "chunk_0205"
+    ]
+   },
+   {
+    "query_id": "q045",
+    "chunk_ids": [
+     "chunk_0301",
+     "chunk_0097",
+     "chunk_0370",
+     "chunk_0148",
+     "chunk_0267",
+     "chunk_0290",
+     "chunk_0224",
+     "chunk_0113"
+    ]
+   },
+   {
+    "query_id": "q046",
+    "chunk_ids": [
+     "chunk_0126",
+     "chunk_0078",
+     "chunk_0107",
+     "chunk_0063",
+     "chunk_0055",
+     "chunk_0393",
+     "chunk_0214",
+     "chunk_0358"
+    ]
+   },
+   {
+    "query_id": "q047",
+    "chunk_ids": [
+     "chunk_0288",
+     "chunk_0163",
+     "chunk_0309",
+     "chunk_0409",
+     "chunk_0212",
+     "chunk_0075",
+     "chunk_0269",
+     "chunk_0198"
+    ]
+   },
+   {
+    "query_id": "q048",
+    "chunk_ids": [
+     "chunk_0257",
+     "chunk_0202",
+     "chunk_0013",
+     "chunk_0094",
+     "chunk_0297",
+     "chunk_0319",
+     "chunk_0007",
+     "chunk_0345"
+    ]
+   },
+   {
+    "query_id": "q049",
+    "chunk_ids": [
+     "chunk_0382",
+     "chunk_0138",
+     "chunk_0074",
+     "chunk_0298",
+     "chunk_0309",
+     "chunk_0016",
+     "chunk_0028",
+     "chunk_0386"
+    ]
+   },
+   {
+    "query_id": "q050",
+    "chunk_ids": [
+     "chunk_0227",
+     "chunk_0293",
+     "chunk_0309",
+     "chunk_0174",
+     "chunk_0336",
+     "chunk_0139",
+     "chunk_0239",
+     "chunk_0311"
+    ]
+   },
+   {
+    "query_id": "q051",
+    "chunk_ids": [
+     "chunk_0379",
+     "chunk_0228",
+     "chunk_0294",
+     "chunk_0362",
+     "chunk_0326",
+     "chunk_0077",
+     "chunk_0022",
+     "chunk_0158"
+    ]
+   },
+   {
+    "query_id": "q052",
+    "chunk_ids": [
+     "chunk_0099",
+     "chunk_0005",
+     "chunk_0202",
+     "chunk_0338",
+     "chunk_0144",
+     "chunk_0049",
+     "chunk_0344",
+     "chunk_0013"
+    ]
+   },
+   {
+    "query_id": "q053",
+    "chunk_ids": [
+     "chunk_0070",
+     "chunk_0132",
+     "chunk_0230",
+     "chunk_0264",
+     "chunk_0012",
+     "chunk_0024",
+     "chunk_0184",
+     "chunk_0008"
+    ]
+   },
+   {
+    "query_id": "q054",
+    "chunk_ids": [
+     "chunk_0172",
+     "chunk_0215",
+     "chunk_0241",
+     "chunk_0039",
+     "chunk_0246",
+     "chunk_0412",
+     "chunk_0373",
+     "chunk_0052"
+    ]
+   },
+   {
+    "query_id": "q055",
+    "chunk_ids": [
+     "chunk_0011",
+     "chunk_0389",
+     "chunk_0383",
+     "chunk_0245",
+     "chunk_0371",
+     "chunk_0321",
+     "chunk_0026",
+     "chunk_0237"
+    ]
+   },
+   {
+    "query_id": "q056",
+    "chunk_ids": [
+     "chunk_0245",
+     "chunk_0147",
+     "chunk_0242",
+     "chunk_0393",
+     "chunk_0244",
+     "chunk_0026",
+     "chunk_0223",
+     "chunk_0058"
+    ]
+   },
+   {
+    "query_id": "q057",
+    "chunk_ids": [
+     "chunk_0386",
+     "chunk_0306",
+     "chunk_0352",
+     "chunk_0079",
+     "chunk_0237",
+     "chunk_0293",
+     "chunk_0186",
+     "chunk_0242"
+    ]
+   },
+   {
+    "query_id": "q058",
+    "chunk_ids": [
+     "chunk_0179",
+     "chunk_0303",
+     "chunk_0166",
+     "chunk_0098",
+     "chunk_0351",
+     "chunk_0330",
+     "chunk_0223",
+     "chunk_0114"
+    ]
+   },
+   {
+    "query_id": "q059",
+    "chunk_ids": [
+     "chunk_0283",
+     "chunk_0331",
+     "chunk_0401",
+     "chunk_0149",
+     "chunk_0017",
+     "chunk_0348",
+     "chunk_0345",
+     "chunk_0288"
+    ]
+   },
+   {
+    "query_id": "q060",
+    "chunk_ids": [
+     "chunk_0031",
+     "chunk_0189",
+     "chunk_0103",
+     "chunk_0234",
+     "chunk_0009",
+     "chunk_0386",
+     "chunk_0007",
+     "chunk_0075"
+    ]
+   },
+   {
+    "query_id": "q061",
+    "chunk_ids": [
+     "chunk_0059",
+     "chunk_0028",
+     "chunk_0056",
+     "chunk_0305",
+     "chunk_0174",
+     "chunk_0279",
+     "chunk_0239",
+     "chunk_0038"
+    ]
+   },
+   {
+    "query_id": "q062",
+    "chunk_ids": [
+     "chunk_0173",
+     "chunk_0188",
+     "chunk_0323",
+     "chunk_0041",
+     "chunk_0350",
+     "chunk_0195",
+     "chunk_0034",
+     "chunk_0372"
+    ]
+   },
+   {
+    "query_id": "q063",
+    "chunk_ids": [
+     "chunk_0002",
+     "chunk_0022",
+     "chunk_0389",
+     "chunk_0073",
+     "chunk_0109",
+     "chunk_0378",
+     "chunk_0197",
+     "chunk_0279"
+    ]
+   },
+   {
+    "query_id": "q064",
+    "chunk_ids": [
+     "chunk_0324",
+     "chunk_0023",
+     "chunk_0034",
+     "chunk_0241",
+     "chunk_0103",
+     "chunk_0303",
+     "chunk_0367",
+     "chunk_0032"
+    ]
+   },
+   {
+    "query_id": "q065",
+    "chunk_ids": [
+     "chunk_0216",
+     "chunk_0254",
+     "chunk_0246",
+     "chunk_0120",
+     "chunk_0225",
+     "chunk_0392",
+     "chunk_0166",
+     "chunk_0347"
+    ]
+   }
+  ]
+ }
+}
