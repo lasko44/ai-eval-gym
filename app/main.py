@@ -10,8 +10,18 @@ from fastapi.responses import RedirectResponse, Response
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, field_validator
 
+from app import units as curriculum
 from app.db import get_session
-from app.models import COMPARATORS, Claim, Cycle, HarnessRun, Measurement
+from app.metrics import brier_score
+from app.models import (
+    COMPARATORS,
+    Claim,
+    Cycle,
+    ExerciseAttempt,
+    HarnessRun,
+    Measurement,
+    ProbeAttempt,
+)
 from app.scoring import _latest_measurements, resolve_claim, score_cycle
 from app.sealing import SealError, seal_cycle
 
@@ -485,3 +495,153 @@ def export_teardown_markdown(cycle_id: int):
         return Response(content=markdown, media_type="text/markdown")
     finally:
         session.close()
+
+
+# Units. The curriculum surface: read the failure, commit a prediction about it
+# with a confidence, then implement the detection against a fixture and post the
+# number. Probe calibration is tracked separately from teardown calibration, on
+# purpose: probes are cheap and numerous and would otherwise dominate a pooled
+# headline number.
+
+
+def _first_attempt_per_probe(session, slug):
+    """The first commit for each probe is the one that counts.
+
+    Answering again after reading the explanation is allowed, because rereading
+    a unit is useful, but it is not a prediction and it does not replace the
+    original.
+    """
+    rows = (
+        session.query(ProbeAttempt)
+        .filter(ProbeAttempt.unit_slug == slug)
+        .order_by(ProbeAttempt.id)
+        .all()
+    )
+    first = {}
+    for row in rows:
+        first.setdefault(row.probe_id, row)
+    return first
+
+
+def _unit_progress(session, unit):
+    first = _first_attempt_per_probe(session, unit.slug)
+    pairs = [(a.probability, a.correct) for a in first.values()]
+    passed = (
+        session.query(ExerciseAttempt)
+        .filter(ExerciseAttempt.unit_slug == unit.slug, ExerciseAttempt.correct.is_(True))
+        .first()
+        is not None
+    )
+    return {
+        "answered": len(first),
+        "total": len(unit.probes),
+        "right": sum(1 for a in first.values() if a.correct),
+        "brier": brier_score(pairs) if pairs else None,
+        "exercise_passed": passed,
+        "attempts": first,
+    }
+
+
+@app.get("/units")
+def list_units(request: Request):
+    session = get_session()
+    try:
+        rows = [
+            {"unit": unit, "progress": _unit_progress(session, unit)}
+            for unit in curriculum.UNITS
+        ]
+        return templates.TemplateResponse(request, "units.html", {"rows": rows})
+    finally:
+        session.close()
+
+
+@app.get("/units/{slug}")
+def show_unit(slug: str, request: Request):
+    unit = curriculum.get(slug)
+    if unit is None:
+        raise HTTPException(status_code=404, detail=f"No unit named {slug!r}.")
+    session = get_session()
+    try:
+        progress = _unit_progress(session, unit)
+        exercise_attempts = (
+            session.query(ExerciseAttempt)
+            .filter(ExerciseAttempt.unit_slug == slug)
+            .order_by(ExerciseAttempt.id)
+            .all()
+        )
+        return templates.TemplateResponse(
+            request,
+            "unit.html",
+            {
+                "unit": unit,
+                "progress": progress,
+                "exercise_attempts": exercise_attempts,
+            },
+        )
+    finally:
+        session.close()
+
+
+@app.post("/units/{slug}/probes/{probe_id}")
+def answer_probe(
+    slug: str,
+    probe_id: str,
+    choice: str = Form(...),
+    probability: float = Form(...),
+):
+    unit = curriculum.get(slug)
+    if unit is None:
+        raise HTTPException(status_code=404, detail=f"No unit named {slug!r}.")
+    probe = next((p for p in unit.probes if p.id == probe_id), None)
+    if probe is None:
+        raise HTTPException(status_code=404, detail=f"No probe named {probe_id!r}.")
+    if choice not in {c.key for c in probe.choices}:
+        raise HTTPException(status_code=422, detail=f"{choice!r} is not one of this probe's options.")
+    if not math.isfinite(probability) or not 0.0 <= probability <= 1.0:
+        raise HTTPException(
+            status_code=422,
+            detail="Confidence has to be a number from 0 to 1.",
+        )
+
+    session = get_session()
+    try:
+        session.add(
+            ProbeAttempt(
+                unit_slug=slug,
+                probe_id=probe_id,
+                choice=choice,
+                probability=probability,
+                correct=(choice == probe.answer),
+            )
+        )
+        session.commit()
+    finally:
+        session.close()
+    return RedirectResponse(url=f"/units/{slug}#probe-{probe_id}", status_code=303)
+
+
+@app.post("/units/{slug}/exercise")
+def submit_exercise(slug: str, value: float = Form(...)):
+    unit = curriculum.get(slug)
+    if unit is None:
+        raise HTTPException(status_code=404, detail=f"No unit named {slug!r}.")
+    if not math.isfinite(value):
+        raise HTTPException(
+            status_code=422,
+            detail=f"{value} is not a number a measurement can be checked against.",
+        )
+
+    exercise = unit.exercise
+    session = get_session()
+    try:
+        session.add(
+            ExerciseAttempt(
+                unit_slug=slug,
+                value=value,
+                correct=abs(value - exercise.expected) <= exercise.tolerance,
+            )
+        )
+        session.commit()
+    finally:
+        session.close()
+    return RedirectResponse(url=f"/units/{slug}#detect", status_code=303)

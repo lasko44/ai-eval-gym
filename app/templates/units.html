@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Units{% endblock %}
+{% block content %}
+    <div class="strip">
+        <h2>Units</h2>
+    </div>
+    <p class="lede">
+        One production failure mode per unit, paired with the measurement that
+        catches it. You read what goes wrong, commit a prediction about it with
+        a confidence, then implement the detection yourself against a fixture
+        with a known answer.
+    </p>
+    <p class="note">
+        Your calibration here is kept separate from your teardown score on
+        purpose. Probes are cheap and numerous, teardown claims are few and
+        expensive, so pooling them would give you a headline number that is
+        mostly a quiz result.
+    </p>
+
+    <h3>Available now</h3>
+    <ul class="rows">
+        {% for row in rows %}
+            <li>
+                <span class="idx">{{ "%02d"|format(row.unit.number) }}</span>
+                <div class="body">
+                    <h4 style="margin-top:0"><a href="/units/{{ row.unit.slug }}">{{ row.unit.title }}</a></h4>
+                    <p class="note">{{ row.unit.failure }}</p>
+                    <p class="note"><b>You learn to:</b> {{ row.unit.detection }}</p>
+                    <div class="pills">
+                        <span class="pill{% if row.progress.answered == row.progress.total %} pill-done{% endif %}">
+                            predictions <b>{{ row.progress.answered }} of {{ row.progress.total }}</b>
+                        </span>
+                        {% if row.progress.answered %}
+                            <span class="pill">calibration <b class="num">{{ "%.3f"|format(row.progress.brier) }}</b></span>
+                        {% endif %}
+                        <span class="pill{% if row.progress.exercise_passed %} pill-done{% endif %}">
+                            detection <b>{% if row.progress.exercise_passed %}done{% else %}not yet{% endif %}</b>
+                        </span>
+                        <span class="pill">{{ row.unit.minutes }} min</span>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Still to build</h3>
+    <p class="note">
+        The research notes carry 17 verified failure modes with their numbers and
+        primary sources, in <code>docs/research/engineering-failure-modes.md</code>.
+        The ones queued next are context rot, stale document poisoning, missing
+        rerankers, retrieval coverage audits, guardrail evasion, indirect prompt
+        injection through retrieved content, runaway retry loops, and permissions
+        checked above retrieval. Each becomes a unit in this same shape.
+    </p>
+{% endblock %}

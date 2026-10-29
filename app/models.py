@@ -16,7 +16,7 @@ exist, so both relationships are defined.
 
 from datetime import UTC, datetime
 
-from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 from app.db import Base
@@ -141,3 +141,44 @@ class SpendLedger(Base):
     id = Column(Integer, primary_key=True)
     month = Column(String, nullable=False, unique=True)
     spent_cents = Column(Integer, nullable=False, default=0)
+
+
+class ProbeAttempt(Base):
+    """One committed answer to a unit's calibration probe.
+
+    A row is written when he commits a choice and a confidence, before the
+    answer is shown. It is never updated: answering the same probe again writes
+    a second attempt, and the first one still counts, because a probe answered
+    after reading the explanation is not a prediction.
+
+    Probe calibration is deliberately kept apart from teardown calibration.
+    Probes are cheap and numerous, teardown claims are few and expensive, so
+    pooling them would produce a headline number that is mostly a quiz score.
+    """
+
+    __tablename__ = "probe_attempts"
+
+    id = Column(Integer, primary_key=True)
+    unit_slug = Column(String, nullable=False)
+    probe_id = Column(String, nullable=False)
+    choice = Column(String, nullable=False)
+    probability = Column(Float, nullable=False)
+    correct = Column(Boolean, nullable=False)
+    created_at = Column(DateTime(timezone=True), nullable=False, default=_utcnow)
+
+
+class ExerciseAttempt(Base):
+    """One posted result for a unit's detection exercise.
+
+    The app never runs his code. He writes the measurement against the fixture
+    that ships with the unit and posts the number, the same way a harness posts
+    a cycle run, and it is checked against the fixture's known label.
+    """
+
+    __tablename__ = "exercise_attempts"
+
+    id = Column(Integer, primary_key=True)
+    unit_slug = Column(String, nullable=False)
+    value = Column(Float, nullable=False)
+    correct = Column(Boolean, nullable=False)
+    created_at = Column(DateTime(timezone=True), nullable=False, default=_utcnow)

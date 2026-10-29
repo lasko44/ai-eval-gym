@@ -5,306 +5,378 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}AI Eval Gym{% endblock %}</title>
     <style>
-        /* One stylesheet, read top to bottom. Two rules explain most of it.
-           First, the machine writes in monospace and you write in serif: every
-           metric, number, hash and stage token is mono, and every word you
-           typed is serif. This app never writes a prediction for you, so that
-           difference is worth seeing. Second, the accent colour marks only
-           what you got wrong. A correct call gets no colour, because the
-           misses are the output worth reading. */
+        /* One stylesheet, read top to bottom.
+
+           This is a place to learn something, so it is set like something you
+           read: a sans face at a comfortable size, real headings, and room
+           between things. Monospace is reserved for the things that are
+           literally code or data, which is metric names, numbers, hashes and
+           commands. Everything else is prose. */
 
         :root {
-            --paper: #f4f6f3;
-            --ink: #1b2023;
-            --rule: #d2d7d1;
-            --faint: #697069;
-            --mark: #8a4a00;
+            --bg: #f5f7f9;
+            --surface: #ffffff;
+            --ink: #16202a;
+            --muted: #5c6b7a;
+            --line: #e1e8ee;
+            --line-strong: #cbd6e0;
+            --accent: #1d4ed8;
+            --accent-soft: #eef2ff;
+            --good: #15803d;
+            --warn: #b45309;
 
+            --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-            --prose: Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
-
-            --gutter: 2.25rem;
         }
 
         *, *::before, *::after { box-sizing: border-box; }
 
         body {
             margin: 0;
-            padding: 2rem 1rem 6rem;
-            background: var(--paper);
+            padding: 0 1rem 7rem;
+            background: var(--bg);
             color: var(--ink);
-            font: 400 15px/1.45 var(--mono);
-            -webkit-text-size-adjust: 100%;
+            font: 400 17px/1.65 var(--sans);
+            -webkit-font-smoothing: antialiased;
         }
 
-        .sheet { max-width: 60rem; margin: 0 auto; }
+        .sheet { max-width: 48rem; margin: 0 auto; }
 
-        /* Masthead. The app name is the only thing here; a page says what it
-           is in its own strip below. */
+        /* Masthead */
         .masthead {
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
+            align-items: center;
             gap: 1rem;
-            padding-bottom: 0.35rem;
-            border-bottom: 2px solid var(--ink);
+            padding: 1.25rem 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--line);
         }
-        .masthead a { color: inherit; text-decoration: none; }
-        .masthead a:hover { text-decoration: underline; }
-        .masthead .name { font-weight: 600; letter-spacing: 0.02em; }
-        .masthead .where { color: var(--faint); }
+        .masthead .name { font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; }
+        .masthead .name a { color: var(--ink); text-decoration: none; }
+        .masthead .where { color: var(--muted); font-size: 0.9rem; }
+        .masthead nav { display: flex; gap: 1.25rem; font-size: 0.95rem; }
+        .masthead nav a { color: var(--muted); text-decoration: none; }
+        .masthead nav a:hover { color: var(--ink); }
 
-        /* The identity strip: what you are looking at, and what stage it is
-           in. Stage sits right so it lands in the same place on every page. */
+        /* Headings. A page title is obviously a page title. */
+        h2 {
+            margin: 0;
+            font-size: 1.9rem;
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        h3 {
+            margin: 2.75rem 0 0.75rem;
+            font-size: 1.2rem;
+            font-weight: 650;
+            letter-spacing: -0.01em;
+        }
+        h4 { margin: 1.5rem 0 0.4rem; font-size: 1rem; font-weight: 650; }
+
+        p { margin: 0 0 1rem; }
+        .lede { font-size: 1.12rem; color: var(--muted); margin-top: 0.6rem; }
+        .note { color: var(--muted); }
+        .says { margin: 0 0 0.75rem; }
+        .empty { color: var(--muted); }
+
+        a { color: var(--accent); }
+        a:hover { color: #1633a8; }
+        .back { display: inline-block; margin: 0 0 1rem; font-size: 0.95rem; }
+        .back a { color: var(--muted); text-decoration: none; }
+        .back a::before { content: "\2190  "; }
+        .back a:hover { color: var(--ink); }
+
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+        /* The identity strip at the top of a page. */
         .strip {
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
+            align-items: flex-start;
             gap: 1rem;
             flex-wrap: wrap;
-            margin: 1.25rem 0 0.25rem;
         }
-        .strip h2 { margin: 0; font: 600 1.15rem/1.25 var(--mono); }
-        .target { margin: 0.1rem 0 0; color: var(--faint); word-break: break-all; }
-        .target a { color: var(--faint); }
+        .target { margin: 0.4rem 0 0; font-size: 0.95rem; word-break: break-all; }
 
         .stage {
-            font-size: 0.85rem;
-            color: var(--faint);
-            white-space: nowrap;
-        }
-        .stage::before { content: "["; }
-        .stage::after { content: "]"; }
-
-        /* Section headings: sentence case, with the rule running out to the
-           right edge so the eye is carried across rather than stopped. */
-        h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            margin: 2rem 0 0.75rem;
-            font: 600 0.95rem/1.2 var(--mono);
-            color: var(--faint);
-        }
-        h3::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: var(--rule);
-        }
-
-        /* Your own words. Everything you typed is set here. */
-        .says {
-            font: 400 1.0625rem/1.55 var(--prose);
-            max-width: 42rem;
-            margin: 0.4rem 0;
-        }
-        .note {
-            max-width: 46rem;
-            color: var(--faint);
-            margin: 0.4rem 0;
-        }
-
-        a { color: var(--ink); text-decoration-color: var(--rule); }
-        a:hover { text-decoration-color: currentColor; }
-        a:focus-visible, button:focus-visible, input:focus-visible,
-        textarea:focus-visible, select:focus-visible {
-            outline: 2px solid var(--mark);
-            outline-offset: 2px;
-        }
-        .back { display: inline-block; margin: 0 0 0.25rem; color: var(--faint); }
-        .back a { color: inherit; }
-
-        /* Rows in a gutter. The gutter carries the index and, for a claim,
-           the outcome glyph. The glyph only repeats what the text already
-           says, so nothing depends on seeing it. */
-        .rows { list-style: none; margin: 0; padding: 0; }
-        .rows > li {
-            display: grid;
-            grid-template-columns: var(--gutter) 1fr;
-            gap: 0 0.5rem;
-            padding: 0.85rem 0;
-            border-top: 1px solid var(--rule);
-        }
-        .rows > li:last-child { border-bottom: 1px solid var(--rule); }
-        .rows > li > .idx {
-            color: var(--faint);
-            font-size: 0.85rem;
-            padding-top: 0.15rem;
-        }
-        .rows > li > .body > :first-child { margin-top: 0; }
-        .rows > li > .body > :last-child { margin-bottom: 0; }
-
-        /* Facts: a label column and a value column, so numbers down the page
-           line up and predicted sits directly above measured. */
-        .facts { margin: 0.5rem 0 0; display: grid; gap: 0.15rem 1rem; }
-        .facts > div {
-            display: grid;
-            grid-template-columns: 6.5rem 1fr;
-            gap: 0 1rem;
-            align-items: baseline;
-        }
-        .facts dt, .facts .k { color: var(--faint); font-size: 0.85rem; }
-        .facts dd, .facts .v { margin: 0; }
-
-        code { font: inherit; }
-        .num { font-variant-numeric: tabular-nums; }
-        .hash { word-break: break-all; color: var(--faint); }
-        .when { margin: 0; color: var(--faint); font-size: 0.85rem; }
-
-        /* Outcomes. Umber for wrong, plain ink for correct, drained and
-           dashed for a claim nothing measured. */
-        .outcome { margin: 0.35rem 0 0; }
-        .correct .idx::after { content: "\2713"; display: block; color: var(--ink); }
-        .wrong .idx::after { content: "\2717"; display: block; color: var(--mark); }
-        .unresolved .idx::after { content: "\00b7"; display: block; color: var(--faint); }
-        .wrong .outcome strong { color: var(--mark); }
-        .unresolved .outcome strong { color: var(--faint); font-weight: 400; }
-        .unresolved .body { opacity: 0.75; }
-        .unresolved { border-left: 2px dashed var(--rule); }
-
-        /* A superseded reading stays legible. It was a real measurement, it
-           was just replaced, so it is dimmed rather than struck out. */
-        .reads { list-style: none; margin: 0.4rem 0 0; padding: 0; }
-        .reads li { padding: 0.1rem 0; }
-        .reads .was { color: var(--faint); }
-        .reads .was code { text-decoration: underline dotted var(--rule); }
-
-        /* The score block, the one place numbers are the content. */
-        dl.tally {
-            display: grid;
-            grid-template-columns: 9rem 1fr;
-            gap: 0.2rem 1rem;
-            align-items: baseline;
-            margin: 0;
-        }
-        dl.tally dt { color: var(--faint); font-size: 0.85rem; }
-        dl.tally dd { margin: 0; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
-
-        /* Forms. Labels sit above, the field is full width, nothing is
-           decorated. A submit that changes something irreversibly says so in
-           its own words rather than in a colour. */
-        form { display: grid; gap: 0.3rem; max-width: 34rem; margin: 0.75rem 0 0; }
-        label { color: var(--faint); font-size: 0.85rem; }
-        input, textarea, select {
-            font: inherit;
-            color: inherit;
-            background: #fff;
-            border: 1px solid var(--rule);
-            padding: 0.4rem 0.5rem;
-        }
-        textarea { min-height: 5.5rem; font-family: var(--prose); line-height: 1.5; resize: vertical; }
-        input:hover, textarea:hover, select:hover { border-color: var(--faint); }
-        button {
-            font: inherit;
-            color: var(--paper);
-            background: var(--ink);
-            border: 1px solid var(--ink);
-            padding: 0.45rem 0.9rem;
-            cursor: pointer;
-            justify-self: start;
+            flex: none;
+            font: 600 0.78rem/1 var(--sans);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--muted);
+            background: var(--bg);
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            padding: 0.35rem 0.7rem;
             margin-top: 0.35rem;
         }
-        button:hover { background: var(--mark); border-color: var(--mark); }
 
-        pre {
-            margin: 0.5rem 0;
-            padding: 0.7rem 0.8rem;
-            background: #fff;
-            border: 1px solid var(--rule);
-            overflow-x: auto;
-            font: inherit;
+        /* Cards carry one discrete thing each. */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 1.25rem 1.4rem;
+            margin: 1rem 0;
         }
+        .card > :first-child { margin-top: 0; }
+        .card > :last-child { margin-bottom: 0; }
 
-        /* The index. One line per cycle, stage on the right. */
-        .index { list-style: none; margin: 0; padding: 0; }
-        .index li {
-            display: grid;
-            grid-template-columns: var(--gutter) 1fr auto;
-            gap: 0 0.5rem;
-            align-items: baseline;
-            padding: 0.5rem 0;
-            border-top: 1px solid var(--rule);
-        }
-        .index li:last-child { border-bottom: 1px solid var(--rule); }
-        .index .idx { color: var(--faint); font-size: 0.85rem; }
-
-        .onward { margin: 1.5rem 0 0; display: flex; gap: 1.25rem; flex-wrap: wrap; }
-
-        /* Where this cycle is in the sequence. Four steps, because the routes
-           enforce exactly four and refuse anything out of order. The current
-           step is the only one in full ink. */
+        /* The four steps of a cycle. */
         .rail {
             list-style: none;
             display: flex;
             flex-wrap: wrap;
-            gap: 0 0.5rem;
-            margin: 1rem 0 0;
+            gap: 0.5rem;
+            margin: 1.5rem 0 0;
             padding: 0;
-            font-size: 0.85rem;
+            counter-reset: step;
         }
-        .rail li { color: var(--faint); }
-        .rail li + li::before { content: "/"; margin-right: 0.5rem; color: var(--rule); }
-        .rail .step-done::after { content: " done"; color: var(--rule); }
-        .rail .step-now {
-            color: var(--ink);
-            font-weight: 600;
-            border-bottom: 2px solid var(--mark);
+        .rail li {
+            counter-increment: step;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.9rem;
+            color: var(--muted);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 0.3rem 0.8rem 0.3rem 0.35rem;
         }
+        .rail li::before {
+            content: counter(step);
+            display: grid;
+            place-items: center;
+            width: 1.4rem;
+            height: 1.4rem;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 1px solid var(--line-strong);
+            font-size: 0.75rem;
+            font-weight: 650;
+        }
+        .rail .step-done { color: var(--good); border-color: #bfe3cd; }
+        .rail .step-done::before { content: "\2713"; background: var(--good); border-color: var(--good); color: #fff; }
+        .rail .step-now { color: var(--ink); font-weight: 650; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+        .rail .step-now::before { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-        /* The next action, stated as something to do rather than a status. */
+        /* The next action. The most important thing on a cycle page. */
         .next {
+            background: var(--accent-soft);
+            border: 1px solid #c8d4fb;
+            border-radius: 12px;
+            padding: 1.25rem 1.4rem;
             margin: 1rem 0 0;
-            padding: 0.9rem 1rem;
-            background: #fff;
-            border: 1px solid var(--rule);
-            border-left: 3px solid var(--ink);
         }
         .next > :first-child { margin-top: 0; }
         .next > :last-child { margin-bottom: 0; }
-        .next-what { margin: 0 0 0.35rem; font-weight: 600; }
-        .next .onward { margin: 0.6rem 0 0; }
+        .next-what { font-size: 1.15rem; font-weight: 650; margin-bottom: 0.4rem; }
+        .next .note { color: #41506a; }
 
-        /* Fill-in-the-blank form rows, so a claim reads as the sentence it is
-           rather than as four unrelated fields. */
-        .sentence {
+        /* Buttons. The primary action looks like the primary action. */
+        .btn, button {
+            display: inline-block;
+            font: 600 1rem/1 var(--sans);
+            color: #fff;
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 0.7rem 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover, button:hover { background: #1633a8; border-color: #1633a8; color: #fff; }
+        .btn-quiet {
+            color: var(--ink);
+            background: var(--surface);
+            border-color: var(--line-strong);
+        }
+        .btn-quiet:hover { background: var(--bg); color: var(--ink); border-color: var(--muted); }
+
+        /* Forms */
+        form { margin: 1rem 0 0; }
+        .field { margin: 0 0 1.1rem; }
+        label { display: block; font-weight: 600; font-size: 0.97rem; margin-bottom: 0.3rem; }
+        .hint { display: block; font-weight: 400; color: var(--muted); font-size: 0.9rem; margin-bottom: 0.4rem; }
+        input[type="text"], input[type="number"], textarea, select {
+            width: 100%;
+            font: inherit;
+            color: inherit;
+            background: var(--surface);
+            border: 1px solid var(--line-strong);
+            border-radius: 8px;
+            padding: 0.6rem 0.7rem;
+        }
+        textarea { min-height: 7rem; line-height: 1.6; resize: vertical; }
+        input:hover, textarea:hover, select:hover { border-color: var(--muted); }
+        .field-row { display: grid; grid-template-columns: 1fr 10rem 8rem; gap: 0.75rem; }
+        @media (max-width: 36rem) { .field-row { grid-template-columns: 1fr; } }
+
+        code, .mono, pre { font-family: var(--mono); }
+        code { font-size: 0.92em; background: var(--bg); border: 1px solid var(--line); border-radius: 5px; padding: 0.08em 0.35em; }
+        pre {
+            margin: 1rem 0;
+            padding: 1rem 1.1rem;
+            background: #0f1720;
+            color: #e6edf3;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+        pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; }
+        .num { font-variant-numeric: tabular-nums; }
+        .hash { font-family: var(--mono); font-size: 0.85rem; word-break: break-all; color: var(--muted); }
+        .when { color: var(--muted); font-size: 0.9rem; margin: 0 0 0.4rem; }
+
+        /* Lists of things: claims, runs, cycles, units. */
+        .rows { list-style: none; margin: 0; padding: 0; }
+        .rows > li {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 1.1rem 1.25rem;
+            margin: 0 0 0.75rem;
+            display: grid;
+            grid-template-columns: 2rem 1fr;
+            gap: 0 0.5rem;
+        }
+        .rows > li > .idx { color: var(--muted); font-weight: 650; font-size: 0.9rem; }
+        .rows > li > .body > :first-child { margin-top: 0; }
+        .rows > li > .body > :last-child { margin-bottom: 0; }
+
+        /* Label and value pairs. */
+        .facts { margin: 0.75rem 0 0; display: grid; gap: 0.35rem; }
+        .facts > div { display: grid; grid-template-columns: 8rem 1fr; gap: 0 1rem; align-items: baseline; }
+        .facts dt, .facts .k { color: var(--muted); font-size: 0.9rem; }
+        .facts dd, .facts .v { margin: 0; }
+        @media (max-width: 36rem) { .facts > div { grid-template-columns: 1fr; } }
+
+        /* Outcomes */
+        .outcome { margin: 0.75rem 0 0; font-weight: 600; }
+        .correct .outcome strong { color: var(--good); }
+        .wrong .outcome strong { color: var(--warn); }
+        .unresolved .outcome strong { color: var(--muted); }
+        .correct { border-left: 4px solid var(--good); }
+        .wrong { border-left: 4px solid var(--warn); }
+        .unresolved { border-left: 4px solid var(--line-strong); }
+
+        .reads { list-style: none; margin: 0.6rem 0 0; padding: 0; font-family: var(--mono); font-size: 0.9rem; }
+        .reads li { padding: 0.15rem 0; }
+        .reads .was { color: var(--muted); }
+
+        /* Score block */
+        dl.tally {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+            gap: 1rem;
+            margin: 0;
+        }
+        dl.tally dt { color: var(--muted); font-size: 0.85rem; font-weight: 600; }
+        dl.tally dd { margin: 0.1rem 0 0; font-size: 1.6rem; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+        /* The cycle index */
+        .index { list-style: none; margin: 0; padding: 0; }
+        .index li {
+            display: grid;
+            grid-template-columns: 2.5rem 1fr auto;
+            gap: 0 0.75rem;
+            align-items: center;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .index .idx { color: var(--muted); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+        .index a { font-weight: 600; text-decoration: none; }
+
+        .how { margin: 0.75rem 0 0; padding-left: 1.4rem; }
+        .how li { margin-bottom: 0.4rem; }
+        .how b { font-weight: 650; }
+
+        .vocab { list-style: none; margin: 0.5rem 0 0; padding: 0; }
+        .vocab li { padding: 0.3rem 0; border-bottom: 1px solid var(--line); font-size: 0.97rem; }
+        .vocab li:last-child { border-bottom: 0; }
+
+        .onward { display: flex; gap: 1.25rem; flex-wrap: wrap; margin: 1.5rem 0 0; }
+
+        /* Units. A probe is a question you answer with a confidence before any
+           answer is shown, so the options stay quiet until you have committed. */
+        .brief p { max-width: 36rem; }
+        .brief p:first-of-type { font-size: 1.12rem; }
+
+        .probe-choices { list-style: none; margin: 0 0 1.25rem; padding: 0; }
+        .probe-choices li { margin-bottom: 0.5rem; }
+        .probe-choices label {
             display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            gap: 0.4rem 0.5rem;
-            margin: 0.4rem 0 0;
+            gap: 0.7rem;
+            align-items: flex-start;
+            font-weight: 400;
+            margin: 0;
+            padding: 0.7rem 0.9rem;
+            border: 1px solid var(--line-strong);
+            border-radius: 9px;
+            cursor: pointer;
         }
-        .sentence input, .sentence select { padding: 0.3rem 0.4rem; }
-        .sentence .metric-in { width: 11rem; }
-        .sentence .number-in { width: 6rem; font-variant-numeric: tabular-nums; }
-        .sentence .lead { color: var(--faint); }
+        .probe-choices label:hover { border-color: var(--accent); background: var(--accent-soft); }
+        .probe-choices input { margin: 0.4rem 0 0; flex: none; }
+        .probe-choices .picked { border-color: var(--ink); background: var(--bg); }
 
-        .vocab { list-style: none; margin: 0.4rem 0 0; padding: 0; columns: 2; }
-        .vocab li { color: var(--faint); font-size: 0.9rem; padding: 0.05rem 0; }
+        .confidence { display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; align-items: end; }
+        .confidence .hint { margin: 0; }
+        @media (max-width: 36rem) { .confidence { grid-template-columns: 1fr; } }
 
-        /* The four steps of a cycle, on the index. Numbered because this one
-           really is a sequence: the routes refuse it in any other order. */
-        .how { margin: 0.75rem 0 0; padding-left: 1.6rem; max-width: 46rem; }
-        .how li { padding: 0.15rem 0; color: var(--faint); }
-        .how b { color: var(--ink); font-weight: 600; }
-
-        .empty { color: var(--faint); font-style: normal; }
-
-        @media (max-width: 34rem) {
-            :root { --gutter: 1.75rem; }
-            .facts > div { grid-template-columns: 5.5rem 1fr; }
-            dl.tally { grid-template-columns: 7.5rem 1fr; }
+        .verdict { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; margin: 0 0 0.75rem; }
+        .badge {
+            font: 650 0.8rem/1 var(--sans);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            border-radius: 999px;
+            padding: 0.35rem 0.7rem;
         }
+        .badge-right { color: #0f5c2e; background: #dcf5e6; }
+        .badge-wrong { color: #7c3d06; background: #fdeccd; }
+        .verdict .said { color: var(--muted); font-size: 0.95rem; }
 
-        @media (prefers-reduced-motion: reduce) {
-            * { transition: none !important; animation: none !important; }
+        .because {
+            background: var(--bg);
+            border-radius: 9px;
+            padding: 1rem 1.1rem;
+            margin: 0;
         }
+        .because > :last-child { margin-bottom: 0; }
+
+        .sources { font-size: 0.93rem; color: var(--muted); padding-left: 1.2rem; }
+        .sources li { margin-bottom: 0.35rem; }
+
+        .pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0 0; }
+        .pill {
+            font-size: 0.9rem;
+            color: var(--muted);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 0.35rem 0.8rem;
+        }
+        .pill b { color: var(--ink); font-weight: 650; }
+        .pill-done { color: #0f5c2e; background: #dcf5e6; border-color: #bfe3cd; }
+        .pill-done b { color: #0f5c2e; }
+
+        @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
     </style>
 </head>
 <body>
     <div class="sheet">
         <header class="masthead">
-            <span class="name"><a href="/">ai eval gym</a></span>
+            <span class="name"><a href="/">AI Eval Gym</a></span>
+            <nav>
+                <a href="/units">Units</a>
+                <a href="/">Cycles</a>
+            </nav>
             <span class="where">{% block where %}{% endblock %}</span>
         </header>
         <main>
