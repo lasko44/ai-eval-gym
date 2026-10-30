@@ -25,7 +25,6 @@ UNIT = Unit(
         "queries, then compare them. Score the router against an oracle "
         "ceiling, rather than against chance."
     ),
-    minutes=25,
     brief=(
         "Somebody has to write the eval set before a router has ever seen "
         "production traffic. So they generate plausible-looking queries by "

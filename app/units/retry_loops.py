@@ -18,7 +18,6 @@ UNIT = Unit(
         "something external to the agent does."
     ),
     detection="Measure tokens per resolved task, not tokens per call, and watch for context that only ever grows within a task.",
-    minutes=25,
     brief=(
         "An agent that tries something, fails, and tries again is not a bug, it is "
         "the default shape of an agentic loop. The failure mode is not that it "

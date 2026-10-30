@@ -18,7 +18,6 @@ UNIT = Unit(
         "grows, even though the answer never left the context."
     ),
     detection="Sweep context length with the question and the gold passage held fixed, then measure accuracy at each length.",
-    minutes=25,
     brief=(
         "A long context window reads like a solved problem. If the model can hold "
         "a hundred thousand tokens, the obvious move is to stop being careful about "

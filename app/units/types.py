@@ -72,12 +72,22 @@ class Exercise:
 
 @dataclass(frozen=True)
 class Unit:
+    """One unit of the curriculum.
+
+    There is deliberately no reading time on this type. An earlier version
+    carried one, and nobody had measured it: the number was invented and then
+    copied into every unit. A figure with no measurement behind it is the exact
+    thing these units teach a reader to catch, so it has no place in them.
+
+    If a reader ever needs an estimate of effort, give them something counted,
+    such as the number of probes.
+    """
+
     slug: str
     number: int
     title: str
     failure: str
     detection: str
-    minutes: int
     brief: tuple[str, ...]
     probes: tuple[Probe, ...]
     exercise: Exercise

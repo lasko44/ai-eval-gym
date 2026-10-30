@@ -22,7 +22,6 @@ UNIT = Unit(
         "Segment the eval set by hop count and report per-segment accuracy, "
         "never one aggregate."
     ),
-    minutes=25,
     brief=(
         "A single retrieval pass works like this: embed the question, fetch "
         "the k nearest passages, hand them to the model, done. That is fine "

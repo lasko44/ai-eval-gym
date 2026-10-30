@@ -20,7 +20,6 @@ UNIT = Unit(
         "Mutate the blocked corpus before measuring bypass rate, and report "
         "it paired with the false-positive rate on benign traffic."
     ),
-    minutes=25,
     brief=(
         "A team adds a content filter or policy classifier in front of a model. "
         "They run it against a blocked-prompt test set they already assembled, "

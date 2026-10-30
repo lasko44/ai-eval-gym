@@ -22,7 +22,6 @@ UNIT = Unit(
         "retrieval, and measure how often a previously correct answer flips "
         "to the stale one."
     ),
-    minutes=25,
     brief=(
         "Teams usually sell retrieval as a fix for an outdated model. "
         "Training freezes the weights, so at inference time you hand the "

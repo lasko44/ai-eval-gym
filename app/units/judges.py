@@ -13,7 +13,6 @@ UNIT = Unit(
     title="LLM judges that flip when you swap the order",
     failure="A judge scores the same pair differently depending on which answer it sees first.",
     detection="Run every pair in both orders and measure the flip rate.",
-    minutes=25,
     brief=(
         "Once you have more than a handful of outputs to evaluate, hand grading stops "
         "scaling. Almost everyone reaches for the same thing: another model as the "

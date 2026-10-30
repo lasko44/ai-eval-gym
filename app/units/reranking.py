@@ -22,7 +22,6 @@ UNIT = Unit(
         "Measure recall at a small k and a large k on the same query set. The gap "
         "between the two names whether the fault is ordering or coverage."
     ),
-    minutes=20,
     brief=(
         "Most retrieval evals stop at one number: recall at whatever k you plan to "
         "feed the model, usually five or ten chunks. The number comes back "

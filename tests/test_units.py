@@ -47,11 +47,22 @@ def test_units_are_ordered_by_number():
 
 
 @pytest.mark.parametrize("unit", ALL_UNITS, ids=UNIT_IDS)
+def test_no_unit_claims_a_reading_time(unit: Unit):
+    """A reading time was invented once and copied into every unit.
+
+    Nobody measured it. This test stops it coming back by any name.
+    """
+    for field in ("minutes", "duration", "reading_time", "time"):
+        assert not hasattr(unit, field), (
+            f"{unit.slug} carries {field!r}. If nobody measured it, do not ship it."
+        )
+
+
+@pytest.mark.parametrize("unit", ALL_UNITS, ids=UNIT_IDS)
 def test_unit_has_the_parts_a_unit_needs(unit: Unit):
     assert unit.title.strip()
     assert unit.failure.strip()
     assert unit.detection.strip()
-    assert unit.minutes > 0
     assert len(unit.brief) >= 3, "A briefing shorter than three paragraphs is a stub."
     assert all(paragraph.strip() for paragraph in unit.brief)
     assert unit.probes, "A unit with no probes is an article."

@@ -19,7 +19,6 @@ UNIT = Unit(
         "the prompt before any access check runs."
     ),
     detection="Diff the retrieved chunk ids across two users with different entitlements, never the answers.",
-    minutes=25,
     brief=(
         "Most teams wire access control exactly once, at the edge of the "
         "request. The app authenticates the user, loads their role, and "
