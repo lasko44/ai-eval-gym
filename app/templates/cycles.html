@@ -5,23 +5,84 @@
         <h2>Cycles</h2>
         <span class="stage">{{ cycles|length }} recorded</span>
     </div>
-
-    <p class="note">
-        One cycle is one teardown of someone else's AI system. You predict
-        where it breaks before you measure it, then find out whether you were
-        right. The order is enforced, not suggested: nothing can be measured
-        until the predictions are sealed into git, and nothing can be scored
-        until it has been measured.
+    <p class="lede">
+        A unit teaches you one detection on a fixture that already has an answer.
+        A cycle is where you point that skill at a real system nobody has graded
+        for you, commit what you think is wrong with it before you measure, and
+        find out how close you were.
     </p>
-    <ol class="how">
-        <li><b>predict</b> read the system and write what will fail, each with a metric and a threshold that would prove you wrong</li>
-        <li><b>seal</b> commit the claims to git, after which they cannot be edited</li>
-        <li><b>measure</b> write a harness, run it, and post its numbers</li>
-        <li><b>score</b> get a Brier score on your calibration, and a teardown you can publish</li>
-    </ol>
+
+    <h3>What a target is</h3>
+    <p>
+        Any AI system you can actually run and measure, that you did not write.
+        In practice that means one of:
+    </p>
+    <ul class="how">
+        <li>an open-source RAG or agent repo you can clone and get running locally</li>
+        <li>a system at work you have access to, which is the one that pays off fastest</li>
+        <li>a hosted API you can send a few hundred requests to</li>
+    </ul>
+    <p class="note">
+        The constraint that matters is not how interesting the system is. It is
+        whether you can run it enough times to measure something. A system you
+        can only read is a system you can only have opinions about, which is the
+        habit this is meant to replace.
+    </p>
+
+    <h3>What one looks like, start to finish</h3>
+    <div class="card">
+        <p><b>Target</b> an open-source RAG starter repo, cloned and running locally.</p>
+        <p>
+            <b>Question under test</b> this is the question you would be asked in
+            an interview and could not currently answer. Something like: does
+            retrieval hold up on questions that need two facts, or does it only
+            look good on the easy ones?
+        </p>
+        <p>
+            <b>Your prediction, sealed before you measure</b> in your own words,
+            plus the number that would prove you wrong. For example: chunks are
+            embedded with no query decomposition, so multi-hop questions retrieve
+            one hop and miss the other, and <code>recall_at_5</code> will come in
+            below 0.6. You say how confident you are, maybe 0.75. Then you seal,
+            which hashes the claim and commits it to git so the timestamp is not
+            just your word.
+        </p>
+        <p>
+            <b>Then you measure</b> write 40 or 50 questions that need two facts,
+            run them through the system, and compute <code>recall_at_5</code>
+            with the same library function unit 02 had you use. Post the number.
+        </p>
+        <p>
+            <b>Then you find out</b> if it came in at 0.42 you were right, and
+            your 0.75 confidence was well placed. If it came in at 0.71 you were
+            wrong, and being 75 percent sure about it costs you more than being
+            unsure would have. Either way you get a teardown you can publish,
+            with the numbers and the seal in it.
+        </p>
+    </div>
+
+    <h3>Before you start one</h3>
+    <p class="note">
+        Two honest warnings. First, the measuring is the work: getting someone
+        else's system running and building an eval set for it will take an
+        evening or two, and it is most of the value. Second, do a couple of units
+        first. They teach you which detections exist, which is what tells you
+        what to predict. Starting here with no units behind you means staring at
+        a form with nothing to write in it.
+    </p>
+    <p class="onward">
+        <a href="/units">Start with a unit</a>
+        {% if cycles %}<a href="/cycles/{{ cycles[0].id }}/teardown">See a finished teardown</a>{% endif %}
+    </p>
 
     <h3>Your cycles</h3>
     {% if cycles %}
+        <p class="note">
+            The cycles below were seeded as a demonstration and their measurements
+            are invented, so do not read their numbers as findings. They are here
+            to show what a finished teardown looks like. Delete them whenever you
+            want your own record to start clean.
+        </p>
         <ul class="index">
             {% for cycle in cycles %}
                 <li>
@@ -40,18 +101,30 @@
 
     <h3>Start a cycle</h3>
     <p class="note">
-        Name what you are tearing down and write the question you are actually
+        Name the system, link to it, and write the question you are actually
         asking. You commit predictions next, before measuring anything.
     </p>
     <form method="post" action="/cycles">
-        <label for="target_name">Target name</label>
-        <input id="target_name" name="target_name" type="text" required>
+        <div class="field">
+            <label for="target_name">Target name</label>
+            <span class="hint">Whatever you will recognise it by later, such as the repo name.</span>
+            <input id="target_name" name="target_name" type="text" required>
+        </div>
 
-        <label for="target_url">Target URL</label>
-        <input id="target_url" name="target_url" type="text" required>
+        <div class="field">
+            <label for="target_url">Target URL</label>
+            <span class="hint">Where the system lives, so a reader of your teardown can go look at it.</span>
+            <input id="target_url" name="target_url" type="text" required>
+        </div>
 
-        <label for="question">Question under test</label>
-        <textarea id="question" name="question" required></textarea>
+        <div class="field">
+            <label for="question">Question under test</label>
+            <span class="hint">
+                The one you would be asked about this system and could not answer
+                today. Keep it about where it breaks, not about what it does.
+            </span>
+            <textarea id="question" name="question" required></textarea>
+        </div>
 
         <button type="submit">Create cycle</button>
     </form>
