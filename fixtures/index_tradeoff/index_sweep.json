@@ -1,0 +1,108 @@
+{
+ "dataset": {
+  "n_vectors": 1000000,
+  "dim": 128,
+  "k": 10,
+  "note": "Synthetic dataset sized so index memory follows the published formulas exactly. Recall at each setting is a hit rate over 10000 queries from a seeded RNG, not a hand-typed number."
+ },
+ "indexes": [
+  {
+   "name": "flat",
+   "param_name": "exhaustive",
+   "memory_mb": 488.28,
+   "runs": [
+    {
+     "param_value": null,
+     "hits": 10000,
+     "n_queries": 10000,
+     "recall_at_10": 1.0,
+     "queries_per_second": 140
+    }
+   ]
+  },
+  {
+   "name": "hnsw",
+   "param_name": "ef_search",
+   "memory_mb": 610.35,
+   "runs": [
+    {
+     "param_value": 50,
+     "hits": 8204,
+     "n_queries": 10000,
+     "recall_at_10": 0.8204,
+     "queries_per_second": 4247
+    },
+    {
+     "param_value": 100,
+     "hits": 9147,
+     "n_queries": 10000,
+     "recall_at_10": 0.9147,
+     "queries_per_second": 2563
+    },
+    {
+     "param_value": 200,
+     "hits": 9555,
+     "n_queries": 10000,
+     "recall_at_10": 0.9555,
+     "queries_per_second": 1377
+    },
+    {
+     "param_value": 300,
+     "hits": 9710,
+     "n_queries": 10000,
+     "recall_at_10": 0.971,
+     "queries_per_second": 974
+    },
+    {
+     "param_value": 400,
+     "hits": 9776,
+     "n_queries": 10000,
+     "recall_at_10": 0.9776,
+     "queries_per_second": 683
+    }
+   ]
+  },
+  {
+   "name": "ivf_pq",
+   "param_name": "nprobe",
+   "memory_mb": 38.15,
+   "runs": [
+    {
+     "param_value": 4,
+     "hits": 7036,
+     "n_queries": 10000,
+     "recall_at_10": 0.7036,
+     "queries_per_second": 5131
+    },
+    {
+     "param_value": 16,
+     "hits": 8406,
+     "n_queries": 10000,
+     "recall_at_10": 0.8406,
+     "queries_per_second": 3104
+    },
+    {
+     "param_value": 64,
+     "hits": 9334,
+     "n_queries": 10000,
+     "recall_at_10": 0.9334,
+     "queries_per_second": 1582
+    },
+    {
+     "param_value": 128,
+     "hits": 9710,
+     "n_queries": 10000,
+     "recall_at_10": 0.971,
+     "queries_per_second": 1229
+    },
+    {
+     "param_value": 256,
+     "hits": 9829,
+     "n_queries": 10000,
+     "recall_at_10": 0.9829,
+     "queries_per_second": 699
+    }
+   ]
+  }
+ ]
+}

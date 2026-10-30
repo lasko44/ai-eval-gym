@@ -1,0 +1,10002 @@
+[
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 0
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.3,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.9,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.1,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.7,
+  "label": 1
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 0
+ },
+ {
+  "group": "group_b",
+  "score": 0.5,
+  "label": 1
+ },
+ {
+  "group": "group_a",
+  "score": 0.1,
+  "label": 0
+ }
+]

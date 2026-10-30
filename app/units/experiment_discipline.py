@@ -1,0 +1,243 @@
+"""Unit 13: the A/B test somebody stopped when it looked good.
+
+Peeking inflation under continuous monitoring, and the gap between an
+improving offline score and an improving online metric. Numbers and
+citations verified against primary sources; see UNIT.sources.
+"""
+
+from app.units.types import Choice, Exercise, Probe, Unit
+
+
+UNIT = Unit(
+    slug="experiment-discipline",
+    number=13,
+    title="The A/B test somebody stopped when it looked good",
+    failure=(
+        "A team watches a dashboard and stops a test early because the treatment "
+        "looks ahead. It ships on a p value that never had a real 5 percent error rate."
+    ),
+    detection=(
+        "Fix the sample size before the test starts, and measure your own process "
+        "against simulated null data to find the real false positive rate."
+    ),
+    brief=(
+        "A team ships a model change behind an A/B test. Someone opens the "
+        "dashboard every morning to watch the numbers move. On day nine the "
+        "treatment pulls ahead and crosses the 5 percent line. The team calls it "
+        "a win and ships the change that afternoon. Nobody had fixed a sample "
+        "size before the test started.",
+
+        "A fixed sample test holds its 5 percent error rate at exactly one "
+        "sample size, the one set before the test starts. Checking the result "
+        "after every new batch of data is not the same test run once. It is a "
+        "new test run again, with its own small chance of a false cross. Each "
+        "look adds another chance for noise alone to clear the bar. Stack "
+        "enough looks together and the real false positive rate climbs far "
+        "past the number printed on the dashboard.",
+
+        "Evan Miller ran the simplest version of this experiment, to measure "
+        "the damage directly. Both arms convert at the same 50 percent rate, so "
+        "the treatment carries no real effect at all. He checked the result "
+        "after every single visitor, up to a cap of 150. He stopped the "
+        "instant the p value crossed 0.05. Checked that way, a nominal 5 "
+        "percent test declared a false winner 26.1 percent of the time, more "
+        "than five times the printed number.",
+
+        "The same inflation shows up in work built for commercial A/B testing "
+        "platforms, not just toy simulations. Ramesh Johari, Leo Pekelis, and "
+        "David Walsh published a direct measurement of it in 2015. Even at "
+        "10,000 samples, a size common in real online tests, they found that "
+        "type I error can easily increase fivefold. A nominal 5 percent test "
+        "becomes something closer to 25 percent, simply because someone kept "
+        "looking. Nothing about the data changed, only the number of times a "
+        "person checked it changed.",
+
+        "The fix is not more willpower about not looking. The fix is to plan "
+        "for looking before the test starts. A power calculation sets one "
+        "sample size in advance, and the team holds to it. When a team must "
+        "look early anyway, it should use a method built for that. A group "
+        "sequential design and an always valid confidence sequence both qualify.",
+
+        "A group sequential design spends a fixed slice of the total error "
+        "budget at each planned look. The looks then add up to 5 percent "
+        "instead of multiplying past it. Alpha spending functions, such as the "
+        "O'Brien-Fleming boundary, cap how much of that budget an early look "
+        "can spend. An always valid method, built on the same "
+        "sequential math, computes a p value that stays correct at any point "
+        "someone chooses to stop.",
+
+        "The detection is cheap, which is what makes skipping it indefensible. "
+        "Build many simulated experiments where the treatment carries no real "
+        "effect at all. Run the decision rule a team actually plans to use "
+        "against every one of them. Count how often that rule declares a "
+        "winner anyway. That fraction is the true false positive rate of the "
+        "process, not the number printed on a textbook page.",
+
+        "A second trap sits next to this one, and it catches teams who did "
+        "everything else right. An offline evaluation score going up does not "
+        "mean the online metric will follow it. The engineers who built the "
+        "YouTube recommendation system said so directly: live A/B results are "
+        "not always correlated with offline experiments. At Microsoft, "
+        "researchers reported that only about one third of tested ideas "
+        "actually helped the metric they targeted. State which metric decides "
+        "before the test starts, offline or online, and then run the real "
+        "test to find out.",
+    ),
+    probes=(
+        Probe(
+            id="stopped-early-p-value",
+            asks=(
+                "A team checked its dashboard every day for three weeks and "
+                "stopped the test the moment it saw p less than 0.05 on day "
+                "nine. What does that p value establish?"
+            ),
+            choices=(
+                Choice("a", "That the treatment beat control at a real 5 percent error rate"),
+                Choice("b", "Very little, since repeated looks can push a true 5 percent test well past 25 percent"),
+                Choice("c", "That the treatment has no effect at all"),
+                Choice("d", "That the team should have waited for a bigger sample before checking anything"),
+            ),
+            answer="b",
+            because=(
+                "A single p value crossed once, at a size fixed in advance, "
+                "means what the textbook says it means. Checked at nine "
+                "separate points and stopped at the first crossing, it means "
+                "almost nothing of the kind. Evan Miller measured this "
+                "directly: checking continuously under a true null pushed a "
+                "nominal 5 percent test up to 26.1 percent. Johari, Pekelis, "
+                "and Walsh found the same pattern at 10,000 samples, where "
+                "type I error can increase fivefold. The dashboard number was "
+                "honest, but the question it answered was the wrong one."
+            ),
+        ),
+        Probe(
+            id="method-for-peeking",
+            asks=(
+                "A team wants to check results every day without breaking the "
+                "5 percent guarantee of its test. What should it do?"
+            ),
+            choices=(
+                Choice("a", "Nothing, the extra looks average out over time"),
+                Choice("b", "Fix one single look at the very end and ignore every earlier number"),
+                Choice("c", "Pick a method built for repeated looks, such as a group sequential design or an always valid confidence sequence"),
+                Choice("d", "Lower the threshold to p less than 0.01 and keep checking as often as it likes"),
+            ),
+            answer="c",
+            because=(
+                "A fixed sample test only holds its 5 percent rate at the one "
+                "size it was built for. Checking it every day and stopping at "
+                "the first crossing is a different test with a much higher "
+                "real error rate. A group sequential design plans the looks "
+                "in advance and spends a fixed slice of the error budget at "
+                "each one. An always valid method computes a p value built to "
+                "stay correct no matter when someone decides to stop. Neither "
+                "method removes the cost of checking early, both just make "
+                "that cost honest."
+            ),
+        ),
+        Probe(
+            id="offline-online-gap",
+            asks=(
+                "Your offline evaluation score improves after a model change, "
+                "and you have not run an online test yet. What does the "
+                "improved offline score establish about the live metric?"
+            ),
+            choices=(
+                Choice("a", "That the live metric will improve by roughly the same amount"),
+                Choice("b", "Nothing on its own, since offline and online results are known to diverge"),
+                Choice("c", "That the model is ready to ship without an online test"),
+                Choice("d", "That the offline metric is wrong whenever it disagrees with intuition"),
+            ),
+            answer="b",
+            because=(
+                "An improving offline number says something true about the "
+                "offline number and nothing certain about the live one. The "
+                "engineers who built the YouTube recommendation system said so "
+                "directly: live A/B results are not always correlated with "
+                "offline experiments. At Microsoft, researchers reported that "
+                "only about one third of tested ideas actually helped the "
+                "metric they targeted, despite looking promising enough to "
+                "test. The two numbers answer different questions. A team has "
+                "to decide which one actually gets to decide, and then run "
+                "the real test to find out."
+            ),
+        ),
+    ),
+    exercise=Exercise(
+        asks=(
+            "This unit ships a fixture of 3,500 simulated A/B experiments "
+            "where the treatment carries no real effect at all. Apply the "
+            "stated peeking rule at the five checkpoints in each experiment. "
+            "Work out what share of these null experiments would have "
+            "declared a winner. Post that share."
+        ),
+        fixture_path="fixtures/experiment_discipline/ab_peeking.json",
+        fixture_note=(
+            "The fixture holds 3,500 experiments, each with a control arm and "
+            "a treatment arm at the same 20 percent rate, so the real effect "
+            "is zero. The fixture checks each arm at five checkpoints: 200, "
+            "400, 600, 800, and 1,000 visitors, with every count cumulative "
+            "from the start. At each checkpoint, in order, run a "
+            "two-proportion z-test with a pooled standard error. Compare the "
+            "cumulative treatment rate to the cumulative control rate at that "
+            "checkpoint size. The rule is two sided, so declare a winner the "
+            "moment any checkpoint produces a p value under 0.05, and stop "
+            "looking at that experiment. An experiment that never crosses "
+            "0.05 at any of the five checkpoints counts as no winner."
+        ),
+        starter=(
+            'import json\n'
+            'import math\n'
+            '\n'
+            'data = json.load(open("fixtures/experiment_discipline/ab_peeking.json"))\n'
+            'checkpoints = data["checkpoints"]\n'
+            'experiments = data["experiments"]\n'
+            '\n'
+            '# For one experiment, at checkpoint index i:\n'
+            '#   n = checkpoints[i]              (visitors per arm, cumulative)\n'
+            '#   xc = experiment["control"][i]   (cumulative conversions, control)\n'
+            '#   xt = experiment["treatment"][i] (cumulative conversions, treatment)\n'
+            '#\n'
+            '# Work out a two-proportion z-test p value with a pooled standard\n'
+            '# error, using math.erf for the normal CDF. Walk the checkpoints for\n'
+            '# each experiment in order and stop at the first one where p is under\n'
+            '# 0.05. Count how many of the 3,500 experiments stop that way, then\n'
+            '# divide by 3,500.\n'
+        ),
+        metric="peeking_false_positive_rate",
+        expected=0.1469,
+        tolerance=0.004,
+        because=(
+            "Checked only once, at the final checkpoint of 1,000 visitors per "
+            "arm, this fixture's own false positive rate comes out at 0.0489, "
+            "almost exactly the nominal 5 percent. Checked at all five "
+            "checkpoints, and stopped at the first one to cross 0.05, the "
+            "same fixture declares a winner 0.1469 of the time. That is "
+            "nearly three times the advertised rate. Nothing in the fixture "
+            "changed between those two measurements, only the rule applied to "
+            "it did. That gap is the whole lesson. A p value is honest only "
+            "about the rule that produced it, never about the rule you wish "
+            "you had used."
+        ),
+    ),
+    sources=(
+        "evanmiller.org/how-not-to-run-an-ab-test.html (read 2026-10-29), "
+        "continuous monitoring simulation at a 50 percent baseline conversion "
+        "rate with zero true effect, checking after every visitor up to 150 "
+        "and stopping at the first p under 0.05, reporting a 26.1 percent "
+        "false positive rate against a nominal 5 percent test",
+        "arXiv:1512.04922 (2015-12-15), Johari, Pekelis, and Walsh, Always "
+        "Valid Inference: Bringing Sequential Analysis to A/B Testing, "
+        "reporting that continuous monitoring at 10,000 samples can increase "
+        "type I error fivefold, and defining the always valid p value and "
+        "the mSPRT used to avoid it",
+        "dl.acm.org/doi/10.1145/2959100.2959190 (RecSys 2016), Covington, "
+        "Adams, and Sargin, Deep Neural Networks for YouTube Recommendations, "
+        "stating that live A/B results are not always correlated with "
+        "offline experiments",
+        "Kohavi and Thomke, The Surprising Power of Online Experiments, "
+        "Harvard Business Review, September-October 2017, reporting that "
+        "about one third of tested ideas at Microsoft proved effective, one "
+        "third showed no difference, and one third had a negative impact",
+    ),
+)

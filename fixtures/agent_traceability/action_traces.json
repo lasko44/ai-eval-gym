@@ -1,0 +1,2250 @@
+{
+  "traces": [
+    {
+      "trace_id": "trc_0001",
+      "completed_action": "adjusted_promo_interest_rate",
+      "customer_ref": "cust_25613",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1271,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_disputes-agent_2",
+            "gen_ai.agent.name": "disputes-agent",
+            "gen_ai.usage.input_tokens": 498,
+            "gen_ai.usage.output_tokens": 182,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202602"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 508,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 121,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0001_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 91,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0001_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 71,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0001",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_25613",
+              "action": "adjusted_promo_interest_rate"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 61,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0001_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0002",
+      "completed_action": "approved_payment_plan",
+      "customer_ref": "cust_85047",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 636,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_underwriting-agent_3",
+            "gen_ai.agent.name": "underwriting-agent",
+            "gen_ai.usage.input_tokens": 494,
+            "gen_ai.usage.output_tokens": 60,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202603"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 254,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 122,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0002_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 92,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0002_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 72,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0002"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 62,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0002_a",
+            "gen_ai.tool.call.result": "ok",
+            "app.identity.authorized_by": "svc_account_3"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0003",
+      "completed_action": "flagged_transaction_for_review",
+      "customer_ref": "cust_47649",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1140,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_service-agent_1",
+            "gen_ai.agent.name": "service-agent",
+            "gen_ai.usage.input_tokens": 308,
+            "gen_ai.usage.output_tokens": 129,
+            "gen_ai.response.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 456,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 123,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0003_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 93,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0003_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 73,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0003"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 63,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0003_a",
+            "gen_ai.tool.call.result": "ok",
+            "app.identity.authorized_by": "svc_account_4"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0004",
+      "completed_action": "routed_complaint_to_tier2",
+      "customer_ref": "cust_59328",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1730,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_collections-agent_2",
+            "gen_ai.agent.name": "collections-agent",
+            "gen_ai.usage.input_tokens": 414,
+            "gen_ai.usage.output_tokens": 76,
+            "gen_ai.response.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 692,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 124,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0004_r",
+            "app.retrieval.document_ids": [
+              "doc_0028",
+              "doc_0029"
+            ]
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 94,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0004_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 74,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "send_notice",
+            "gen_ai.tool.call.id": "call_0004",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_59328",
+              "action": "routed_complaint_to_tier2"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 64,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0004_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0005",
+      "completed_action": "waived_overdraft_fee",
+      "customer_ref": "cust_85684",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 648,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_disputes-agent_3",
+            "gen_ai.agent.name": "disputes-agent",
+            "gen_ai.usage.input_tokens": 463,
+            "gen_ai.usage.output_tokens": 167,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202606"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 259,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 125,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0005_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 95,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0005_p",
+            "app.policy.threshold_applied": "risk_score < 0.35"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 75,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "account_lookup",
+            "gen_ai.tool.call.id": "call_0005",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_85684",
+              "action": "waived_overdraft_fee"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 65,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0005_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0006",
+      "completed_action": "auto_responded_to_dispute",
+      "customer_ref": "cust_65763",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1391,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_underwriting-agent_1",
+            "gen_ai.agent.name": "underwriting-agent",
+            "gen_ai.usage.input_tokens": 395,
+            "gen_ai.usage.output_tokens": 184,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202607"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 556,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 126,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0006_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 96,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0006_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 76,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0006",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_65763",
+              "action": "auto_responded_to_dispute"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 66,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0006_a",
+            "gen_ai.tool.call.result": "ok",
+            "app.identity.authorized_by": "svc_account_3"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0007",
+      "completed_action": "denied_card_reissue_request",
+      "customer_ref": "cust_77233",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 620,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_service-agent_2",
+            "gen_ai.agent.name": "service-agent",
+            "gen_ai.usage.input_tokens": 634,
+            "gen_ai.usage.output_tokens": 211,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202608",
+            "app.prompt.version": "prompt_v3.1"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 248,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 127,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0007_r",
+            "app.retrieval.document_ids": [
+              "doc_0049",
+              "doc_0050"
+            ]
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 97,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0007_p",
+            "app.policy.threshold_applied": "risk_score < 0.37"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 77,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0007",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_77233",
+              "action": "denied_card_reissue_request"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 67,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0007_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0008",
+      "completed_action": "approved_credit_limit_increase",
+      "customer_ref": "cust_91567",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1873,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_collections-agent_3",
+            "gen_ai.agent.name": "collections-agent",
+            "gen_ai.usage.input_tokens": 525,
+            "gen_ai.usage.output_tokens": 160,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202609"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 749,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 128,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0008_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 98,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0008_p",
+            "app.policy.threshold_applied": "risk_score < 0.38"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 78,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0008"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 68,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0008_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0009",
+      "completed_action": "adjusted_promo_interest_rate",
+      "customer_ref": "cust_81517",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1296,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_disputes-agent_1",
+            "gen_ai.agent.name": "disputes-agent",
+            "gen_ai.usage.input_tokens": 592,
+            "gen_ai.usage.output_tokens": 142,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202601"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 518,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 129,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0009_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 99,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0009_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 79,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "send_notice",
+            "gen_ai.tool.call.id": "call_0009"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 69,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0009_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0010",
+      "completed_action": "approved_payment_plan",
+      "customer_ref": "cust_36546",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1147,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_underwriting-agent_2",
+            "gen_ai.agent.name": "underwriting-agent",
+            "gen_ai.usage.input_tokens": 447,
+            "gen_ai.usage.output_tokens": 165,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202602"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 458,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 130,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0010_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 100,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0010_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 80,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "account_lookup",
+            "gen_ai.tool.call.id": "call_0010",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_36546",
+              "action": "approved_payment_plan"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 60,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0010_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0011",
+      "completed_action": "flagged_transaction_for_review",
+      "customer_ref": "cust_36193",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1058,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_service-agent_3",
+            "gen_ai.agent.name": "service-agent",
+            "gen_ai.usage.input_tokens": 197,
+            "gen_ai.usage.output_tokens": 114,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202603"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 423,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 131,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0011_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 101,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0011_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 81,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0011",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_36193",
+              "action": "flagged_transaction_for_review"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 61,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0011_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0012",
+      "completed_action": "routed_complaint_to_tier2",
+      "customer_ref": "cust_69985",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1900,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_collections-agent_1",
+            "gen_ai.agent.name": "collections-agent",
+            "gen_ai.usage.input_tokens": 273,
+            "gen_ai.usage.output_tokens": 148,
+            "gen_ai.response.model": "gpt-4.1",
+            "app.prompt.version": "prompt_v3.0"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 760,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 132,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0012_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 102,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0012_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 82,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0012"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 62,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0012_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0013",
+      "completed_action": "waived_overdraft_fee",
+      "customer_ref": "cust_72802",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 438,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_disputes-agent_2",
+            "gen_ai.agent.name": "disputes-agent",
+            "gen_ai.usage.input_tokens": 254,
+            "gen_ai.usage.output_tokens": 155,
+            "gen_ai.response.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 175,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 133,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0013_r",
+            "app.retrieval.document_ids": [
+              "doc_0091",
+              "doc_0092"
+            ]
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 103,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0013_p",
+            "app.policy.threshold_applied": "risk_score < 0.43"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 83,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0013"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 63,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0013_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0014",
+      "completed_action": "auto_responded_to_dispute",
+      "customer_ref": "cust_22080",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1949,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_underwriting-agent_3",
+            "gen_ai.agent.name": "underwriting-agent",
+            "gen_ai.usage.input_tokens": 497,
+            "gen_ai.usage.output_tokens": 51,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202606"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 779,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 134,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0014_r",
+            "app.retrieval.document_ids": [
+              "doc_0098",
+              "doc_0099"
+            ]
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 104,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0014_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 84,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "send_notice",
+            "gen_ai.tool.call.id": "call_0014"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 64,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0014_a",
+            "gen_ai.tool.call.result": "ok",
+            "app.identity.authorized_by": "svc_account_3"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0015",
+      "completed_action": "denied_card_reissue_request",
+      "customer_ref": "cust_81624",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1822,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_service-agent_1",
+            "gen_ai.agent.name": "service-agent",
+            "gen_ai.usage.input_tokens": 573,
+            "gen_ai.usage.output_tokens": 165,
+            "gen_ai.response.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 728,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 135,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0015_r",
+            "app.retrieval.document_ids": [
+              "doc_0105",
+              "doc_0106"
+            ]
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 105,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0015_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 70,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "account_lookup",
+            "gen_ai.tool.call.id": "call_0015",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_81624",
+              "action": "denied_card_reissue_request"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 65,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0015_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0016",
+      "completed_action": "approved_credit_limit_increase",
+      "customer_ref": "cust_27676",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 737,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_collections-agent_2",
+            "gen_ai.agent.name": "collections-agent",
+            "gen_ai.usage.input_tokens": 393,
+            "gen_ai.usage.output_tokens": 211,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202608"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 294,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 136,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0016_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 106,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0016_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 71,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0016",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_27676",
+              "action": "approved_credit_limit_increase"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 66,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0016_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0017",
+      "completed_action": "adjusted_promo_interest_rate",
+      "customer_ref": "cust_27740",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 438,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_disputes-agent_3",
+            "gen_ai.agent.name": "disputes-agent",
+            "gen_ai.usage.input_tokens": 280,
+            "gen_ai.usage.output_tokens": 136,
+            "gen_ai.response.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 175,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 137,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0017_r",
+            "app.retrieval.document_ids": [
+              "doc_0119",
+              "doc_0120"
+            ]
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 107,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0017_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 72,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0017",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_27740",
+              "action": "adjusted_promo_interest_rate"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 67,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0017_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0018",
+      "completed_action": "approved_payment_plan",
+      "customer_ref": "cust_23911",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1384,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_underwriting-agent_1",
+            "gen_ai.agent.name": "underwriting-agent",
+            "gen_ai.usage.input_tokens": 193,
+            "gen_ai.usage.output_tokens": 170,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202601",
+            "app.prompt.version": "prompt_v4.0"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 553,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 138,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0018_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 108,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0018_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 73,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0018"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 68,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0018_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0019",
+      "completed_action": "flagged_transaction_for_review",
+      "customer_ref": "cust_52960",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1620,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_service-agent_2",
+            "gen_ai.agent.name": "service-agent",
+            "gen_ai.usage.input_tokens": 267,
+            "gen_ai.usage.output_tokens": 79,
+            "gen_ai.response.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 648,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 139,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0019_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 109,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0019_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 74,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "send_notice",
+            "gen_ai.tool.call.id": "call_0019"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 69,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0019_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0020",
+      "completed_action": "routed_complaint_to_tier2",
+      "customer_ref": "cust_78106",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1735,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_collections-agent_3",
+            "gen_ai.agent.name": "collections-agent",
+            "gen_ai.usage.input_tokens": 197,
+            "gen_ai.usage.output_tokens": 90,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202603"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 694,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 140,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0020_r",
+            "app.retrieval.document_ids": [
+              "doc_0140",
+              "doc_0141"
+            ]
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 90,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0020_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 75,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "account_lookup",
+            "gen_ai.tool.call.id": "call_0020",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_78106",
+              "action": "routed_complaint_to_tier2"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 60,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0020_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0021",
+      "completed_action": "waived_overdraft_fee",
+      "customer_ref": "cust_32723",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 451,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_disputes-agent_1",
+            "gen_ai.agent.name": "disputes-agent",
+            "gen_ai.usage.input_tokens": 544,
+            "gen_ai.usage.output_tokens": 213,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202604"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 180,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 141,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0021_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 91,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0021_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 76,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0021"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 61,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0021_a",
+            "gen_ai.tool.call.result": "ok",
+            "app.identity.authorized_by": "svc_account_2"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0022",
+      "completed_action": "auto_responded_to_dispute",
+      "customer_ref": "cust_26926",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 968,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_underwriting-agent_2",
+            "gen_ai.agent.name": "underwriting-agent",
+            "gen_ai.usage.input_tokens": 275,
+            "gen_ai.usage.output_tokens": 139,
+            "gen_ai.response.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 387,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 142,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0022_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 92,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0022_p",
+            "app.policy.threshold_applied": "risk_score < 0.32"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 77,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0022"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 62,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0022_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0023",
+      "completed_action": "denied_card_reissue_request",
+      "customer_ref": "cust_65752",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 999,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_service-agent_3",
+            "gen_ai.agent.name": "service-agent",
+            "gen_ai.usage.input_tokens": 579,
+            "gen_ai.usage.output_tokens": 146,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202606"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 399,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 143,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0023_r",
+            "app.retrieval.document_ids": [
+              "doc_0161",
+              "doc_0162"
+            ]
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 93,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0023_p",
+            "app.policy.threshold_applied": "risk_score < 0.33"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 78,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0023",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_65752",
+              "action": "denied_card_reissue_request"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 63,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0023_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0024",
+      "completed_action": "approved_credit_limit_increase",
+      "customer_ref": "cust_71302",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 883,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_collections-agent_1",
+            "gen_ai.agent.name": "collections-agent",
+            "gen_ai.usage.input_tokens": 228,
+            "gen_ai.usage.output_tokens": 94,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202607"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 353,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 144,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0024_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 94,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0024_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 79,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "send_notice",
+            "gen_ai.tool.call.id": "call_0024",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_71302",
+              "action": "approved_credit_limit_increase"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 64,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0024_a",
+            "gen_ai.tool.call.result": "ok",
+            "app.identity.authorized_by": "svc_account_1"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0025",
+      "completed_action": "adjusted_promo_interest_rate",
+      "customer_ref": "cust_10643",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 465,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_disputes-agent_2",
+            "gen_ai.agent.name": "disputes-agent",
+            "gen_ai.usage.input_tokens": 523,
+            "gen_ai.usage.output_tokens": 86,
+            "gen_ai.response.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 186,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 145,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0025_r",
+            "app.retrieval.document_ids": [
+              "doc_0175",
+              "doc_0176"
+            ]
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 95,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0025_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 80,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "account_lookup",
+            "gen_ai.tool.call.id": "call_0025",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_10643",
+              "action": "adjusted_promo_interest_rate"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 65,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0025_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0026",
+      "completed_action": "approved_payment_plan",
+      "customer_ref": "cust_56130",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 1948,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_underwriting-agent_3",
+            "gen_ai.agent.name": "underwriting-agent",
+            "gen_ai.usage.input_tokens": 323,
+            "gen_ai.usage.output_tokens": 182,
+            "gen_ai.response.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 779,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 146,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0026_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 96,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0026_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 81,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0026"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 66,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0026_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0027",
+      "completed_action": "flagged_transaction_for_review",
+      "customer_ref": "cust_84454",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 760,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_service-agent_1",
+            "gen_ai.agent.name": "service-agent",
+            "gen_ai.usage.input_tokens": 229,
+            "gen_ai.usage.output_tokens": 151,
+            "gen_ai.response.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 304,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 147,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0027_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 97,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0027_p",
+            "app.policy.threshold_applied": "risk_score < 0.37"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 82,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0027",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_84454",
+              "action": "flagged_transaction_for_review"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 67,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0027_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0028",
+      "completed_action": "routed_complaint_to_tier2",
+      "customer_ref": "cust_23898",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 540,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_collections-agent_2",
+            "gen_ai.agent.name": "collections-agent",
+            "gen_ai.usage.input_tokens": 321,
+            "gen_ai.usage.output_tokens": 190,
+            "gen_ai.response.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 216,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 148,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0028_r",
+            "app.retrieval.document_ids": [
+              "doc_0196",
+              "doc_0197"
+            ]
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 98,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0028_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 83,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0028"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 68,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0028_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0029",
+      "completed_action": "waived_overdraft_fee",
+      "customer_ref": "cust_48146",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 441,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_disputes-agent_3",
+            "gen_ai.agent.name": "disputes-agent",
+            "gen_ai.usage.input_tokens": 311,
+            "gen_ai.usage.output_tokens": 146,
+            "gen_ai.response.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 176,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 149,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0029_r",
+            "app.retrieval.document_ids": [
+              "doc_0203",
+              "doc_0204"
+            ]
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 99,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0029_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 84,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "send_notice",
+            "gen_ai.tool.call.id": "call_0029",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_48146",
+              "action": "waived_overdraft_fee"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 69,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0029_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    },
+    {
+      "trace_id": "trc_0030",
+      "completed_action": "auto_responded_to_dispute",
+      "customer_ref": "cust_17511",
+      "spans": [
+        {
+          "name": "invoke_agent",
+          "duration_ms": 2006,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "invoke_agent",
+            "gen_ai.agent.id": "agent_underwriting-agent_1",
+            "gen_ai.agent.name": "underwriting-agent",
+            "gen_ai.usage.input_tokens": 359,
+            "gen_ai.usage.output_tokens": 120,
+            "gen_ai.response.model": "gpt-4.1",
+            "gen_ai.response.model_version": "gpt-4.1-202604",
+            "app.prompt.version": "prompt_v1.0"
+          }
+        },
+        {
+          "name": "chat",
+          "duration_ms": 802,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "chat",
+            "gen_ai.request.model": "gpt-4.1"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 120,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "retrieve_case_docs",
+            "gen_ai.tool.call.id": "call_0030_r"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 100,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "policy_lookup",
+            "gen_ai.tool.call.id": "call_0030_p"
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 70,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "account_lookup",
+            "gen_ai.tool.call.id": "call_0030",
+            "gen_ai.tool.call.arguments": {
+              "account_ref": "cust_17511",
+              "action": "auto_responded_to_dispute"
+            }
+          }
+        },
+        {
+          "name": "execute_tool",
+          "duration_ms": 60,
+          "status": "ok",
+          "attributes": {
+            "gen_ai.operation.name": "execute_tool",
+            "gen_ai.tool.name": "update_account",
+            "gen_ai.tool.call.id": "call_0030_a",
+            "gen_ai.tool.call.result": "ok"
+          }
+        }
+      ]
+    }
+  ]
+}
