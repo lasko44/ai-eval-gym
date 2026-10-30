@@ -12,9 +12,9 @@ UNIT = Unit(
     number=9,
     title="A guardrail reported as a single number",
     failure=(
-        "A content filter's catch rate is measured against the same blocked "
-        "corpus it was tuned on, and reported with no false-positive rate "
-        "next to it."
+        "A team measures the catch rate of a content filter against the "
+        "same blocked corpus used to tune it. They report that rate with "
+        "no false-positive rate next to it."
     ),
     detection=(
         "Mutate the blocked corpus before measuring bypass rate, and report "

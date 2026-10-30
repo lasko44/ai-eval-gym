@@ -16,14 +16,14 @@ UNIT = Unit(
     minutes=25,
     brief=(
         "Once you have more than a handful of outputs to evaluate, hand grading stops "
-        "scaling and almost everyone reaches for the same thing: another model as the "
+        "scaling. Almost everyone reaches for the same thing: another model as the "
         "judge. You show it two answers, ask which is better, and treat the verdict as "
         "a measurement.",
         "It is not a measurement until you have shown it is stable. A judge has "
         "preferences that have nothing to do with quality, and the loudest one is "
         "position. Show it answer A then answer B and it picks A. Swap them and it "
         "picks the other one. Nothing about the answers changed.",
-        "This was measured across 21 general-purpose LLM judges drawn from nine "
+        "The study measured this across 21 general-purpose LLM judges drawn from nine "
         "providers, over 541,000 judgments. Position "
         "bias ranged from 0.002 to 0.192 depending on the judge, so at the bad end "
         "nearly one verdict in five turns on ordering alone. If you did not swap the "
@@ -34,15 +34,16 @@ UNIT = Unit(
         "the time, so raw agreement counts luck as skill. In the same study, "
         "correcting for chance cut agreement by a cohort mean of 38.6 points on "
         "MT-Bench, where the range across the 21 judges was 33.8 to 41.3. A judge "
-        "you believed was in the eighties can be in the forties once coincidence is "
-        "removed.",
+        "you believed was in the eighties can be in the forties once you remove "
+        "coincidence.",
         "How large that correction gets is not a constant, and assuming it is will "
         "mislead you in the other direction. The same study measured a mean "
-        "deflation of 23.7 points on JudgeBench and 10.4 points on RewardBench, and "
-        "attributes the difference to each benchmark's label distribution: the more "
-        "lopsided the labels, the more agreement you get for free and the bigger the "
-        "correction. So the number to carry is not 39, it is that raw agreement "
-        "always flatters a judge by an amount you cannot guess without computing it.",
+        "deflation of 23.7 points on JudgeBench and 10.4 points on RewardBench. It "
+        "attributes the difference to the label distribution of each benchmark. The "
+        "more lopsided the labels, the more agreement you get for free, and the "
+        "bigger the correction. So the number to carry is not 39, it is that raw "
+        "agreement always flatters a judge by an amount you cannot guess without "
+        "computing it.",
         "The detection is cheap, which is what makes skipping it indefensible. Run "
         "every comparison twice, once in each order, and count how often the verdict "
         "changes. That fraction is your flip rate, and it is an upper bound on how "
@@ -89,10 +90,10 @@ UNIT = Unit(
             answer="c",
             because=(
                 "On MT-Bench the cohort mean deflation was 38.6 points, with every one of "
-                "the 21 judges landing between 33.8 and 41.3. The mechanism is simple: "
-                "on a two way choice, two raters who both guess agree half the time, so "
+                "the 21 judges landing between 33.8 and 41.3. The mechanism is simple. "
+                "On a two way choice, two raters who both guess agree half the time, so "
                 "much of your 80 percent can be coincidence. Note the scoping in the "
-                "question, because it is doing real work: the same study found a mean "
+                "question, because it is doing real work. The same study found a mean "
                 "deflation of only 10.4 points on RewardBench, whose label distribution "
                 "is different. Had the question not named the benchmark, no single "
                 "number would have been defensible, which is the habit worth taking "
@@ -106,16 +107,16 @@ UNIT = Unit(
                 "What have you established?"
             ),
             choices=(
-                Choice("a", "The judge is reliable and the eval numbers can be trusted"),
+                Choice("a", "The judge is reliable, so you can trust the eval numbers"),
                 Choice("b", "The judge is stable under ordering, which says nothing yet about whether it agrees with humans"),
-                Choice("c", "The judge is biased, since any flip rate above zero is disqualifying"),
+                Choice("c", "The judge has bias, since any flip rate above zero disqualifies it"),
                 Choice("d", "Nothing, flip rate is only meaningful above 100 pairs"),
             ),
             answer="b",
             because=(
                 "A low flip rate buys you consistency, not correctness. A judge can be "
-                "perfectly stable and perfectly wrong: it will give you the same "
-                "verdict every time and that verdict can still disagree with every "
+                "perfectly stable and perfectly wrong. It will give you the same "
+                "verdict every time, and that verdict can still disagree with every "
                 "human who looks at it. Reliability and validity are separate "
                 "properties and you need evidence for both. This is the distinction "
                 "that the phrase 'we validated our judge' usually hides."
@@ -124,7 +125,7 @@ UNIT = Unit(
     ),
     exercise=Exercise(
         asks=(
-            "A fixture of 200 judge calls is shipped with this unit, each scored once "
+            "This unit ships a fixture of 200 judge calls, each scored once "
             "in each order. Measure how often the verdict changed, and post the number."
         ),
         fixture_path="fixtures/judges/ab_pairs.json",
@@ -147,10 +148,10 @@ UNIT = Unit(
         expected=0.185,
         tolerance=0.0005,
         because=(
-            "37 of the 200 verdicts changed when the order was swapped, so the flip "
+            "Swapping the order changed 37 of the 200 verdicts, so the flip "
             "rate is 0.185. That is at the ugly end of the published range. A judge "
-            "behaving like this is contributing more noise to your eval than most of "
-            "the differences you would be trying to detect with it, so any A/B result "
+            "behaving like this contributes more noise to your eval than most of "
+            "the differences you are trying to detect with it. Any A/B result "
             "it produced under about 20 points is unreadable."
         ),
     ),

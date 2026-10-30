@@ -49,11 +49,11 @@
     <h3>Harness runs</h3>
     {% if runs %}
         <p class="note">
-            Every run recorded against this cycle, oldest first. Where a
-            metric was reported by more than one run, the score used the
-            latest value: that reading is marked scored and the earlier ones
-            are marked superseded, so a value that was replaced is still on
-            the page rather than gone.
+            Every run recorded against this cycle, oldest first. Sometimes more
+            than one run reports the same metric. The score then uses the
+            latest value, and this page marks that reading scored. It marks
+            each earlier reading superseded. A replaced value stays on the
+            page rather than disappears.
         </p>
         <ol class="rows">
             {% for row in runs %}
@@ -81,7 +81,7 @@
             {% endfor %}
         </ol>
     {% else %}
-        <p class="note empty">No harness run was recorded against this cycle.</p>
+        <p class="note empty">Nobody recorded a harness run against this cycle.</p>
     {% endif %}
 
     <h3>Score</h3>
@@ -130,15 +130,15 @@
     </dl>
     {% if cycle.sealed_commit %}
         <p class="note">
-            Anyone with this repository can check this without trusting the
-            page: that command prints the seal file as committed, and the
-            chain head above has to be the one inside it.
+            Anyone with this repository can check this without trust in the page.
+            That command prints the seal file as committed. The chain head
+            above has to be the one inside it.
         </p>
     {% else %}
         <p class="note">
-            This cycle was sealed before the app began recording the seal
-            commit's own SHA, so no commit is named here. That command finds
-            the commit that carries the seal file.
+            Someone sealed this cycle before the app began recording the SHA of
+            the seal commit, so no commit appears here. That command finds the
+            commit that carries the seal file.
         </p>
     {% endif %}
 

@@ -163,7 +163,9 @@ def test_teardown_renders_honestly_when_no_seal_commit_was_recorded(
     assert page.status_code == 200
     assert export.status_code == 200
     for body in (page.text, export.text):
-        assert "sealed before the app began recording" in body
+        # Assert the guarantee, not one wording of it. A copy edit for
+        # clarity should not fail this test; printing "None" should.
+        assert "before the app began recording" in body
         assert f"git log -- seals/cycle-{scored_cycle.id}.txt" in body
         # Not "in commit `None`", and not an empty backtick pair either.
         assert "None" not in body

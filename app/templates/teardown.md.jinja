@@ -37,5 +37,6 @@ Chain head: `{{ cycle.claims[-1].sealed_hash }}`
 {% if cycle.sealed_commit %}Committed as `seals/cycle-{{ cycle.id }}.txt` in commit `{{ cycle.sealed_commit }}`.
 
 Anyone with this repository can check that for themselves: `git show {{ cycle.sealed_commit }}` prints the seal file as committed, and the chain head above has to be the one in it.
-{% else %}Committed as `seals/cycle-{{ cycle.id }}.txt`. This cycle was sealed before the app began recording the seal commit's own SHA, so there is no commit named here. The commit can still be found with `git log -- seals/cycle-{{ cycle.id }}.txt`.
+{% else %}Committed as `seals/cycle-{{ cycle.id }}.txt`. Someone sealed this cycle before the app began recording the SHA of
+the seal commit, so no commit appears here. The commit can still be found with `git log -- seals/cycle-{{ cycle.id }}.txt`.
 {% endif %}

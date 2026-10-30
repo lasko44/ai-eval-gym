@@ -13,9 +13,9 @@ UNIT = Unit(
     title="Agent loops that burn a budget without finishing",
     failure=(
         "An agent retries a failed attempt inside the same task. The retry carries the "
-        "failed attempt forward as context, so the next try costs more than the last "
-        "whether or not it is any closer to succeeding, and nothing stops the loop "
-        "until something external to the agent does."
+        "failed attempt forward as context. So the next try costs more than the last, "
+        "whether or not it is any closer to succeeding. Nothing stops the loop until "
+        "something external to the agent does."
     ),
     detection="Measure tokens per resolved task, not tokens per call, and watch for context that only ever grows within a task.",
     minutes=25,
@@ -23,61 +23,66 @@ UNIT = Unit(
         "An agent that tries something, fails, and tries again is not a bug, it is "
         "the default shape of an agentic loop. The failure mode is not that it "
         "retries, it is what the retry is made of. Most agent frameworks keep the "
-        "whole conversation so far in context on every call, so the second attempt "
-        "includes the first attempt's broken tool call, the error it produced, and "
-        "whatever the model said about it, before the second attempt has done a "
-        "single token of new work. The third attempt includes all of that plus the "
-        "second attempt's failure. Nothing in most frameworks prunes, summarizes, or "
-        "resets that history mid task, so the context is monotonic: attempt by "
-        "attempt it only gets longer, and every token of it gets billed again on "
-        "every subsequent call.",
+        "whole conversation so far in context on every call. So the second attempt "
+        "includes the broken tool call from the first attempt, the error it "
+        "produced, and whatever the model said about it. All of that happens before "
+        "the second attempt has done a single token of new work.",
+        "The third attempt includes all of that plus the failure of the second "
+        "attempt. Nothing in most frameworks prunes, summarizes, or resets that "
+        "history mid task, so the context is monotonic. Attempt by attempt it only "
+        "gets longer, and every token of it gets billed again on every subsequent "
+        "call.",
         "A dashboard that reports average tokens per call cannot see this happening. "
         "A fleet running thousands of tasks a day might have ninety nine percent of "
-        "them resolve in one or two cheap calls and a handful loop for dozens of "
-        "attempts each; averaged across every call, the cheap majority swamps the "
-        "expensive minority and the number barely moves. The loop is a small share "
-        "of calls even when it is a large share of tokens, which is exactly the "
-        "condition under which a flat average and a real problem look identical from "
-        "the outside.",
+        "them resolve in one or two cheap calls. A handful loop for dozens of "
+        "attempts each. Averaged across every call, the cheap majority swamps the "
+        "expensive minority, and the number barely moves. The loop is a small share "
+        "of calls even when it is a large share of tokens. That is exactly the "
+        "condition under which a flat average and a real problem look identical "
+        "from the outside.",
         "This is a documented production failure, not a hypothetical one. A primary "
-        "catalog of 63 confirmed incidents across 21 agent frameworks, built from "
+        "catalog of 63 confirmed incidents across 21 agent frameworks drew on "
         "GitHub issues, maintainer statements, and documented dollar losses where "
-        "they were reported, grouped its findings into clusters, and the single "
-        "largest one, 27 of the 63 cases spanning 12 of the frameworks, was exactly "
-        "this shape: a retry loop with no mechanism bounding what it could spend. "
-        "One incident in that catalog ran up around 235 dollars in four days from a "
-        "single user account on a single framework, on the order of 59 dollars a "
-        "day, a number that would never surface on a per call average because the "
-        "rest of that account's traffic looked completely ordinary.",
+        "maintainers reported them. The catalog grouped its findings into clusters. "
+        "The single largest cluster, 27 of the 63 cases spanning 12 of the "
+        "frameworks, was a retry loop with no mechanism bounding what it could "
+        "spend.",
+        "One incident in that catalog ran up around 235 dollars in four days, from a "
+        "single user account on a single framework. That is on the order of 59 "
+        "dollars a day. That number would never surface on a per call average, "
+        "because the rest of the traffic on that account looked completely "
+        "ordinary.",
         "Tokens per resolved task is the number that exposes it, because it changes "
         "the denominator. Add up every token spent, including everything burned by "
         "tasks that never finished, and divide by the count of tasks that actually "
-        "resolved. A task that loops forty times and never resolves puts its entire, "
-        "growing bill into that numerator and contributes nothing to the "
-        "denominator, so it drags the one number that is supposed to mean the cost "
-        "of getting something done, rather than the cost of asking. The same "
-        "catalog's context growth findings describe unbounded growth happening at "
-        "the level of the agent's own step loop, including one case left running for "
-        "over thirteen months and a single call that reached on the order of two "
-        "million tokens during a tool heavy run. Watching whether a task's context "
-        "ever shrinks between attempts is the second, cost independent signal: a "
-        "hard problem can legitimately take many expensive attempts while still "
-        "making progress, but context that only ever grows means the loop has no way "
-        "to discard a failed branch and start clean, which is a property of how the "
-        "loop is built, not of how hard this particular task happens to be.",
-        "What I could verify directly: the catalog's arXiv id resolved, and its "
-        "title, incident count, framework count, the retry loop cluster's 27 cases "
-        "across 12 frameworks, and the dollar and token figures above all came from "
-        "reading the paper itself, not from memory. The OpenTelemetry GenAI semantic "
-        "conventions, read from the specification's own repository, define per call "
-        "token usage attributes and a separate span for a full agent run, and state "
-        "that capturing prompt and response content is opt in and off by default; "
-        "the data a trace needs to compute tokens per resolved task already exists "
-        "at the call level, nothing in the spec rolls it up to a task automatically. "
+        "resolved. A task that loops forty times and never resolves puts its "
+        "entire, growing bill into that numerator. It contributes nothing to the "
+        "denominator. That drags down the one number that should measure the cost "
+        "of getting something done, not the cost of asking.",
+        "The same catalog describes context growth findings of unbounded growth at "
+        "the level of the step loop the agent itself runs. One case was left "
+        "running for over thirteen months. A single call reached on the order of "
+        "two million tokens during a tool heavy run.",
+        "Watching whether the context of a task ever shrinks between attempts is "
+        "the second, cost independent signal. A hard problem can legitimately take "
+        "many expensive attempts while still making progress. But context that only "
+        "ever grows means the loop has no way to discard a failed branch and start "
+        "clean. That is a property of how the loop is built, not of how hard this "
+        "particular task happens to be.",
+        "Here is what I could verify directly. The arXiv id of the catalog "
+        "resolved, along with its title, incident count, and framework count. The "
+        "cases across frameworks in the retry loop cluster, and the dollar and "
+        "token figures above, came from reading the paper, not from memory.",
+        "The OpenTelemetry GenAI semantic conventions come from the official "
+        "repository for the specification. They define per call token usage "
+        "attributes and a separate span for a full agent run. They also state that "
+        "capturing prompt and response content is opt in and off by default. The "
+        "data a trace needs to compute tokens per resolved task already exists at "
+        "the call level. Nothing in the spec rolls it up to a task automatically.",
         "I looked for a published tokens or dollars per resolved task figure from a "
-        "coding agent benchmark leaderboard, since that would have been a strong "
-        "second source, but could not load a primary page that stated one, so no "
-        "figure of that kind appears in this unit.",
+        "coding agent benchmark leaderboard. That would have been a strong second "
+        "source. I could not load a primary page that stated one, so no figure of "
+        "that kind appears in this unit.",
     ),
     probes=(
         Probe(
@@ -96,15 +101,16 @@ UNIT = Unit(
             ),
             answer="c",
             because=(
-                "Dividing by every call is the metric that hides this failure, since "
-                "a handful of expensive stuck loops sit inside a majority of cheap "
-                "calls and the average barely moves. Dividing by every task "
-                "attempted undercounts the damage, since it charges a stuck task the "
-                "same weight as a normal one when its cost is the whole point. "
-                "Dividing by resolved tasks puts every wasted token, including "
-                "everything spent on tasks that never finished, onto the books of "
-                "the tasks that did, which is the only version of the number that "
-                "moves when a loop is burning budget without producing anything."
+                "Dividing by every call is the metric that hides this failure. A "
+                "handful of expensive stuck loops sit inside a majority of cheap "
+                "calls, so the average barely moves. Dividing by every task "
+                "attempted undercounts the damage. It charges a stuck task the same "
+                "weight as a normal one, when the cost of being stuck is the whole "
+                "point. Dividing by resolved tasks puts every wasted token, "
+                "including everything spent on tasks that never finished, onto the "
+                "books of the tasks that did. That is the only version of the "
+                "number that moves when a loop is burning budget without producing "
+                "anything."
             ),
         ),
         Probe(
@@ -123,47 +129,47 @@ UNIT = Unit(
             answer="b",
             because=(
                 "A hard problem can legitimately need eight expensive attempts and "
-                "still be making progress, so a high total token count on its own "
-                "does not distinguish stuck from slow. Context that only ever grows, "
-                "with no attempt starting from a smaller base than the one before "
-                "it, means the loop has no mechanism for discarding a failed branch "
-                "and trying a clean one, a property of the loop's design rather than "
-                "of this task's difficulty. That is the second signal this unit asks "
-                "you to watch for, independent of cost entirely."
+                "still be making progress. A high total token count on its own "
+                "does not distinguish stuck from slow. Context that only ever "
+                "grows, with no attempt smaller than the one before it, means the "
+                "loop cannot discard a failed branch. It cannot try a clean one "
+                "either. That is a property of how the loop is built, not of "
+                "how difficult this task is. That is the second signal this unit "
+                "asks you to watch for, independent of cost entirely."
             ),
         ),
         Probe(
             id="flat-average-meaning",
             asks=(
-                "A team's dashboard tracks average tokens per call, and it has "
-                "stayed flat for months. Based on the retry loop failure mode, what "
-                "does that actually tell you?"
+                "A team tracks average tokens per call on its dashboard, and the "
+                "number has stayed flat for months. Based on the retry loop "
+                "failure mode, what does that actually tell you?"
             ),
             choices=(
                 Choice("a", "Runaway retry loops cannot be happening, the average would have moved"),
                 Choice("b", "Nothing either way: a small number of expensive loops can sit inside a flat average dominated by many cheap calls"),
                 Choice("c", "The system must already have a hard cap on retries"),
-                Choice("d", "The average is unreliable and should be replaced with p99 latency"),
+                Choice("d", "The average is unreliable, so switch to p99 latency instead"),
             ),
             answer="b",
             because=(
                 "The mechanism behind this failure is that a stuck loop is a small "
-                "share of total calls even when it is a large share of total "
-                "tokens, so it can sit inside a flat per call average indefinitely "
-                "without moving it. A flat average is consistent with zero retry "
-                "loops and consistent with several expensive ones, because it is the "
-                "wrong denominator for the question being asked. That is why the fix "
-                "is a different metric, tokens per resolved task, rather than a "
+                "share of total calls. It is a large share of total tokens, "
+                "though. So it can sit inside a flat per call average "
+                "indefinitely, without moving it. A flat average is consistent "
+                "with zero retry loops, and with several expensive ones, because "
+                "it answers the wrong question entirely. That is why the fix is a "
+                "different metric, tokens per resolved task, rather than a "
                 "tighter threshold on the same one."
             ),
         ),
     ),
     exercise=Exercise(
         asks=(
-            "A fixture of 160 agent task traces is shipped with this unit. Compute "
-            "tokens per resolved task, defined as every token spent across every "
-            "attempt in every task, resolved or not, divided by the count of tasks "
-            "that resolved, and post that number in tokens."
+            "This unit ships a fixture of 160 agent task traces. Compute tokens "
+            "per resolved task: every token spent across every attempt in every "
+            "task, resolved or not, divided by the count of tasks that resolved. "
+            "Post that number in tokens."
         ),
         fixture_path="fixtures/retry_loops/agent_task_traces.json",
         fixture_note=(
@@ -171,9 +177,9 @@ UNIT = Unit(
             "a task_id, a resolved boolean, and attempts, a list of per attempt "
             "token counts in the order they happened. 150 of the tasks resolved, "
             "almost always within one to three attempts. The other 10 never "
-            "resolved: each looped for 25 to 50 attempts, and within every one of "
-            "those 10, each attempt's token count is higher than the one before it, "
-            "because the failed prior attempt stayed in context."
+            "resolved. Each looped for 25 to 50 attempts. Within every one of "
+            "those 10, the token count of each attempt is higher than the "
+            "previous one, because the failed attempt stayed in context."
         ),
         starter=(
             'import json\n'
@@ -194,9 +200,9 @@ UNIT = Unit(
             "resolved task. Tokens per call, the metric an ordinary dashboard would "
             "show, is the same 3,775,265 divided by 672 calls, about 5,618, a number "
             "nobody would flag. The 10 tasks that never resolved account for about "
-            "89 percent of every token spent in the fixture while being 6 percent of "
-            "the tasks, and none of that shows up until the denominator changes to "
-            "the tasks that actually finished."
+            "89 percent of every token spent in the fixture, while being only 6 "
+            "percent of the tasks. None of that shows up until the denominator "
+            "changes to the tasks that actually finished."
         ),
     ),
     sources=(

@@ -37,17 +37,17 @@
         to beat before your confidence is carrying any information.
     </p>
     <p class="note">
-        1.000 is the worst possible, and it is earned in either direction.
+        1.000 is the worst possible score. You earn it in either direction.
         A probability of 1.0 on a claim that resolved wrong earns it, and so
         does a probability of 0.0 on a claim that resolved correct. The
         second shape is a confident denial of a problem that turned out to
         be real.
     </p>
     <p class="note">
-        Coverage is resolved claims over all claims on this cycle. A claim
-        whose metric no harness run measured is unresolved: it is counted
-        here, and left out of the Brier score entirely, so a low coverage
-        means the score rests on less than you predicted.
+        Coverage is the share of claims that resolved. A claim stays unresolved
+        when no harness run measured its metric.
+        Coverage counts that claim. The Brier score leaves it out. So low
+        coverage means the score rests on less than you predicted.
     </p>
 
     <p class="onward">

@@ -7,9 +7,9 @@
     </div>
     <p class="lede">
         A unit teaches you one detection on a fixture that already has an answer.
-        A cycle is where you point that skill at a real system nobody has graded
-        for you, commit what you think is wrong with it before you measure, and
-        find out how close you were.
+        A cycle points that same skill at a real system. Nobody has graded that
+        system for you. You commit what you think is wrong with it before you
+        measure. Then you find out how close you were.
     </p>
 
     <h3>What a target is</h3>
@@ -33,24 +33,24 @@
     <div class="card">
         <p><b>Target</b> an open-source RAG starter repo, cloned and running locally.</p>
         <p>
-            <b>Question under test</b> this is the question you would be asked in
-            an interview and could not currently answer. Something like: does
+            <b>Question under test</b> an interviewer would ask you this question,
+            and you could not answer it today. Something like: does
             retrieval hold up on questions that need two facts, or does it only
             look good on the easy ones?
         </p>
         <p>
             <b>Your prediction, sealed before you measure</b> in your own words,
-            plus the number that would prove you wrong. For example: chunks are
-            embedded with no query decomposition, so multi-hop questions retrieve
-            one hop and miss the other, and <code>recall_at_5</code> will come in
-            below 0.6. You say how confident you are, maybe 0.75. Then you seal,
+            plus the number that would prove you wrong. For example: this pipeline embeds each chunk on its own and never
+            decomposes the query. So a multi-hop question retrieves one hop
+            and misses the other, and <code>recall_at_5</code> comes in below
+            0.6. You say how confident you are, maybe 0.75. Then you seal,
             which hashes the claim and commits it to git so the timestamp is not
             just your word.
         </p>
         <p>
-            <b>Then you measure</b> write 40 or 50 questions that need two facts,
-            run them through the system, and compute <code>recall_at_5</code>
-            with the same library function unit 02 had you use. Post the number.
+            <b>Then you measure.</b> Write 40 or 50 questions that need two facts.
+            Run them through the system. Compute <code>recall_at_5</code> with
+            the same library function unit 02 gave you, then post the number.
         </p>
         <p>
             <b>Then you find out</b> if it came in at 0.42 you were right, and
@@ -63,12 +63,16 @@
 
     <h3>Before you start one</h3>
     <p class="note">
-        Two honest warnings. First, the measuring is the work: getting someone
-        else's system running and building an eval set for it will take an
-        evening or two, and it is most of the value. Second, do a couple of units
-        first. They teach you which detections exist, which is what tells you
-        what to predict. Starting here with no units behind you means staring at
-        a form with nothing to write in it.
+        Two honest warnings. The first is that the measurement is the work.
+        You will spend an evening or two to get another person's system to run
+        and to build an eval set for it. That is most of the value, not
+        overhead.
+    </p>
+    <p class="note">
+        The second is to do a couple of units first. They teach you which
+        detections exist, and that is what tells you what to predict. If you
+        start here with no units behind you, you will face a form with nothing
+        to write in it.
     </p>
     <p class="onward">
         <a href="/units">Start with a unit</a>
@@ -78,8 +82,8 @@
     <h3>Your cycles</h3>
     {% if cycles %}
         <p class="note">
-            The cycles below were seeded as a demonstration and their measurements
-            are invented, so do not read their numbers as findings. They are here
+            I seeded the cycles below as a demonstration and invented their
+            measurements, so do not read their numbers as findings. They are here
             to show what a finished teardown looks like. Delete them whenever you
             want your own record to start clean.
         </p>

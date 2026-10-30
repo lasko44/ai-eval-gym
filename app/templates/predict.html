@@ -56,9 +56,8 @@
         <p class="note">
             A claim is a prediction plus the number that would prove it wrong.
             Write the prediction in your own words, then name the measurement
-            and the threshold that settles it. A claim with no metric or no
-            threshold is refused, because a prediction you cannot lose teaches
-            you nothing.
+            and the threshold that settles it. The form refuses a claim with no metric or no threshold. A prediction
+            you cannot lose teaches you nothing.
         </p>
         <form method="post" action="/cycles/{{ cycle.id }}/claims">
             <label for="text">What will fail, and why</label>
@@ -88,22 +87,21 @@
 
         <h3>Metric names</h3>
         <p class="note">
-            Any name your harness reports will work. These are the ones this
-            project's library can already compute, so they cost you nothing to
+            Any name your harness reports will work. The library in this project can already compute these, so they cost you nothing to
             measure. The number after the name is yours to pick: a harness that
             reports recall at 5 calls it <code>recall_at_5</code>.
         </p>
         <ul class="vocab">
             <li><code>recall_at_k</code> how much of what should have been found was found</li>
-            <li><code>precision_at_k</code> how much of what was returned belonged</li>
+            <li><code>precision_at_k</code> how much of what came back belonged</li>
             <li><code>ndcg_at_k</code> whether the good results came back near the top</li>
-            <li><code>flip_rate</code> how often a judge changes its mind when the order is swapped</li>
+            <li><code>flip_rate</code> how often a judge changes its mind when you swap the order</li>
         </ul>
 
         <h3>Seal</h3>
         <p class="note">
             Sealing hashes these claims into a chain and commits the chain head
-            to git. After that, no claim can be added or edited, and only then
+            to git. After that, nobody can add or edit a claim, and only then
             can the harness run. This is the step that makes the score mean
             something, and it cannot be undone.
         </p>
@@ -113,8 +111,8 @@
     {% else %}
         <p class="note">
             Sealed{% if cycle.sealed_at %} at {{ cycle.sealed_at }}{% endif %}.
-            These claims can no longer be added to or edited, which is what
-            lets the score mean something.
+            Nobody can add to them or edit them now, which is what lets the score
+            mean something.
         </p>
     {% endif %}
 {% endblock %}

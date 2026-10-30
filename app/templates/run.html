@@ -37,10 +37,9 @@ httpx.post(
     },
 ).raise_for_status()</pre>
     <p class="note">
-        A run is refused with 409 until this cycle is sealed, and refused again
-        once it is scored. A measurement that is not a finite number is refused
-        with 422, because a harness that cannot produce a number has not
-        measured anything.
+        The route answers 409 until you seal this cycle, and again once you
+        score it. The route answers 422 for a measurement that is not a finite number.
+        A harness that cannot produce a number has measured nothing.
     </p>
 
     <h3>Recorded</h3>
@@ -71,8 +70,8 @@ httpx.post(
         <h3>Score</h3>
         <p class="note">
             Scoring resolves every sealed claim against the measurements above.
-            A claim whose metric no run reported stays unresolved and is left
-            out of the Brier score, so re-run the harness first if you meant to
+            A claim stays unresolved when no run reported its metric. The Brier
+            score leaves it out. Run the harness again first if you meant to
             measure it.
         </p>
         <form method="post" action="/cycles/{{ cycle.id }}/score">

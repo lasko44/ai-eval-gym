@@ -29,13 +29,13 @@
         <p class="note">
             Each claim needs a metric and a threshold, so that a number can
             show you were wrong. Sealing commits the claims to git and locks
-            them. Nothing can be measured until you seal.
+            them. You cannot measure anything until you seal.
         </p>
         <p class="onward"><a href="/cycles/{{ cycle.id }}/predict">Write predictions</a></p>
     {% elif cycle.stage == "sealed" %}
         <p class="next-what">Run your harness and post the numbers it produced.</p>
         <p class="note">
-            Your predictions are locked now, so the measurement cannot be bent
+            Sealing locked your predictions. You cannot now bend the measurement
             to fit them. The runs page has a script you can copy.
         </p>
         <p class="onward"><a href="/cycles/{{ cycle.id }}/runs">Report a run</a></p>

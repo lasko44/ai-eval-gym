@@ -21,8 +21,18 @@ rejects ordinary words that carry meaning here, and rule 3.5 rejects an "-ing"
 form that often reads better than the alternative. Read these, then decide. Do
 not obey them without thought.
 
-The tool cannot judge whether a word is a technical noun (rule 1.6), and it
-cannot count multi-word nouns (rule 2.1). A clean report is not proof.
+The tool has limits, and a reader should know them before trusting a number
+it produces.
+
+It cannot judge whether a word is a technical noun, which rule 1.6 permits.
+It cannot count multi-word nouns for rule 2.1. Its passive voice test is a
+regular expression, so it reads "coverage is resolved claims" as the passive
+voice when the phrase is a copula and a noun. An earlier version also read a
+flattened table of labels as one 62 word sentence, which measured the
+extraction and not the copy.
+
+A clean report is therefore not proof. A report with findings is proof of the
+opposite, which is the useful direction.
 """
 
 import json
@@ -54,7 +64,8 @@ TECHNICAL_NOUNS = {
     "token", "tokens", "url",
 }
 
-CONTRACTION = re.compile(r"\b\w+'(s|t|re|ve|ll|d|m)\b", re.I)
+CONTRACTION = re.compile(r"\b\w+'(t|re|ve|ll|d|m)\b", re.I)
+POSSESSIVE = re.compile(r"\b\w+'s\b", re.I)
 ING = re.compile(r"\b\w{3,}ing\b", re.I)
 PASSIVE = re.compile(r"\b(is|are|was|were|be|been|being)\s+\w+(ed|en)\b", re.I)
 WORD = re.compile(r"[A-Za-z][A-Za-z\-']*")
@@ -81,6 +92,9 @@ def check(text: str, where: str) -> list[Finding]:
 
     for hit in CONTRACTION.finditer(text):
         found.append(Finding("4.2", where, f"contraction {hit.group(0)!r}"))
+
+    for hit in POSSESSIVE.finditer(text):
+        found.append(Finding("GR-8", where, f"possessive {hit.group(0)!r}"))
 
     for sentence in sentences(text):
         count = len(WORD.findall(sentence))
@@ -127,14 +141,29 @@ def copy_blocks() -> list[tuple[str, str]]:
         blocks.append((f"{unit.slug}:exercise:note", unit.exercise.fixture_note))
         blocks.append((f"{unit.slug}:exercise:because", unit.exercise.because))
 
+    # Read a template one prose element at a time. An earlier version of this
+    # tool flattened the whole file into one string, which reported a table of
+    # labels as a 62 word sentence and a code sample as a 51 word one. Those
+    # findings measured the extraction, not the copy. This project is about
+    # distrusting a number whose method is wrong, so the method is now narrow:
+    # only the elements that hold sentences a reader reads.
+    PROSE = re.compile(r"<(p|li|h2|h3|h4)\b[^>]*>(.*?)</\1>", re.S | re.I)
     for template in sorted((ROOT / "app" / "templates").glob("*.html")):
-        text = template.read_text()
-        text = re.sub(r"<style>.*?</style>", " ", text, flags=re.S)
-        text = re.sub(r"\{%.*?%\}|\{\{.*?\}\}|\{#.*?#\}", " ", text, flags=re.S)
-        text = re.sub(r"<[^>]+>", " ", text)
-        text = re.sub(r"\s+", " ", text).strip()
-        if text:
-            blocks.append((f"template:{template.name}", text))
+        raw = template.read_text()
+        raw = re.sub(r"<style>.*?</style>", " ", raw, flags=re.S)
+        raw = re.sub(r"<pre>.*?</pre>", " ", raw, flags=re.S)
+        for n, match in enumerate(PROSE.finditer(raw), 1):
+            text = match.group(2)
+            if "<pre" in text or "<input" in text or "<textarea" in text:
+                continue
+            # Jinja output is a value, not prose. Count it as one word.
+            text = re.sub(r"\{\{.*?\}\}", "value", text, flags=re.S)
+            text = re.sub(r"\{%.*?%\}|\{#.*?#\}", " ", text, flags=re.S)
+            text = re.sub(r"<[^>]+>", " ", text)
+            text = re.sub(r"&[a-z]+;", " ", text)
+            text = re.sub(r"\s+", " ", text).strip()
+            if len(WORD.findall(text)) >= 6:
+                blocks.append((f"{template.name}:{n}", text))
     return blocks
 
 
@@ -156,6 +185,7 @@ def main() -> None:
         "6.3": "Use a maximum of 25 words in a sentence",
         "6.6": "Use a maximum of six sentences in a paragraph",
         "8.1": "Do not use the semicolon",
+        "GR-8": "Prefer a phrase with \"of\" over the possessive form",
     }
     blocks = len(copy_blocks())
     n_clarity = sum(len(v) for k, v in by_rule.items() if k in clarity)

@@ -14,75 +14,89 @@ UNIT = Unit(
     number=5,
     title="Permissions checked above retrieval, so the prompt already escaped the check",
     failure=(
-        "The retriever runs against the whole index regardless of who is asking, "
-        "so chunks the current user is not entitled to see enter the prompt before "
-        "any access check runs."
+        "The retriever runs against the whole index regardless of who is "
+        "asking. So chunks the current user is not entitled to see enter "
+        "the prompt before any access check runs."
     ),
     detection="Diff the retrieved chunk ids across two users with different entitlements, never the answers.",
     minutes=25,
     brief=(
-        "Most teams wire access control exactly once, at the edge of the request: "
-        "the user is authenticated, their role is loaded, and the endpoint decides "
-        "whether they are allowed to ask the assistant anything at all. That check "
-        "answers one question, can this person use the system, and it has nothing "
-        "to say about which specific documents the retriever is about to pull back "
-        "for them. The retriever sits below that gate, it queries a shared vector "
-        "index built from everything the organization has ingested, and it ranks "
-        "chunks by semantic similarity to the question, not by who is holding the "
-        "question. Unless someone deliberately filters the retriever's candidate "
-        "set by the caller's entitlements before it runs, the retriever will return "
-        "the best-matching chunks whether or not the caller is allowed to see them.",
-        "The phrase the prompt has already escaped the check describes what happens "
-        "next with precision. By the time an authorization check could run on the "
-        "generated answer, the unauthorized chunk is no longer a document sitting "
-        "in an index, it is tokens inside the context window the model is "
-        "conditioning on. The model can summarize it, paraphrase it, cite it, or "
-        "fold one of its facts into a sentence about something else entirely, and "
-        "none of those paths require the model to reproduce the chunk verbatim for "
-        "the information to have leaked. A filter applied to the final answer can "
-        "catch a direct quote. It cannot catch a number that shaped a forecast, or "
-        "a conclusion that would not exist without the chunk that fed it.",
-        "ConfusedPilot, published against a production deployment of Microsoft 365 "
-        "Copilot running over SharePoint, is a working demonstration of a version of "
-        "this timing gap. The paper walks the mechanism through a fictional company "
-        "it invents for the purpose, where a low-privilege account seeds a fake "
-        "sales report into a shared store and a compliance or deletion check only "
-        "runs late in the pipeline, after retrieval has already cached the chunk "
-        "and folded it into a draft answer. That narrative is an illustration "
-        "rather than a reported incident, and it is worth reading it as one.",
-        "The measurements behind it are separate, and they are real. The authors "
-        "connected to an actual Microsoft 365 Copilot instance over actual "
-        "SharePoint, then filled it with a corpus they generated from HotpotQA, "
-        "deployed at enterprise scale (500 folders of 1,000 files) but synthetic "
-        "rather than real organizational records. Two timings matter and they are "
-        "easy to transpose. Deleting a seeded malicious document still left it "
-        "shaping answers for 42.4 seconds, plus or minus 2.06. The case closer to "
-        "this unit's subject, a document whose access was revoked after being "
-        "over-shared, kept surfacing for 164.2 seconds, plus or minus 3.25. The "
-        "access-control failure is the longer-lived of the two.",
-        "Microsoft's own published guidance about Copilot oversharing makes the same "
-        "point from the defender's side instead of the attacker's. Copilot answers "
-        "with whatever the asking user's identity can already technically read "
-        "across SharePoint, OneDrive, and Teams, which means years of permission "
-        "sprawl that nobody noticed while it sat quietly in a search index becomes "
-        "visible the moment an assistant can summarize it on request. Microsoft's "
-        "fix is not a smarter filter on Copilot's output, it is tooling aimed at the "
-        "retrieval boundary itself: access reviews, sensitivity labels, and a "
-        "restricted content discovery control that removes a site from the "
-        "assistant's candidate set before a query ever reaches it. That is the same "
-        "boundary this unit asks you to test.",
-        "Testing this by reading the model's answers is the trap, and it is a "
-        "comfortable one, because the model usually declines or hedges and the test "
-        "passes. A refusal on the surface tells you nothing about what already sat "
-        "in the context window when the refusal was generated, and a hundred other "
-        "phrasings of the same question were never tried. The only test that "
-        "measures the boundary where it actually lives is a diff: run the same "
-        "queries as two accounts with different entitlements, log the chunk ids "
-        "each retrieval returned before generation ever starts, and compare the "
-        "sets directly against what each account is actually entitled to see. If a "
-        "restricted account's retrieved set contains chunk ids from categories "
-        "outside its entitlement, you have measured a leak, independent of whatever "
-        "the model chose to say about it.",
+        "Most teams wire access control exactly once, at the edge of the "
+        "request. The app authenticates the user, loads their role, and "
+        "the endpoint decides whether they may ask the assistant anything "
+        "at all. That check answers one question: can this person use the "
+        "system. It has nothing to say about which specific documents the "
+        "retriever is about to pull back for them.",
+        "The retriever sits below that gate. It queries a shared vector "
+        "index built from everything the organization has ingested. It "
+        "ranks chunks by semantic similarity to the question, not by who "
+        "is holding the question. Unless someone deliberately filters the "
+        "candidates the retriever considers by caller entitlement before "
+        "it runs, the retriever will return the best-matching chunks. It "
+        "does this whether or not the caller may see them.",
+        "The phrase the prompt has already escaped the check describes "
+        "what happens next with precision. By the time an authorization "
+        "check could run on the generated answer, the unauthorized chunk "
+        "is no longer a document sitting in an index. It is tokens inside "
+        "the context window the model is conditioning on.",
+        "The model can summarize it, paraphrase it, cite it, or fold one "
+        "of its facts into a sentence about something else entirely. None "
+        "of those paths require the model to reproduce the chunk verbatim "
+        "for the information to have leaked. A filter applied to the final "
+        "answer can catch a direct quote. It cannot catch a number that "
+        "shaped a forecast, or a conclusion that would not exist without "
+        "the chunk that fed it.",
+        "ConfusedPilot, published against a production deployment of "
+        "Microsoft 365 Copilot running over SharePoint, is a working "
+        "demonstration of a version of this timing gap. The paper walks "
+        "the mechanism through a fictional company it invents for the "
+        "purpose. A low-privilege account seeds a fake sales report into a "
+        "shared store. A compliance or deletion check only runs late in "
+        "the pipeline, after retrieval has already cached the chunk and "
+        "folded it into a draft answer. That narrative is an illustration "
+        "rather than a reported incident, and it is worth reading it as "
+        "one.",
+        "The measurements behind it are separate, and they are real. The "
+        "authors connected to an actual Microsoft 365 Copilot instance "
+        "over actual SharePoint. They filled it with a corpus they "
+        "generated from HotpotQA, deployed at enterprise scale, 500 "
+        "folders of 1,000 files, but synthetic rather than real "
+        "organizational records.",
+        "Two timings matter and they are easy to transpose. Deleting a "
+        "seeded malicious document still left it shaping answers for 42.4 "
+        "seconds, plus or minus 2.06. The case closer to the subject of "
+        "this unit is a document that had been over-shared, after which "
+        "someone revoked its access. That document still kept surfacing "
+        "for 164.2 seconds, plus or minus 3.25. The access-control failure "
+        "is the longer-lived of the two.",
+        "Microsoft publishes its own guidance about Copilot oversharing, "
+        "and it makes the same point from the side of the defender instead "
+        "of the attacker. Copilot answers with whatever the identity of "
+        "the asking user can already technically read across SharePoint, "
+        "OneDrive, and Teams. That means years of permission sprawl, "
+        "sitting in a search index with nobody noticing, becomes visible "
+        "the moment an assistant can summarize it on request.",
+        "The fix from Microsoft is not a smarter filter on the output of "
+        "Copilot. It is tooling aimed at the retrieval boundary itself: "
+        "access reviews, sensitivity labels, and a restricted content "
+        "discovery control. That control removes a site from the "
+        "candidate set of the assistant before a query ever reaches it. "
+        "That is the same boundary this unit asks you to test.",
+        "Testing this by reading the answers of the model is the trap. It "
+        "is a comfortable one, because the model usually declines or "
+        "hedges, and the test passes. A refusal on the surface tells you "
+        "nothing about what already sat in the context window when the "
+        "model generated that refusal. Nobody tried a hundred other "
+        "phrasings of the same question.",
+        "The only test that measures the boundary where it actually lives "
+        "is a diff. Run the same queries as two accounts with different "
+        "entitlements, and log the chunk ids each retrieval returned "
+        "before generation ever starts. Then compare the sets directly "
+        "against what each account is actually entitled to see. If the "
+        "retrieved set of a restricted account contains chunk ids from "
+        "categories outside its entitlement, you have measured a leak. "
+        "This holds independent of whatever the model chose to say about "
+        "it.",
     ),
     probes=(
         Probe(
@@ -101,10 +115,10 @@ UNIT = Unit(
             because=(
                 "Authentication at the edge answers whether someone may use the system "
                 "at all, not which documents they may retrieve. Unless someone adds "
-                "entitlement filtering as an explicit pre-filter on the retriever's "
-                "candidate set, the retriever ranks the whole index by similarity alone, "
-                "and any check on the output comes after the chunk is already inside "
-                "the prompt."
+                "entitlement filtering as an explicit pre-filter on the candidates the "
+                "retriever considers, the retriever ranks the whole index by similarity "
+                "alone. Any check on the output then comes after the chunk already "
+                "sits inside the prompt."
             ),
         ),
         Probe(
@@ -121,36 +135,38 @@ UNIT = Unit(
             ),
             answer="c",
             because=(
-                "Once a chunk's tokens are part of the context the model is "
-                "conditioning on, its content can influence word choice, inferred "
-                "conclusions, and numbers in the answer without ever being quoted. A "
-                "filter looking for a verbatim match on the final text will pass a "
-                "paraphrase that still carries the unauthorized fact."
+                "Once the tokens of a chunk are part of the context the model is "
+                "conditioning on, its content can shape the answer. It can influence "
+                "word choice, an inferred conclusion, or a number, all without a "
+                "direct quote. A filter looking for a verbatim match on the final "
+                "text will pass a paraphrase that still carries the unauthorized "
+                "fact."
             ),
         ),
         Probe(
             id="why-answers-are-the-wrong-test",
             asks=(
-                "You ask a restricted account's assistant the same sensitive question "
-                "a dozen different ways and it declines or hedges every time. What has "
-                "this actually told you about the access-control boundary?"
+                "You ask the assistant of a restricted account the same sensitive "
+                "question a dozen different ways, and it declines or hedges every "
+                "time. What has this actually told you about the access-control "
+                "boundary?"
             ),
             choices=(
                 Choice("a", "The boundary is sound, since no unauthorized content reached the user"),
-                Choice("b", "Close to nothing, because the model's willingness to answer is a different variable from whether the unauthorized chunk was retrieved into the prompt at all"),
-                Choice("c", "The boundary is sound for this question, though other phrasings should still be checked"),
+                Choice("b", "Close to nothing, because whether the model is willing to answer is a different variable from whether retrieval pulled the unauthorized chunk into the prompt"),
+                Choice("c", "The boundary is sound for this question, though you should still check other phrasings"),
                 Choice("d", "The retriever is correctly filtering by entitlement, since a hedge implies no unauthorized match was found"),
             ),
             answer="b",
             because=(
-                "The model's refusal is a property of the model, not a property of the "
-                "retrieval pipeline, and it tells you nothing about whether the "
-                "unauthorized chunk was already sitting in the context window when the "
-                "refusal happened. Twelve declined phrasings leave the thirteenth "
-                "untested, and none of them substitute for looking at what the "
-                "retriever actually returned. That is why the only test that measures "
-                "this boundary is a diff of retrieved chunk ids against the "
-                "entitlement map, done before generation, not a read of what the model "
+                "A refusal is a property of the model, not of the retrieval "
+                "pipeline. It tells you nothing about whether the unauthorized chunk "
+                "was already sitting in the context window when the refusal "
+                "happened. Twelve declined phrasings leave the thirteenth untested, "
+                "and none of them substitute for looking at what the retriever "
+                "actually returned. That is why the only test that measures this "
+                "boundary is a diff of retrieved chunk ids against the entitlement "
+                "map, done before generation. It is not a read of what the model "
                 "said afterward."
             ),
         ),
@@ -158,26 +174,25 @@ UNIT = Unit(
     exercise=Exercise(
         asks=(
             "A fixture ships with this unit: 65 queries, each run through the same "
-            "retriever as two accounts with different entitlements, plus the "
-            "entitlement map and a category label for every chunk in the index. "
-            "Measure the leak for the restricted account, contractor_jdoe: of all "
-            "the chunks retrieved for that account across all 65 queries, what "
-            "fraction belong to a category contractor_jdoe is not entitled to see? "
-            "Post that fraction."
+            "retriever as two accounts with different entitlements. It also ships "
+            "the entitlement map and a category label for every chunk in the "
+            "index. Measure the leak for the restricted account, contractor_jdoe. "
+            "Of all the chunks retrieved for that account across all 65 queries, "
+            "what fraction belong to a category contractor_jdoe is not entitled "
+            "to see? Post that fraction."
         ),
         fixture_path="fixtures/permissions/retrieval_by_user.json",
         fixture_note=(
-            "A JSON object with four keys. entitlements maps each of two user ids to "
-            "the list of chunk categories they are allowed to see. chunk_categories "
-            "maps every chunk id in the index to exactly one category. queries lists "
-            "the 65 query ids and their text. retrievals maps each user id to a list "
-            "of 65 entries, each an executed query id and the list of chunk ids the "
-            "retriever actually returned for it, top 8 per query. Note before you "
-            "write anything: the retriever is entitlement-blind, so diffing the two "
-            "users' retrieved chunk ids against each other will show zero "
-            "difference. That is the point, and it is also why the diff alone is not "
-            "the measurement. You need the entitlement map to tell you which of "
-            "contractor_jdoe's identical retrievals it was never supposed to see."
+            "entitlements maps each of two user ids to the list of chunk "
+            "categories it may see. chunk_categories maps every chunk id in the "
+            "index to exactly one category, while queries lists the 65 query ids "
+            "and their text. retrievals maps each user id to a list of 65 "
+            "entries. Each entry has an executed query id and the list of chunk "
+            "ids the retriever actually returned for it, top 8 per query. The "
+            "retriever is entitlement-blind, so diffing the two users' retrieved "
+            "chunk ids against each other will show zero difference. That is why "
+            "the diff alone is not the measurement, and you still need the "
+            "entitlement map to find the leak."
         ),
         starter=(
             'import json\n'
@@ -202,17 +217,17 @@ UNIT = Unit(
         expected=0.6404,
         tolerance=0.0005,
         because=(
-            "contractor_jdoe is entitled to the public and onboarding categories "
-            "only, but the retriever ranks every query against the full six-category "
-            "index without knowing that. Across the 65 queries, contractor_jdoe's "
-            "retrievals pulled 520 chunks total, and 333 of them, about 64.0 percent, "
-            "came from finance, legal, eng, or hr, categories outside that account's "
-            "entitlement. A diff against fulltime_asmith's retrievals for the same "
-            "queries would show identical chunk id sets query for query: the "
-            "retriever cannot tell the two accounts apart. The leak is only visible "
-            "once you cross those identical retrieved sets against the entitlement "
-            "map, which is exactly the step that reading either account's final "
-            "answer would skip."
+            "contractor_jdoe may see only the public and onboarding categories, "
+            "but the retriever ranks every query against the full six-category "
+            "index without knowing that. Across the 65 queries, the retrievals "
+            "of contractor_jdoe pulled 520 chunks total. Of those, 333, about "
+            "64.0 percent, came from finance, legal, eng, or hr, categories "
+            "outside the entitlement of that account. A diff against the "
+            "retrievals of fulltime_asmith would show identical chunk id sets, "
+            "since the retriever cannot tell the two accounts apart. The leak is "
+            "only visible once you cross those identical retrieved sets against "
+            "the entitlement map. That is exactly the step that reading the "
+            "final answer of either account would skip."
         ),
     ),
     sources=(
