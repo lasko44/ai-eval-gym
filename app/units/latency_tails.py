@@ -1,40 +1,62 @@
-"""Unit 11: the mean latency that nobody experiences.
+"""Unit 16: the mean latency no underwriter experiences.
 
-Heavy-tailed service latency and fan-out amplification. Numbers and citations
+Heavy-tailed service latency and the fan-out amplification Ledger creates every
+time it chases several clauses at once. Numbers and citations
 verified against primary sources; see UNIT.sources.
 """
+
+import math
+import statistics
 
 from app.units.types import Choice, Exercise, Probe, Unit
 
 
+def solve(data: dict) -> float:
+    """Reference answer to this unit's exercise, run by tests/test_units.py.
+
+    It exists so `Exercise.expected` is a measured number rather than one
+    somebody typed beside a fixture. Reading it before attempting the exercise
+    is reading the answer key.
+    """
+    latencies = sorted(data["request_latencies_ms"])
+    n = len(latencies)
+    rank = max(1, min(n, math.ceil(0.99 * n)))
+    p99 = latencies[rank - 1]
+    return p99 / statistics.fmean(latencies)
+
+
 UNIT = Unit(
     slug="latency-tails",
-    number=11,
-    title="The mean latency that nobody experiences",
+    number=16,
+    part="serving",
+    title="The mean latency no underwriter experiences",
     failure=(
-        "A team reports mean latency and calls the system fast, while a "
-        "meaningful share of real requests wait far longer than that number "
+        "The team reports mean latency and calls Ledger fast, while a "
+        "meaningful share of real underwriter questions wait far longer than "
+        "that number "
         "suggests."
     ),
     detection=(
-        "Report p50, p95, and p99 together with the load behind them, then "
-        "reason about how fan-out raises the chance of hitting the tail."
+        "Report p50, p95, and p99 together with the load behind them. Then "
+        "reason about how a parallel clause lookup raises the chance of "
+        "hitting the tail."
     ),
     brief=(
-        "A team reports a mean latency of 200 milliseconds and calls the "
-        "service fast. No single user experiences that mean. A served model "
-        "carries a latency distribution heavy on the right, so most requests "
+        "The team reports a mean latency of 200 milliseconds and calls "
+        "Ledger fast. No underwriter experiences that mean. A served model "
+        "carries a latency distribution heavy on the right, so most questions "
         "finish quickly while a meaningful share wait far longer. The mean "
         "blends both groups into one comfortable number. Jeffrey Dean and "
         "Luiz Barroso open their 2013 study of this problem by noting that a "
         "response within about 100 milliseconds feels fluid to a user. A "
-        "mean of 200 milliseconds already hides whether most users ever "
-        "clear that bar.",
+        "mean of 200 milliseconds already hides whether most underwriters "
+        "ever clear that bar.",
         "The mechanism is simple, and the study proves it with real "
         "numbers. Picture a server that typically answers in 10 "
         "milliseconds but carries a one-second latency at its 99th "
-        "percentile. A single call to that server leaves one request in 100 "
-        "slow. Fan the same request out to 100 such servers in parallel and "
+        "percentile. A single clause lookup against that server leaves one "
+        "request in 100 "
+        "slow. Fan the same question out to 100 such servers in parallel and "
         "wait for every reply, and the math changes completely. The paper "
         "shows that 63 percent of those 100-way requests now take more "
         "than one second. Even a rarer fault, one slow call in 10,000, "
@@ -47,63 +69,73 @@ UNIT = Unit(
         "for 95 percent of the leaves to answer pushes that number to 70 "
         "milliseconds. Waiting for all of them pushes it to 140 "
         "milliseconds, so the slowest 5 percent of leaves account for half "
-        "of the full fan-out tail.",
+        "of the full fan-out tail. Ledger waits on every clause it asked "
+        "for, which is the same shape.",
         "A model-serving system needs two separate numbers, not one "
         "blended average, and vLLM names them directly. One is time to "
         "first token, the wait before the first token streams back. The "
         "other is time per output token, the pace once generation starts. "
         "The formula divides the time after that first token by the "
-        "remaining tokens the call produces. A chat user feels the first "
-        "number, because it sets how long the screen stays blank. A batch "
-        "summarization job feels the second number, because it runs to "
+        "remaining tokens the call produces. An underwriter watching an "
+        "answer appear feels the first number, because it sets how long the "
+        "screen stays blank. An overnight re-read of a whole portfolio feels "
+        "the second number, because it runs to "
         "completion with nobody watching the stream.",
         "Averaging across both kinds of work on one dashboard hides which "
-        "one actually has the problem. A 2026 benchmark of 10,000 probes "
-        "per model and provider pairing shows the scale of that hiding. "
+        "one actually has the problem. A 2026 benchmark of 10,000 client-side "
+        "probes per model and provider pairing per region shows the scale "
+        "of that hiding. "
         "One tested model posts a median time to first token of 0.85 "
         "seconds and a 95th-percentile time of 1.83 seconds. Another posts "
         "1.12 seconds at the median and 2.41 seconds at the 95th "
         "percentile. Across the full benchmark the 95th percentile ran "
         "about 2.1 times the median on average. A single average over that "
-        "spread tells a reader almost nothing about what a slow request "
+        "spread tells a reader almost nothing about what a slow question "
         "feels like.",
         "The fix costs little against the risk it removes. Report p50, "
         "p95, and p99 together, and name the load that produced them, "
         "because a latency number with no load proves nothing. Then reason "
-        "about fan-out directly. When a request waits on N parallel calls, "
-        "the chance that one call lands in the tail rises with N. That "
-        "holds even when each call alone is usually fast. For a served "
-        "model, keep time to first token and time per output token on "
+        "about fan-out directly. When one answer waits on N parallel clause "
+        "lookups, "
+        "the chance that one lookup lands in the tail rises with N. That "
+        "holds even when each lookup alone is usually fast. For Ledger, "
+        "keep time to first token and time per output token on "
         "separate axes rather than one merged average.",
         "A reader who sees only the mean has no way to tell a healthy "
-        "system from one running on luck. The percentiles and the load "
+        "Ledger from one running on luck. The percentiles and the load "
         "together turn a vague claim of fast into a number someone else "
         "can check.",
+    ),
+    builds_on=(
+        "Unit 15. Cost and latency fall out of the same serving decisions. "
+        "Both get reported as means by people who would never accept a "
+        "mean from unit 02."
     ),
     probes=(
         Probe(
             id="mean-establishes",
             asks=(
-                "A dashboard reports a mean request latency of 220 "
-                "milliseconds. What does this number establish about user "
-                "experience?"
+                "Ledger's dashboard reports a mean request latency of 220 "
+                "milliseconds. What does this number establish about what an "
+                "underwriter waits?"
             ),
             choices=(
                 Choice(
                     "a",
-                    "That the service serves nearly every user within about "
+                    "That Ledger answers nearly every question within about "
                     "220 milliseconds",
                 ),
                 Choice(
                     "b",
                     "Very little by itself, since the mean hides a long "
-                    "right tail that a meaningful share of users wait inside",
+                    "right tail that a meaningful share of underwriters wait "
+                    "inside",
                 ),
                 Choice(
                     "c",
                     "That the p99 latency also sits near 220 milliseconds",
                 ),
-                Choice("d", "That the service meets a typical latency target"),
+                Choice("d", "That Ledger meets a typical latency target"),
             ),
             answer="b",
             because=(
@@ -121,28 +153,29 @@ UNIT = Unit(
         Probe(
             id="fan-out-63",
             asks=(
-                "Each of 100 parallel backend calls has a 1 percent chance "
-                "alone of taking over one second. A request waits on all "
-                "100 of them. About what share of requests take over one "
+                "Each of 100 parallel clause lookups has a 1 percent chance "
+                "alone of taking over one second. One Ledger answer waits on "
+                "all "
+                "100 of them. About what share of questions take over one "
                 "second?"
             ),
             choices=(
-                Choice("a", "About 1 percent, matching the per-call rate"),
+                Choice("a", "About 1 percent, matching the per-lookup rate"),
                 Choice("b", "About 10 percent"),
                 Choice("c", "About 63 percent"),
                 Choice(
                     "d",
-                    "About 99 percent, since 100 calls guarantee a slow one",
+                    "About 99 percent, since 100 lookups guarantee a slow one",
                 ),
             ),
             answer="c",
             because=(
                 "The source paper runs this exact case. One minus 0.99 "
                 "raised to the 100th power equals about 0.634, so 63 "
-                "percent of the fanned-out requests clear one second. A "
+                "percent of the fanned-out questions clear one second. A "
                 "rare 1 percent fault at the component level becomes the "
-                "common case at the request level once enough parallel "
-                "calls carry the same small risk. The paper also reports a "
+                "common case at the answer level once enough parallel "
+                "lookups carry the same small risk. The paper also reports a "
                 "sparser fault, one slow call in 10,000, turning into "
                 "roughly one slow request in five once 2,000 servers sit "
                 "behind the call."
@@ -151,8 +184,10 @@ UNIT = Unit(
         Probe(
             id="ttft-vs-total",
             asks=(
-                "One model server handles both interactive chat and an "
-                "overnight batch summarization job. A dashboard reports one "
+                "One model server handles both Ledger's interactive "
+                "underwriter questions and an "
+                "overnight batch re-read of a portfolio. A dashboard reports "
+                "one "
                 "average latency across both. What does that average hide?"
             ),
             choices=(
@@ -161,7 +196,7 @@ UNIT = Unit(
                 ),
                 Choice(
                     "b",
-                    "That a chat user feels time to first token, while a "
+                    "That an underwriter feels time to first token, while a "
                     "batch job only feels total completion time",
                 ),
                 Choice(
@@ -177,8 +212,8 @@ UNIT = Unit(
             because=(
                 "vLLM tracks these as two separate numbers for exactly this "
                 "reason. Time to first token covers the wait before the "
-                "first token streams back, and it sets how long an "
-                "interactive screen stays blank. Time per output token "
+                "first token streams back, and it sets how long the "
+                "underwriter's screen stays blank. Time per output token "
                 "covers the pace after that, and a batch job nobody watches "
                 "lives or dies on that number instead. Blend the two into "
                 "one average, and you lose the ability to tell which half "
@@ -188,17 +223,17 @@ UNIT = Unit(
     ),
     exercise=Exercise(
         asks=(
-            "This unit ships 300 end-to-end request latencies in "
+            "This unit ships 300 end-to-end latencies for Ledger answers, in "
             "milliseconds. Each one already reflects a 4-way fan-out, the "
-            "slowest of 4 parallel backend calls made for that request. "
+            "slowest of 4 parallel backend calls made for that question. "
             "Compute the ratio of p99 to the mean, using the nearest-rank "
             "percentile method the fixture names, and post that ratio as a "
             "single unitless number."
         ),
         fixture_path="fixtures/latency_tails/serving_latencies.json",
         fixture_note=(
-            "Each request fans out to 4 parallel backend calls, for "
-            "example a retrieval call plus three ensemble scoring calls. "
+            "Each question fans out to 4 parallel backend calls, for "
+            "example the clause lookup plus three amendment lookups. "
             "The recorded value is the slowest of the 4. The load field "
             "names the load that produced the fixture. The fixture also "
             "states its percentile method directly: nearest-rank, sort "
@@ -231,27 +266,32 @@ UNIT = Unit(
         expected=5.4953,
         tolerance=0.05,
         because=(
-            "The mean of the 300 request latencies is about 262 "
+            "The mean of the 300 answer latencies is about 262 "
             "milliseconds, which reads as healthy on a dashboard that "
             "shows only that number. The p99 is about 1,442 milliseconds, "
-            "more than five times the mean. A single slow backend call "
+            "more than five times the mean. A single slow backend lookup "
             "happens on only about 4 percent of component calls. With 4 "
-            "parallel calls per request, though, at least one slow call "
-            "lands in about 14 percent of requests. That is the fan-out "
+            "parallel lookups per question, though, at least one slow lookup "
+            "lands in about 14 percent of questions. That is the fan-out "
             "math from the briefing acting on real numbers in this "
-            "fixture, and it is why the mean told you almost nothing."
+            "fixture. It is why the mean told you almost nothing about "
+            "what an underwriter waits."
         ),
     ),
     sources=(
         "Dean, J. and Barroso, L.A., The Tail at Scale, Communications of "
-        "the ACM, Vol 56 No 2, pages 74 to 80, February 2013, "
-        "DOI 10.1145/2408776.2408794, fetched 2026-10-29, Table 1 and the "
+        "the Association for Computing Machinery (ACM), Vol 56 No 2, pages 74 "
+        "to 80, February 2013, Digital Object Identifier (DOI) "
+        "10.1145/2408776.2408794, fetched 2026-10-29, Table 1 and the "
         "100-server and 2,000-server fan-out figures",
         "docs.vllm.ai design/metrics page, definitions of "
         "time_to_first_token_seconds and request_time_per_output_token_seconds, "
         "fetched 2026-10-29",
         "digitalapplied.com, AI Model Latency Benchmarks 2026: TTFT and TPS "
-        "Data, Q2 2026 provider benchmark of 10,000 probes per model and "
-        "provider pairing, fetched 2026-10-29",
+        "Data, on time to first token (TTFT) and tokens per second (TPS), "
+        "the publisher's own client-side probes rather than an audited "
+        "benchmark, 10,000 probes per model and provider pairing per region "
+        "across four regions, measured April 2026, 1,024-token input and "
+        "256-token output, fetched 2026-10-29",
     ),
 )

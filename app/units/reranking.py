@@ -1,4 +1,4 @@
-"""Unit 02: missing rerankers, and why recall at one k hides them.
+"""Unit 08: missing rerankers, and why recall at one k hides them.
 
 A retrieval pipeline can find the right documents and still fail, because
 finding them and ranking them near the top are two different jobs, done by
@@ -6,41 +6,64 @@ two different stages. Numbers and citations verified against primary
 sources; see UNIT.sources.
 """
 
+from app.metrics import recall_at_k
 from app.units.types import Choice, Exercise, Probe, Unit
+
+
+def solve(data: dict) -> float:
+    """Reference answer to this unit's exercise, run by tests/test_units.py.
+
+    It exists so `Exercise.expected` is a measured number rather than one
+    somebody typed beside a fixture. Reading it before attempting the exercise
+    is reading the answer key.
+    """
+    queries = data["queries"]
+    at_5 = [
+        recall_at_k(query["retrieved"], set(query["relevant"]), 5) for query in queries
+    ]
+    at_150 = [
+        recall_at_k(query["retrieved"], set(query["relevant"]), 150)
+        for query in queries
+    ]
+    return sum(at_150) / len(at_150) - sum(at_5) / len(at_5)
 
 
 UNIT = Unit(
     slug="reranking",
-    number=2,
+    number=8,
+    part="retrieval",
     title="Missing rerankers, and the recall number that hides them",
     failure=(
-        "A retrieval pipeline finds the right documents somewhere in its candidate "
-        "set. But it ranks them so badly that a small top-k context window never sees "
-        "most of them."
+        "Ledger's first-stage search finds the operative clause somewhere in its "
+        "candidate set. But it ranks that clause so badly that the small top-k window "
+        "the answer gets written from never sees it."
     ),
     detection=(
-        "Measure recall at a small k and a large k on the same query set. The gap "
-        "between the two names whether the fault is ordering or coverage."
+        "Measure recall at a small k and a large k on the same set of underwriter "
+        "questions. The gap between the two names whether the fault is ordering or "
+        "coverage."
     ),
     brief=(
-        "Most retrieval evals stop at one number: recall at whatever k you plan to "
-        "feed the model, usually five or ten chunks. The number comes back "
-        "reasonable, nothing alarms anyone, and the pipeline ships. What that single "
-        "number cannot tell you is whether the documents you wanted were absent from "
-        "the candidate set entirely. Or the documents were present in the set and "
-        "simply buried below the cutoff where nobody looked. Those are different failures with different "
+        "Most evals of Ledger retrieval stop at one number: recall at whatever k the "
+        "prompt holds, usually five or ten chunks of a credit agreement. The number "
+        "comes back reasonable, nothing alarms anyone, and the pipeline ships. "
+        "What that single number cannot tell you is whether the clauses that answer "
+        "the underwriter's question were absent from the candidate set entirely. Or "
+        "the clauses were present in the set and simply buried below the cutoff where "
+        "nobody looked. Those are different failures with different "
         "fixes, and a single recall@k conflates them into one reassuring digit.",
-        "The usual retrieval stack has two jobs stacked on top of each other, and "
+        "Ledger's retrieval stack has two jobs stacked on top of each other, and "
         "most pipelines only do the first one. An embedding search (or BM25, or "
-        "both) casts a wide net cheaply. It scores every candidate against the "
-        "query using a single vector or a bag-of-words signal. That signal is good "
-        "at getting plausible documents into a large candidate set, but it is weak "
-        "at ordering them precisely. It never looks at the query and a specific "
-        "document together.",
+        "both) casts a wide net cheaply over the credit agreement and its "
+        "amendments. It scores every candidate chunk against the question using a "
+        "single vector or a bag-of-words signal. That signal is good at getting "
+        "plausible clauses into a large candidate set, but it is weak at ordering "
+        "them precisely. It never looks at the question and a specific clause "
+        "together.",
         "A reranker, typically a cross-encoder, takes a smaller candidate set and "
-        "scores each query-document pair jointly. That is far more expensive per "
-        "pair, but far more accurate at ordering. Skip that second stage and you "
-        "get a pipeline that is good at finding and bad at sorting. Recall at a "
+        "scores each question-clause pair jointly. That is far more expensive per "
+        "pair, but far more accurate at ordering. Skip that second stage and Ledger "
+        "is good at finding and bad at sorting. Recall at a "
         "small k is exactly the measurement that sorting quality controls.",
         "Anthropic measured this directly on a mixed set of codebases, fiction, and "
         "research papers. It reported the fraction of queries where the right chunk "
@@ -54,7 +77,9 @@ UNIT = Unit(
         "failure rate nearly by a third on top of everything the better embeddings "
         "and BM25 had already fixed. That part is attributable to ordering rather "
         "than to finding.",
-        "That effect is not limited to the pipeline of one vendor. The BEIR "
+        "That effect is not limited to the pipeline of one vendor, and it does not "
+        "depend on the corpus looking anything like a loan file. The BEIR "
+        "(Benchmarking Information Retrieval) "
         "benchmark tests retrieval across eighteen unrelated domains with no "
         "domain-specific tuning. It found that adding a cross-encoder reranker on "
         "top of plain BM25 beat BM25 alone on sixteen of those eighteen datasets. "
@@ -65,15 +90,20 @@ UNIT = Unit(
         "set underneath it.",
         "The gap between recall at a small k and recall at a large k is what turns "
         "this from a vague suspicion into a measurement. If recall at a large k "
-        "(say 150) is much higher than recall at a small k (say 5), the right "
-        "documents are in your candidate set. A reranker could move them up, and "
+        "(say 150) is much higher than recall at a small k (say 5), the operative "
+        "clauses are in Ledger's candidate set. A reranker could move them up, and "
         "adding one is likely to close most of that gap.",
-        "If both numbers are low, the documents are not in the candidate set at "
-        "all, no matter how far you look. A reranker cannot fix that. It can only "
-        "reorder what the first stage already retrieved. It cannot retrieve what "
-        "was never there. Reporting a single recall@k erases this distinction "
-        "completely. Reporting both numbers, and the gap between them, is what "
-        "tells you which of two very different fixes you actually need.",
+        "If both numbers are low, the clauses are not in the candidate set at "
+        "all, no matter how far down you look. A reranker cannot fix that. It can "
+        "only reorder what the first stage already retrieved. It cannot retrieve an "
+        "amendment that was never there. Reporting a single recall@k erases this "
+        "distinction completely. Reporting both numbers, and the gap between them, "
+        "is what tells you which of two very different fixes Ledger actually needs.",
+    ),
+    builds_on=(
+        "All of part 1. Recall at ten scores a set of queries, so it "
+        "inherits every limit you just measured. A two-point gain on "
+        "forty queries is not a gain."
     ),
     probes=(
         Probe(
@@ -106,13 +136,13 @@ UNIT = Unit(
         Probe(
             id="what-reranking-can-do",
             asks=(
-                "You add a cross-encoder reranker on top of an existing retrieval "
-                "pipeline, and it scores the existing candidates from that pipeline "
-                "against the query. What can it do, mechanically?"
+                "You add a cross-encoder reranker on top of Ledger's existing "
+                "retrieval pipeline, and it scores the candidates that pipeline "
+                "returned against the question. What can it do, mechanically?"
             ),
             choices=(
                 Choice("a", "Increase recall at any k, including very large k"),
-                Choice("b", "Reorder the candidates the first stage already retrieved. It cannot add documents the first stage never found"),
+                Choice("b", "Reorder the candidates the first stage already retrieved. It cannot add clauses the first stage never found"),
                 Choice("c", "Replace the need for a first-stage retriever entirely"),
                 Choice("d", "Reduce the size of the embedding index needed in production"),
             ),
@@ -121,58 +151,59 @@ UNIT = Unit(
                 "A reranker only sees the candidate set handed to it by the stage "
                 "before it. So recall at a k large enough to cover that whole "
                 "candidate set is a ceiling the reranker cannot push past. If the "
-                "right document is not in the first 150 candidates, no amount of "
-                "rescoring surfaces it. This is also why cross-encoders are not run "
-                "over an entire corpus directly. Scoring every query against every "
-                "document jointly does not scale. So a cheap first stage has to "
-                "narrow the field before the expensive, accurate stage gets to rank "
-                "it."
+                "amendment that rewrote the clause is not in the first 150 "
+                "candidates, no amount of rescoring surfaces it. This is also why "
+                "cross-encoders are not run over an entire corpus directly. Scoring "
+                "the question against every chunk of every credit agreement jointly "
+                "does not scale. So a cheap first stage has to narrow the field "
+                "before the expensive, accurate stage gets to rank it."
             ),
         ),
         Probe(
             id="interpreting-the-gap",
             asks=(
-                "You measure recall@5 = 0.20 and recall@100 = 0.85 for a retrieval "
-                "pipeline on the same query set. What have you established?"
+                "You measure recall@5 = 0.20 and recall@100 = 0.85 for Ledger on the "
+                "same set of underwriter questions. What have you established?"
             ),
             choices=(
                 Choice("a", "The embedding model is poor quality, so you should swap it"),
-                Choice("b", "The documents are mostly being found but ranked badly: this is a reranking problem, not an embedding problem"),
-                Choice("c", "Production should raise k to 100 so users see the right documents"),
+                Choice("b", "The clauses are mostly being found but ranked badly: this is a reranking problem, not an embedding problem"),
+                Choice("c", "Production should raise k to 100 so underwriters see the right clauses"),
                 Choice("d", "Nothing is conclusive. A 65-point gap could mean anything without more data"),
             ),
             answer="b",
             because=(
                 "A large gap between a small-k and a large-k recall, with the large-k "
-                "number high, means the first stage is doing its job. The relevant "
-                "documents are present in the candidate set. Swapping the embedding "
-                "model (option a) targets the wrong stage and risks making no "
-                "difference, since the embeddings already found 85 percent of what "
-                "mattered. Raising k in production (option c) does not fix anything "
-                "either, since the model prompt still only reads the first handful of "
-                "chunks. It would just hand the same badly-ordered list to a bigger "
-                "context window. The fix that matches this signature is a reranking "
-                "stage between retrieval and the prompt."
+                "number high, means the first stage is doing its job. The clauses "
+                "that answer the question are present in the candidate set. Swapping "
+                "the embedding model (option a) targets the wrong stage and risks "
+                "making no difference, since the embeddings already found 85 percent "
+                "of what mattered. Raising k in production (option c) does not fix "
+                "anything either, since the prompt Ledger answers from still only "
+                "reads the first handful of chunks. It would just hand the same "
+                "badly-ordered list to a bigger context window. The fix that matches "
+                "this signature is a reranking stage between retrieval and the prompt."
             ),
         ),
     ),
     exercise=Exercise(
         asks=(
-            "This unit ships a fixture of 180 queries. Each query has a "
-            "list of 150 retrieved document ids, in the order the pipeline returned "
-            "them. It also has the set of document ids that are genuinely relevant "
-            "to that query. Compute recall@5 and recall@150 for every query, "
-            "average each across all 180 queries, and post the gap: mean recall@150 "
-            "minus mean recall@5."
+            "This unit ships a fixture of 180 underwriter questions put to Ledger. "
+            "Each question has a list of 150 retrieved chunk ids, in the order the "
+            "pipeline returned them. It also has the set of chunk ids that genuinely "
+            "carry the answer. Compute recall@5 and recall@150 for every question, "
+            "average each across all 180 questions, and post the gap: mean "
+            "recall@150 minus mean recall@5."
         ),
         fixture_path="fixtures/reranking/retrieval_results.json",
         fixture_note=(
-            "A JSON object with one key, \"queries\", holding a list of 180 entries. "
-            "Each entry has \"query_id\", \"retrieved\" (150 document ids, in the "
-            "order the pipeline returned), and \"relevant\" (3 to 5 document ids, "
-            "the true positives for that query). This unit generated the fixture "
-            "so that the relevant documents are almost all present somewhere in "
-            "the 150 retrieved. But their position within that list is close to "
+            "A JSON (JavaScript Object Notation) object with one key, \"queries\", "
+            "holding a list of 180 entries. "
+            "Each entry has \"query_id\", \"retrieved\" (150 chunk ids, in the "
+            "order the pipeline returned), and \"relevant\" (3 to 5 chunk ids, the "
+            "clauses that answer that question). This unit generated the "
+            "fixture so that the relevant clauses are almost all present somewhere "
+            "in the 150 retrieved. But their position within that list is close to "
             "random, the signature of a retriever with no reranking stage."
         ),
         starter=(
@@ -191,13 +222,13 @@ UNIT = Unit(
         expected=0.8357,
         tolerance=0.0005,
         because=(
-            "Mean recall@5 across the 180 queries is about 0.078 and mean recall@150 "
-            "is about 0.914, for a gap of about 0.836. Recall@150 being over 0.9 "
-            "means the retriever is finding almost everything that matters. "
-            "Recall@5 under 0.08 means almost none of it survives into a small "
-            "top-k window. That combination, a high ceiling and a low floor on the "
-            "same query set, is what a missing reranker looks like in a "
-            "measurement. It is not just a sentence."
+            "Mean recall@5 across the 180 questions is about 0.078 and mean "
+            "recall@150 is about 0.914, for a gap of about 0.836. Recall@150 being "
+            "over 0.9 means Ledger's retriever is finding almost every clause that "
+            "matters. Recall@5 under 0.08 means almost none of it survives into the "
+            "small window the answer gets written from. That combination, a high "
+            "ceiling and a low floor on the same questions, is what a missing "
+            "reranker looks like in a measurement. It is not just a sentence."
         ),
     ),
     sources=(

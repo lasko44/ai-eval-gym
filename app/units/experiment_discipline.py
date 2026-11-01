@@ -1,19 +1,61 @@
-"""Unit 13: the A/B test somebody stopped when it looked good.
+"""Unit 02: the Ledger A/B test somebody stopped when it looked good.
 
 Peeking inflation under continuous monitoring, and the gap between an
 improving offline score and an improving online metric. Numbers and
 citations verified against primary sources; see UNIT.sources.
 """
 
+import math
+
 from app.units.types import Choice, Exercise, Probe, Unit
+
+
+def _two_proportion_p_value(control: int, treatment: int, n: int) -> float:
+    """Two-sided p value for two proportions, pooled standard error.
+
+    `n` is the per-arm sample size at this checkpoint, cumulative from the
+    start, and the two counts are the conversions in each arm at that point.
+    Identical arms give a standard error of zero, which is agreement rather
+    than significance, so it returns 1.0 instead of dividing by it.
+    """
+    pooled = (control + treatment) / (2 * n)
+    standard_error = (pooled * (1 - pooled) * 2 / n) ** 0.5
+    if standard_error == 0:
+        return 1.0
+    z = (treatment / n - control / n) / standard_error
+    return 2 * (1 - 0.5 * (1 + math.erf(abs(z) / math.sqrt(2))))
+
+
+def solve(data: dict) -> float:
+    """Reference answer to this unit's exercise, run by tests/test_units.py.
+
+    It exists so `Exercise.expected` is a measured number rather than one
+    somebody typed beside a fixture. Reading it before attempting the exercise
+    is reading the answer key. There is no app.metrics function for this one:
+    the peeking rule itself is what is being measured.
+    """
+    checkpoints = data["checkpoints"]
+    experiments = data["experiments"]
+    declared = 0
+    for experiment in experiments:
+        for index, n in enumerate(checkpoints):
+            p = _two_proportion_p_value(
+                experiment["control"][index], experiment["treatment"][index], n
+            )
+            if p < 0.05:
+                declared += 1
+                break
+    return declared / len(experiments)
 
 
 UNIT = Unit(
     slug="experiment-discipline",
-    number=13,
-    title="The A/B test somebody stopped when it looked good",
+    number=2,
+    part="measurement",
+    title="The Ledger A/B test somebody stopped when it looked good",
     failure=(
-        "A team watches a dashboard and stops a test early because the treatment "
+        "A team watches a dashboard and stops the Ledger prompt test early because "
+        "the new prompt "
         "looks ahead. It ships on a p value that never had a real 5 percent error rate."
     ),
     detection=(
@@ -21,10 +63,13 @@ UNIT = Unit(
         "against simulated null data to find the real false positive rate."
     ),
     brief=(
-        "A team ships a model change behind an A/B test. Someone opens the "
-        "dashboard every morning to watch the numbers move. On day nine the "
-        "treatment pulls ahead and crosses the 5 percent line. The team calls it "
-        "a win and ships the change that afternoon. Nobody had fixed a sample "
+        "A team puts a new retrieval prompt into Ledger behind an A/B test, to see "
+        "whether it pulls the amendments in more often. Someone opens the "
+        "dashboard every morning to watch how often an underwriter sends an "
+        "answer back for a second look. On day "
+        "nine the "
+        "new prompt pulls ahead and crosses the 5 percent line. The team calls it "
+        "a win and ships the prompt that afternoon. Nobody had fixed a sample "
         "size before the test started.",
 
         "A fixed sample test holds its 5 percent error rate at exactly one "
@@ -54,7 +99,8 @@ UNIT = Unit(
 
         "The fix is not more willpower about not looking. The fix is to plan "
         "for looking before the test starts. A power calculation sets one "
-        "sample size in advance, and the team holds to it. When a team must "
+        "sample size in advance, counted in covenant questions, and the team "
+        "holds to it. When a team must "
         "look early anyway, it should use a method built for that. A group "
         "sequential design and an always valid confidence sequence both qualify.",
 
@@ -67,15 +113,17 @@ UNIT = Unit(
         "someone chooses to stop.",
 
         "The detection is cheap, which is what makes skipping it indefensible. "
-        "Build many simulated experiments where the treatment carries no real "
-        "effect at all. Run the decision rule a team actually plans to use "
+        "Build many simulated Ledger experiments where the new prompt carries "
+        "no real "
+        "effect at all. Run the decision rule the team actually plans to use "
         "against every one of them. Count how often that rule declares a "
         "winner anyway. That fraction is the true false positive rate of the "
         "process, not the number printed on a textbook page.",
 
         "A second trap sits next to this one, and it catches teams who did "
-        "everything else right. An offline evaluation score going up does not "
-        "mean the online metric will follow it. The engineers who built the "
+        "everything else right. A rise in Ledger's offline eval score does not "
+        "mean the live metric will follow it. That live metric is how often an "
+        "underwriter sends an answer back. The engineers who built the "
         "YouTube recommendation system said so directly: live A/B results are "
         "not always correlated with offline experiments. At Microsoft, "
         "researchers reported that only about one third of tested ideas "
@@ -83,18 +131,23 @@ UNIT = Unit(
         "before the test starts, offline or online, and then run the real "
         "test to find out.",
     ),
+    builds_on=(
+        "Unit 01. A judge you have shown to be stable is still worth "
+        "nothing if you stop the run at the moment it says what you hoped."
+    ),
     probes=(
         Probe(
             id="stopped-early-p-value",
             asks=(
-                "A team checked its dashboard every day for three weeks and "
-                "stopped the test the moment it saw p less than 0.05 on day "
+                "A team checked its dashboard every day for three weeks. It "
+                "stopped the Ledger prompt test the moment it saw p less than "
+                "0.05 on day "
                 "nine. What does that p value establish?"
             ),
             choices=(
-                Choice("a", "That the treatment beat control at a real 5 percent error rate"),
+                Choice("a", "That the new prompt beat the shipped one at a real 5 percent error rate"),
                 Choice("b", "Very little, since repeated looks can push a true 5 percent test well past 25 percent"),
-                Choice("c", "That the treatment has no effect at all"),
+                Choice("c", "That the new prompt has no effect at all"),
                 Choice("d", "That the team should have waited for a bigger sample before checking anything"),
             ),
             answer="b",
@@ -113,8 +166,9 @@ UNIT = Unit(
         Probe(
             id="method-for-peeking",
             asks=(
-                "A team wants to check results every day without breaking the "
-                "5 percent guarantee of its test. What should it do?"
+                "A team wants to check the Ledger prompt test every day without "
+                "breaking the "
+                "5 percent guarantee of that test. What should it do?"
             ),
             choices=(
                 Choice("a", "Nothing, the extra looks average out over time"),
@@ -138,14 +192,14 @@ UNIT = Unit(
         Probe(
             id="offline-online-gap",
             asks=(
-                "Your offline evaluation score improves after a model change, "
+                "Ledger's offline eval score improves after a prompt change, "
                 "and you have not run an online test yet. What does the "
                 "improved offline score establish about the live metric?"
             ),
             choices=(
                 Choice("a", "That the live metric will improve by roughly the same amount"),
                 Choice("b", "Nothing on its own, since offline and online results are known to diverge"),
-                Choice("c", "That the model is ready to ship without an online test"),
+                Choice("c", "That the new prompt is ready to ship without an online test"),
                 Choice("d", "That the offline metric is wrong whenever it disagrees with intuition"),
             ),
             answer="b",
@@ -165,22 +219,23 @@ UNIT = Unit(
     ),
     exercise=Exercise(
         asks=(
-            "This unit ships a fixture of 3,500 simulated A/B experiments "
-            "where the treatment carries no real effect at all. Apply the "
+            "This unit ships a fixture of 3,500 simulated Ledger prompt tests "
+            "where the new prompt carries no real effect at all. Apply the "
             "stated peeking rule at the five checkpoints in each experiment. "
             "Work out what share of these null experiments would have "
             "declared a winner. Post that share."
         ),
         fixture_path="fixtures/experiment_discipline/ab_peeking.json",
         fixture_note=(
-            "The fixture holds 3,500 experiments, each with a control arm and "
-            "a treatment arm at the same 20 percent rate, so the real effect "
+            "The fixture holds 3,500 experiments, each with a control arm on "
+            "the shipped prompt and a treatment arm on the new one. An "
+            "underwriter sends an answer back for a second look at the same 20 "
+            "percent rate in both arms, so the real effect "
             "is zero. The fixture checks each arm at five checkpoints: 200, "
-            "400, 600, 800, and 1,000 visitors, with every count cumulative "
-            "from the start. At each checkpoint, in order, run a "
-            "two-proportion z-test with a pooled standard error. Compare the "
-            "cumulative treatment rate to the cumulative control rate at that "
-            "checkpoint size. The rule is two sided, so declare a winner the "
+            "400, 600, 800, and 1,000 answers, with every count cumulative "
+            "from the start. At each checkpoint, in order, compare the "
+            "cumulative treatment and control rates with a two-proportion "
+            "z-test and a pooled standard error. The rule is two sided, so declare a winner the "
             "moment any checkpoint produces a p value under 0.05, and stop "
             "looking at that experiment. An experiment that never crosses "
             "0.05 at any of the five checkpoints counts as no winner."
@@ -208,7 +263,7 @@ UNIT = Unit(
         expected=0.1469,
         tolerance=0.004,
         because=(
-            "Checked only once, at the final checkpoint of 1,000 visitors per "
+            "Checked only once, at the final checkpoint of 1,000 answers per "
             "arm, this fixture's own false positive rate comes out at 0.0489, "
             "almost exactly the nominal 5 percent. Checked at all five "
             "checkpoints, and stopped at the first one to cross 0.05, the "

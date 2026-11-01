@@ -1,31 +1,58 @@
-"""Unit 14: the fairness metrics that cannot all hold at once.
+"""Unit 21: the fairness metrics on Ledger's decisions cannot all hold at once.
 
-Demographic parity, equalized odds and calibration within groups, and the
-proof that a model cannot satisfy all three when the compared groups have
-different base rates. Numbers and citations verified against primary
-sources; see UNIT.sources.
+Demographic parity, equalized odds and calibration within groups, applied to
+the credit decisions Ledger's answers feed, and the proof that a model cannot
+satisfy all three when the compared groups have different base rates. Numbers
+and citations verified against primary sources; see UNIT.sources.
 """
 
 from app.units.types import Choice, Exercise, Probe, Unit
 
 
+def solve(data: list) -> float:
+    """Reference answer to this unit's exercise, run by tests/test_units.py.
+
+    It exists so `Exercise.expected` is a measured number rather than one
+    somebody typed beside a fixture. Reading it before attempting the exercise
+    is reading the answer key.
+
+    This fixture's parsed form is a flat list of records rather than a mapping,
+    so `data` is that list.
+    """
+    threshold = 0.5
+
+    def error_rates(group: list) -> tuple[float, float]:
+        positives = [r for r in group if r["label"] == 1]
+        negatives = [r for r in group if r["label"] == 0]
+        false_positives = sum(1 for r in negatives if r["score"] >= threshold)
+        false_negatives = sum(1 for r in positives if r["score"] < threshold)
+        return false_positives / len(negatives), false_negatives / len(positives)
+
+    a_fpr, a_fnr = error_rates([r for r in data if r["group"] == "group_a"])
+    b_fpr, b_fnr = error_rates([r for r in data if r["group"] == "group_b"])
+    return max(abs(a_fpr - b_fpr), abs(a_fnr - b_fnr))
+
+
 UNIT = Unit(
     slug="fairness-metrics",
-    number=14,
-    title="The fairness metrics that cannot all hold at once",
+    number=21,
+    part="governance",
+    title="The fairness metrics on Ledger's decisions cannot all hold at once",
     failure=(
-        "A model passes the fairness metric a team happens to pick. A "
-        "different reviewer picks a different metric, and the same model "
-        "fails. Both measurements are correct, and the model never changed."
+        "The credit model Ledger feeds passes the fairness metric the team "
+        "happens to pick. An examiner picks a different metric, and the same "
+        "model fails. Both measurements are correct, and the model never "
+        "changed."
     ),
     detection=(
         "Compute demographic parity, equalized odds and calibration within "
-        "groups on the same predictions. Report the gap each one shows, "
-        "every time, next to the others."
+        "groups on the same borrower predictions. Report the gap each one "
+        "shows, every time, next to the others."
     ),
     brief=(
-        "A team must show that a lending model treats two groups of "
-        "applicants fairly. Someone picks a fairness metric, runs it "
+        "Ledger's answers feed credit decisions, so the lender has to show "
+        "that the model behind those decisions treats two groups of "
+        "borrowers fairly. Someone picks a fairness metric, runs it "
         "against the model, and the model passes. A second reviewer picks "
         "a different metric, runs it against the same model, and the model "
         "fails. Neither reviewer made an error. The two metrics measure "
@@ -33,24 +60,24 @@ UNIT = Unit(
         "different base rates, several common fairness metrics cannot all "
         "hold true for the same model.",
         "Demographic parity asks a simple question. Does the model "
-        "approve the same share of applicants in each group? It compares "
+        "approve the same share of borrowers in each group? It compares "
         "the selection rate, the fraction of each group that crosses the "
         "decision line. It calls the model fair when that share is equal "
         "across groups. It says nothing about whether the model approved "
-        "the right people in either group. A model can hit demographic "
+        "the right borrowers in either group. A model can hit demographic "
         "parity exactly "
         "while making far more mistakes in one group than the other.",
-        "Equalized odds asks a different question. Among the applicants "
-        "who will actually repay, does the model approve them at the same "
-        "rate in each group? Among the applicants who will actually "
-        "default, does the model reject them at the same rate in each "
+        "Equalized odds asks a different question. Among the borrowers "
+        "who will actually perform, does the model approve them at the "
+        "same rate in each group? Among the borrowers who will actually "
+        "default, does the model decline them at the same rate in each "
         "group? Formally this means equal false positive rates across "
         "groups, and equal false negative rates across groups. "
         "Chouldechova calls this error rate balance, and later work calls "
         "it equalized odds.",
         "Calibration within groups asks a third question. Among the "
-        "applicants the model scores at, say, seventy percent, does "
-        "seventy percent of each group actually repay? A well calibrated "
+        "borrowers the model scores at, say, seventy percent, does "
+        "seventy percent of each group actually perform? A well calibrated "
         "score means the same thing in both groups. A given number from "
         "the model carries the same real-world likelihood wherever it is "
         "read. Chouldechova's definition states the probability of the "
@@ -73,12 +100,15 @@ UNIT = Unit(
         "prediction, where the model already knows the true outcome for "
         "everyone. The second is equal base rates, where both groups "
         "share exactly the same underlying rate of the outcome in "
-        "question. Outside those two cases, every risk assignment "
+        "question.",
+        "Outside those two cases, every risk assignment "
         "violates at least one of the three conditions. This holds no "
-        "matter what method built the risk assignment, a human "
-        "underwriter, a scorecard, or a machine learning model.",
-        "Chouldechova ran a parallel analysis on real-world data from the "
-        "COMPAS recidivism tool, the data ProPublica made public. Her "
+        "matter what method built the risk assignment. It can be a human "
+        "underwriter, a scorecard, a machine learning model, or an "
+        "underwriter acting on what Ledger told them the covenants say.",
+        "Chouldechova ran the same analysis on real data from the COMPAS "
+        "(Correctional Offender Management Profiling for Alternative "
+        "Sanctions) recidivism tool, the data ProPublica made public. Her "
         "dataset held 6,150 defendants, 3,696 of one race and 2,454 of "
         "another. She found the COMPAS score met the calibration test "
         "within each group. She also found it met predictive parity, "
@@ -88,25 +118,32 @@ UNIT = Unit(
         "between the two groups. The two groups did not share the same "
         "base rate of the outcome, so calibration and equal error rates "
         "could not both hold.",
-        "None of this makes COMPAS, or any other model, dishonest. It "
-        "tells you that the three fairness tests encode different "
-        "values, and a model cannot satisfy all three unless the "
-        "underlying population cooperates. Your job as the engineer is "
-        "not to search for the one metric your model happens to pass. "
-        "State which definition the system must meet, before you run any "
+        "None of this makes COMPAS, or Ledger, or any other model, "
+        "dishonest. It tells you that the three fairness tests encode "
+        "different values, and a model cannot satisfy all three unless the "
+        "underlying population cooperates.",
+        "Your job as the engineer is "
+        "not to search for the one metric Ledger happens to pass. "
+        "State which definition the lender must meet, before you run any "
         "numbers. Then compute the other two anyway, and report the gap "
         "each one shows. Put all three next to each other, and let "
-        "someone accountable for the decision choose the tradeoff on "
-        "purpose instead of by accident.",
+        "someone accountable for the credit decision choose the tradeoff "
+        "on purpose instead of by accident. An examiner who arrives later "
+        "will pick the metric, and they will not pick yours.",
+    ),
+    builds_on=(
+        "Units 01 and 20. A fairness metric is a grader somebody chose, so "
+        "it carries the same selection problem as the judge in unit 01 and "
+        "the filter in unit 20."
     ),
     probes=(
         Probe(
             id="passes-one-metric",
             asks=(
-                "A lending model hits exact calibration within each of "
-                "two applicant groups. Reviewer A calls it fair. What has "
-                "this established about equalized odds and demographic "
-                "parity?"
+                "The credit model Ledger feeds hits exact calibration "
+                "within each of two borrower groups. Reviewer A calls it "
+                "fair. What has this established about equalized odds and "
+                "demographic parity?"
             ),
             choices=(
                 Choice(
@@ -138,7 +175,8 @@ UNIT = Unit(
                 "shares or error rates. It says the score means the same "
                 "thing in each group. Demographic parity and equalized "
                 "odds measure different properties, the share of each "
-                "group approved and the error rates within each group. "
+                "borrower group approved and the error rates within each "
+                "group. "
                 "Kleinberg, Mullainathan and Raghavan proved all three "
                 "conditions can coexist only with perfect prediction or "
                 "with equal base rates between groups. Passing one test "
@@ -149,9 +187,10 @@ UNIT = Unit(
         Probe(
             id="when-all-three-hold",
             asks=(
-                "Under what condition can demographic parity, equalized "
-                "odds and calibration within groups all hold for the same "
-                "model at once?"
+                "A single model sits behind the lender's decisions. Under "
+                "what condition can demographic parity, equalized "
+                "odds and calibration within groups all hold at once for "
+                "that model?"
             ),
             choices=(
                 Choice(
@@ -161,12 +200,12 @@ UNIT = Unit(
                 ),
                 Choice(
                     "b",
-                    "Only when the two groups share the same base rate, "
-                    "or the model predicts every outcome perfectly",
+                    "Only when the two borrower groups share the same base "
+                    "rate, or the model predicts every outcome perfectly",
                 ),
                 Choice(
                     "c",
-                    "Always, as long as the model trains on enough data "
+                    "Always, as long as the model trains on enough deals "
                     "from both groups",
                 ),
                 Choice(
@@ -182,8 +221,8 @@ UNIT = Unit(
                 "together. The first is perfect prediction, where the "
                 "model already knows the true outcome for everyone and "
                 "assigns a score of zero or one. The second is equal base "
-                "rates, where the two groups share the same underlying "
-                "rate of the outcome. Outside those two narrow cases, "
+                "rates, where the two borrower groups share the same "
+                "underlying rate of the outcome. Outside those two narrow cases, "
                 "every risk assignment must violate at least one of the "
                 "three conditions. More data or a better model does not "
                 "escape this, since the theorem holds for any method that "
@@ -193,23 +232,23 @@ UNIT = Unit(
         Probe(
             id="both-correct",
             asks=(
-                "Two teams compute two different fairness metrics on the "
-                "same unchanged model and reach opposite conclusions "
-                "about whether it is fair. Both computations are correct. "
-                "What does this mean for the engineer who built the "
-                "model?"
+                "The lender's team and an examiner compute two different "
+                "fairness metrics on the same unchanged model and reach "
+                "opposite conclusions about whether it is fair. Both "
+                "computations are correct. What does this mean for the "
+                "engineer evaluating the system?"
             ),
             choices=(
                 Choice(
                     "a",
-                    "One team made an arithmetic error, since two correct "
-                    "metrics cannot disagree",
+                    "One of them made an arithmetic error, since two "
+                    "correct metrics cannot disagree",
                 ),
                 Choice(
                     "b",
                     "Fairness metrics encode different values and can "
                     "conflict by design. The engineer must name the "
-                    "standard the system follows, and report the rest as "
+                    "standard the lender follows, and report the rest as "
                     "a measured tradeoff",
                 ),
                 Choice(
@@ -219,7 +258,7 @@ UNIT = Unit(
                 ),
                 Choice(
                     "d",
-                    "The second team is wrong, since demographic parity "
+                    "The examiner is wrong, since demographic parity "
                     "is the only fairness metric that matters in lending",
                 ),
             ),
@@ -228,11 +267,11 @@ UNIT = Unit(
                 "Demographic parity, equalized odds and calibration "
                 "within groups are three different mathematical claims. "
                 "A model can satisfy any one of them while failing the "
-                "other two, especially when the two groups in the "
-                "comparison have different base rates. Neither team made "
-                "an error, and neither metric is the single correct one. "
-                "The engineer's job is to pick, in advance and out loud, "
-                "which definition the system must meet. Then the "
+                "other two. That is especially true when the two borrower "
+                "groups in the comparison have different base rates. Neither side "
+                "made an error, and neither metric is the single correct "
+                "one. The engineer's job is to pick, in advance and out "
+                "loud, which definition the lender must meet. Then the "
                 "engineer measures and reports the other two as the cost "
                 "of that choice."
             ),
@@ -240,8 +279,9 @@ UNIT = Unit(
     ),
     exercise=Exercise(
         asks=(
-            "This unit ships 2000 model predictions split between two "
-            "groups with different base rates. Each row carries a score "
+            "This unit ships 2000 predictions from the credit model "
+            "Ledger feeds, split between two borrower groups with "
+            "different base rates. Each row carries a score "
             "from zero to one and a true outcome label. Compute "
             "demographic parity, equalized odds and calibration within "
             "groups for both groups, using a decision threshold of 0.5. "
@@ -251,10 +291,10 @@ UNIT = Unit(
         ),
         fixture_path="fixtures/fairness_metrics/model_predictions.json",
         fixture_note=(
-            "A flat list of 2000 records. Each record has a group field, "
-            "group_a or group_b. It also has a score between zero and "
-            "one, and a true outcome label of zero or one. The two "
-            "groups have different base rates, group_a lower and "
+            "A flat list of 2000 borrower records. Each record has a "
+            "group field, group_a or group_b. It also has a score between "
+            "zero and one, and a true outcome label of zero or one. The "
+            "two groups have different base rates, group_a lower and "
             "group_b higher. Use 0.5 as the decision threshold. A score "
             "at or above 0.5 counts as a positive prediction."
         ),
@@ -309,7 +349,9 @@ UNIT = Unit(
             "proved. Outside perfect prediction or equal base rates, "
             "calibration, demographic parity and equalized odds cannot "
             "all hold together, and this fixture hits neither escape "
-            "case."
+            "case. The lender has to name which one of the three the "
+            "decisions Ledger feeds are held to, and report the other two "
+            "as the price."
         ),
     ),
     sources=(

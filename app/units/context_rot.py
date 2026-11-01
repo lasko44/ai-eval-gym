@@ -1,4 +1,4 @@
-"""Unit 03: context rot, where more context makes the answer worse.
+"""Unit 11: context rot, where more context makes the answer worse.
 
 Context length as a confound, held apart from distractor count and task
 difficulty. Numbers and citations verified against primary sources; see
@@ -8,28 +8,44 @@ UNIT.sources.
 from app.units.types import Choice, Exercise, Probe, Unit
 
 
+def solve(data: dict) -> float:
+    """Reference answer to this unit's exercise, run by tests/test_units.py.
+
+    It exists so `Exercise.expected` is a measured number rather than one
+    somebody typed beside a fixture. Reading it before attempting the exercise
+    is reading the answer key.
+    """
+    rows = sorted(data["results"], key=lambda row: row["length_tokens"])
+    shortest = rows[0]["correct"] / rows[0]["total"]
+    longest = rows[-1]["correct"] / rows[-1]["total"]
+    return shortest - longest
+
+
 UNIT = Unit(
     slug="context-rot",
-    number=3,
+    number=11,
+    part="context",
     title="Context rot, where more context makes the answer worse",
     failure=(
-        "A team stops curating what goes into the prompt because the context window "
-        "is large enough to hold everything. Accuracy then drops as the context "
-        "grows, even though the answer never left the context."
+        "A team stops curating what goes into Ledger's prompt because the context "
+        "window is large enough to hold the whole credit agreement. Accuracy then "
+        "drops as the context grows, even though the operative clause never left "
+        "the context."
     ),
-    detection="Sweep context length with the question and the gold passage held fixed, then measure accuracy at each length.",
+    detection="Sweep context length with the question and the operative clause held fixed, then measure accuracy at each length.",
     brief=(
         "A long context window reads like a solved problem. If the model can hold "
         "a hundred thousand tokens, the obvious move is to stop being careful about "
-        "what you retrieve. Just pour everything plausibly relevant into the "
-        "prompt and let the model sort it out. That instinct is the failure mode this "
-        "unit trains you to catch, because the model does not sort it out for free.",
-        "It is surprising precisely because the answer is sitting right there in the "
-        "context the whole time. Nothing is missing. You did not fail to retrieve "
-        "the gold passage, you included it. But the model still gets the question "
-        "wrong more often as you add more surrounding material. Intuition says a "
-        "model that can see the fact should use it regardless of what else is on the "
-        "page. Measured behavior disagrees with that intuition.",
+        "what Ledger retrieves. Pour the whole credit agreement and every amendment "
+        "into the prompt and let the model sort it out. That instinct is the failure "
+        "mode this unit trains you to catch, because the model does not sort it out "
+        "for free.",
+        "It is surprising precisely because the operative clause is sitting right "
+        "there in the context the whole time. Nothing is missing. You did not fail "
+        "to retrieve the clause, you included it. But Ledger still gets the covenant "
+        "question wrong more often as you add more of the agreement around it. "
+        "Intuition says a model that can see the clause should use it regardless of "
+        "what else is on the page. Measured behavior disagrees with that intuition.",
         "The Chroma context rot report ran 18 models, five from Anthropic, seven "
         "from OpenAI, three from Google and three from Alibaba. It used a "
         "LongMemEval task that compared two prompts. One was a focused prompt "
@@ -39,8 +55,12 @@ UNIT = Unit(
         "scored lower on the full prompt than on the focused one.",
         "The same report also found that even a single distractor sentence "
         "measurably lowers accuracy against a needle-only baseline. The drop "
-        "compounds as you add more distractors. A second, independent measurement "
-        "points the same way. The RULER benchmark put GPT-4 at 96.6 percent "
+        "compounds as you add more distractors. A credit agreement is full of "
+        "distractors: the covenant next door, the defined term that almost "
+        "matches, the schedule that repeats a clause. A second, independent "
+        "measurement "
+        "points the same way. The RULER benchmark put GPT-4 (Generative "
+        "Pre-trained Transformer) at 96.6 percent "
         "accuracy at a 4,000 token context, and at 81.2 percent at 128,000 tokens. "
         "That is a 15.4 point drop with nothing about the task itself changed.",
         "Length is not the only axis that matters, and a third primary source shows "
@@ -54,16 +74,22 @@ UNIT = Unit(
         "That result used a fixed length, so it is a position effect, not a length "
         "effect. Conflating the two is exactly the mistake this unit is built to "
         "stop you from making.",
-        "That is also why holding the gold passage fixed is the whole trick, not a "
-        "detail. A sweep of context length could change which passage carries the "
-        "answer, or move that passage to a new position. It could also swap in a "
-        "harder question at longer lengths. Any of those changes could cause a "
-        "drop in accuracy, and you would no longer know which one did it.",
-        "Keep the question and the gold passage byte-for-byte identical across "
-        "every length. Change only the padding around it. Then you can attribute "
+        "That is also why holding the operative clause fixed is the whole trick, not "
+        "a detail. A sweep of Ledger's context length could change which clause "
+        "carries the answer, or move that clause to a new position. It could also "
+        "swap in a harder covenant question at longer lengths. Any of those changes "
+        "could cause a drop in accuracy, and you would no longer know which one did "
+        "it.",
+        "Keep the question and the operative clause byte-for-byte identical across "
+        "every length. Change only the pages of the agreement padded around it. Then "
+        "you can attribute "
         "whatever accuracy change you measure to length alone. That is the "
         "difference between a chart that supports a claim and a chart that "
         "happens to look like it does.",
+    ),
+    builds_on=(
+        "Unit 10. Multi-hop retrieval is how the prompt gets long in the "
+        "first place. This unit is what the length costs once it is long."
     ),
     probes=(
         Probe(
@@ -109,51 +135,52 @@ UNIT = Unit(
                 "below 56.1 percent with no documents supplied. Context did not just "
                 "fail to help in that position, it actively hurt. That is a "
                 "stronger claim than 'the model did not notice'. It is the kind of "
-                "number that should make you suspicious of any pipeline that adds "
-                "retrieved material without checking where the useful part lands."
+                "number that should make you suspicious of Ledger adding retrieved "
+                "material without checking where the useful part lands."
             ),
         ),
         Probe(
             id="confound",
             asks=(
-                "You sweep context length from 2,000 to 100,000 tokens. At each "
-                "length you also swap in a new gold passage and move it to a new "
-                "position in the context. That is what your real retrieval "
+                "You sweep Ledger's context length from 2,000 to 100,000 tokens. At "
+                "each length you also swap in a new operative clause and move it to "
+                "a new position in the context. That is what Ledger's real retrieval "
                 "pipeline would actually do at that length. Accuracy drops as length "
                 "increases. What can you conclude?"
             ),
             choices=(
                 Choice("a", "That length alone caused the drop, since length is what you varied"),
-                Choice("b", "Nothing about length specifically, since passage identity and position changed along with it"),
+                Choice("b", "Nothing about length specifically, since which clause carries the answer and where it sits changed along with it"),
                 Choice("c", "That position caused it and length is irrelevant"),
                 Choice("d", "That the result is invalid, so you should discard it entirely"),
             ),
             answer="b",
             because=(
-                "You changed three things at once: length, which passage carries the "
+                "You changed three things at once: length, which clause carries the "
                 "answer, and where it sits. Any of the three could be driving the "
                 "drop, or some combination could be. The measurement is not wasted, "
-                "it describes the behavior of a real pipeline, but it cannot support a "
-                "claim about length specifically. That claim needs the version where "
-                "the question and the gold passage are identical at every length and "
-                "only the padding around them changes."
+                "it describes the behavior of the real pipeline, but it cannot support "
+                "a claim about length specifically. That claim needs the version where "
+                "the question and the operative clause are identical at every length "
+                "and only the padding around them changes."
             ),
         ),
     ),
     exercise=Exercise(
         asks=(
-            "This unit ships a fixture of accuracy trials at 5 context lengths, "
-            "200 trials per length. The question and the gold passage stay fixed "
-            "across every length. Compute the accuracy at each length. Then post "
-            "the accuracy drop from the shortest length (500 tokens) to the "
-            "longest length (113,000 tokens), expressed as a proportion (0.25 "
-            "would mean a 25 percentage point drop)."
+            "This unit ships a fixture of Ledger accuracy trials at 5 context "
+            "lengths, 200 trials per length. The covenant question and the "
+            "operative clause stay fixed across every length. Compute the accuracy "
+            "at each length. Then post the accuracy drop from the shortest length "
+            "(500 tokens) to the longest length (113,000 tokens), expressed as a "
+            "proportion (0.25 would mean a 25 percentage point drop)."
         ),
         fixture_path="fixtures/context_rot/length_sweep.json",
         fixture_note=(
             "A list of 5 rows, one per context length in length_tokens, each with "
-            "correct and total out of 200 trials. The question and the gold passage "
-            "are identical across every row, only the surrounding padding differs."
+            "correct and total out of 200 trials. The question and the operative "
+            "clause are identical across every row, only the surrounding pages of "
+            "the credit agreement differ."
         ),
         starter=(
             'import json\n'
@@ -172,11 +199,11 @@ UNIT = Unit(
         because=(
             "Accuracy runs 183/200 at 500 tokens (0.915) down to 128/200 at 113,000 "
             "tokens (0.64), a drop of 0.275. Every row shares the same question and "
-            "the same gold passage. So the only thing that changed between rows is "
-            "how much material surrounds that passage. A drop of this size with "
-            "nothing else different is the signature this unit is about. The model "
-            "had the answer the whole time and used it less reliably as the context "
-            "around it grew."
+            "the same operative clause. So the only thing that changed between rows "
+            "is how much of the agreement surrounds that clause. A drop of this size "
+            "with nothing else different is the signature this unit is about. Ledger "
+            "had the clause the whole time and used it less reliably as the pages "
+            "around it piled up."
         ),
     ),
     sources=(

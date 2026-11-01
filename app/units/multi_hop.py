@@ -1,4 +1,4 @@
-"""Unit 07: an aggregate score that hides a multi-hop collapse.
+"""Unit 10: an aggregate score that hides a multi-hop collapse.
 
 One retrieval pass per question looks fine until you segment by how many
 facts the question needs chained together. Numbers and citations verified
@@ -8,38 +8,58 @@ against primary sources; see UNIT.sources.
 from app.units.types import Choice, Exercise, Probe, Unit
 
 
+def solve(data: dict) -> float:
+    """Reference answer to this unit's exercise, run by tests/test_units.py.
+
+    It exists so `Exercise.expected` is a measured number rather than one
+    somebody typed beside a fixture. Reading it before attempting the exercise
+    is reading the answer key. There is no app.metrics function for this one:
+    the segmentation is the whole measurement.
+    """
+    rows = data["results"]
+    single = [row for row in rows if row["hop_count"] == 1]
+    multi = [row for row in rows if row["hop_count"] >= 2]
+    single_accuracy = sum(1 for row in single if row["correct"]) / len(single)
+    multi_accuracy = sum(1 for row in multi if row["correct"]) / len(multi)
+    return single_accuracy - multi_accuracy
+
+
 UNIT = Unit(
     slug="multi-hop",
-    number=7,
+    number=10,
+    part="retrieval",
     title="An aggregate score that hides a multi-hop collapse",
     failure=(
-        "A system does one retrieval pass per question. Questions that need "
-        "two or three facts chained together fail badly. The system can only "
-        "find the second fact once it knows the first one, and a single pass "
-        "never goes back for it."
+        "Ledger does one retrieval pass per question. A question whose answer "
+        "spans the original clause and the amendments that rewrote it fails "
+        "badly. Ledger can only find the amendment once it knows which clause "
+        "to look for, and a single pass never goes back for it."
     ),
     detection=(
-        "Segment the eval set by hop count and report per-segment accuracy, "
-        "never one aggregate."
+        "Segment the eval set by hop count, the number of documents an answer "
+        "has to chain, and report per-segment accuracy, never one aggregate."
     ),
     brief=(
-        "A single retrieval pass works like this: embed the question, fetch "
-        "the k nearest passages, hand them to the model, done. That is fine "
-        "when the answer lives in one document. It breaks down the moment a "
-        "question needs two facts chained together. The query you embedded "
-        "came from the original question, not from the intermediate fact you "
-        "have not found yet.",
-        "Ask who directed the film that won best picture in the year a given "
-        "actor was born. A single pass has to retrieve for 'the film that "
-        "won best picture the year X was born' before it knows the year. The "
-        "index stores the passage naming the director under the title of "
-        "the film, not under the birth year of the actor. So nothing in the "
-        "query vector points at it. The retriever never misread what the "
-        "question asked it to find. The question itself asked for the wrong "
-        "thing, because the system could not know the right thing yet.",
+        "A single retrieval pass works like this: embed the underwriter's "
+        "question, fetch the k nearest chunks, hand them to the model, done. "
+        "That is fine when the answer lives in one document. It breaks down the "
+        "moment the answer needs two clauses chained together. The query you "
+        "embedded came from the original question, not from the intermediate "
+        "clause you have not found yet.",
+        "Ask whether the borrower can make a distribution. The restricted "
+        "payments covenant in the credit agreement permits one only under a "
+        "leverage test, and a later amendment rewrote the ratio that test "
+        "uses. A single pass has to retrieve the amended ratio before it knows "
+        "which section the amendment touched. The index stores that amendment "
+        "under its own heading and its own effective date, not under the words "
+        "of the covenant it replaced. So nothing in the query vector points at "
+        "it. The retriever never misread the question: the question itself "
+        "asked for the wrong thing, because Ledger could not know the right "
+        "thing yet.",
         "A controlled ablation of an agentic retrieval-augmented pipeline "
         "isolated exactly this. The test ran on 5,000 HotpotQA distractor "
-        "questions, using a local 7B model with no proprietary API calls. "
+        "questions, using a local 7B model with no proprietary API "
+        "(Application Programming Interface) calls. "
         "Capping the retrieval loop at a single step cost 7.1 points of "
         "exact match against the same pipeline allowed two to five "
         "iterations. That was the single largest drop of any component "
@@ -67,12 +87,15 @@ UNIT = Unit(
         "reasoning steps, so the system cannot retrieve their supporting "
         "evidence ahead of time. Even a pipeline that does loop back degrades hop "
         "over hop, because retrieval at each hop depends on the previous "
-        "hop having actually resolved. A pipeline that never loops back at "
+        "hop having actually resolved. For Ledger, the first hop is the "
+        "original clause and every hop after it is an amendment that moved "
+        "that clause. A pipeline that never loops back at "
         "all is the hop 1 number repeated forever, dressed up as an answer "
         "to hop 3.",
         "None of this shows up if the only thing reported is one accuracy "
-        "number over the whole eval set. Single-hop questions usually "
-        "outnumber multi-hop ones in a realistic mix, often by a wide "
+        "number over the whole eval set. Questions answerable from the credit "
+        "agreement alone usually outnumber the ones that span an amendment "
+        "chain, often by a wide "
         "margin. A system that is excellent on the easy majority and "
         "terrible on the hard minority can post an aggregate that looks "
         "perfectly respectable.",
@@ -81,9 +104,10 @@ UNIT = Unit(
         "70 percent of questions are single-hop and the system gets 90 "
         "percent of those right, while it gets only 35 percent of the "
         "multi-hop 30 percent right. The blended score lands around 73 "
-        "percent, a number nobody would flag in a release review. That "
-        "score sits on top of a segment that fails most of the time, on the "
-        "one thing multi-hop retrieval exists to do.",
+        "percent, a number nobody would flag in a release review of Ledger. "
+        "That score sits on top of a segment that fails most of the time. "
+        "The failing segment is the one thing Ledger exists to do: read a "
+        "clause together with the amendments that changed it.",
         "The general instinct this is training is bigger than retrieval. "
         "Any aggregate computed over a mixed population can hide the "
         "subpopulation where a system actually fails. That happens as long "
@@ -97,6 +121,11 @@ UNIT = Unit(
         "Hop count is the axis for this unit. It will not be the axis next "
         "time, and knowing to ask the question is worth more than "
         "memorizing this one.",
+    ),
+    builds_on=(
+        "Units 08 and 09. Both measure a single retrieval pass. Ledger's "
+        "answer usually needs the original clause and the amendments that "
+        "changed it, which is more passes than one."
     ),
     probes=(
         Probe(
@@ -115,7 +144,8 @@ UNIT = Unit(
             ),
             answer="b",
             because=(
-                "Capping the loop at one step (steps-1) cost 7.1 EM relative "
+                "Capping the loop at one step (steps-1) cost 7.1 EM (Exact Match) "
+                "relative "
                 "to the full pipeline. That was the largest single-component "
                 "drop measured, versus 1.7 EM for removing the cross-encoder "
                 "reranker entirely. The gap tells you where the accuracy of "
@@ -153,7 +183,8 @@ UNIT = Unit(
         Probe(
             id="aggregate-mix",
             asks=(
-                "A RAG system reports 73 percent overall accuracy on a mixed "
+                "Ledger, a RAG (Retrieval-Augmented Generation) system like "
+                "any other, reports 73 percent overall accuracy on a mixed "
                 "eval set and nobody flags it in review. What does the "
                 "general lesson of this unit say you should ask before "
                 "accepting that number?"
@@ -173,7 +204,7 @@ UNIT = Unit(
                 "percent accuracy on the remaining 30 percent, blends to "
                 "about 73 percent. That number gives no hint that one in "
                 "three questions on the harder segment gets barely better "
-                "than chance. This is not specific to hop count: it is true "
+                "than chance. This is not specific to amendments: it is true "
                 "of any aggregate over any mixed population, which is the "
                 "transferable part of this lesson."
             ),
@@ -181,19 +212,20 @@ UNIT = Unit(
     ),
     exercise=Exercise(
         asks=(
-            "This unit ships a fixture of 320 question results, each "
-            "tagged with how many hops it needs and whether the system "
-            "got it right. Compute accuracy for the single-hop questions "
-            "(hop_count 1) and accuracy for the multi-hop questions "
-            "(hop_count 2 or more). Post the gap: single-hop accuracy minus "
-            "multi-hop accuracy."
+            "This unit ships a fixture of 320 Ledger answers, each tagged "
+            "with how many documents the answer had to chain and whether "
+            "Ledger got it right. Compute accuracy for the single-hop "
+            "questions (hop_count 1) and accuracy for the multi-hop "
+            "questions (hop_count 2 or more). Post the gap: single-hop "
+            "accuracy minus multi-hop accuracy."
         ),
         fixture_path="fixtures/multi_hop/eval_results.json",
         fixture_note=(
             "A list of 320 rows under \"results\", each with an id, a "
-            "hop_count (1, 2, or 3), and whether the system answered it "
-            "correctly. 220 of the 320 are single-hop, so the aggregate over "
-            "all 320 skews toward however the system does on the easy "
+            "hop_count (1, 2, or 3), and whether Ledger answered it "
+            "correctly. 220 of the 320 are single-hop, answerable from the "
+            "credit agreement alone, so the aggregate over "
+            "all 320 skews toward however Ledger does on the easy "
             "majority. The per-hop accuracies are synthetic, produced with a "
             "fixed seed for this unit. They match the documented pattern of "
             "steep degradation after hop 1, rather than reproducing the "
@@ -221,9 +253,10 @@ UNIT = Unit(
             "counts 2 and 3 combined) is 35/100, 0.35, and the gap is 0.55. "
             "The aggregate over all 320 questions is 0.728. That is what a "
             "dashboard reporting one number would show: a system that looks "
-            "like it gets roughly three questions in four right. In fact it "
-            "fails on nearly two in three of the questions that needed more "
-            "than one fact chained together. The aggregate is not wrong. It "
+            "like it gets roughly three questions in four right. In fact "
+            "Ledger fails on nearly two in three of the questions that "
+            "needed an amendment read together with the clause it rewrote. "
+            "The aggregate is not wrong. It "
             "is just an average over a population where that average hides "
             "the thing worth knowing."
         ),

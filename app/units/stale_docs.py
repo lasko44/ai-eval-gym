@@ -1,4 +1,4 @@
-"""Unit 04: stale documents that poison a correct answer.
+"""Unit 12: stale documents that poison a correct answer.
 
 Retrieval handing a model a superseded passage instead of, or alongside, the
 current one, and the model following it even though its own weights had the
@@ -6,48 +6,71 @@ right answer. Numbers and citations verified against primary sources; see
 UNIT.sources.
 """
 
+from app.metrics import flip_rate
 from app.units.types import Choice, Exercise, Probe, Unit
+
+
+def solve(data: dict) -> float:
+    """Reference answer to this unit's exercise, run by tests/test_units.py.
+
+    It exists so `Exercise.expected` is a measured number rather than one
+    somebody typed beside a fixture. Reading it before attempting the exercise
+    is reading the answer key.
+    """
+    kept = [
+        index
+        for index, answered in enumerate(data["baseline"])
+        if answered == data["correct"][index]
+    ]
+    correct = [data["correct"][index] for index in kept]
+    with_retrieval = [data["with_stale_retrieval"][index] for index in kept]
+    return flip_rate(correct, with_retrieval)
 
 
 UNIT = Unit(
     slug="stale-docs",
-    number=4,
+    number=12,
+    part="context",
     title="Stale documents that poison a correct answer",
     failure=(
-        "Retrieval hands the model an out-of-date passage and it abandons a "
-        "correct answer it already had in its weights to follow the passage."
+        "Retrieval hands Ledger a superseded clause, and it abandons a correct "
+        "answer it already had in its weights to follow that clause."
     ),
     detection=(
-        "Build a knowledge-reversal set, ask each question with and without "
-        "retrieval, and measure how often a previously correct answer flips "
-        "to the stale one."
+        "Build a set of questions an amendment reversed, and ask each one "
+        "cold and with retrieval. Count how often a correct answer flips to "
+        "the superseded one."
     ),
     brief=(
         "Teams usually sell retrieval as a fix for an outdated model. "
         "Training freezes the weights, so at inference time you hand the "
         "model a fresh passage, and it answers from that passage instead of "
         "from memory. The failure this unit covers is what happens when the "
-        "passage you hand it is not fresh. The index holds a superseded "
-        "version of a document, alongside or instead of the current one, "
-        "because nobody deleted it when the new one shipped. The model had "
+        "passage you hand it is not fresh. Ledger's index holds the original "
+        "credit agreement and the amendments that rewrote parts of it, and "
+        "nobody retired the clauses those amendments replaced. The model had "
         "the right answer sitting in its weights the whole time. Retrieval "
-        "handed it the wrong one anyway, and it followed the wrong one.",
+        "handed it the superseded clause anyway, and it followed the "
+        "superseded clause.",
         "This failure deserves its own unit rather than a line item under "
-        "general retrieval noise, for one reason. Almost every team adds an "
-        "instruction to cut down on hallucination: answer only from the "
-        "provided context, or some version of it. Teams write that "
+        "general retrieval noise, for one reason. Almost every team shipping "
+        "something like Ledger adds an instruction to cut down on "
+        "hallucination: answer only from the provided clauses. Teams write "
+        "that "
         "instruction to stop the model from making things up when the "
         "context is silent or thin. It says nothing about whether the "
-        "context is current. A model cannot tell an officially authoritative "
-        "passage from one that is authoritative only because an instruction "
-        "told it to always trust the context. The instruction meant to make "
-        "the system faithful to its sources instead makes it faithful to "
-        "whichever source retrieval hands it, stale or not.",
+        "context is current. A model cannot tell an operative clause from "
+        "one that is authoritative only because an instruction told it to "
+        "trust the context. The instruction "
+        "meant to make Ledger faithful to its sources instead makes it "
+        "faithful to whichever source retrieval hands it, in force or not.",
         "A paper built exactly for this, Stale-Document Poisoning: When "
         "Outdated Retrieval Overrides Correct Model Answers (arXiv:2609.31342), "
         "constructed a benchmark of 317 verified knowledge reversals. Each "
         "reversal covers a question whose correct answer changed at a later "
-        "date, across medicine, law, software or API behavior, and platform "
+        "date, which is what an amendment does to a covenant. The questions "
+        "cover medicine, law, software or API "
+        "(Application Programming Interface) behavior, and platform "
         "policy. For each reversal, the researchers first confirmed the "
         "model answered correctly with no retrieval at all. They then "
         "retrieved the superseded version of the document for the same "
@@ -66,15 +89,16 @@ UNIT = Unit(
         "None of this would mean anything without the comparison to the "
         "no-retrieval case. That comparison is the part of the method worth "
         "remembering, more than any single percentage. If you only ever "
-        "test the model with the stale document in context, a wrong answer "
+        "test Ledger with the superseded clause in context, a wrong answer "
         "is ambiguous. Maybe the model never knew the right answer, maybe "
         "it was always going to get this question wrong, or maybe the "
         "question is just hard. Ask the same question twice, once cold and "
-        "once with the stale passage retrieved, then count only the cases "
-        "where the cold answer was right. That isolates the thing you "
-        "actually care about: how often retrieval took a correct model and "
-        "broke it.",
-        "That is also exactly why a plain accuracy number on a RAG system "
+        "once with the superseded clause retrieved, then count only the "
+        "cases where the cold answer was right. That isolates the thing "
+        "you actually care about: how often retrieval took a correct answer "
+        "and broke it.",
+        "That is also exactly why a plain accuracy number on a RAG "
+        "(Retrieval-Augmented Generation) system such as Ledger "
         "under-reports this failure. A system can hold steady or even "
         "improve on overall accuracy while quietly destroying a "
         "double-digit share of the cases it used to get right. That happens "
@@ -84,25 +108,30 @@ UNIT = Unit(
         "faithfulness instruction. An unconstrained model still hallucinates "
         "when context is missing or thin, so dropping the instruction is "
         "not the answer. Instead, the fix is to make retrieval and the "
-        "prompt temporally aware. Surface the date each document took "
-        "effect. Prefer the most recent version when more than one exists "
-        "in the index. Tell the model explicitly when older evidence "
-        "stopped applying, rather than asking it to treat every retrieved "
-        "passage as equally current.",
+        "prompt temporally aware. Surface the effective date each clause "
+        "carries. Prefer the latest amendment when more than one version of "
+        "a clause sits in the index. Tell the model explicitly when an older "
+        "clause stopped applying, rather than asking it to treat every "
+        "retrieved page as equally current.",
         "The detection, though, has to come first. You cannot prioritize "
         "fixing a failure mode you have never measured. The measurement is "
-        "cheap, once you have a set of questions whose answers changed at a "
-        "known date.",
+        "cheap, once you have a set of covenant questions whose answer an "
+        "amendment changed on a known date.",
+    ),
+    builds_on=(
+        "Unit 11. Once you know a long context degrades, the next question "
+        "is what the model does when a retrieved passage is simply out of "
+        "date. For an amended credit agreement, that is the normal case."
     ),
     probes=(
         Probe(
             id="instruction-effect",
             asks=(
                 "A team adds the instruction 'answer only using the provided "
-                "context' specifically to reduce hallucination. What does the "
-                "stale-document research say this does to the rate at which a "
-                "stale retrieved passage overturns an answer the model already "
-                "had right?"
+                "context' to Ledger's prompt, specifically to reduce "
+                "hallucination. What does the stale-document research say this "
+                "does to the rate at which a superseded clause overturns an "
+                "answer the model already had right?"
             ),
             choices=(
                 Choice("a", "Lowers it, since the model now sticks closer to the evidence"),
@@ -117,19 +146,19 @@ UNIT = Unit(
                 "time depending on the model. Telling the model to answer only "
                 "from the provided context pushed that to 66 to 75 percent. "
                 "Teams write that instruction to stop the model from inventing "
-                "facts when context is thin. It has no way to also mean unless "
-                "the context has gone stale instead. So it ends up making the "
-                "model a more reliable transmitter of whatever the index "
-                "happens to contain, current or not."
+                "covenants that are not there. It has no way to also mean "
+                "unless an amendment has changed the clause instead. So it ends up "
+                "making Ledger a more reliable transmitter of whatever the "
+                "index happens to contain, in force or not."
             ),
         ),
         Probe(
             id="why-the-comparison",
             asks=(
-                "You want to measure stale-document poisoning. Why ask every "
-                "question twice, once with no retrieval and once with a stale "
-                "passage retrieved, instead of checking accuracy on the "
-                "retrieval condition alone?"
+                "You want to measure stale-document poisoning in Ledger. Why "
+                "ask every question twice, once with no retrieval and once "
+                "with the superseded clause retrieved, instead of checking "
+                "accuracy on the retrieval condition alone?"
             ),
             choices=(
                 Choice("a", "Running it twice doubles the sample size, which is the only reason"),
@@ -139,12 +168,12 @@ UNIT = Unit(
             ),
             answer="b",
             because=(
-                "A wrong answer with the stale document in context is "
+                "A wrong answer with the superseded clause in context is "
                 "ambiguous: the model might never have known the right "
                 "answer, independent of retrieval. Restrict the poisoned "
                 "count to questions the model answered correctly cold. Then "
                 "check whether retrieval flipped that specific answer to the "
-                "stale one. That isolates retrieval as the cause, rather "
+                "superseded one. That isolates retrieval as the cause, rather "
                 "than ordinary model error. This is the same reason the "
                 "primary source only counted an item as poisoned when the "
                 "model had gotten it right without retrieval first."
@@ -153,15 +182,15 @@ UNIT = Unit(
         Probe(
             id="aggregate-accuracy-hides-it",
             asks=(
-                "The overall accuracy of a RAG system stays flat across a "
+                "The overall accuracy of Ledger stays flat across a "
                 "release. Based on how stale-document poisoning behaves, "
-                "what should you conclude about whether the system got "
-                "worse at handling superseded documents?"
+                "what should you conclude about whether it got worse at "
+                "handling superseded clauses?"
             ),
             choices=(
                 Choice("a", "Nothing, flat aggregate accuracy rules out any regression on any slice"),
                 Choice("b", "It improved, since flat accuracy under more retrieval load implies stability"),
-                Choice("c", "You cannot conclude it from the aggregate: gains elsewhere can offset a real increase in stale-document flips, which is why this needs its own measurement"),
+                Choice("c", "You cannot conclude it from the aggregate: gains elsewhere can offset a real increase in superseded-clause flips, which is why this needs its own measurement"),
                 Choice("d", "It must have worsened, since any new retrieval source increases poisoning risk by definition"),
             ),
             answer="c",
@@ -181,22 +210,23 @@ UNIT = Unit(
     ),
     exercise=Exercise(
         asks=(
-            "This unit ships a fixture of 150 knowledge-reversal questions. "
-            "Each question has the correct answer and what the model said "
-            "with no retrieval at all. It also has what the model said when "
-            "retrieval pulled a stale passage for the same question. "
-            "Restrict to the questions the model answered correctly with no "
-            "retrieval. Then measure how often the with-retrieval answer "
-            "flipped to the stale one, and post that rate."
+            "This unit ships a fixture of 150 covenant questions whose answer "
+            "an amendment changed. Each question has the correct answer and "
+            "what Ledger said with no retrieval at all. It also has what "
+            "Ledger said when retrieval pulled the superseded clause for the "
+            "same question. Restrict to the questions Ledger answered "
+            "correctly with no retrieval. Then measure how often the "
+            "with-retrieval answer flipped to the superseded one, and post "
+            "that rate."
         ),
         fixture_path="fixtures/stale_docs/knowledge_reversals.json",
         fixture_note=(
             "Four parallel lists of 150 entries each hold the data. "
-            "\"correct\" is the right answer to each question. \"stale\" is "
-            "the superseded answer the retrieved passage would support. "
-            "\"baseline\" is what the model answered with no retrieval. "
-            "\"with_stale_retrieval\" is what the model answered when "
-            "retrieval pulled the stale passage for the same question. Not "
+            "\"correct\" is the answer that holds under the amendment in "
+            "force. \"stale\" is the answer the superseded clause would "
+            "support. \"baseline\" is what Ledger answered with no retrieval. "
+            "\"with_stale_retrieval\" is what Ledger answered when "
+            "retrieval pulled the superseded clause for the same question. Not "
             "every baseline answer is correct on its own: that is ordinary "
             "model error, and it is not what this exercise measures."
         ),
@@ -220,14 +250,14 @@ UNIT = Unit(
         expected=0.3359375,
         tolerance=0.0005,
         because=(
-            "The model answered 128 of the 150 questions correctly with no "
+            "Ledger answered 128 of the 150 questions correctly with no "
             "retrieval at all. Of those 128, retrieval flipped 43 to the "
-            "stale answer once it pulled the superseded passage, for a flip "
+            "answer the superseded clause supports, for a flip "
             "rate of 0.3359375. That sits inside the 30 to 37 percent range "
             "the primary source measured with no instruction telling the "
             "model to trust the context. This fixture models that exact "
             "condition. This fixture excludes on purpose the 22 questions "
-            "the model got wrong even cold. A wrong answer there was never "
+            "Ledger got wrong even cold. A wrong answer there was never "
             "going to tell you anything about retrieval, since the model "
             "did not have the right answer to lose."
         ),
