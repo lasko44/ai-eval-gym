@@ -4,564 +4,493 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}AI Eval Gym{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         /* One stylesheet, read top to bottom.
 
-           This is a place to learn something, so it is set like something you
-           read: a sans face at a comfortable size, real headings, and room
-           between things. Monospace is reserved for the things that are
-           literally code or data, which is metric names, numbers, hashes and
-           commands. Everything else is prose. */
+           The app exists to separate a CLAIM from a MEASUREMENT, so the type
+           does that work and nothing else has to. Every argument, briefing
+           and sentence is set in a serif. Every number somebody actually
+           measured is set in mono: metric names, scores, thresholds, counts,
+           hashes. Reading the page, you can see which is which without being
+           told, and a claim dressed up as a measurement has nowhere to hide.
+
+           Structure comes from ruled margins, the way a lab notebook carries
+           its numbering and status in the gutter beside the writing. There is
+           no uniform card: a box is reserved for the one thing to act on, so
+           boxing something means something. */
 
         :root {
-            --bg: #f5f7f9;
-            --surface: #ffffff;
-            --ink: #16202a;
-            --muted: #5c6b7a;
-            --line: #e1e8ee;
-            --line-strong: #cbd6e0;
-            --accent: #1d4ed8;
-            --accent-soft: #eef2ff;
-            --good: #15803d;
-            --warn: #b45309;
+            /* A drafting surface, with paper laid on it. Cool and slightly
+               green, because this is an instrument rather than a document. */
+            --bg: #edf0ec;
+            --surface: #fbfcfa;
+            --ink: #161b26;          /* indigo-black, the colour of ink */
+            --muted: #566070;
+            --line: #dce1da;
+            --line-strong: #afb8ad;
+            --accent: #1e4a3a;       /* bottle green: ledgers, archives */
+            --accent-soft: #e3ebe4;
+            --good: #1e4a3a;
+            --warn: #99290f;         /* rust, and only ever for a real gap */
 
-            --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+            --serif: Newsreader, "Iowan Old Style", Georgia, serif;
+            --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+            /* Kept so older rules and tests that name --sans still resolve. */
+            --sans: var(--serif);
+
+            --rail: 4.5rem;          /* the notebook margin */
         }
 
         *, *::before, *::after { box-sizing: border-box; }
 
         body {
             margin: 0;
-            padding: 0 1rem 7rem;
+            padding: 0 1.25rem 8rem;
             background: var(--bg);
             color: var(--ink);
-            font: 400 17px/1.65 var(--sans);
+            font: 400 19px/1.62 var(--serif);
             -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
 
-        .sheet { max-width: 48rem; margin: 0 auto; }
+        .sheet { max-width: 46rem; margin: 0 auto; }
 
-        /* Masthead */
+        /* Masthead. A rule under it, nothing else. */
         .masthead {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.25rem 0;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--line);
+            align-items: baseline;
+            gap: 1.5rem;
+            padding: 1.75rem 0 0.9rem;
+            margin-bottom: 2.25rem;
+            border-bottom: 1px solid var(--ink);
         }
-        .masthead .name { font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; }
+        .masthead .name {
+            font-family: var(--mono);
+            font-weight: 600;
+            font-size: 0.82rem;
+            letter-spacing: 0.1em;
+        }
         .masthead .name a { color: var(--ink); text-decoration: none; }
-        .masthead .where { color: var(--muted); font-size: 0.9rem; }
-        .masthead nav { display: flex; gap: 1.25rem; font-size: 0.95rem; }
-        .masthead nav a { color: var(--muted); text-decoration: none; }
-        .masthead nav a:hover { color: var(--ink); }
+        .masthead .where { font-family: var(--mono); color: var(--muted); font-size: 0.78rem; }
+        .masthead nav { display: flex; gap: 1.4rem; font-size: 0.95rem; }
+        .masthead nav a {
+            color: var(--muted);
+            text-decoration: none;
+            padding-bottom: 0.15rem;
+            border-bottom: 1px solid transparent;
+        }
+        .masthead nav a:hover { color: var(--ink); border-bottom-color: var(--ink); }
 
-        /* Headings. A page title is obviously a page title. */
+        /* Headings. The serif does the talking. */
         h2 {
             margin: 0;
-            font-size: 1.9rem;
-            line-height: 1.2;
-            font-weight: 700;
-            letter-spacing: -0.02em;
+            font-size: 2.3rem;
+            line-height: 1.12;
+            font-weight: 500;
+            letter-spacing: -0.015em;
+            max-width: 22ch;
         }
         h3 {
-            margin: 2.75rem 0 0.75rem;
-            font-size: 1.2rem;
-            font-weight: 650;
-            letter-spacing: -0.01em;
+            margin: 3.25rem 0 0.9rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            font-family: var(--mono);
+            letter-spacing: 0.02em;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--line-strong);
         }
-        h4 { margin: 1.5rem 0 0.4rem; font-size: 1rem; font-weight: 650; }
+        h4 { margin: 1.6rem 0 0.45rem; font-size: 1.12rem; font-weight: 600; }
 
-        p { margin: 0 0 1rem; }
-        .lede { font-size: 1.12rem; color: var(--muted); margin-top: 0.6rem; }
-        .note { color: var(--muted); }
+        p { margin: 0 0 1.05rem; max-width: 34rem; }
+        .lede { font-size: 1.16rem; line-height: 1.55; margin-top: 0.9rem; max-width: 31rem; }
+        .note { color: var(--muted); font-size: 0.97rem; }
         .says { margin: 0 0 0.75rem; }
-        .empty { color: var(--muted); }
+        .empty { color: var(--muted); font-style: italic; }
+        ul, ol { max-width: 34rem; }
 
-        a { color: var(--accent); }
-        a:hover { color: #1633a8; }
-        .back { display: inline-block; margin: 0 0 1rem; font-size: 0.95rem; }
+        a { color: var(--accent); text-underline-offset: 0.18em; }
+        a:hover { color: var(--ink); }
+        .back { display: inline-block; margin: 0 0 1.25rem; font-family: var(--mono); font-size: 0.8rem; }
         .back a { color: var(--muted); text-decoration: none; }
-        .back a::before { content: "\2190  "; }
+        .back a::before { content: "\2190\00a0\00a0"; }
         .back a:hover { color: var(--ink); }
 
-        :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-        /* The identity strip at the top of a page. */
+        /* The page identity strip. */
         .strip {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            gap: 1rem;
+            align-items: baseline;
+            gap: 1.5rem;
             flex-wrap: wrap;
         }
-        .target { margin: 0.4rem 0 0; font-size: 0.95rem; word-break: break-all; }
+        .target { margin: 0.5rem 0 0; font-family: var(--mono); font-size: 0.85rem; word-break: break-all; }
 
+        /* A status word, set in mono because it reports a fact. */
         .stage {
             flex: none;
-            font: 600 0.78rem/1 var(--sans);
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
             color: var(--muted);
-            background: var(--bg);
             border: 1px solid var(--line-strong);
-            border-radius: 999px;
-            padding: 0.35rem 0.7rem;
-            margin-top: 0.35rem;
+            padding: 0.3rem 0.6rem;
         }
 
-        /* Cards carry one discrete thing each. */
+        /* A card is a ruled block, not a floating tile. No shadow, no radius:
+           this is a page, not a deck of tiles. */
         .card {
             background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 1.25rem 1.4rem;
-            margin: 1rem 0;
+            border-top: 1px solid var(--ink);
+            border-bottom: 1px solid var(--line);
+            padding: 1.5rem 1.6rem 1.6rem;
+            margin: 1.75rem 0;
         }
         .card > :first-child { margin-top: 0; }
         .card > :last-child { margin-bottom: 0; }
 
-        /* The four steps of a cycle. */
+        /* The four steps of a cycle. A sequence, so it is numbered. */
         .rail {
             list-style: none;
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0 1.75rem;
             margin: 1.5rem 0 0;
             padding: 0;
             counter-reset: step;
+            font-family: var(--mono);
+            font-size: 0.82rem;
         }
         .rail li {
             counter-increment: step;
             display: flex;
-            align-items: center;
+            align-items: baseline;
             gap: 0.45rem;
-            font-size: 0.9rem;
             color: var(--muted);
-            background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 999px;
-            padding: 0.3rem 0.8rem 0.3rem 0.35rem;
+            padding: 0.3rem 0;
         }
-        .rail li::before {
-            content: counter(step);
-            display: grid;
-            place-items: center;
-            width: 1.4rem;
-            height: 1.4rem;
-            border-radius: 50%;
-            background: var(--bg);
-            border: 1px solid var(--line-strong);
-            font-size: 0.75rem;
-            font-weight: 650;
-        }
-        .rail .step-done { color: var(--good); border-color: #bfe3cd; }
-        .rail .step-done::before { content: "\2713"; background: var(--good); border-color: var(--good); color: #fff; }
-        .rail .step-now { color: var(--ink); font-weight: 650; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
-        .rail .step-now::before { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .rail li::before { content: counter(step, decimal-leading-zero); color: var(--line-strong); }
+        .rail .step-done { color: var(--good); }
+        .rail .step-done::before { color: var(--good); }
+        .rail .step-now { color: var(--ink); font-weight: 600; }
+        .rail .step-now::before { color: var(--ink); }
 
-        /* The next action. The most important thing on a cycle page. */
-        .next {
+        /* The one boxed thing on any page: what to do next. */
+        .next, .next-card {
             background: var(--accent-soft);
-            border: 1px solid #c8d4fb;
-            border-radius: 12px;
-            padding: 1.25rem 1.4rem;
-            margin: 1rem 0 0;
+            border: 1px solid var(--accent);
+            border-radius: 3px;
+            padding: 1.4rem 1.5rem;
+            margin: 1.75rem 0;
         }
-        .next > :first-child { margin-top: 0; }
-        .next > :last-child { margin-bottom: 0; }
-        .next-what { font-size: 1.15rem; font-weight: 650; margin-bottom: 0.4rem; }
-        .next .note { color: #41506a; }
+        .next > :first-child, .next-card > :first-child { margin-top: 0; }
+        .next > :last-child, .next-card > :last-child { margin-bottom: 0; }
+        .next-what { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.4rem; }
+        .next .note, .next-card .note { color: #39444f; }
+        .next-card h4 {
+            margin: 0 0 0.5rem;
+            font-family: var(--mono);
+            font-size: 0.74rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+        }
+        .next-title { margin: 0 0 0.3rem; font-size: 1.35rem; font-weight: 500; }
+        .next-title a { color: var(--ink); text-decoration: none; }
+        .next-title a:hover { text-decoration: underline; }
+        .next-card .btn { margin-top: 1rem; }
 
-        /* Buttons. The primary action looks like the primary action. */
+        /* Buttons say what happens. */
         .btn, button {
             display: inline-block;
-            font: 600 1rem/1 var(--sans);
-            color: #fff;
+            font: 500 0.92rem/1 var(--mono);
+            color: var(--surface);
             background: var(--accent);
             border: 1px solid var(--accent);
-            border-radius: 8px;
-            padding: 0.7rem 1.1rem;
+            border-radius: 2px;
+            padding: 0.72rem 1.15rem;
             cursor: pointer;
             text-decoration: none;
         }
-        .btn:hover, button:hover { background: #1633a8; border-color: #1633a8; color: #fff; }
-        .btn-quiet {
-            color: var(--ink);
-            background: var(--surface);
-            border-color: var(--line-strong);
-        }
-        .btn-quiet:hover { background: var(--bg); color: var(--ink); border-color: var(--muted); }
+        .btn:hover, button:hover { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+        .btn-quiet { color: var(--ink); background: transparent; border-color: var(--line-strong); }
+        .btn-quiet:hover { background: var(--ink); border-color: var(--ink); color: var(--surface); }
 
         /* Forms */
-        form { margin: 1rem 0 0; }
-        .field { margin: 0 0 1.1rem; }
-        label { display: block; font-weight: 600; font-size: 0.97rem; margin-bottom: 0.3rem; }
-        .hint { display: block; font-weight: 400; color: var(--muted); font-size: 0.9rem; margin-bottom: 0.4rem; }
-        input[type="text"], input[type="number"], textarea, select {
+        form { margin: 1.25rem 0 0; }
+        .field { margin: 0 0 1.2rem; }
+        label { display: block; font-family: var(--mono); font-size: 0.8rem; font-weight: 500; margin-bottom: 0.35rem; }
+        .hint { display: block; font-family: var(--serif); font-weight: 400; color: var(--muted); font-size: 0.93rem; margin-bottom: 0.45rem; }
+        input, textarea, select {
             width: 100%;
-            font: inherit;
-            color: inherit;
+            font: 400 0.98rem/1.5 var(--mono);
+            color: var(--ink);
             background: var(--surface);
             border: 1px solid var(--line-strong);
-            border-radius: 8px;
+            border-radius: 2px;
             padding: 0.6rem 0.7rem;
         }
-        textarea { min-height: 7rem; line-height: 1.6; resize: vertical; }
-        input:hover, textarea:hover, select:hover { border-color: var(--muted); }
-        .field-row { display: grid; grid-template-columns: 1fr 10rem 8rem; gap: 0.75rem; }
-        @media (max-width: 36rem) { .field-row { grid-template-columns: 1fr; } }
+        input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+        textarea { min-height: 7rem; line-height: 1.6; resize: vertical; font-family: var(--serif); }
+        .field-row { display: grid; grid-template-columns: 1fr 10rem 8rem; gap: 0.8rem; }
 
+        /* Anything measured is mono. */
         code, .mono, pre { font-family: var(--mono); }
-        code { font-size: 0.92em; background: var(--bg); border: 1px solid var(--line); border-radius: 5px; padding: 0.08em 0.35em; }
+        code { font-size: 0.88em; background: var(--bg); border: 1px solid var(--line); padding: 0.1em 0.35em; }
         pre {
-            margin: 1rem 0;
-            padding: 1rem 1.1rem;
-            background: #0f1720;
-            color: #e6edf3;
-            border-radius: 10px;
-            overflow-x: auto;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             line-height: 1.6;
+            background: var(--ink);
+            color: #d9dee6;
+            padding: 1rem 1.15rem;
+            overflow-x: auto;
+            border-radius: 2px;
         }
         pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; }
-        .num { font-variant-numeric: tabular-nums; }
-        .hash { font-family: var(--mono); font-size: 0.85rem; word-break: break-all; color: var(--muted); }
-        .when { color: var(--muted); font-size: 0.9rem; margin: 0 0 0.4rem; }
+        .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+        .hash { font-family: var(--mono); font-size: 0.78rem; word-break: break-all; color: var(--muted); }
+        .when { font-family: var(--mono); color: var(--muted); font-size: 0.8rem; margin: 0 0 0.4rem; }
 
-        /* Lists of things: claims, runs, cycles, units. */
+        /* A list of units, hung off a ruled margin. The number lives in the
+           gutter, where a notebook keeps it. */
         .rows { list-style: none; margin: 0; padding: 0; }
         .rows > li {
-            background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 1.1rem 1.25rem;
-            margin: 0 0 0.75rem;
             display: grid;
-            grid-template-columns: 2rem 1fr;
-            gap: 0 0.5rem;
+            grid-template-columns: var(--rail) 1fr;
+            gap: 0 1.25rem;
+            padding: 1.35rem 0;
+            border-top: 1px solid var(--line);
         }
-        .rows > li > .idx { color: var(--muted); font-weight: 650; font-size: 0.9rem; }
-        /* A syllabus of fifteen underlined links reads as a link dump. The row
-           title is the heading of its row, so it is styled as one. */
+        .rows > li:first-child { border-top: 1px solid var(--line-strong); }
+        .rows > li > .idx {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--line-strong);
+            padding-top: 0.42rem;
+        }
+        .rows > li > .body h4 { margin-top: 0; font-size: 1.14rem; font-weight: 600; }
         .rows > li > .body h4 a { color: var(--ink); text-decoration: none; }
-        .rows > li > .body h4 a:hover { color: var(--accent); }
+        .rows > li > .body h4 a:hover { text-decoration: underline; }
         .rows > li > .body > :first-child { margin-top: 0; }
         .rows > li > .body > :last-child { margin-bottom: 0; }
 
-        /* A part of the course: a group of units with a reason to be together. */
-        .part { margin: 1.75rem 0 0; }
-        .part-head {
-            display: flex;
-            align-items: baseline;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--line-strong);
-            margin-bottom: 0.9rem;
-        }
-        .part-head h4 { margin: 0; font-size: 1.12rem; }
+        /* Parts */
+        .part { margin: 3rem 0 0; }
+        .part-head { display: flex; align-items: baseline; gap: 0.9rem; flex-wrap: wrap; }
+        .part-head h4 { margin: 0; font-size: 1.5rem; font-weight: 500; }
         .part-no {
-            color: var(--accent);
-            background: var(--accent-soft);
-            border-radius: 999px;
-            padding: 0.15rem 0.6rem;
-            font-size: 0.82rem;
-            font-weight: 650;
-            white-space: nowrap;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: var(--surface);
+            background: var(--ink);
+            padding: 0.25rem 0.5rem;
         }
-        .part-count { margin-left: auto; color: var(--muted); font-size: 0.9rem; }
-        .part > p { margin: 0.5rem 0; }
-        .part .rows { margin-top: 0.9rem; }
+        .part-count { margin-left: auto; font-family: var(--mono); color: var(--muted); font-size: 0.8rem; }
+        .part > p { margin: 0.6rem 0; }
+        .part .rows { margin-top: 1.1rem; }
+        ul.asks { margin: 0.3rem 0 1rem; padding-left: 1.1rem; }
+        ul.asks li { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.2rem; }
 
-        /* The single next thing to do. */
-        .next-card { border-color: var(--line-strong); border-left: 4px solid var(--accent); }
-        .next-card h4 { margin: 0 0 0.4rem; color: var(--muted); font-size: 0.9rem; font-weight: 650; }
-        .next-title { margin: 0 0 0.3rem; font-size: 1.2rem; font-weight: 650; }
-        .next-title a { color: var(--ink); text-decoration: none; }
-        .next-title a:hover { color: var(--accent); }
-        .next-card .btn { margin-top: 0.9rem; }
+        .place { font-family: var(--mono); color: var(--muted); font-size: 0.8rem; margin: 0.5rem 0 0; }
 
-        /* Where a unit sits in the course. */
-        .place { color: var(--muted); font-size: 0.9rem; margin: 0.35rem 0 0; }
-
-        /* Label and value pairs. */
-        .facts { margin: 0.75rem 0 0; display: grid; gap: 0.35rem; }
-        .facts > div { display: grid; grid-template-columns: 8rem 1fr; gap: 0 1rem; align-items: baseline; }
-        .facts dt, .facts .k { color: var(--muted); font-size: 0.9rem; }
+        /* Key/value facts, aligned on a column so they read as a record. */
+        .facts { margin: 0.9rem 0 0; display: grid; gap: 0.4rem; }
+        .facts > div { display: grid; grid-template-columns: 9rem 1fr; gap: 0 1rem; align-items: baseline; }
+        .facts dt, .facts .k { font-family: var(--mono); color: var(--muted); font-size: 0.8rem; }
         .facts dd, .facts .v { margin: 0; }
-        @media (max-width: 36rem) { .facts > div { grid-template-columns: 1fr; } }
 
-        /* Outcomes */
-        .outcome { margin: 0.75rem 0 0; font-weight: 600; }
+        .outcome { margin: 0.8rem 0 0; font-weight: 600; }
         .correct .outcome strong { color: var(--good); }
         .wrong .outcome strong { color: var(--warn); }
         .unresolved .outcome strong { color: var(--muted); }
-        .correct { border-left: 4px solid var(--good); }
-        .wrong { border-left: 4px solid var(--warn); }
-        .unresolved { border-left: 4px solid var(--line-strong); }
+        .correct { border-left: 3px solid var(--good); padding-left: 1.1rem; }
+        .wrong { border-left: 3px solid var(--warn); padding-left: 1.1rem; }
+        .unresolved { border-left: 3px solid var(--line-strong); padding-left: 1.1rem; }
 
-        .reads { list-style: none; margin: 0.6rem 0 0; padding: 0; font-family: var(--mono); font-size: 0.9rem; }
-        .reads li { padding: 0.15rem 0; }
+        .reads { list-style: none; margin: 0.7rem 0 0; padding: 0; font-family: var(--mono); font-size: 0.85rem; }
+        .reads li { padding: 0.18rem 0; }
         .reads .was { color: var(--muted); }
 
-        /* Score block */
-        dl.tally {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
-            gap: 1rem;
-            margin: 0;
-        }
-        dl.tally dt { color: var(--muted); font-size: 0.85rem; font-weight: 600; }
-        dl.tally dd { margin: 0.1rem 0 0; font-size: 1.6rem; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
-
-        /* The cycle index */
         .index { list-style: none; margin: 0; padding: 0; }
         .index li {
             display: grid;
-            grid-template-columns: 2.5rem 1fr auto;
-            gap: 0 0.75rem;
-            align-items: center;
-            background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 10px;
-            padding: 0.85rem 1rem;
-            margin-bottom: 0.5rem;
-        }
-        .index .idx { color: var(--muted); font-size: 0.9rem; font-variant-numeric: tabular-nums; }
-        .index a { font-weight: 600; text-decoration: none; }
-
-        .how { margin: 0.75rem 0 0; padding-left: 1.4rem; }
-        .how li { margin-bottom: 0.4rem; }
-        .how b { font-weight: 650; }
-
-        .vocab { list-style: none; margin: 0.5rem 0 0; padding: 0; }
-        .vocab li { padding: 0.3rem 0; border-bottom: 1px solid var(--line); font-size: 0.97rem; }
-        .vocab li:last-child { border-bottom: 0; }
-
-        .onward { display: flex; gap: 1.25rem; flex-wrap: wrap; margin: 1.5rem 0 0; }
-
-        /* Glossary. The term and its full name sit together, because the full
-           name is the point of the entry. */
-        .glossary { margin: 0; }
-        .glossary dt {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            gap: 0.2rem 0.6rem;
-            margin: 1.5rem 0 0.3rem;
-            padding-top: 1.1rem;
+            grid-template-columns: var(--rail) 1fr;
+            gap: 0 1.25rem;
+            padding: 0.8rem 0;
             border-top: 1px solid var(--line);
         }
-        .glossary dt:first-of-type { border-top: 0; padding-top: 0; margin-top: 0.5rem; }
-        .gl-term { font-family: var(--mono); font-weight: 650; font-size: 1.02rem; }
-        .gl-expansion { color: var(--muted); }
-        .glossary dd { margin: 0; }
-        .glossary dd p { margin: 0 0 0.4rem; }
-        .glossary .sources { margin: 0.3rem 0 0; }
+        .index .idx { font-family: var(--mono); color: var(--line-strong); font-size: 0.82rem; }
 
-        /* Units. A probe is a question you answer with a confidence before any
-           answer is shown, so the options stay quiet until you have committed. */
-        .brief p { max-width: 36rem; }
-        .brief p:first-of-type { font-size: 1.12rem; }
-
-        .probe-choices { list-style: none; margin: 0 0 1.25rem; padding: 0; }
-        .probe-choices li { margin-bottom: 0.5rem; }
-        .probe-choices label {
-            display: flex;
-            gap: 0.7rem;
-            align-items: flex-start;
-            font-weight: 400;
-            margin: 0;
-            padding: 0.7rem 0.9rem;
-            border: 1px solid var(--line-strong);
-            border-radius: 9px;
-            cursor: pointer;
-        }
-        .probe-choices label:hover { border-color: var(--accent); background: var(--accent-soft); }
-        .probe-choices input { margin: 0.4rem 0 0; flex: none; }
-        .probe-choices .picked { border-color: var(--ink); background: var(--bg); }
-
-        .confidence { display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; align-items: end; }
-        .confidence .hint { margin: 0; }
-        @media (max-width: 36rem) { .confidence { grid-template-columns: 1fr; } }
-
-        .verdict { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; margin: 0 0 0.75rem; }
-        .badge {
-            font: 650 0.8rem/1 var(--sans);
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-            border-radius: 999px;
-            padding: 0.35rem 0.7rem;
-        }
-        .badge-right { color: #0f5c2e; background: #dcf5e6; }
-        .badge-wrong { color: #7c3d06; background: #fdeccd; }
-        .verdict .said { color: var(--muted); font-size: 0.95rem; }
-
-        .because {
-            background: var(--bg);
-            border-radius: 9px;
-            padding: 1rem 1.1rem;
-            margin: 0;
-        }
-        .because > :last-child { margin-bottom: 0; }
-
-        .sources { font-size: 0.93rem; color: var(--muted); padding-left: 1.2rem; }
-        .sources li { margin-bottom: 0.35rem; }
-
-        .pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0 0; }
+        /* Pills: a small measured fact, not a badge. */
+        .pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.9rem 0 0; }
         .pill {
-            font-size: 0.9rem;
+            font-family: var(--mono);
+            font-size: 0.76rem;
             color: var(--muted);
-            background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 999px;
-            padding: 0.35rem 0.8rem;
+            background: var(--bg);
+            border: 1px solid var(--line-strong);
+            padding: 0.26rem 0.55rem;
         }
-        .pill b { color: var(--ink); font-weight: 650; }
-        .pill-done { color: #0f5c2e; background: #dcf5e6; border-color: #bfe3cd; }
-        .pill-done b { color: #0f5c2e; }
-        .pill-warn { color: #7c3d06; background: #fdeccd; border-color: #f0d9a8; }
-        .pill-warn b { color: #7c3d06; }
+        .pill b { color: var(--ink); font-weight: 600; }
+        .pill-done { color: #16452f; background: #dfe9e0; border-color: #a9c2b2; }
+        .pill-done b { color: #16452f; }
+        .pill-warn { color: #8a2a10; background: #f6e3dc; border-color: #ddb6a8; }
+        .pill-warn b { color: #8a2a10; }
 
-        @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
-        /* Progression.
+        .badge {
+            font-family: var(--mono);
+            font-size: 0.74rem;
+            font-weight: 600;
+            padding: 0.22rem 0.5rem;
+        }
+        .badge-right { color: var(--surface); background: var(--good); }
+        .badge-wrong { color: var(--surface); background: var(--warn); }
+        .said { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); margin-left: 0.6rem; }
 
-           The scoreboard is deliberately quiet. A course about not trusting
-           a number should not dress its own numbers up, so these read as
-           figures on a page rather than as a game heads-up display: no
-           gradients, no badges that glow, no colour that means nothing.
+        .sources { font-size: 0.92rem; color: var(--muted); }
+        .sources li { margin-bottom: 0.3rem; }
+        .how { max-width: 34rem; }
+        .how li { margin-bottom: 0.7rem; }
+        .lead { font-size: 1.1rem; }
+        .sentence { margin-bottom: 0.6rem; }
+        .tally { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); }
+        .glossary { list-style: none; margin: 0; padding: 0; }
+        .gl-term { font-family: var(--mono); font-weight: 600; }
 
-           Colour is spent on exactly one thing, the gap between confidence
-           claimed and accuracy delivered, because that is the only cell on
-           the page a reader can act on. Everything else is ink on surface. */
-
-        .game-card { border-left: 3px solid var(--accent); }
-
-        .game-grid {
+        .onward {
             display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
             flex-wrap: wrap;
-            gap: 2.25rem;
-            margin-bottom: 1.1rem;
-        }
-
-        .stat { display: flex; flex-direction: column; gap: 0.15rem; min-width: 9rem; }
-
-        .stat-label {
-            font-size: 0.78rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-
-        .stat-big {
-            font: 600 1.7rem/1.15 var(--sans);
-            color: var(--ink);
-        }
-
-        .verdict { color: var(--ink); }
-
-        /* The calibration table. Right-aligned figures so the claimed and
-           delivered columns can be compared by eye down the column, which is
-           the comparison the table exists to make. */
-        table.calib {
-            border-collapse: collapse;
-            width: 100%;
-            margin: 0.4rem 0 0.7rem;
+            margin: 3.5rem 0 0;
+            padding-top: 1.1rem;
+            border-top: 1px solid var(--ink);
             font-size: 0.95rem;
         }
+        .onward a { color: var(--muted); text-decoration: none; }
+        .onward a:hover { color: var(--ink); text-decoration: underline; }
 
-        table.calib th {
-            text-align: left;
-            font-weight: 600;
-            font-size: 0.78rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: var(--muted);
-            border-bottom: 1px solid var(--line-strong);
-            padding: 0.3rem 0.6rem 0.3rem 0;
+        /* ---- The calibration readout ----
+
+           This is the one place the page raises its voice, because it is the
+           one number a reader can act on tomorrow. A table would put claimed
+           and delivered in neighbouring cells and leave the reader to do the
+           subtraction. Here the gap is a distance you can see: the rule runs
+           to what you claimed, the bar fills to what you delivered, and the
+           shortfall is the stretch of rust between them. */
+        .calib { margin: 1.1rem 0 0.5rem; }
+        .calib-row {
+            display: grid;
+            grid-template-columns: 7.5rem 1fr 4.5rem;
+            align-items: center;
+            gap: 0 1rem;
+            padding: 0.55rem 0;
+            border-top: 1px solid var(--line);
         }
-
-        table.calib td {
-            padding: 0.35rem 0.6rem 0.35rem 0;
-            border-bottom: 1px solid var(--line);
-            font-variant-numeric: tabular-nums;
-        }
-
-        table.calib th:not(:first-child),
-        table.calib td:not(:first-child) { text-align: right; padding-right: 0; }
-
-        /* The one place colour carries meaning: delivered accuracy sitting
-           more than ten points under the confidence claimed. --warn on
-           --surface is 4.8:1, which clears the 4.5:1 floor for body text. */
-        table.calib td.gap { color: var(--warn); font-weight: 600; }
-
-        .badges { list-style: none; margin: 0.3rem 0 0; padding: 0; }
-
-        .badges li {
-            display: flex;
-            flex-direction: column;
-            gap: 0.05rem;
-            padding: 0.45rem 0 0.45rem 1.4rem;
-            border-bottom: 1px solid var(--line);
+        .calib-row:first-child { border-top: 0; }
+        .calib-band { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+        .calib-track {
             position: relative;
+            height: 1.5rem;
+            background: linear-gradient(to right, var(--line) 1px, transparent 1px) 0 0 / 10% 100%;
+            border-bottom: 1px solid var(--line-strong);
         }
-
-        .badges li:last-child { border-bottom: 0; }
-
-        /* The marker is a character, not colour alone, so an earned badge is
-           distinguishable without seeing hue. */
-        .badges li::before {
+        .calib-fill {
             position: absolute;
-            left: 0;
-            top: 0.45rem;
-            font-weight: 700;
+            left: 0; top: 0.3rem; bottom: 0.3rem;
+            background: var(--accent);
         }
+        /* The shortfall: what you claimed, minus what you delivered. */
+        .calib-gap {
+            position: absolute;
+            top: 0.3rem; bottom: 0.3rem;
+            background: repeating-linear-gradient(
+                -45deg, var(--warn) 0 2px, transparent 2px 5px);
+            border-right: 2px solid var(--warn);
+        }
+        .calib-claim {
+            position: absolute;
+            top: 0; bottom: 0;
+            border-right: 2px solid var(--ink);
+        }
+        .calib-n { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); text-align: right; }
+        .calib-key { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); margin-top: 0.5rem; }
+        .calib-key span { margin-right: 1.1rem; white-space: nowrap; }
+        .calib-key i { display: inline-block; width: 0.8rem; height: 0.55rem; vertical-align: -1px; margin-right: 0.3rem; }
+        .k-deliv { background: var(--accent); }
+        .k-claim { border-right: 2px solid var(--ink); width: 0.5rem; }
+        .k-gap { background: repeating-linear-gradient(-45deg, var(--warn) 0 2px, transparent 2px 5px); }
 
+        /* Progression. Quiet figures, because the app should not congratulate
+           anybody for numbers it also tells them not to trust. */
+        .game-grid { display: flex; flex-wrap: wrap; gap: 0 3rem; margin-bottom: 1.3rem; }
+        .stat { display: flex; flex-direction: column; gap: 0.1rem; min-width: 9rem; }
+        .stat-label {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+        .stat-big { font: 500 2rem/1.1 var(--serif); color: var(--ink); }
+        .stat .note { font-size: 0.86rem; }
+        .verdict { color: var(--ink); font-size: 1.05rem; }
+
+        .badges { list-style: none; margin: 0.4rem 0 0; padding: 0; }
+        .badges li {
+            display: grid;
+            grid-template-columns: 1.4rem 1fr;
+            gap: 0 0.4rem;
+            padding: 0.5rem 0;
+            border-top: 1px solid var(--line);
+        }
+        .badges li:first-child { border-top: 1px solid var(--line-strong); }
+        /* ::before, <b> and <span> are three items in a two column grid, so
+           the text has to be pinned to column two or it falls into the
+           marker column and wraps one word per line. */
+        .badges li > b, .badges li > .note { grid-column: 2; }
+        .badges li b { font-family: var(--serif); font-weight: 600; }
+        .badges li .note { font-size: 0.9rem; }
+        /* A character, not a colour, so the state survives greyscale. */
+        .badges li::before { font-family: var(--mono); font-weight: 600; }
         .badge-on::before { content: "\2713"; color: var(--good); }
-        /* --muted rather than --line-strong: this marker reports a state, so
-           it has to be perceivable. The lighter rule colour measures 1.48:1
-           on a card, which is a boundary you can draw and not a mark anybody
-           can see. */
-        .badge-off::before { content: "\2219"; color: var(--muted); }
-        .badge-off b { color: var(--muted); font-weight: 600; }
+        .badge-off::before { content: "\00b7"; color: var(--muted); }
+        .badge-off b { color: var(--muted); font-weight: 400; }
 
-        /* Also a state, also --muted, for the same reason. */
-        /* The role_asks list on the syllabus. Tight, because it is a
-           reference the reader scans rather than reads. */
-        ul.asks { margin: 0.2rem 0 0.8rem; padding-left: 1.1rem; }
-        ul.asks li { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.15rem; }
-
-        .locked-card { border-left: 3px solid var(--muted); }
+        .locked-card { border-top-color: var(--line-strong); background: var(--bg); }
         .locked-card h4 { margin-top: 0; }
 
-        @media (max-width: 34rem) {
-            .game-grid { gap: 1.25rem; }
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
+
+        @media (max-width: 40rem) {
+            body { font-size: 18px; padding: 0 1rem 6rem; }
+            :root { --rail: 2.6rem; }
+            h2 { font-size: 1.75rem; }
+            .masthead { flex-wrap: wrap; gap: 0.5rem 1.1rem; padding-top: 1.25rem; }
+            .masthead nav { flex-wrap: wrap; gap: 0.6rem 1.1rem; }
+            .card { padding: 1.15rem 1.1rem 1.25rem; }
+            .game-grid { gap: 0 1.6rem; }
             .stat { min-width: 7rem; }
-            .stat-big { font-size: 1.4rem; }
-
-            /* Five nav items do not fit on a phone. Without wrapping, the
-               masthead sets a floor on the page width and every other
-               element inherits the overflow, which reads as the whole site
-               being cut off rather than as one row being too long. */
-            .masthead { flex-wrap: wrap; gap: 0.5rem 1rem; }
-            .masthead nav { flex-wrap: wrap; gap: 0.6rem 1rem; }
-
-            /* A long title has nowhere to break on a narrow column. */
-            h2 { font-size: 1.5rem; }
-
-            .calib { font-size: 0.86rem; }
-            .calib th { font-size: 0.7rem; }
+            .stat-big { font-size: 1.5rem; }
+            .calib-row { grid-template-columns: 5.5rem 1fr 3.2rem; gap: 0 0.6rem; }
+            .field-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="sheet">
         <header class="masthead">
-            <span class="name"><a href="/">AI Eval Gym</a></span>
+            <span class="name"><a href="/">AI EVAL GYM</a></span>
             <nav>
                 <a href="/">Course</a>
                 <a href="/units">Syllabus</a>

@@ -132,8 +132,8 @@ def test_meaning_is_never_carried_by_colour_alone():
 # because each is a foreground and background chosen as a pair. They are not
 # in PAIRS above, which only reads :root, so they are checked here by name.
 PILL_PAIRS = [
-    ("#0f5c2e", "#dcf5e6", "a finished pill"),
-    ("#7c3d06", "#fdeccd", "a confident-miss pill in review"),
+    ("#16452f", "#dfe9e0", "a finished pill"),
+    ("#8a2a10", "#f6e3dc", "a confident-miss pill in review"),
 ]
 
 
