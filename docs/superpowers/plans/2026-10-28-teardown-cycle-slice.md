@@ -12,10 +12,10 @@
 
 ## Environment (verified 2026-10-28)
 
-- Postgres 17 at `127.0.0.1:5432`, user `matthewlaszkiewicz`, no password. Binaries are at
+- Postgres 17 at `127.0.0.1:5432`, your own operating system user, no password. Binaries are at
   `/opt/homebrew/opt/postgresql@17/bin`, which is NOT on the default PATH; prepend it.
 - Databases `ai_eval_gym` and `ai_eval_gym_test` already exist.
-- `DATABASE_URL` default: `postgresql+psycopg://matthewlaszkiewicz@127.0.0.1:5432/ai_eval_gym`,
+- `DATABASE_URL` default: `postgresql+psycopg://$USER@127.0.0.1:5432/ai_eval_gym`,
   and the test database is the same URL with `_test` appended to the database name.
 - Repository is already a git repo on branch `feat/teardown-cycle-slice`. Do not re-init.
 - No `uv`. Use `python3.13 -m venv .venv` and pip.

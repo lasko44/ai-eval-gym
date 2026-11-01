@@ -6,14 +6,18 @@ same code path always runs against ai_eval_gym_test under pytest, regardless
 of whatever DATABASE_URL may already be set to in the shell.
 """
 
+import getpass
 import os
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, declarative_base, sessionmaker
 
+# Default to the current operating system user, which is how a local
+# Postgres is normally reachable with no password. Hardcoding a name here
+# would make the repository work on exactly one machine.
 DATABASE_URL = os.environ.get(
     "DATABASE_URL",
-    "postgresql+psycopg://matthewlaszkiewicz@127.0.0.1:5432/ai_eval_gym",
+    f"postgresql+psycopg://{getpass.getuser()}@127.0.0.1:5432/ai_eval_gym",
 )
 
 engine = create_engine(DATABASE_URL, future=True)

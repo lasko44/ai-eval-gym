@@ -74,7 +74,7 @@ Python 3.13 and Postgres 17. No npm, no build step, no frontend framework:
 the pages are server-rendered Jinja2 templates.
 
 ```sh
-cd /Users/matthewlaszkiewicz/Projects/ai-eval-gym
+cd ai-eval-gym
 python3.13 -m venv .venv
 .venv/bin/pip install -e ".[dev]"
 ```

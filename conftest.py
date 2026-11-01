@@ -1,4 +1,5 @@
 import asyncio
+import getpass
 import os
 import subprocess
 
@@ -18,7 +19,7 @@ import subprocess
 # the shared ai_eval_gym_test database when it is not set.
 os.environ["DATABASE_URL"] = os.environ.get(
     "TEST_DATABASE_URL",
-    "postgresql+psycopg://matthewlaszkiewicz@127.0.0.1:5432/ai_eval_gym_test",
+    f"postgresql+psycopg://{getpass.getuser()}@127.0.0.1:5432/ai_eval_gym_test",
 )
 
 import httpx
