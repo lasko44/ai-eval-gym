@@ -11,6 +11,8 @@ They deliberately do not check the prose. Whether a briefing is any good is a
 judgement, and judgement does not belong in a test.
 """
 
+import html
+import importlib
 import json
 import re
 from pathlib import Path
@@ -131,6 +133,39 @@ def test_the_exercise_can_be_passed_and_failed(unit: Unit):
 
 
 @pytest.mark.parametrize("unit", ALL_UNITS, ids=UNIT_IDS)
+def test_the_fixture_actually_produces_the_expected_answer(unit: Unit):
+    """Run the unit's own reference solution against its own fixture.
+
+    Without this, `expected` is a number somebody typed next to a file, and
+    the test above only compares it to itself. That is the exact failure this
+    curriculum teaches a reader to catch, shipped inside the curriculum.
+
+    A unit opts in by defining `solve(data)` in its module, taking the parsed
+    fixture and returning the number the exercise asks for. A unit without one
+    is skipped rather than failed, so this can be adopted unit by unit, but
+    the skip is visible in the run and is a debt rather than a pass.
+
+    `data` is whatever the fixture parses to, which is usually a dict and in
+    at least one unit a list. A solve() should annotate what its own fixture
+    actually holds rather than copying the common case.
+    """
+    module = importlib.import_module(f"app.units.{unit.slug.replace('-', '_')}")
+    solve = getattr(module, "solve", None)
+    if solve is None:
+        pytest.skip(f"{unit.slug} has no solve(), so its expected value is unverified")
+
+    with (REPO_ROOT / unit.exercise.fixture_path).open() as handle:
+        data = json.load(handle)
+
+    measured = solve(data)
+    assert abs(measured - unit.exercise.expected) <= unit.exercise.tolerance, (
+        f"{unit.slug} ships expected={unit.exercise.expected} but its fixture "
+        f"measures {measured}. Regenerate the fixture or correct the unit; do "
+        "not widen the tolerance."
+    )
+
+
+@pytest.mark.parametrize("unit", ALL_UNITS, ids=UNIT_IDS)
 def test_no_em_dash_anywhere_in_the_unit(unit: Unit):
     """A house rule, and the one most easily broken by prose written at speed."""
     blobs = [unit.title, unit.failure, unit.detection, *unit.brief, *unit.sources]
@@ -159,15 +194,62 @@ def test_the_briefing_carries_a_number(unit: Unit):
 
 
 def test_every_unit_page_renders(client):
-    """Drives the real routes, because a unit that 500s is not a unit."""
-    listing = client.get("/units")
-    assert listing.status_code == 200
+    """Drives the real routes, because a unit that 500s is not a unit.
+
+    `anyway=1` bypasses the part lock. On a clean database only part 1 is
+    unlocked, so without it this would only ever prove that the first five
+    units render, and a 500 in unit 14 would ship unnoticed. The lock itself
+    is tested in tests/test_progress.py, where it belongs.
+    """
+    listing = html.unescape(client.get("/units").text)
     for unit in ALL_UNITS:
-        assert unit.title in listing.text
-        page = client.get(f"/units/{unit.slug}")
-        assert page.status_code == 200, f"/units/{unit.slug} returned {page.status_code}"
-        assert unit.brief[0][:40] in page.text
+        assert unit.title in listing
+        response = client.get(f"/units/{unit.slug}?anyway=1")
+        assert response.status_code == 200, (
+            f"/units/{unit.slug} returned {response.status_code}"
+        )
+        # Unescape before comparing. Jinja turns an apostrophe into &#39;, so
+        # a raw substring check silently requires every unit to open without
+        # one. That is a constraint on the prose invented by the test, and it
+        # fails on correct copy, which is the worst kind of test to keep.
+        assert unit.brief[0][:40] in html.unescape(response.text)
+
+
+def test_a_locked_unit_hides_its_contents_and_says_what_it_needs(client):
+    """The lock has to actually withhold the unit, or it is decoration.
+
+    Unit 01 is in part 1 and always open. The last unit is in the final part,
+    so on a clean database it is locked and must say which part it is waiting
+    on rather than quietly rendering.
+    """
+    assert client.get(f"/units/{ALL_UNITS[0].slug}").status_code == 200
+
+    last = ALL_UNITS[-1]
+    locked = client.get(f"/units/{last.slug}")
+    assert locked.status_code == 200
+    assert last.brief[0][:40] not in locked.text, (
+        f"{last.slug} is locked but rendered its briefing anyway."
+    )
+    assert "Locked" in locked.text
+    assert f"/units/{last.slug}?anyway=1" in locked.text, (
+        "A lock with no way past it is a wall, and this course has one reader."
+    )
 
 
 def test_an_unknown_unit_404s(client):
     assert client.get("/units/no-such-unit").status_code == 404
+
+
+@pytest.mark.parametrize("unit", ALL_UNITS, ids=UNIT_IDS)
+def test_the_metric_is_named_like_a_function_not_described(unit: Unit):
+    """`metric` is an identifier a reader types, not a sentence.
+
+    It names the thing being computed, and it lines up with `app.metrics`
+    where one exists. A prose description there reads fine on the page and
+    breaks the moment anybody tries to grep for it.
+    """
+    name = unit.exercise.metric
+    assert re.fullmatch(r"[a-z][a-z0-9_]*", name), (
+        f"{unit.slug} names its metric {name!r}. Use a lower_snake_case "
+        "identifier, as every other unit does."
+    )

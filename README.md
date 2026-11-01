@@ -24,6 +24,50 @@ is a real git commit rather than a database flag.
 Each module's docstring explains that module. This file covers the parts no
 docstring can: how to install it, how to run it, and how to write the harness.
 
+## The course
+
+A cycle is the real thing, run against a system nobody graded for you. Before
+that there is a course, and it is the front page.
+
+Every unit in the course evaluates **one** system: Ledger, a private credit
+loan-document assistant. An underwriter asks whether a borrower's covenant
+package permits a distribution, and Ledger retrieves the relevant clauses from
+the credit agreement and its amendments and answers with citations. It is
+described once in `app/units/system.py` and never rebuilt per unit, because a
+course that ships a different unnamed system per fixture teaches that many
+separate tricks and no method.
+
+The units are grouped into six parts, ordered by the path a request travels:
+trust the instrument, retrieval, context, agents, serving, then risk and
+audit. Two sentences hold that order honest, and both are enforced rather than
+asserted. `Part.builds_on` says what a part needs from the part before it.
+`Unit.builds_on` says the same for a unit, and a test refuses any unit that
+cites a number at or above its own. A part that cannot write its sentence is
+in the wrong place, and the order changes rather than the sentence.
+
+A unit is four steps: read what goes wrong with the measured numbers, commit a
+prediction with a confidence before any answer appears, implement the
+detection yourself against a fixture with a known result, then review. Every
+figure in a briefing traces to a primary source listed on the unit, and every
+`Exercise.expected` is reproduced from its own fixture by that unit's
+`solve()`, checked in `tests/test_units.py`. A number nobody can reproduce has
+no place in a course about numbers nobody reproduced.
+
+Progression lives in `app/progress.py` and derives entirely from attempts
+already on record, so it can be rebuilt from the database at any time. Three
+rules decide what it teaches:
+
+- **Only the first answer to a probe counts.** A probe answered after reading
+  the explanation is not a prediction. `/review` is free to practise against.
+- **Mastery does not require being right**, only committing every prediction
+  and posting a passing detection. Requiring correctness would make picking
+  the safest-looking option rational.
+- **Rank and calibration never combine.** Rank comes from parts mastered;
+  calibration stands alone and can be poor while rank is high.
+
+A part stays locked until the one before it is mastered, which is what makes
+`builds_on` true. `?anyway=1` opens any unit regardless.
+
 ## Install
 
 Python 3.13 and Postgres 17. No npm, no build step, no frontend framework:

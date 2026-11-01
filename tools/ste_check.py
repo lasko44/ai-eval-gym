@@ -64,6 +64,21 @@ TECHNICAL_NOUNS = {
     "token", "tokens", "url",
 }
 
+# A house rule, not an STE rule. The standard says so itself: "Does STE give
+# rules for abbreviations? No. Industries, companies, and projects can use
+# different abbreviations." So this project sets its own: an acronym carries its
+# full name where a reader first meets it, in parentheses, which rule 8.3
+# permits. The glossary is the single source for each expansion.
+ACRONYM = re.compile(r"\b(?:[A-Z]{2,}[0-9]*|[A-Z][A-Za-z]*[0-9]+[A-Za-z]*)\b")
+ACRONYM_SKIP = {"I", "A", "AI"}
+# "Table IV" is a numeral, not an acronym. Only a numeral that follows one of
+# these label words is treated that way, so a real acronym such as "DIM" is
+# still caught.
+ROMAN_LABEL = re.compile(
+    r"\b(?:Table|Figure|Section|Appendix|Part|Chapter|Exhibit)\s+"
+    r"(?P<numeral>[IVXLCDM]+)\b"
+)
+
 CONTRACTION = re.compile(r"\b\w+'(t|re|ve|ll|d|m)\b", re.I)
 POSSESSIVE = re.compile(r"\b\w+'s\b", re.I)
 ING = re.compile(r"\b\w{3,}ing\b", re.I)
@@ -121,15 +136,82 @@ def check(text: str, where: str) -> list[Finding]:
     return found
 
 
+def _no_expansion_needed() -> set[str]:
+    """Terms the glossary records as having no full name to give.
+
+    A product name such as NVIDIA expands to nothing. The glossary marks those
+    with expansion=None, and this check leaves them alone.
+    """
+    try:
+        from app.glossary import TERMS
+    except Exception:
+        return set()
+    names = set()
+    for term in TERMS:
+        if term.expansion is None:
+            names.add(term.term)
+            # "MT-Bench" is a name, and so is the "MT" a reader meets inside it.
+            names.add(term.term.split("-")[0])
+    return names
+
+
+def unexpanded_acronyms(text: str, where: str) -> list[Finding]:
+    """Find an acronym used before anybody said what it stands for.
+
+    Only the first use in a block matters. A reader who has met the full name
+    once does not need it again two sentences later.
+    """
+    skip = ACRONYM_SKIP | _no_expansion_needed()
+    skip |= {m.group("numeral") for m in ROMAN_LABEL.finditer(text)}
+    found = []
+    for token in sorted({m.group(0) for m in ACRONYM.finditer(text)} - skip):
+        first = text.find(token)
+        window = text[max(0, first - 90): first + 90]
+        escaped = re.escape(token)
+        # A version suffix keeps the acronym: "GPT-4 (Generative Pre-trained
+        # Transformer)" gives the reader the full name of GPT.
+        expanded = re.search(rf"\([^)]*{escaped}[^)]*\)", window) or re.search(
+            rf"{escaped}[-\w]*\s*\([^)]+\)", window
+        )
+        if not expanded:
+            found.append(Finding("GLOSSARY", where, f"{token} used with no full name"))
+    return found
+
+
 def copy_blocks() -> list[tuple[str, str]]:
     """Every string a reader of this app sees."""
     import app.units as curriculum
 
     blocks: list[tuple[str, str]] = []
+
+    # The system under evaluation. course.html renders these three fields
+    # verbatim, and they are the first prose a reader of this app meets. An
+    # earlier version of this tool read only the templates, where every one of
+    # these arrives as a {{ value }} and counts as one word, so the whole
+    # description measured as clean without ever being read.
+    blocks.append(("system:what_it_does", curriculum.SYSTEM.what_it_does))
+    for i, reason in enumerate(curriculum.SYSTEM.why_it_is_hard, 1):
+        blocks.append((f"system:why_it_is_hard[{i}]", reason))
+    for i, item in enumerate(curriculum.SYSTEM.what_you_are_handed, 1):
+        blocks.append((f"system:what_you_are_handed[{i}]", item))
+
+    # The six parts. course.html and units.html both render the title, the
+    # purpose, the builds_on sentence and every role_asks line.
+    for part in curriculum.PARTS:
+        blocks.append((f"part-{part.slug}:title", part.title))
+        blocks.append((f"part-{part.slug}:purpose", part.purpose))
+        blocks.append((f"part-{part.slug}:builds_on", part.builds_on))
+        for i, ask in enumerate(part.role_asks, 1):
+            blocks.append((f"part-{part.slug}:role_asks[{i}]", ask))
+
     for unit in curriculum.UNITS:
         blocks.append((f"{unit.slug}:title", unit.title))
         blocks.append((f"{unit.slug}:failure", unit.failure))
         blocks.append((f"{unit.slug}:detection", unit.detection))
+        # unit.html shows this under "Builds on", above the brief, and
+        # units.html shows it again as "Needs first".
+        if unit.builds_on:
+            blocks.append((f"{unit.slug}:builds_on", unit.builds_on))
         for i, paragraph in enumerate(unit.brief, 1):
             blocks.append((f"{unit.slug}:brief[{i}]", paragraph))
         for probe in unit.probes:
@@ -148,6 +230,13 @@ def copy_blocks() -> list[tuple[str, str]]:
     # distrusting a number whose method is wrong, so the method is now narrow:
     # only the elements that hold sentences a reader reads.
     PROSE = re.compile(r"<(p|li|h2|h3|h4)\b[^>]*>(.*?)</\1>", re.S | re.I)
+    try:
+        from app.glossary import TERMS
+        for term in TERMS:
+            blocks.append((f"glossary:{term.term}", term.definition))
+    except Exception:
+        pass
+
     for template in sorted((ROOT / "app" / "templates").glob("*.html")):
         raw = template.read_text()
         raw = re.sub(r"<style>.*?</style>", " ", raw, flags=re.S)
@@ -172,11 +261,30 @@ def main() -> None:
     for where, text in copy_blocks():
         all_findings += check(text, where)
 
+    # The acronym rule applies across a whole unit, because that is the unit of
+    # reading. Checking block by block would demand the full name in every
+    # paragraph, which no reader wants.
+    import app.units as curriculum
+
+    for unit in curriculum.UNITS:
+        # The order here is the order the unit page shows: the sources render
+        # last, under "Where this came from". Checking them first would demand
+        # the full name inside a citation, where it belongs to the work cited.
+        # builds_on renders above the brief on the unit page, so an
+        # acronym meeting a reader there meets them first.
+        parts = [unit.title, unit.failure, unit.detection,
+                 unit.builds_on, *unit.brief]
+        for probe in unit.probes:
+            parts += [probe.asks, probe.because, *(c.label for c in probe.choices)]
+        parts += [unit.exercise.asks, unit.exercise.fixture_note, unit.exercise.because]
+        parts += list(unit.sources)
+        all_findings += unexpanded_acronyms("\n".join(parts), unit.slug)
+
     by_rule: dict[str, list[Finding]] = {}
     for finding in all_findings:
         by_rule.setdefault(finding.rule, []).append(finding)
 
-    clarity = {"6.3", "6.6", "3.6", "4.2", "8.1"}
+    clarity = {"6.3", "6.6", "3.6", "4.2", "8.1", "GLOSSARY"}
     titles = {
         "1.1": "Use approved words, technical nouns, or technical verbs",
         "3.5": "Use an -ing form only in a technical noun",
@@ -185,6 +293,7 @@ def main() -> None:
         "6.3": "Use a maximum of 25 words in a sentence",
         "6.6": "Use a maximum of six sentences in a paragraph",
         "8.1": "Do not use the semicolon",
+        "GLOSSARY": "House rule: give an acronym its full name on first use",
         "GR-8": "Prefer a phrase with \"of\" over the possessive form",
     }
     blocks = len(copy_blocks())
