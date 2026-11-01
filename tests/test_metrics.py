@@ -2,7 +2,16 @@ import math
 
 import pytest
 
-from app.metrics import brier_score, flip_rate, ndcg_at_k, precision_at_k, recall_at_k
+from app.metrics import (
+    brier_score,
+    flip_rate,
+    gate_flip_rate,
+    minimum_detectable_effect,
+    ndcg_at_k,
+    precision_at_k,
+    rank_correlation,
+    recall_at_k,
+)
 
 
 # --- recall_at_k ---
@@ -187,3 +196,144 @@ def test_flip_rate_of_identical_orderings_is_zero():
 
 def test_flip_rate_of_empty_sequences_is_zero():
     assert flip_rate([], []) == 0.0
+
+
+# Spearman rank correlation between two scorings of the same candidates. It
+# answers "same order?" and deliberately not "same scores?", which is the
+# whole reason a contaminated leaderboard can be wrong about every number and
+# still right about the winner.
+
+def test_rank_correlation_of_identical_orderings_is_one():
+    assert rank_correlation([0.1, 0.2, 0.3], [0.4, 0.5, 0.6]) == pytest.approx(1.0)
+
+
+def test_rank_correlation_ignores_a_uniform_shift():
+    scores = [0.30, 0.55, 0.42, 0.71]
+    inflated = [s + 0.12 for s in scores]
+    assert rank_correlation(scores, inflated) == pytest.approx(1.0)
+
+
+def test_rank_correlation_of_a_reversed_ordering_is_minus_one():
+    assert rank_correlation([1.0, 2.0, 3.0], [3.0, 2.0, 1.0]) == pytest.approx(-1.0)
+
+
+def test_rank_correlation_with_one_pair_swapped_is_below_one():
+    rho = rank_correlation([1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 4.0, 3.0])
+    assert 0.0 < rho < 1.0
+
+
+def test_rank_correlation_gives_tied_candidates_the_same_rank():
+    # Both lists hold the same ties, so the orderings agree completely. If
+    # ties took list order instead of a shared rank this would not be 1.0.
+    assert rank_correlation([1.0, 1.0, 2.0], [5.0, 5.0, 9.0]) == pytest.approx(1.0)
+
+
+def test_rank_correlation_with_mismatched_lengths_raises():
+    with pytest.raises(ValueError):
+        rank_correlation([1.0, 2.0], [1.0, 2.0, 3.0])
+
+
+def test_rank_correlation_of_fewer_than_two_candidates_is_zero():
+    assert rank_correlation([1.0], [2.0]) == 0.0
+    assert rank_correlation([], []) == 0.0
+
+
+def test_rank_correlation_when_every_candidate_ties_is_zero_not_nan():
+    result = rank_correlation([1.0, 1.0, 1.0], [3.0, 1.0, 2.0])
+    assert result == 0.0
+    assert not math.isnan(result)
+
+
+# Share of identical runs whose gate verdict contradicts the majority. This
+# measures the decision rather than the score, because a wobbling score is
+# harmless until a threshold is drawn through the middle of the wobble.
+
+def test_gate_flip_rate_of_unanimous_runs_is_zero():
+    assert gate_flip_rate([0.90, 0.91, 0.93], 0.82) == 0.0
+    assert gate_flip_rate([0.70, 0.71, 0.69], 0.82) == 0.0
+
+
+def test_gate_flip_rate_counts_the_minority_verdict():
+    # Three pass, one fails, so one run in four contradicts the majority.
+    assert gate_flip_rate([0.83, 0.84, 0.85, 0.81], 0.82) == pytest.approx(0.25)
+
+
+def test_gate_flip_rate_of_an_even_split_is_one_half():
+    assert gate_flip_rate([0.83, 0.81], 0.82) == pytest.approx(0.5)
+
+
+def test_gate_flip_rate_treats_a_score_on_the_threshold_as_passing():
+    # A gate is normally written >=, so a run landing exactly on the number
+    # passes. If this flipped, the metric would disagree with the gate it is
+    # supposed to be measuring.
+    assert gate_flip_rate([0.82, 0.83], 0.82) == 0.0
+
+
+def test_gate_flip_rate_of_a_single_run_is_zero():
+    # One verdict is unanimous by itself. That is the false confidence this
+    # metric exists to expose, not a defect in it.
+    assert gate_flip_rate([0.5], 0.82) == 0.0
+
+
+def test_gate_flip_rate_of_no_runs_is_zero():
+    assert gate_flip_rate([], 0.82) == 0.0
+
+
+def test_gate_flip_rate_never_exceeds_one_half():
+    for scores in ([0.9] * 3 + [0.1] * 7, [0.9] * 7 + [0.1] * 3, [0.9, 0.1]):
+        assert gate_flip_rate(scores, 0.5) <= 0.5
+
+
+# Smallest accuracy difference an eval of n items can distinguish from noise.
+# This is the question that has to be asked before the result, not after it.
+
+def test_minimum_detectable_effect_shrinks_as_items_are_added():
+    small = minimum_detectable_effect(100, 0.78)
+    large = minimum_detectable_effect(10_000, 0.78)
+    assert large < small
+
+
+def test_minimum_detectable_effect_follows_the_square_root_of_n():
+    # Four times the items halves the detectable effect, which is the whole
+    # reason buying resolution by adding items gets expensive so fast.
+    at_n = minimum_detectable_effect(250, 0.5)
+    at_4n = minimum_detectable_effect(1000, 0.5)
+    assert at_4n == pytest.approx(at_n / 2, rel=1e-9)
+
+
+def test_minimum_detectable_effect_is_worst_at_fifty_percent():
+    middle = minimum_detectable_effect(500, 0.50)
+    assert middle > minimum_detectable_effect(500, 0.80)
+    assert middle > minimum_detectable_effect(500, 0.20)
+
+
+def test_minimum_detectable_effect_at_a_certain_baseline_is_zero():
+    # A system that is always right has no item-level variance, so there is
+    # nothing to separate from noise. Zero is the honest answer, not an error.
+    assert minimum_detectable_effect(500, 1.0) == 0.0
+
+
+def test_minimum_detectable_effect_widens_as_power_rises():
+    assert minimum_detectable_effect(500, 0.5, power=0.95) > minimum_detectable_effect(
+        500, 0.5, power=0.80
+    )
+
+
+def test_minimum_detectable_effect_rejects_meaningless_questions():
+    with pytest.raises(ValueError):
+        minimum_detectable_effect(0, 0.5)
+    with pytest.raises(ValueError):
+        minimum_detectable_effect(100, 1.5)
+    with pytest.raises(ValueError):
+        minimum_detectable_effect(100, 0.5, power=1.0)
+    with pytest.raises(ValueError):
+        minimum_detectable_effect(100, 0.5, alpha=0.0)
+
+
+def test_minimum_detectable_effect_matches_the_textbook_constant():
+    # At 80 percent power and alpha 0.05 two-sided the multiplier is
+    # 1.959964 + 0.841621 = 2.801585. Pinning it catches a silently swapped
+    # z-value, which would move every number this unit teaches.
+    n, p = 1000, 0.5
+    expected = 2.801585 * (2 * p * (1 - p) / n) ** 0.5
+    assert minimum_detectable_effect(n, p) == pytest.approx(expected, rel=1e-5)
