@@ -81,10 +81,12 @@ class Probe:
 class Exercise:
     """The hands-on half. He implements the detection and posts the number.
 
-    The app does not run his code: the fixture is a file in the repo, he writes
-    the measurement himself, and posts the result the same way a harness posts a
-    cycle run. `expected` is the known label, and `tolerance` allows for
-    floating point rather than for sloppiness.
+    He finishes `starter` in the page and runs it. The run happens in a
+    throwaway directory holding only this fixture and the pure metrics
+    functions, so an exercise cannot reach the rest of the project, the
+    settings or the environment the server was started with. `expected` is the
+    known label, and `tolerance` allows for floating point rather than for
+    sloppiness.
     """
 
     asks: str

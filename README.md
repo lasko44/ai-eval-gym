@@ -63,9 +63,17 @@ asserted. `Part.builds_on` says what a part needs from the part before it.
 cites a number at or above its own. A part that cannot write its sentence is
 in the wrong place, and the order changes rather than the sentence.
 
-A unit is four steps: read what goes wrong with the measured numbers, commit a
-prediction with a confidence before any answer appears, implement the
-detection yourself against a fixture with a known result, then review. Every
+A unit is seven steps, one per screen: what breaks, how we know, three
+predictions one at a time, then the measurement, then what you took away.
+
+The measurement runs in the page. You finish the starter code in an editor on
+the exercise step, press run, and see the output underneath it. A run that
+prints the right number records the pass. The run happens in a throwaway
+directory holding exactly two things: the one fixture that exercise names, and
+the pure functions in `app/metrics`. No settings, no models, no `.env`, no
+`.git`, and none of the environment the server was started with. The runner
+also refuses any request that did not arrive over loopback, so putting this
+behind a hostname turns it off rather than making it a remote shell. Every
 figure in a briefing traces to a primary source listed on the unit, and every
 `Exercise.expected` is reproduced from its own fixture by that unit's
 `solve()`, checked in `tests/test_units.py`. A number nobody can reproduce has

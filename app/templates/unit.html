@@ -152,13 +152,57 @@
                     <code>{{ unit.exercise.fixture_path }}</code>.
                     {{ unit.exercise.fixture_note }}
                 </p>
+            </div>
+
+            {% if can_run %}
+                <form method="post" action="/units/{{ unit.slug }}/run" class="editor">
+                    <input type="hidden" name="step" value="{{ step.index }}">
+                    <label for="source">Finish this, then run it</label>
+                    <span class="hint">
+                        It runs in a throwaway directory holding only this
+                        fixture and the metrics library. Nothing else of yours
+                        is in there.
+                    </span>
+                    <textarea id="source" name="source" spellcheck="false"
+                              rows="12">{{ run.source if run else unit.exercise.starter }}</textarea>
+                    <button type="submit">Run it</button>
+                </form>
+
+                {% if run %}
+                    <div class="console">
+                        {% if run.stderr %}
+                            <p class="console-head console-bad">It did not run</p>
+                            <pre><code>{{ run.stderr }}</code></pre>
+                        {% elif run.matched %}
+                            <p class="console-head console-good">That matches the fixture</p>
+                            <pre><code>{{ run.stdout }}</code></pre>
+                        {% else %}
+                            <p class="console-head">It ran, and the number does not match yet</p>
+                            <pre><code>{{ run.stdout }}</code></pre>
+                            <p class="note">
+                                {% if run.value is not none %}
+                                    It printed <code class="num">{{ run.value }}</code>.
+                                    The fixture has a known answer, so the
+                                    disagreement is in the measurement rather
+                                    than the data.
+                                {% else %}
+                                    Nothing printed a number. This exercise
+                                    reads the last number your code prints.
+                                {% endif %}
+                            </p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% else %}
                 <h4>Start from this</h4>
                 <pre><code>{{ unit.exercise.starter }}</code></pre>
                 <p class="note">
-                    Run it from the project root. The app never executes your
-                    code: you measure it yourself and post the number, the way
-                    a harness reports a run.
+                    The runner only answers on loopback, so this is read only
+                    here. Reach the app at 127.0.0.1 to run it in the page.
                 </p>
+            {% endif %}
+
+            <div class="card">
                 {% if peek %}
                     <details class="hint-box">
                         <summary>Stuck? Show me the shape of the fixture</summary>

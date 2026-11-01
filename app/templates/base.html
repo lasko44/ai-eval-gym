@@ -656,6 +656,38 @@
             .stepnav-count { margin-left: 0; width: 100%; }
         }
 
+
+        /* ---- The editor and its console ----
+
+           The write, run, see loop, in the page. The editor is monospace
+           because it holds code, and the console is the ink block because
+           output is a different kind of thing from prose. */
+        .editor { margin: 1.5rem 0 0; }
+        .editor textarea {
+            font: 400 0.88rem/1.6 var(--mono);
+            background: var(--ink);
+            color: #d9dee6;
+            border-color: var(--ink);
+            tab-size: 4;
+            white-space: pre;
+            overflow-wrap: normal;
+            overflow-x: auto;
+        }
+        .editor textarea:focus { border-color: var(--accent); }
+        .editor button { margin-top: 0.9rem; }
+
+        .console { margin: 1.25rem 0 0; }
+        .console-head {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            margin: 0 0 0.5rem;
+            color: var(--muted);
+        }
+        .console-good { color: var(--good); font-weight: 600; }
+        .console-bad { color: var(--warn); font-weight: 600; }
+        .console pre { margin: 0; max-height: 22rem; overflow: auto; }
+
         @media (prefers-reduced-motion: reduce) {
             * { animation: none !important; transition: none !important; }
         }

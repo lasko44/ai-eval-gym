@@ -13,6 +13,7 @@ from pydantic import BaseModel, field_validator
 from app import glossary as vocabulary
 from app import progress as progression
 from app import lesson as lessons
+from app import runner as sandbox
 from app import tour as guide
 from app import units as curriculum
 from app.db import get_session
@@ -719,12 +720,14 @@ def list_units(request: Request):
         session.close()
 
 
-@app.get("/units/{slug}")
-def show_unit(slug: str, request: Request, anyway: int = 0,
-              step: str | None = None, all: int = 0):
-    unit = curriculum.get(slug)
-    if unit is None:
-        raise HTTPException(status_code=404, detail=f"No unit named {slug!r}.")
+def _render_unit(request, unit, step=None, anyway=0, all=0, run=None):
+    """Render one unit page.
+
+    Shared by the GET and by the runner, so a run comes back on the same
+    page the reader was already on, with its output under the editor, rather
+    than redirecting and losing what they just wrote.
+    """
+    slug = unit.slug
     session = get_session()
     try:
         # A locked unit renders a page that says what it is waiting on rather
@@ -767,6 +770,10 @@ def show_unit(slug: str, request: Request, anyway: int = 0,
                 "step": lessons.step_at(unit, step),
                 "probe_by_id": {probe.id: probe for probe in unit.probes},
                 "peek": lessons.fixture_peek(unit.exercise.fixture_path),
+                "run": run,
+                "can_run": sandbox.loopback_only(
+                    request.client.host if request.client else None
+                ),
             },
         )
     finally:
@@ -821,6 +828,80 @@ def answer_probe(
     finally:
         session.close()
     return RedirectResponse(url=f"/units/{slug}?step={step}", status_code=303)
+
+
+@app.get("/units/{slug}")
+def show_unit(slug: str, request: Request, anyway: int = 0,
+              step: str | None = None, all: int = 0):
+    unit = curriculum.get(slug)
+    if unit is None:
+        raise HTTPException(status_code=404, detail=f"No unit named {slug!r}.")
+    return _render_unit(request, unit, step=step, anyway=anyway, all=all)
+
+
+@app.post("/units/{slug}/run")
+def run_measurement(
+    slug: str,
+    request: Request,
+    source: str = Form(...),
+    step: str = Form("1"),
+):
+    """Run the reader's snippet and show what it said.
+
+    Refuses anything that did not arrive over loopback. This app is meant to
+    be reached at 127.0.0.1 by the one person using it, and if it is ever put
+    behind a hostname the runner turns itself off rather than becoming a
+    remote shell.
+
+    A run that prints the right number records the pass, so the loop is
+    write, run, done, rather than write, run, copy the number, paste it
+    somewhere else.
+    """
+    unit = curriculum.get(slug)
+    if unit is None:
+        raise HTTPException(status_code=404, detail=f"No unit named {slug!r}.")
+
+    client_host = request.client.host if request.client else None
+    if not sandbox.loopback_only(client_host):
+        raise HTTPException(
+            status_code=403,
+            detail=(
+                "The runner only answers on loopback. Reach this app at "
+                "127.0.0.1, or post the number yourself."
+            ),
+        )
+
+    result = sandbox.run(source, unit.exercise.fixture_path)
+    matched = (
+        result.value is not None
+        and abs(result.value - unit.exercise.expected) <= unit.exercise.tolerance
+    )
+    if matched:
+        session = get_session()
+        try:
+            session.add(
+                ExerciseAttempt(
+                    unit_slug=slug, value=result.value, correct=True
+                )
+            )
+            session.commit()
+        finally:
+            session.close()
+
+    return _render_unit(
+        request,
+        unit,
+        step=step,
+        anyway=1,
+        run={
+            "source": source,
+            "stdout": result.stdout,
+            "stderr": result.stderr,
+            "timed_out": result.timed_out,
+            "value": result.value,
+            "matched": matched,
+        },
+    )
 
 
 @app.post("/units/{slug}/exercise")
