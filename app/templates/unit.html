@@ -13,7 +13,6 @@
             Unit {{ "%02d"|format(unit.number) }} of {{ total_units }}.
         </p>
     {% endif %}
-    <p class="lede">{{ unit.failure }}</p>
 
     {% if locked %}
         <div class="card locked-card">
@@ -41,166 +40,252 @@
         </div>
     {% else %}
 
-    {% if unit.builds_on %}
-        <p class="note"><b class="tip" tabindex="0" data-tip="{{ TOUR.TIPS.builds_on }}">Builds on:</b> {{ unit.builds_on }}</p>
-    {% endif %}
+    {# ---- Where you are. A rail, not a menu to decide between. ---- #}
+    {% if not show_all %}
+        <ol class="steprail" aria-label="Steps in this unit">
+            {% for s in lesson_steps %}
+                <li class="{% if s.index == step.index %}at{% elif s.index < step.index %}past{% endif %}">
+                    <a href="/units/{{ unit.slug }}?step={{ s.index }}{% if anyway %}&amp;anyway=1{% endif %}">
+                        <span class="steprail-n">{{ s.index }}</span>
+                        <span class="steprail-l">{{ s.label }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ol>
 
-    <div class="pills">
-        <span class="pill{% if progress.answered == progress.total %} pill-done{% endif %}">
-            predictions <b>{{ progress.answered }} of {{ progress.total }}</b>
-        </span>
-        {% if progress.answered %}
-            <span class="pill">right <b>{{ progress.right }} of {{ progress.answered }}</b></span>
-            <span class="pill">calibration <b class="num">{{ "%.3f"|format(progress.brier) }}</b></span>
-        {% endif %}
-        <span class="pill{% if progress.exercise_passed %} pill-done{% endif %}">
-            detection <b>{% if progress.exercise_passed %}done{% else %}not yet{% endif %}</b>
-        </span>
-    </div>
+        <h3>{{ step.heading }}</h3>
 
-    <h3>What goes wrong</h3>
-    <div class="brief">
-        {% for paragraph in unit.brief %}
-            <p>{{ paragraph }}</p>
-        {% endfor %}
-    </div>
-
-    <h3 id="predict">Commit a prediction</h3>
-    <p class="note">
-        Answer each one with how sure you are, before you see whether you were
-        right. Being confidently wrong costs you here exactly the way it does in
-        a teardown, which is the only reason this is worth doing.
-    </p>
-
-    {% for probe in unit.probes %}
-        {% set attempt = progress.attempts.get(probe.id) %}
-        <div class="card" id="probe-{{ probe.id }}">
-            <h4>{{ loop.index }}. {{ probe.asks }}</h4>
-
-            {% if attempt %}
-                <div class="verdict">
-                    {% if attempt.correct %}
-                        <span class="badge badge-right">Right</span>
-                    {% else %}
-                        <span class="badge badge-wrong">Wrong</span>
-                    {% endif %}
-                    <span class="said">
-                        you said
-                        {%- for choice in probe.choices %}
-                            {%- if choice.key == attempt.choice %} "{{ choice.label }}"{% endif %}
-                        {%- endfor %},
-                        {{ "%.0f"|format(attempt.probability * 100) }}% sure
-                    </span>
-                </div>
-                {% set record = track.get(probe.id) if track else None %}
-                {% if record %}
-                    <p class="note">
-                        Around {{ "%.0f"|format(record.claimed * 100) }}% sure you
-                        have been right
-                        <b>{{ record.correct }} of {{ record.attempts }}</b> times
-                        ({{ "%.0f"|format(record.actual * 100) }}%).
-                        {%- if record.overconfident %}
-                            That is a real gap, and it is in the direction that
-                            costs you.
-                        {%- endif %}
-                    </p>
+        {% if step.kind == "read" %}
+            {% if step.index == 1 %}
+                <p class="lede">{{ unit.failure }}</p>
+                {% if unit.builds_on %}
+                    <p class="note"><b class="tip" tabindex="0"
+                       data-tip="{{ TOUR.TIPS.builds_on }}">Builds on:</b> {{ unit.builds_on }}</p>
                 {% endif %}
-                {% if not attempt.correct %}
-                    <p class="note">
-                        The answer was
-                        {%- for choice in probe.choices %}
-                            {%- if choice.key == probe.answer %} "{{ choice.label }}".{% endif %}
-                        {%- endfor %}
-                    </p>
-                {% endif %}
-                <div class="because"><p>{{ probe.because }}</p></div>
-            {% else %}
-                <form method="post" action="/units/{{ unit.slug }}/probes/{{ probe.id }}">
-                    <ul class="probe-choices">
-                        {% for choice in probe.choices %}
-                            <li>
-                                <label>
-                                    <input type="radio" name="choice" value="{{ choice.key }}" required>
-                                    <span>{{ choice.label }}</span>
-                                </label>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    <div class="field confidence">
-                        <div>
-                            <label for="probability-{{ probe.id }}">How sure are you</label>
-                            <input id="probability-{{ probe.id }}" name="probability" type="number"
-                                   step="0.05" min="{{ "%.2f"|format(1.0 / probe.choices|length) }}"
-                                   max="1" required>
-                        </div>
-                        <span class="hint">
-                            {{ "%.2f"|format(1.0 / probe.choices|length) }} to 1.
-                            This probe has {{ probe.choices|length }} options, so
-                            {{ "%.2f"|format(1.0 / probe.choices|length) }} is pure
-                            guessing and nothing lower is possible once you have
-                            picked one. Keep 0.95 for things you would bet on.
+            {% endif %}
+            {% for paragraph in step.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+            {% if step.index == 2 %}
+                <p class="note"><b>You will learn to:</b> {{ unit.detection }}</p>
+            {% endif %}
+
+        {% elif step.kind == "probe" %}
+            {% set probe = probe_by_id[step.probe_id] %}
+            {% set attempt = progress.attempts.get(probe.id) %}
+            <div class="card">
+                <p class="asks">{{ probe.asks }}</p>
+                {% if attempt %}
+                    <div class="verdict">
+                        {% if attempt.correct %}
+                            <span class="badge badge-right">Right</span>
+                        {% else %}
+                            <span class="badge badge-wrong">Wrong</span>
+                        {% endif %}
+                        <span class="said">
+                            you said
+                            {%- for choice in probe.choices %}
+                                {%- if choice.key == attempt.choice %} "{{ choice.label }}"{% endif %}
+                            {%- endfor %},
+                            {{ "%.0f"|format(attempt.probability * 100) }}% sure
                         </span>
                     </div>
-                    <button type="submit">Commit answer</button>
-                </form>
-            {% endif %}
-        </div>
-    {% endfor %}
-
-    <h3 id="detect">Measure it yourself</h3>
-    <p>{{ unit.exercise.asks }}</p>
-
-    <div class="card">
-        <h4>The fixture</h4>
-        <p class="note">
-            <code>{{ unit.exercise.fixture_path }}</code> in this repo.
-            {{ unit.exercise.fixture_note }}
-        </p>
-        <h4>Starting point</h4>
-        <pre><code>{{ unit.exercise.starter }}</code></pre>
-        <p class="note">
-            Run it from the project root. The app does not execute your code:
-            you measure it yourself and post the number, the same way a harness
-            reports a cycle run.
-        </p>
-
-        {% set passed = progress.exercise_passed %}
-        {% if passed %}
-            <div class="verdict">
-                <span class="badge badge-right">Matched</span>
-                <span class="said">your <code>{{ unit.exercise.metric }}</code> agreed with the fixture's label</span>
+                    {% set record = track.get(probe.id) if track else None %}
+                    {% if record %}
+                        <p class="note">
+                            Around {{ "%.0f"|format(record.claimed * 100) }}% sure you
+                            have been right
+                            <b>{{ record.correct }} of {{ record.attempts }}</b> times
+                            ({{ "%.0f"|format(record.actual * 100) }}%).
+                            {%- if record.overconfident %}
+                                That is a real gap, and it is in the direction that
+                                costs you.
+                            {%- endif %}
+                        </p>
+                    {% endif %}
+                    {% if not attempt.correct %}
+                        <p class="note">
+                            The answer was
+                            {%- for choice in probe.choices %}
+                                {%- if choice.key == probe.answer %} "{{ choice.label }}".{% endif %}
+                            {%- endfor %}
+                        </p>
+                    {% endif %}
+                    <div class="because"><p>{{ probe.because }}</p></div>
+                {% else %}
+                    <form method="post" action="/units/{{ unit.slug }}/probes/{{ probe.id }}">
+                        <input type="hidden" name="step" value="{{ step.index }}">
+                        <ul class="choices">
+                            {% for choice in probe.choices %}
+                                <li>
+                                    <label>
+                                        <input type="radio" name="choice" value="{{ choice.key }}" required>
+                                        {{ choice.label }}
+                                    </label>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="field confidence">
+                            <div>
+                                <label for="probability-{{ probe.id }}">How sure are you</label>
+                                <input id="probability-{{ probe.id }}" name="probability" type="number"
+                                       step="0.05" min="{{ "%.2f"|format(1.0 / probe.choices|length) }}"
+                                       max="1" required>
+                            </div>
+                            <span class="hint">
+                                {{ "%.2f"|format(1.0 / probe.choices|length) }} to 1.
+                                This question has {{ probe.choices|length }} options, so
+                                {{ "%.2f"|format(1.0 / probe.choices|length) }} is pure
+                                guessing and nothing lower is possible once you have
+                                picked one. Keep 0.95 for things you would bet on.
+                            </span>
+                        </div>
+                        <button type="submit">Commit answer</button>
+                    </form>
+                {% endif %}
             </div>
-            <div class="because"><p>{{ unit.exercise.because }}</p></div>
-        {% else %}
-            {% if exercise_attempts %}
+
+        {% elif step.kind == "detect" %}
+            <p class="lede">{{ unit.exercise.asks }}</p>
+            <div class="card">
+                <h4>The <span class="tip" tabindex="0"
+                    data-tip="{{ TOUR.TIPS.fixture }}">fixture</span></h4>
                 <p class="note">
-                    Posted so far:
-                    {% for attempt in exercise_attempts %}
-                        <code class="num">{{ attempt.value }}</code>{% if not loop.last %}, {% endif %}
-                    {% endfor %}.
-                    Not a match yet. The fixture has a known answer, so the
-                    disagreement is in the measurement, not the data.
+                    <code>{{ unit.exercise.fixture_path }}</code>.
+                    {{ unit.exercise.fixture_note }}
                 </p>
-            {% endif %}
-            <form method="post" action="/units/{{ unit.slug }}/exercise">
-                <div class="field confidence">
-                    <div>
+                <h4>Start from this</h4>
+                <pre><code>{{ unit.exercise.starter }}</code></pre>
+                <p class="note">
+                    Run it from the project root. The app never executes your
+                    code: you measure it yourself and post the number, the way
+                    a harness reports a run.
+                </p>
+                {% if peek %}
+                    <details class="hint-box">
+                        <summary>Stuck? Show me the shape of the fixture</summary>
+                        <pre><code>{{ peek }}</code></pre>
+                        <p class="note">
+                            Read straight from the file and trimmed. The whole
+                            fixture is longer.
+                        </p>
+                    </details>
+                {% endif %}
+            </div>
+
+            {% if progress.exercise_passed %}
+                <div class="verdict">
+                    <span class="badge badge-right">Matched</span>
+                    <span class="said">your <code>{{ unit.exercise.metric }}</code> agreed with the fixture</span>
+                </div>
+                <div class="because"><p>{{ unit.exercise.because }}</p></div>
+            {% else %}
+                {% if exercise_attempts %}
+                    <p class="note">
+                        Posted so far:
+                        {% for attempt in exercise_attempts %}
+                            <code class="num">{{ attempt.value }}</code>{% if not loop.last %}, {% endif %}
+                        {% endfor %}.
+                        Not a match yet. The fixture has a known answer, so the
+                        disagreement is in the measurement, not the data.
+                    </p>
+                {% endif %}
+                <form method="post" action="/units/{{ unit.slug }}/exercise">
+                    <input type="hidden" name="step" value="{{ step.index }}">
+                    <div class="field">
                         <label for="value">Your {{ unit.exercise.metric }}</label>
+                        <span class="hint">
+                            Checked against the fixture's known label, within a
+                            <span class="tip" tabindex="0"
+                                  data-tip="{{ TOUR.TIPS.tolerance }}">tolerance</span>
+                            of {{ unit.exercise.tolerance }}.
+                        </span>
                         <input id="value" name="value" type="number" step="any" required>
                     </div>
-                    <span class="hint">Checked against the fixture's known label.</span>
-                </div>
-                <button type="submit">Check my answer</button>
-            </form>
-        {% endif %}
-    </div>
+                    <button type="submit">Check my answer</button>
+                </form>
+            {% endif %}
 
-    <h3>Where this came from</h3>
-    <ul class="sources">
-        {% for source in unit.sources %}
-            <li>{{ source }}</li>
+        {% elif step.kind == "close" %}
+            <div class="pills">
+                <span class="pill{% if progress.answered == progress.total %} pill-done{% endif %}">
+                    predictions <b>{{ progress.answered }} of {{ progress.total }}</b>
+                </span>
+                {% if progress.answered %}
+                    <span class="pill">calibration <b class="num">{{ "%.3f"|format(progress.brier) }}</b></span>
+                {% endif %}
+                <span class="pill{% if progress.exercise_passed %} pill-done{% endif %}">
+                    detection <b>{% if progress.exercise_passed %}done{% else %}not yet{% endif %}</b>
+                </span>
+            </div>
+            {% if progress.answered == progress.total and progress.exercise_passed %}
+                <p>
+                    You have mastered this unit: every prediction committed, and
+                    a detection that matched the fixture.
+                </p>
+            {% else %}
+                <p class="note">
+                    Mastering this unit needs every prediction committed and a
+                    detection that matched. Being wrong still counts, because
+                    the prediction is the point.
+                </p>
+            {% endif %}
+            <h4>Where this came from</h4>
+            <ul class="sources">
+                {% for source in unit.sources %}<li>{{ source }}</li>{% endfor %}
+            </ul>
+            <p class="note">
+                <a href="/units/{{ unit.slug }}?all=1{% if anyway %}&amp;anyway=1{% endif %}">Read the whole unit on one page</a>
+            </p>
+        {% endif %}
+
+        {# ---- Exactly one next action, and the count beside it. ---- #}
+        <div class="stepnav">
+            {% if step.index < lesson_steps|length %}
+                <a class="btn" href="/units/{{ unit.slug }}?step={{ step.index + 1 }}{% if anyway %}&amp;anyway=1{% endif %}">
+                    {% if step.kind == "probe" and not progress.attempts.get(step.probe_id) %}Skip for now{% else %}Next{% endif %}
+                </a>
+            {% elif next %}
+                <a class="btn" href="/units/{{ next.slug }}">Next unit</a>
+            {% else %}
+                <a class="btn" href="/cycles">Start a cycle</a>
+            {% endif %}
+            {% if step.index > 1 %}
+                <a href="/units/{{ unit.slug }}?step={{ step.index - 1 }}{% if anyway %}&amp;anyway=1{% endif %}">Back</a>
+            {% endif %}
+            <span class="stepnav-count">Step {{ step.index }} of {{ lesson_steps|length }}</span>
+        </div>
+
+    {% else %}
+        {# ---- The whole unit on one page, for a unit already worked. ---- #}
+        <p class="lede">{{ unit.failure }}</p>
+        {% if unit.builds_on %}
+            <p class="note"><b>Builds on:</b> {{ unit.builds_on }}</p>
+        {% endif %}
+        <p class="note">
+            <a href="/units/{{ unit.slug }}{% if anyway %}?anyway=1{% endif %}">Work through it a step at a time</a>
+        </p>
+
+        <h3>What goes wrong</h3>
+        {% for paragraph in unit.brief %}<p>{{ paragraph }}</p>{% endfor %}
+
+        <h3>The predictions</h3>
+        {% for probe in unit.probes %}
+            <div class="card">
+                <p class="asks">{{ loop.index }}. {{ probe.asks }}</p>
+                <p class="note">{{ probe.because }}</p>
+            </div>
         {% endfor %}
-    </ul>
+
+        <h3>Measure it yourself</h3>
+        <p>{{ unit.exercise.asks }}</p>
+        <p class="note"><code>{{ unit.exercise.fixture_path }}</code>. {{ unit.exercise.fixture_note }}</p>
+        <pre><code>{{ unit.exercise.starter }}</code></pre>
+        <p class="note">{{ unit.exercise.because }}</p>
+
+        <h3>Where this came from</h3>
+        <ul class="sources">
+            {% for source in unit.sources %}<li>{{ source }}</li>{% endfor %}
+        </ul>
+    {% endif %}
     {% endif %}
 
     <div class="onward">

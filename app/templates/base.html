@@ -550,6 +550,112 @@
             .tip::after { max-width: 15rem; }
         }
 
+
+        /* ---- The step rail ----
+
+           Where you are in a unit, and how much is left. It is a rail rather
+           than a menu: the step you are on is the only one that looks like a
+           destination, so there is nothing to choose between. */
+        .steprail {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.3rem;
+            margin: 1.5rem 0 2rem;
+            padding: 0 0 0.7rem;
+            border-bottom: 1px solid var(--line-strong);
+            counter-reset: none;
+        }
+        .steprail li { display: flex; align-items: center; }
+        .steprail li + li::before {
+            content: "";
+            width: 0.9rem;
+            height: 1px;
+            background: var(--line-strong);
+            margin: 0 0.15rem;
+        }
+        .steprail a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.2rem 0.45rem;
+            text-decoration: none;
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 0.74rem;
+        }
+        .steprail-n {
+            display: inline-grid;
+            place-items: center;
+            width: 1.35rem;
+            height: 1.35rem;
+            border: 1px solid var(--line-strong);
+            border-radius: 50%;
+            font-size: 0.7rem;
+        }
+        .steprail .past a { color: var(--accent); }
+        .steprail .past .steprail-n { border-color: var(--accent); color: var(--accent); }
+        .steprail .at a { color: var(--ink); font-weight: 600; }
+        .steprail .at .steprail-n {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: var(--surface);
+        }
+        .steprail a:hover { color: var(--ink); }
+        .steprail-l { white-space: nowrap; }
+
+        /* One next action, and the count beside it rather than above it. */
+        .stepnav {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin: 2.25rem 0 0;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--line);
+        }
+        .stepnav a:not(.btn) { color: var(--muted); text-decoration: none; font-size: 0.95rem; }
+        .stepnav a:not(.btn):hover { color: var(--ink); text-decoration: underline; }
+        .stepnav-count { margin-left: auto; font-family: var(--mono); font-size: 0.76rem; color: var(--muted); }
+
+        .asks { font-size: 1.12rem; margin-bottom: 1rem; }
+        .choices { list-style: none; margin: 0 0 1.25rem; padding: 0; max-width: none; }
+        .choices li { padding: 0.1rem 0; }
+        .choices label {
+            display: flex;
+            gap: 0.6rem;
+            align-items: baseline;
+            font-family: var(--serif);
+            font-size: 1rem;
+            font-weight: 400;
+            padding: 0.5rem 0.6rem;
+            border: 1px solid transparent;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        .choices label:hover { background: var(--bg); border-color: var(--line); }
+        .choices input { width: auto; flex: none; }
+        .because { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid var(--line); }
+        .because p { margin: 0; }
+
+        /* The hint. Closed by default, because a hint you cannot avoid is an
+           answer. */
+        .hint-box { margin-top: 1.1rem; border-top: 1px solid var(--line); padding-top: 0.9rem; }
+        .hint-box summary {
+            cursor: pointer;
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+        .hint-box summary:hover { color: var(--ink); }
+        .hint-box pre { margin-top: 0.8rem; }
+
+        @media (max-width: 40rem) {
+            .steprail-l { display: none; }
+            .steprail li + li::before { width: 0.5rem; }
+            .stepnav { flex-wrap: wrap; gap: 0.8rem; }
+            .stepnav-count { margin-left: 0; width: 100%; }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             * { animation: none !important; transition: none !important; }
         }

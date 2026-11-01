@@ -12,6 +12,7 @@ from pydantic import BaseModel, field_validator
 
 from app import glossary as vocabulary
 from app import progress as progression
+from app import lesson as lessons
 from app import tour as guide
 from app import units as curriculum
 from app.db import get_session
@@ -719,7 +720,8 @@ def list_units(request: Request):
 
 
 @app.get("/units/{slug}")
-def show_unit(slug: str, request: Request, anyway: int = 0):
+def show_unit(slug: str, request: Request, anyway: int = 0,
+              step: str | None = None, all: int = 0):
     unit = curriculum.get(slug)
     if unit is None:
         raise HTTPException(status_code=404, detail=f"No unit named {slug!r}.")
@@ -759,6 +761,12 @@ def show_unit(slug: str, request: Request, anyway: int = 0):
                 "exercise_attempts": exercise_attempts,
                 "locked": locked,
                 "track": track,
+                "anyway": bool(anyway),
+                "show_all": bool(all),
+                "lesson_steps": lessons.steps(unit),
+                "step": lessons.step_at(unit, step),
+                "probe_by_id": {probe.id: probe for probe in unit.probes},
+                "peek": lessons.fixture_peek(unit.exercise.fixture_path),
             },
         )
     finally:
@@ -771,6 +779,7 @@ def answer_probe(
     probe_id: str,
     choice: str = Form(...),
     probability: float = Form(...),
+    step: str = Form("1"),
 ):
     unit = curriculum.get(slug)
     if unit is None:
@@ -811,11 +820,11 @@ def answer_probe(
         session.commit()
     finally:
         session.close()
-    return RedirectResponse(url=f"/units/{slug}#probe-{probe_id}", status_code=303)
+    return RedirectResponse(url=f"/units/{slug}?step={step}", status_code=303)
 
 
 @app.post("/units/{slug}/exercise")
-def submit_exercise(slug: str, value: float = Form(...)):
+def submit_exercise(slug: str, value: float = Form(...), step: str = Form("1")):
     unit = curriculum.get(slug)
     if unit is None:
         raise HTTPException(status_code=404, detail=f"No unit named {slug!r}.")
@@ -838,7 +847,7 @@ def submit_exercise(slug: str, value: float = Form(...)):
         session.commit()
     finally:
         session.close()
-    return RedirectResponse(url=f"/units/{slug}#detect", status_code=303)
+    return RedirectResponse(url=f"/units/{slug}?step={step}", status_code=303)
 
 
 @app.get("/glossary")
