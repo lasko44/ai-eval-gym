@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Glossary{% endblock %}
+{% block content %}
+    <div class="strip">
+        <h2>Glossary</h2>
+        <span class="stage">{{ terms|length }} terms</span>
+    </div>
+    <p class="lede">
+        Every acronym this app uses, with the full name, and every term a
+        newcomer to AI evaluation will not already know.
+    </p>
+    <p class="note">
+        Each expansion comes from a source somebody fetched and read. Where
+        nobody could confirm what the letters stand for, the entry says so
+        rather than guess. A glossary that invents an expansion is worse than
+        no glossary, because a reader will trust it and repeat it.
+    </p>
+
+    <h3>Acronyms</h3>
+    <dl class="glossary">
+        {% for term in terms if term.expansion %}
+            <dt>
+                <span class="gl-term">{{ term.term }}</span>
+                <span class="gl-expansion">{{ term.expansion }}</span>
+            </dt>
+            <dd>
+                <p>{{ term.definition }}</p>
+                {% if term.sources %}
+                    <ul class="sources">
+                        {% for source in term.sources %}<li>{{ source }}</li>{% endfor %}
+                    </ul>
+                {% endif %}
+            </dd>
+        {% endfor %}
+    </dl>
+
+    {% set unconfirmed = terms | selectattr("verified", "equalto", false) | list %}
+    {% if unconfirmed %}
+        <h3>Not confirmed</h3>
+        <p class="note">
+            Nobody could confirm a full name for these from a source they read.
+            They stay on this page, named as unconfirmed, because hiding them
+            would be the same mistake as inventing an expansion.
+        </p>
+        <dl class="glossary">
+            {% for term in unconfirmed %}
+                <dt><span class="gl-term">{{ term.term }}</span></dt>
+                <dd><p>{{ term.definition }}</p></dd>
+            {% endfor %}
+        </dl>
+    {% endif %}
+
+    <h3>Terms</h3>
+    <dl class="glossary">
+        {% for term in terms if not term.expansion and term.verified %}
+            <dt><span class="gl-term">{{ term.term }}</span></dt>
+            <dd>
+                <p>{{ term.definition }}</p>
+                {% if term.sources %}
+                    <ul class="sources">
+                        {% for source in term.sources %}<li>{{ source }}</li>{% endfor %}
+                    </ul>
+                {% endif %}
+            </dd>
+        {% endfor %}
+    </dl>
+{% endblock %}
