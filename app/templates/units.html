@@ -33,9 +33,9 @@
                 {% for st in game.states %}
                     {% if st.part.slug == group.part.slug %}
                         <p class="note">
-                            <b>{{ st.mastered }} of {{ st.total }} mastered.</b>
+                            <b class="tip" tabindex="0" data-tip="{{ TOUR.TIPS.mastered }}">{{ st.mastered }} of {{ st.total }} mastered.</b>
                             {% if not st.unlocked %}
-                                Locked until you finish the part before it.
+                                <span class="tip" tabindex="0" data-tip="{{ TOUR.TIPS.locked }}">Locked until you finish the part before it.</span>
                             {% elif st.complete %}
                                 You finished this part.
                             {% endif %}

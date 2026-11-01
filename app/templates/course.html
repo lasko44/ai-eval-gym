@@ -38,14 +38,14 @@
         <div class="card game-card">
             <div class="game-grid">
                 <div class="stat">
-                    <span class="stat-label">Rank</span>
+                    <span class="stat-label tip" tabindex="0" data-tip="{{ TOUR.TIPS.rank }}">Rank</span>
                     <b class="stat-big">{{ game.rank }}</b>
                     <span class="note">
                         {{ game.parts_complete }} of {{ game.parts_total }} parts mastered
                     </span>
                 </div>
                 <div class="stat">
-                    <span class="stat-label">Calibration</span>
+                    <span class="stat-label tip" tabindex="0" data-tip="{{ TOUR.TIPS.calibration_score }}">Calibration</span>
                     <b class="stat-big">
                         {% if game.calibration.score is not none %}{{ game.calibration.score }}{% else %}&mdash;{% endif %}
                     </b>
@@ -58,7 +58,7 @@
                     </span>
                 </div>
                 <div class="stat">
-                    <span class="stat-label">Streak</span>
+                    <span class="stat-label tip" tabindex="0" data-tip="{{ TOUR.TIPS.streak }}">Streak</span>
                     <b class="stat-big">{{ game.streak }}</b>
                     <span class="note">predictions correct in a row</span>
                 </div>
@@ -95,7 +95,7 @@
                 <p class="calib-key">
                     <span><i class="k-deliv"></i>right</span>
                     <span><i class="k-claim"></i>claimed</span>
-                    <span><i class="k-gap"></i>shortfall</span>
+                    <span class="tip tip-end" tabindex="0" data-tip="{{ TOUR.TIPS.shortfall }}"><i class="k-gap"></i>shortfall</span>
                 </p>
                 <p class="note">
                     Hatching means you were surer than you turned out to be. It

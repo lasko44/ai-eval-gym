@@ -42,7 +42,7 @@
     {% else %}
 
     {% if unit.builds_on %}
-        <p class="note"><b>Builds on:</b> {{ unit.builds_on }}</p>
+        <p class="note"><b class="tip" tabindex="0" data-tip="{{ TOUR.TIPS.builds_on }}">Builds on:</b> {{ unit.builds_on }}</p>
     {% endif %}
 
     <div class="pills">

@@ -12,6 +12,7 @@ from pydantic import BaseModel, field_validator
 
 from app import glossary as vocabulary
 from app import progress as progression
+from app import tour as guide
 from app import units as curriculum
 from app.db import get_session
 from app.metrics import brier_score
@@ -33,6 +34,7 @@ from app.sealing import SealError, seal_cycle
 app = FastAPI(title="AI Eval Gym")
 
 templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
+templates.env.globals["TOUR"] = guide
 
 
 @app.get("/cycles")
@@ -653,6 +655,26 @@ def course_home(request: Request):
         )
     finally:
         session.close()
+
+
+@app.get("/start")
+def start(request: Request):
+    """The way in: what this is for, and what a unit asks of you.
+
+    Written rather than interactive. The guided tour covers the interface;
+    this page covers the point, which a tour cannot do while also pointing at
+    buttons.
+    """
+    return templates.TemplateResponse(
+        request,
+        "start.html",
+        {
+            "system": curriculum.SYSTEM,
+            "tips": guide.TIPS,
+            "first_unit": curriculum.UNITS[0],
+            "units_total": len(curriculum.UNITS),
+        },
+    )
 
 
 @app.get("/review")

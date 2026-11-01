@@ -24,6 +24,24 @@ is a real git commit rather than a database flag.
 Each module's docstring explains that module. This file covers the parts no
 docstring can: how to install it, how to run it, and how to write the harness.
 
+## Start here
+
+Open the app and go to `/start`. It covers what the gym is for, what a unit
+asks of you, and the three rules that decide what the scores mean, in about a
+screen of reading.
+
+If you would rather be shown, `/?tour=1` runs a nine step guided tour. The
+tour walks the real pages rather than a mock of them: each step is a query
+parameter the server reads, so it cannot go stale while the interface moves,
+and it needs no JavaScript. Any step dismisses with one link, and a mistyped
+value drops the panel instead of breaking the page.
+
+Controls that need a word of explanation carry one. Hover or tab to a dotted
+underline and the tooltip appears. Those sentences live in `app/tour.py`, one
+per control, and a test refuses any that duplicates a glossary term: the
+glossary owns the course's vocabulary, the tooltips own the interface, and a
+term with two homes drifts.
+
 ## The course
 
 A cycle is the real thing, run against a system nobody graded for you. Before

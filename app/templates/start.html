@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Start here{% endblock %}
+{% block content %}
+    <div class="strip">
+        <h2>Start here</h2>
+        <span class="stage">{{ units_total }} units</span>
+    </div>
+
+    <p class="lede">
+        This is a gym for one skill: deciding whether a number somebody hands
+        you about an AI system means anything. You practise on {{ system.name }},
+        then you do it for real against a system nobody prepared for you.
+    </p>
+
+    <div class="next-card">
+        <h4>If you read nothing else</h4>
+        <p class="next-title"><a href="/units/{{ first_unit.slug }}">Open unit 01 and answer its three questions</a></p>
+        <p class="note">
+            Answer before you scroll past them. Your first answer is the only
+            one that counts, and that rule is what makes the rest of this
+            work.
+        </p>
+        <a class="btn" href="/?tour=1">Take the tour instead</a>
+    </div>
+
+    <h3>What a unit asks of you</h3>
+    <ol class="how">
+        <li>
+            <b>Read what goes wrong.</b> Every figure in a briefing comes from
+            a source the unit names, fetched and checked rather than
+            remembered. If a number has no source, it is not in here.
+        </li>
+        <li>
+            <b>Commit three <span class="tip" tabindex="0" data-tip="{{ tips.predictions }}">predictions</span>,
+            with a confidence.</b> Before any answer appears. Being wrong is
+            fine and costs you nothing in progress. Being confidently wrong is
+            what the score is for.
+        </li>
+        <li>
+            <b>Write the <span class="tip" tabindex="0" data-tip="{{ tips.detection }}">detection</span> yourself.</b>
+            The unit ships a <span class="tip" tabindex="0" data-tip="{{ tips.fixture }}">fixture</span>
+            with a known answer nobody has told you. You write the measurement
+            in your own editor and post the number. The app never runs your
+            code.
+        </li>
+        <li>
+            <b>Review.</b> What you got right, where your confidence was off,
+            and the primary source if you want to go further.
+        </li>
+    </ol>
+
+    <h3>What the two scores mean</h3>
+    <p>
+        <span class="tip" tabindex="0" data-tip="{{ tips.rank }}">Rank</span>
+        counts whole parts finished. It rises when you have committed every
+        prediction in a part and posted a passing detection for every unit in
+        it. It does not care whether you were right.
+    </p>
+    <p>
+        <span class="tip" tabindex="0" data-tip="{{ tips.calibration_score }}">Calibration</span>
+        is whether your confidence carried information. Say 90 percent and be
+        right nine times in ten and it barely moves. Say 90 percent and be
+        right half the time and it falls hard.
+    </p>
+    <p>
+        This app keeps them apart and never adds them together. A single
+        blended number would let you buy one with the other. The gap between
+        them is the interesting part. A high rank beside a poor calibration
+        means you are getting through the work while believing things that
+        are not so.
+    </p>
+
+    <h3>Three rules worth knowing before you start</h3>
+    <ul>
+        <li>
+            <b>Only your first answer counts.</b> A question answered after
+            reading the explanation is not a prediction. Answer again as often
+            as you like in <a href="/review">Review</a>. It cannot move the
+            number either way.
+        </li>
+        <li>
+            <b>You cannot claim less confidence than a guess.</b> Pick one of
+            four options and you have already asserted 25 percent. The form
+            will not take less, because understating everything is the one way
+            to flatter a calibration score from the inside.
+        </li>
+        <li>
+            <b>A part stays <span class="tip" tabindex="0" data-tip="{{ tips.locked }}">locked</span>
+            until you finish the one before it.</b> Every part and unit names
+            what it builds on, and the lock is what makes that claim true. Any
+            locked unit still opens if you insist.
+        </li>
+    </ul>
+
+    <h3>The system you will be measuring</h3>
+    <p><b>{{ system.name }}.</b> {{ system.what_it_does }}</p>
+    <p class="note">
+        It resists evaluation for three reasons, and each one is why some unit
+        in this course exists.
+    </p>
+    <ul>
+        {% for reason in system.why_it_is_hard %}<li>{{ reason }}</li>{% endfor %}
+    </ul>
+
+    <h3>After the course</h3>
+    <p>
+        The fixtures all have known answers, which is what makes them safe to
+        practise on and also what makes them practice.
+        A <span class="tip" tabindex="0" data-tip="{{ tips.cycle }}">cycle</span>
+        has none. You write falsifiable claims about a real system, seal them
+        into git before you measure anything, then score yourself against what
+        you found. The seal is a real commit rather than a flag in a database,
+        because a prediction you could edit afterwards is not a prediction.
+    </p>
+
+    <div class="onward">
+        <a href="/units/{{ first_unit.slug }}">Start unit 01</a>
+        <a href="/?tour=1">Take the tour</a>
+        <a href="/units">See the whole syllabus</a>
+    </div>
+{% endblock %}

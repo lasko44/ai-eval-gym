@@ -468,6 +468,88 @@
         .locked-card { border-top-color: var(--line-strong); background: var(--bg); }
         .locked-card h4 { margin-top: 0; }
 
+
+        /* ---- Tooltips ----
+
+           A CSS rule, not a script. Shown on hover and on keyboard focus, so
+           the keyboard is not a second-class way to read the interface. The
+           text lives in app/tour.py, one sentence each: if a tip needs two,
+           the control is doing two things. */
+        .tip {
+            position: relative;
+            border-bottom: 1px dotted var(--muted);
+            cursor: help;
+        }
+        .tip::after {
+            content: attr(data-tip);
+            position: absolute;
+            left: 0;
+            bottom: calc(100% + 0.5rem);
+            z-index: 20;
+            width: max-content;
+            max-width: 21rem;
+            font: 400 0.87rem/1.45 var(--serif);
+            color: var(--surface);
+            background: var(--ink);
+            padding: 0.6rem 0.75rem;
+            border-radius: 3px;
+            opacity: 0;
+            visibility: hidden;
+        }
+        .tip:hover::after, .tip:focus::after, .tip:focus-visible::after {
+            opacity: 1;
+            visibility: visible;
+        }
+        /* Near the right edge the panel would run off the page. */
+        .tip.tip-end::after { left: auto; right: 0; }
+
+        /* ---- The guided tour ----
+
+           A query parameter the server reads, so the tour walks the real
+           pages rather than a mock of them and cannot go stale while the
+           interface moves. Nothing to load, nothing to dismiss on a timer. */
+        .tour {
+            position: fixed;
+            left: 50%;
+            bottom: 1.25rem;
+            transform: translateX(-50%);
+            z-index: 30;
+            width: min(34rem, calc(100vw - 2.5rem));
+            background: var(--ink);
+            color: #e7eaef;
+            border-radius: 4px;
+            padding: 1.1rem 1.25rem 1rem;
+            box-shadow: 0 8px 28px rgba(22, 27, 38, 0.28);
+        }
+        .tour-count {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            color: #9aa6b6;
+        }
+        .tour h4 { margin: 0.3rem 0 0.5rem; font-size: 1.1rem; color: #fbfcfa; font-weight: 600; }
+        .tour p { margin: 0 0 0.6rem; max-width: none; font-size: 0.95rem; line-height: 1.5; }
+        .tour p:last-of-type { margin-bottom: 0.9rem; }
+        .tour-nav { display: flex; align-items: center; gap: 1rem; }
+        .tour-nav .btn {
+            background: #fbfcfa;
+            border-color: #fbfcfa;
+            color: var(--ink);
+            padding: 0.55rem 0.95rem;
+            font-size: 0.85rem;
+        }
+        .tour-nav .btn:hover { background: var(--accent-soft); border-color: var(--accent-soft); color: var(--ink); }
+        .tour-nav a:not(.btn) { color: #9aa6b6; font-size: 0.9rem; text-decoration: none; }
+        .tour-nav a:not(.btn):hover { color: #fbfcfa; text-decoration: underline; }
+        .tour-nav .tour-done { margin-left: auto; }
+        .tour :focus-visible { outline-color: #fbfcfa; }
+
+        @media (max-width: 40rem) {
+            .tour { bottom: 0.6rem; padding: 0.9rem 1rem; }
+            .tour p { font-size: 0.9rem; }
+            .tip::after { max-width: 15rem; }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             * { animation: none !important; transition: none !important; }
         }
@@ -492,6 +574,7 @@
         <header class="masthead">
             <span class="name"><a href="/">AI EVAL GYM</a></span>
             <nav>
+                <a href="/start">Start</a>
                 <a href="/">Course</a>
                 <a href="/units">Syllabus</a>
                 <a href="/review">Review</a>
@@ -503,6 +586,26 @@
         <main>
             {% block content %}{% endblock %}
         </main>
+        {% set n = TOUR.number(request.query_params.get("tour")) %}
+        {% set tour_step = TOUR.BY_INDEX.get(n) if n else None %}
+        {% if tour_step %}
+            <aside class="tour" aria-label="Guided tour">
+                <span class="tour-count">Step {{ n }} of {{ TOUR.STEPS|length }}</span>
+                <h4>{{ tour_step.title }}</h4>
+                {% for paragraph in tour_step.body %}<p>{{ paragraph }}</p>{% endfor %}
+                <div class="tour-nav">
+                    {% if TOUR.next_link(n) %}
+                        <a class="btn" href="{{ TOUR.next_link(n) }}">Next</a>
+                    {% else %}
+                        <a class="btn" href="/units">Start the course</a>
+                    {% endif %}
+                    {% if TOUR.previous_link(n) %}
+                        <a href="{{ TOUR.previous_link(n) }}">Back</a>
+                    {% endif %}
+                    <a class="tour-done" href="{{ request.url.path }}">Close the tour</a>
+                </div>
+            </aside>
+        {% endif %}
     </div>
 </body>
 </html>
