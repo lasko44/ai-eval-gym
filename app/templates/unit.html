@@ -2,12 +2,48 @@
 {% block title %}{{ unit.title }}{% endblock %}
 {% block where %}unit {{ "%02d"|format(unit.number) }}{% endblock %}
 {% block content %}
-    <p class="back"><a href="/units">All units</a></p>
+    <p class="back"><a href="/units">Syllabus</a></p>
 
     <div class="strip">
         <h2>{{ unit.title }}</h2>
     </div>
+    {% if part %}
+        <p class="place">
+            Part {{ part.number }} of 6, {{ part.title }}.
+            Unit {{ "%02d"|format(unit.number) }} of {{ total_units }}.
+        </p>
+    {% endif %}
     <p class="lede">{{ unit.failure }}</p>
+
+    {% if locked %}
+        <div class="card locked-card">
+            <h4>Locked, and the lock is the point</h4>
+            <p>
+                This unit is in <b>Part {{ locked.blocked.number }},
+                {{ locked.blocked.title }}</b>, which opens once you have
+                mastered every unit in <b>Part {{ locked.needs.number }},
+                {{ locked.needs.title }}</b>.
+            </p>
+            <p class="note"><b>Why:</b> {{ locked.blocked.builds_on }}</p>
+            {% if unit.builds_on %}
+                <p class="note"><b>This unit specifically:</b> {{ unit.builds_on }}</p>
+            {% endif %}
+            <p>
+                Mastering a unit means committing every prediction and posting
+                a detection that matched its fixture. Being wrong still counts,
+                because the prediction is the point.
+            </p>
+            <p>
+                <a href="/">Back to the course</a>
+                &nbsp;&nbsp;
+                <a class="note" href="/units/{{ unit.slug }}?anyway=1">Read it anyway</a>
+            </p>
+        </div>
+    {% else %}
+
+    {% if unit.builds_on %}
+        <p class="note"><b>Builds on:</b> {{ unit.builds_on }}</p>
+    {% endif %}
 
     <div class="pills">
         <span class="pill{% if progress.answered == progress.total %} pill-done{% endif %}">
@@ -56,6 +92,19 @@
                         {{ "%.0f"|format(attempt.probability * 100) }}% sure
                     </span>
                 </div>
+                {% set record = track.get(probe.id) if track else None %}
+                {% if record %}
+                    <p class="note">
+                        Around {{ "%.0f"|format(record.claimed * 100) }}% sure you
+                        have been right
+                        <b>{{ record.correct }} of {{ record.attempts }}</b> times
+                        ({{ "%.0f"|format(record.actual * 100) }}%).
+                        {%- if record.overconfident %}
+                            That is a real gap, and it is in the direction that
+                            costs you.
+                        {%- endif %}
+                    </p>
+                {% endif %}
                 {% if not attempt.correct %}
                     <p class="note">
                         The answer was
@@ -81,11 +130,15 @@
                         <div>
                             <label for="probability-{{ probe.id }}">How sure are you</label>
                             <input id="probability-{{ probe.id }}" name="probability" type="number"
-                                   step="0.05" min="0" max="1" required>
+                                   step="0.05" min="{{ "%.2f"|format(1.0 / probe.choices|length) }}"
+                                   max="1" required>
                         </div>
                         <span class="hint">
-                            0 to 1. Use 0.25 if you are guessing between four options,
-                            and keep 0.95 for things you would bet on.
+                            {{ "%.2f"|format(1.0 / probe.choices|length) }} to 1.
+                            This probe has {{ probe.choices|length }} options, so
+                            {{ "%.2f"|format(1.0 / probe.choices|length) }} is pure
+                            guessing and nothing lower is possible once you have
+                            picked one. Keep 0.95 for things you would bet on.
                         </span>
                     </div>
                     <button type="submit">Commit answer</button>
@@ -148,6 +201,22 @@
             <li>{{ source }}</li>
         {% endfor %}
     </ul>
+    {% endif %}
 
-    <p class="onward"><a href="/units">All units</a></p>
+    <div class="onward">
+        {% if previous %}
+            <a href="/units/{{ previous.slug }}">
+                Back to {{ "%02d"|format(previous.number) }}. {{ previous.title }}
+            </a>
+        {% endif %}
+        {% if next %}
+            <a href="/units/{{ next.slug }}">
+                Next: {{ "%02d"|format(next.number) }}. {{ next.title }}
+            </a>
+        {% else %}
+            <a href="/cycles">
+                That is the last unit. Next comes a real system, in a cycle.
+            </a>
+        {% endif %}
+    </div>
 {% endblock %}

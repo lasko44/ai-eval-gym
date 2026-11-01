@@ -1,67 +1,99 @@
 {% extends "base.html" %}
-{% block title %}Units{% endblock %}
+{% block title %}Syllabus{% endblock %}
 {% block content %}
     <div class="strip">
-        <h2>Units</h2>
+        <h2>Syllabus</h2>
+        <span class="stage">{{ state.units_total }} units</span>
     </div>
     <p class="lede">
-        One production failure mode per unit, paired with the measurement that
-        catches it. You read what goes wrong, commit a prediction about it with
-        a confidence, then implement the detection yourself against a fixture
-        with a known answer.
+        Every unit of the course, in the order you take them. One production
+        failure mode each, paired with the measurement that catches it.
     </p>
     <p class="note">
         Your calibration here is kept separate from your teardown score on
-        purpose. Probes are cheap and numerous. Teardown claims are few and expensive.
-        One pooled number would be mostly a quiz result.
+        purpose. Probes are cheap and numerous. Teardown claims are few and
+        expensive. One pooled number would be mostly a quiz result.
     </p>
 
-    <h3>Available now</h3>
-    <ul class="rows">
-        {% for row in rows %}
-            <li>
-                <span class="idx">{{ "%02d"|format(row.unit.number) }}</span>
-                <div class="body">
-                    <h4 style="margin-top:0"><a href="/units/{{ row.unit.slug }}">{{ row.unit.title }}</a></h4>
-                    <p class="note">{{ row.unit.failure }}</p>
-                    <p class="note"><b>You learn to:</b> {{ row.unit.detection }}</p>
-                    <div class="pills">
-                        <span class="pill{% if row.progress.answered == row.progress.total %} pill-done{% endif %}">
-                            predictions <b>{{ row.progress.answered }} of {{ row.progress.total }}</b>
-                        </span>
-                        {% if row.progress.answered %}
-                            <span class="pill">calibration <b class="num">{{ "%.3f"|format(row.progress.brier) }}</b></span>
-                        {% endif %}
-                        <span class="pill{% if row.progress.exercise_passed %} pill-done{% endif %}">
-                            detection <b>{% if row.progress.exercise_passed %}done{% else %}not yet{% endif %}</b>
-                        </span>
-                    </div>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
+    {% if state.next_unit %}
+        <p class="note">
+            Next: <a href="/units/{{ state.next_unit.slug }}">{{ "%02d"|format(state.next_unit.number) }}. {{ state.next_unit.title }}</a>
+        </p>
+    {% endif %}
+
+    {% for group in groups %}
+        <div class="part">
+            <div class="part-head">
+                <span class="part-no">Part {{ group.part.number }}</span>
+                <h4>{{ group.part.title }}</h4>
+            </div>
+            <p class="note">{{ group.part.purpose }}</p>
+            <p class="note"><b>Builds on:</b> {{ group.part.builds_on }}</p>
+            {% if game %}
+                {% for st in game.states %}
+                    {% if st.part.slug == group.part.slug %}
+                        <p class="note">
+                            <b>{{ st.mastered }} of {{ st.total }} mastered.</b>
+                            {% if not st.unlocked %}
+                                Locked until you finish the part before it.
+                            {% elif st.complete %}
+                                You finished this part.
+                            {% endif %}
+                        </p>
+                        <p class="note"><b>What the job asks of this part</b></p>
+                        <ul class="asks">
+                            {% for ask in group.part.role_asks %}<li>{{ ask }}</li>{% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <ul class="rows">
+                {% for row in group.rows %}
+                    <li>
+                        <span class="idx">{{ "%02d"|format(row.unit.number) }}</span>
+                        <div class="body">
+                            <h4 style="margin-top:0"><a href="/units/{{ row.unit.slug }}">{{ row.unit.title }}</a></h4>
+                            <p class="note">{{ row.unit.failure }}</p>
+                            <p class="note"><b>You learn to:</b> {{ row.unit.detection }}</p>
+                            {% if row.unit.builds_on %}
+                                <p class="note"><b>Needs first:</b> {{ row.unit.builds_on }}</p>
+                            {% endif %}
+                            <div class="pills">
+                                <span class="pill{% if row.progress.answered == row.progress.total %} pill-done{% endif %}">
+                                    predictions <b>{{ row.progress.answered }} of {{ row.progress.total }}</b>
+                                </span>
+                                {% if row.progress.answered %}
+                                    <span class="pill">calibration <b class="num">{{ "%.3f"|format(row.progress.brier) }}</b></span>
+                                {% endif %}
+                                <span class="pill{% if row.progress.exercise_passed %} pill-done{% endif %}">
+                                    detection <b>{% if row.progress.exercise_passed %}done{% else %}not yet{% endif %}</b>
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
 
     <h3>Still to build</h3>
     <p class="note">
-        Eight more units follow, each from a measured failure mode with primary
-        sources. They cover embedding capacity ceilings, retrieval coverage
-        audits, and chunks nobody can read without their document. They also
-        cover query rewriting that degrades a well-formed query, semantic cache
-        poisoning, and indirect prompt injection through retrieved content. The
-        last two cover citations that resolve but do not support the claim, and
-        observability that exports the content it should only trace.
+        Five more units belong in parts 4 and 6, and nobody has written them
+        yet. They cover model documentation scored against a fixed schema, and
+        build against buy decided on stated criteria. They also cover fine
+        tuning against prompting against retrieval on one task, third-party
+        model validation, and the override criteria for an agent. Each one
+        needs primary sources before it ships. So this page names them here
+        instead of listing them above as though they existed.
     </p>
     <p class="note">
-        One more unit is worth its own shape: the widely repeated claim that 95
+        One more is worth its own shape: the widely repeated claim that 95
         percent of AI pilots fail. It comes from a 2025 MIT Media Lab Project
         NANDA report, The GenAI Divide: State of AI in Business. Secondary
         write-ups disagree about its sample, and MIT later restricted access to
-        the report. I could not read the primary document, so this page quotes no figure
-        from its methodology.
-    </p>
-    <p class="note">
-        To take that apart uses the same muscle as a retrieval pipeline. But
-        the exercise is a document critique and not a measurement. It needs a
-        different kind of check from the units above.
+        the report. I could not read the primary document, so this page quotes
+        no figure from its methodology. To take that apart uses the same muscle
+        as a retrieval pipeline. But the exercise is a document critique rather
+        than a measurement, so it needs a different kind of check.
     </p>
 {% endblock %}

@@ -245,8 +245,48 @@
             gap: 0 0.5rem;
         }
         .rows > li > .idx { color: var(--muted); font-weight: 650; font-size: 0.9rem; }
+        /* A syllabus of fifteen underlined links reads as a link dump. The row
+           title is the heading of its row, so it is styled as one. */
+        .rows > li > .body h4 a { color: var(--ink); text-decoration: none; }
+        .rows > li > .body h4 a:hover { color: var(--accent); }
         .rows > li > .body > :first-child { margin-top: 0; }
         .rows > li > .body > :last-child { margin-bottom: 0; }
+
+        /* A part of the course: a group of units with a reason to be together. */
+        .part { margin: 1.75rem 0 0; }
+        .part-head {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--line-strong);
+            margin-bottom: 0.9rem;
+        }
+        .part-head h4 { margin: 0; font-size: 1.12rem; }
+        .part-no {
+            color: var(--accent);
+            background: var(--accent-soft);
+            border-radius: 999px;
+            padding: 0.15rem 0.6rem;
+            font-size: 0.82rem;
+            font-weight: 650;
+            white-space: nowrap;
+        }
+        .part-count { margin-left: auto; color: var(--muted); font-size: 0.9rem; }
+        .part > p { margin: 0.5rem 0; }
+        .part .rows { margin-top: 0.9rem; }
+
+        /* The single next thing to do. */
+        .next-card { border-color: var(--line-strong); border-left: 4px solid var(--accent); }
+        .next-card h4 { margin: 0 0 0.4rem; color: var(--muted); font-size: 0.9rem; font-weight: 650; }
+        .next-title { margin: 0 0 0.3rem; font-size: 1.2rem; font-weight: 650; }
+        .next-title a { color: var(--ink); text-decoration: none; }
+        .next-title a:hover { color: var(--accent); }
+        .next-card .btn { margin-top: 0.9rem; }
+
+        /* Where a unit sits in the course. */
+        .place { color: var(--muted); font-size: 0.9rem; margin: 0.35rem 0 0; }
 
         /* Label and value pairs. */
         .facts { margin: 0.75rem 0 0; display: grid; gap: 0.35rem; }
@@ -303,6 +343,25 @@
         .vocab li:last-child { border-bottom: 0; }
 
         .onward { display: flex; gap: 1.25rem; flex-wrap: wrap; margin: 1.5rem 0 0; }
+
+        /* Glossary. The term and its full name sit together, because the full
+           name is the point of the entry. */
+        .glossary { margin: 0; }
+        .glossary dt {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.2rem 0.6rem;
+            margin: 1.5rem 0 0.3rem;
+            padding-top: 1.1rem;
+            border-top: 1px solid var(--line);
+        }
+        .glossary dt:first-of-type { border-top: 0; padding-top: 0; margin-top: 0.5rem; }
+        .gl-term { font-family: var(--mono); font-weight: 650; font-size: 1.02rem; }
+        .gl-expansion { color: var(--muted); }
+        .glossary dd { margin: 0; }
+        .glossary dd p { margin: 0 0 0.4rem; }
+        .glossary .sources { margin: 0.3rem 0 0; }
 
         /* Units. A probe is a question you answer with a confidence before any
            answer is shown, so the options stay quiet until you have committed. */
@@ -365,8 +424,138 @@
         .pill b { color: var(--ink); font-weight: 650; }
         .pill-done { color: #0f5c2e; background: #dcf5e6; border-color: #bfe3cd; }
         .pill-done b { color: #0f5c2e; }
+        .pill-warn { color: #7c3d06; background: #fdeccd; border-color: #f0d9a8; }
+        .pill-warn b { color: #7c3d06; }
 
         @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+        /* Progression.
+
+           The scoreboard is deliberately quiet. A course about not trusting
+           a number should not dress its own numbers up, so these read as
+           figures on a page rather than as a game heads-up display: no
+           gradients, no badges that glow, no colour that means nothing.
+
+           Colour is spent on exactly one thing, the gap between confidence
+           claimed and accuracy delivered, because that is the only cell on
+           the page a reader can act on. Everything else is ink on surface. */
+
+        .game-card { border-left: 3px solid var(--accent); }
+
+        .game-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.25rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .stat { display: flex; flex-direction: column; gap: 0.15rem; min-width: 9rem; }
+
+        .stat-label {
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .stat-big {
+            font: 600 1.7rem/1.15 var(--sans);
+            color: var(--ink);
+        }
+
+        .verdict { color: var(--ink); }
+
+        /* The calibration table. Right-aligned figures so the claimed and
+           delivered columns can be compared by eye down the column, which is
+           the comparison the table exists to make. */
+        table.calib {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 0.4rem 0 0.7rem;
+            font-size: 0.95rem;
+        }
+
+        table.calib th {
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--muted);
+            border-bottom: 1px solid var(--line-strong);
+            padding: 0.3rem 0.6rem 0.3rem 0;
+        }
+
+        table.calib td {
+            padding: 0.35rem 0.6rem 0.35rem 0;
+            border-bottom: 1px solid var(--line);
+            font-variant-numeric: tabular-nums;
+        }
+
+        table.calib th:not(:first-child),
+        table.calib td:not(:first-child) { text-align: right; padding-right: 0; }
+
+        /* The one place colour carries meaning: delivered accuracy sitting
+           more than ten points under the confidence claimed. --warn on
+           --surface is 4.8:1, which clears the 4.5:1 floor for body text. */
+        table.calib td.gap { color: var(--warn); font-weight: 600; }
+
+        .badges { list-style: none; margin: 0.3rem 0 0; padding: 0; }
+
+        .badges li {
+            display: flex;
+            flex-direction: column;
+            gap: 0.05rem;
+            padding: 0.45rem 0 0.45rem 1.4rem;
+            border-bottom: 1px solid var(--line);
+            position: relative;
+        }
+
+        .badges li:last-child { border-bottom: 0; }
+
+        /* The marker is a character, not colour alone, so an earned badge is
+           distinguishable without seeing hue. */
+        .badges li::before {
+            position: absolute;
+            left: 0;
+            top: 0.45rem;
+            font-weight: 700;
+        }
+
+        .badge-on::before { content: "\2713"; color: var(--good); }
+        /* --muted rather than --line-strong: this marker reports a state, so
+           it has to be perceivable. The lighter rule colour measures 1.48:1
+           on a card, which is a boundary you can draw and not a mark anybody
+           can see. */
+        .badge-off::before { content: "\2219"; color: var(--muted); }
+        .badge-off b { color: var(--muted); font-weight: 600; }
+
+        /* Also a state, also --muted, for the same reason. */
+        /* The role_asks list on the syllabus. Tight, because it is a
+           reference the reader scans rather than reads. */
+        ul.asks { margin: 0.2rem 0 0.8rem; padding-left: 1.1rem; }
+        ul.asks li { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.15rem; }
+
+        .locked-card { border-left: 3px solid var(--muted); }
+        .locked-card h4 { margin-top: 0; }
+
+        @media (max-width: 34rem) {
+            .game-grid { gap: 1.25rem; }
+            .stat { min-width: 7rem; }
+            .stat-big { font-size: 1.4rem; }
+
+            /* Five nav items do not fit on a phone. Without wrapping, the
+               masthead sets a floor on the page width and every other
+               element inherits the overflow, which reads as the whole site
+               being cut off rather than as one row being too long. */
+            .masthead { flex-wrap: wrap; gap: 0.5rem 1rem; }
+            .masthead nav { flex-wrap: wrap; gap: 0.6rem 1rem; }
+
+            /* A long title has nowhere to break on a narrow column. */
+            h2 { font-size: 1.5rem; }
+
+            .calib { font-size: 0.86rem; }
+            .calib th { font-size: 0.7rem; }
+        }
     </style>
 </head>
 <body>
@@ -374,8 +563,11 @@
         <header class="masthead">
             <span class="name"><a href="/">AI Eval Gym</a></span>
             <nav>
-                <a href="/units">Units</a>
-                <a href="/">Cycles</a>
+                <a href="/">Course</a>
+                <a href="/units">Syllabus</a>
+                <a href="/review">Review</a>
+                <a href="/cycles">Cycles</a>
+                <a href="/glossary">Glossary</a>
             </nav>
             <span class="where">{% block where %}{% endblock %}</span>
         </header>

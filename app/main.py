@@ -10,6 +10,8 @@ from fastapi.responses import RedirectResponse, Response
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, field_validator
 
+from app import glossary as vocabulary
+from app import progress as progression
 from app import units as curriculum
 from app.db import get_session
 from app.metrics import brier_score
@@ -33,7 +35,7 @@ app = FastAPI(title="AI Eval Gym")
 templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
 
 
-@app.get("/")
+@app.get("/cycles")
 def list_cycles(request: Request):
     session = get_session()
     try:
@@ -542,40 +544,199 @@ def _unit_progress(session, unit):
     }
 
 
+def _course_rows(session):
+    """The whole course, grouped by part, with progress on every unit.
+
+    One query pass per unit, built once here so the course home and the
+    syllabus cannot disagree about what is finished.
+    """
+    groups = []
+    for part, units in curriculum.COURSE:
+        rows = [
+            {"unit": unit, "progress": _unit_progress(session, unit)}
+            for unit in units
+        ]
+        groups.append({"part": part, "rows": rows})
+    return groups
+
+
+def _is_finished(progress) -> bool:
+    """A unit is finished when every probe is answered and the detection passed.
+
+    Reading the briefing is not a step this app can observe, so it is not one
+    this app claims to have measured.
+    """
+    return progress["answered"] == progress["total"] and progress["exercise_passed"]
+
+
+def _course_state(groups):
+    """Where the reader is, counted rather than estimated."""
+    rows = [row for group in groups for row in group["rows"]]
+    answered = sum(row["progress"]["answered"] for row in rows)
+    probes = sum(row["progress"]["total"] for row in rows)
+    pairs = [
+        (a.probability, a.correct)
+        for row in rows
+        for a in row["progress"]["attempts"].values()
+    ]
+    next_row = next((row for row in rows if not _is_finished(row["progress"])), None)
+    return {
+        "units_finished": sum(1 for row in rows if _is_finished(row["progress"])),
+        "units_total": len(rows),
+        "probes_answered": answered,
+        "probes_total": probes,
+        "detections_passed": sum(
+            1 for row in rows if row["progress"]["exercise_passed"]
+        ),
+        "brier": brier_score(pairs) if pairs else None,
+        "next_unit": next_row["unit"] if next_row else None,
+        "next_part": curriculum.part_of(next_row["unit"]) if next_row else None,
+    }
+
+
+def _game(session):
+    """The progression layer, derived fresh from the attempts on record.
+
+    Kept beside _course_state rather than folded into it. That one counts what
+    has been opened; this one decides what has been earned, and the two use
+    different rules on purpose: progression counts only first attempts.
+    """
+    states = progression.part_states(session, curriculum.COURSE)
+    name, complete, _ = progression.rank(states)
+    locked = next((s for s in states if not s["unlocked"]), None)
+    return {
+        "rank": name,
+        "rank_index": complete,
+        "ranks": progression.RANKS,
+        "parts_complete": complete,
+        "parts_total": len(states),
+        "states": states,
+        "calibration": progression.calibration(session),
+        "streak": progression.streak(session),
+        "badges": progression.badges(session, curriculum.COURSE),
+        "first_locked": locked["part"] if locked else None,
+    }
+
+
+def _part_is_locked(session, unit) -> dict | None:
+    """The part a reader still owes before this unit opens, or None.
+
+    Returns the blocking part rather than a boolean so the page can say what
+    to go and do, which is the only version of a lock that teaches anything.
+    """
+    states = progression.part_states(session, curriculum.COURSE)
+    for index, state in enumerate(states):
+        if state["part"].slug != unit.part:
+            continue
+        if state["unlocked"]:
+            return None
+        return {"needs": states[index - 1]["part"], "blocked": state["part"]}
+    return None
+
+
+@app.get("/")
+def course_home(request: Request):
+    session = get_session()
+    try:
+        groups = _course_rows(session)
+        cycles = session.query(Cycle).count()
+        return templates.TemplateResponse(
+            request,
+            "course.html",
+            {
+                "groups": groups,
+                "state": _course_state(groups),
+                "cycles": cycles,
+                "system": curriculum.SYSTEM,
+                "game": _game(session),
+            },
+        )
+    finally:
+        session.close()
+
+
+@app.get("/review")
+def review(request: Request):
+    """Every prediction that was wrong the first time, worst belief first.
+
+    Separate from the course because it is a different activity. The course
+    goes forwards; this comes back for what did not stick, and re-answering
+    here is deliberately free: calibration reads first attempts only, so
+    practice cannot flatter or damage the score.
+    """
+    session = get_session()
+    try:
+        return templates.TemplateResponse(
+            request,
+            "review.html",
+            {
+                "queue": progression.review_queue(session, curriculum.COURSE),
+                "calibration": progression.calibration(session),
+            },
+        )
+    finally:
+        session.close()
+
+
 @app.get("/units")
 def list_units(request: Request):
     session = get_session()
     try:
-        rows = [
-            {"unit": unit, "progress": _unit_progress(session, unit)}
-            for unit in curriculum.UNITS
-        ]
-        return templates.TemplateResponse(request, "units.html", {"rows": rows})
+        groups = _course_rows(session)
+        return templates.TemplateResponse(
+            request,
+            "units.html",
+            {
+                "groups": groups,
+                "state": _course_state(groups),
+                "game": _game(session),
+            },
+        )
     finally:
         session.close()
 
 
 @app.get("/units/{slug}")
-def show_unit(slug: str, request: Request):
+def show_unit(slug: str, request: Request, anyway: int = 0):
     unit = curriculum.get(slug)
     if unit is None:
         raise HTTPException(status_code=404, detail=f"No unit named {slug!r}.")
     session = get_session()
     try:
+        # A locked unit renders a page that says what it is waiting on rather
+        # than its contents. `anyway=1` opens it regardless: the lock exists to
+        # make Part.builds_on true, not to stop the one person using this from
+        # reading his own course.
+        locked = None if anyway else _part_is_locked(session, unit)
         progress = _unit_progress(session, unit)
+        # Track record at the confidence he used, per probe he has answered.
+        # Computed here rather than in the template so the template stays a
+        # template.
+        track = {
+            probe_id: progression.track_record_at(session, attempt.probability)
+            for probe_id, attempt in progress["attempts"].items()
+        }
         exercise_attempts = (
             session.query(ExerciseAttempt)
             .filter(ExerciseAttempt.unit_slug == slug)
             .order_by(ExerciseAttempt.id)
             .all()
         )
+        ordered = list(curriculum.UNITS)
+        at = ordered.index(unit)
         return templates.TemplateResponse(
             request,
             "unit.html",
             {
                 "unit": unit,
+                "part": curriculum.part_of(unit),
+                "total_units": len(curriculum.UNITS),
+                "previous": ordered[at - 1] if at else None,
+                "next": ordered[at + 1] if at + 1 < len(ordered) else None,
                 "progress": progress,
                 "exercise_attempts": exercise_attempts,
+                "locked": locked,
+                "track": track,
             },
         )
     finally:
@@ -597,10 +758,21 @@ def answer_probe(
         raise HTTPException(status_code=404, detail=f"No probe named {probe_id!r}.")
     if choice not in {c.key for c in probe.choices}:
         raise HTTPException(status_code=422, detail=f"{choice!r} is not one of this probe's options.")
-    if not math.isfinite(probability) or not 0.0 <= probability <= 1.0:
+    # The floor is the guessing rate, not zero. Having picked one of four
+    # options, "I am 10 percent sure of this one" is not a cautious answer, it
+    # is an incoherent one: it says the other three hold 90 percent between
+    # them, which is what picking one of those would have meant. Accepting it
+    # would let a reader buy a good Brier score by understating every answer,
+    # and understating is the one failure a calibration score cannot see.
+    floor = 1.0 / len(probe.choices)
+    if not math.isfinite(probability) or not floor <= probability <= 1.0:
         raise HTTPException(
             status_code=422,
-            detail="Confidence has to be a number from 0 to 1.",
+            detail=(
+                f"Confidence has to be a number from {floor:.2f} to 1. This "
+                f"probe has {len(probe.choices)} options, so picking one of "
+                f"them already asserts at least {floor:.0%} confidence."
+            ),
         )
 
     session = get_session()
@@ -645,3 +817,17 @@ def submit_exercise(slug: str, value: float = Form(...)):
     finally:
         session.close()
     return RedirectResponse(url=f"/units/{slug}#detect", status_code=303)
+
+
+@app.get("/glossary")
+def show_glossary(request: Request):
+    """Every acronym with its full name, and every term a newcomer needs.
+
+    The glossary is authored content, so it ships as code rather than as rows.
+    It is also the single source for an expansion: the copy checker reads it to
+    decide which terms need a full name on first use, and which have none to
+    give.
+    """
+    return templates.TemplateResponse(
+        request, "glossary.html", {"terms": vocabulary.TERMS}
+    )

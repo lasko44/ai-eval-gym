@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Review{% endblock %}
+{% block content %}
+    <div class="strip">
+        <h2>What you got wrong</h2>
+        <span class="stage">{{ queue|length }} to revisit</span>
+    </div>
+
+    <p class="lede">
+        Every prediction that was wrong the first time, hardest belief
+        first. The order follows how sure you were, not when it happened. A
+        thing you were 95 percent certain of and got wrong is a belief to
+        correct. A coin flip you lost is a gap you already knew about.
+    </p>
+
+    <p class="note">
+        Answering again here cannot change your calibration score. That reads
+        first attempts only, so this is free to practise against. If revisiting
+        a miss cost you something, you would stop revisiting misses.
+    </p>
+
+    {# Probe text appears here out of its unit, so a term that was expanded at
+       its first use in the briefing arrives bare. Every question on this page
+       comes from a unit already read, so nothing is met cold, but the
+       glossary is one click away for anything that has gone. #}
+    <p class="note">
+        These questions come out of their units, so a term you met once in a
+        briefing turns up here without its full name again. The
+        <a href="/glossary">glossary</a> has every one.
+    </p>
+
+    {% if not queue %}
+        <div class="card">
+            <h4>Nothing to review</h4>
+            <p>
+                Either you have not committed a prediction yet, or every one of
+                them was right. The first is much more likely than the second,
+                so start at <a href="/">the course</a>.
+            </p>
+        </div>
+    {% endif %}
+
+    <ul class="rows">
+        {% for item in queue %}
+            <li class="row">
+                <span class="idx">{{ "%02d"|format(item.unit.number) }}</span>
+                <div class="body">
+                    <h4>
+                        <a href="/units/{{ item.unit.slug }}?anyway=1#{{ item.probe.id }}">
+                            {{ item.probe.asks }}
+                        </a>
+                    </h4>
+                    <div class="pills">
+                        <span class="pill">
+                            you said <b class="num">{{ "%.0f"|format(item.said * 100) }}%</b>
+                        </span>
+                        <span class="pill">and were <b>wrong</b></span>
+                        {% if item.confident %}
+                            <span class="pill pill-warn">confident miss</span>
+                        {% endif %}
+                    </div>
+                    <p class="note">
+                        From {{ "%02d"|format(item.unit.number) }}. {{ item.unit.title }}
+                    </p>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if queue %}
+        <p class="note">
+            A confident miss is the most useful row on this page. It is not a
+            thing you did not know, it is a thing you believed.
+        </p>
+    {% endif %}
+{% endblock %}
