@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+{% block title %}The course{% endblock %}
+{% block content %}
+    <div class="strip">
+        <h2>Measuring AI systems, for the job that asks you to</h2>
+    </div>
+    <p class="lede">
+        {{ state.units_total }} units, in order, and all of them are about one
+        system. Each unit is a failure that reaches production in real systems,
+        paired with the measurement that catches it. You read what goes wrong.
+        You commit a prediction with a confidence, before you see the answer.
+        Then you implement the detection yourself, against a fixture that
+        already has a known result.
+    </p>
+
+    {% if system %}
+        <div class="card">
+            <h4>The system you are taking apart: {{ system.name }}</h4>
+            <p>{{ system.what_it_does }}</p>
+            <p class="note"><b>Why it resists evaluation</b></p>
+            <ul>
+                {% for reason in system.why_it_is_hard %}<li>{{ reason }}</li>{% endfor %}
+            </ul>
+            <p class="note"><b>What day one gives you</b></p>
+            <ul>
+                {% for item in system.what_you_are_handed %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+            <p class="note">
+                Every unit below measures a different part of {{ system.name }},
+                and every unit says what it needs from the ones before it. That
+                sentence is the course. A unit that cannot write it is in the
+                wrong place.
+            </p>
+        </div>
+    {% endif %}
+
+    {% if game %}
+        <div class="card game-card">
+            <div class="game-grid">
+                <div class="stat">
+                    <span class="stat-label">Rank</span>
+                    <b class="stat-big">{{ game.rank }}</b>
+                    <span class="note">
+                        {{ game.parts_complete }} of {{ game.parts_total }} parts mastered
+                    </span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Calibration</span>
+                    <b class="stat-big">
+                        {% if game.calibration.score is not none %}{{ game.calibration.score }}{% else %}&mdash;{% endif %}
+                    </b>
+                    <span class="note">
+                        {% if game.calibration.predictions %}
+                            over {{ game.calibration.predictions }} predictions
+                        {% else %}
+                            no predictions yet
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Streak</span>
+                    <b class="stat-big">{{ game.streak }}</b>
+                    <span class="note">predictions correct in a row</span>
+                </div>
+            </div>
+
+            <p class="note verdict"><b>{{ game.calibration.verdict }}</b></p>
+
+            {% if game.calibration.buckets %}
+                <p class="note"><b>Where your confidence went</b></p>
+                <table class="calib">
+                    <tr><th>You said</th><th>Predictions</th><th>Claimed</th><th>Actually right</th></tr>
+                    {% for label, count, claimed, actual in game.calibration.buckets %}
+                        <tr>
+                            <td>{{ label }} percent</td>
+                            <td>{{ count }}</td>
+                            <td>{{ "%.0f"|format(claimed * 100) }} percent</td>
+                            <td{% if actual + 0.1 < claimed %} class="gap"{% endif %}>
+                                {{ "%.0f"|format(actual * 100) }} percent
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <p class="note">
+                    A row where "actually right" sits well below "claimed" is
+                    overconfidence, and it is the one thing on this page you can
+                    act on tomorrow.
+                </p>
+            {% endif %}
+
+            <p class="note"><b>Earned</b></p>
+            <ul class="badges">
+                {% for badge in game.badges %}
+                    <li class="{% if badge.earned %}badge-on{% else %}badge-off{% endif %}">
+                        <b>{{ badge.name }}</b>
+                        <span class="note">{{ badge.detail }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            {% if game.first_locked %}
+                <p class="note">
+                    <b>Part {{ game.first_locked.number }},
+                    {{ game.first_locked.title }}</b> opens once you
+                    master the part before it. That lock enforces
+                    Part.builds_on rather than asserting it.
+                </p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if state.next_unit %}
+        <div class="card next-card">
+            <h4>
+                {% if state.probes_answered or state.detections_passed %}Pick up where you left off{% else %}Start here{% endif %}
+            </h4>
+            <p class="next-title">
+                <a href="/units/{{ state.next_unit.slug }}">
+                    {{ "%02d"|format(state.next_unit.number) }}.
+                    {{ state.next_unit.title }}
+                </a>
+            </p>
+            <p class="note">
+                Part {{ state.next_part.number }}, {{ state.next_part.title }}.
+                You learn to: {{ state.next_unit.detection }}
+            </p>
+            <a class="btn" href="/units/{{ state.next_unit.slug }}">Open this unit</a>
+        </div>
+    {% else %}
+        <div class="card next-card">
+            <h4>Every unit is finished</h4>
+            <p class="note">
+                The fixtures are done. The next measurement has to come off a
+                system nobody graded for you, which is what a cycle is for.
+            </p>
+            <a class="btn" href="/cycles">Start a teardown cycle</a>
+        </div>
+    {% endif %}
+
+    {# Rank, calibration and streak are already on the scoreboard above, so
+       only the counts that are not up there survive here. Two readings of the
+       same quantity on one page invite a reader to believe the flattering
+       one, and this course is about not doing that. #}
+    <div class="pills">
+        <span class="pill">units finished <b>{{ state.units_finished }} of {{ state.units_total }}</b></span>
+        <span class="pill">detections <b>{{ state.detections_passed }} of {{ state.units_total }}</b></span>
+        <span class="pill">cycles <b>{{ cycles }}</b></span>
+    </div>
+
+    <h3>The job this targets</h3>
+    <p>
+        A hands-on staff or senior engineer on a fintech AI platform team, not a
+        director. Three real postings set the surface. One asks its staff
+        engineer to own the evaluation and feedback loop. That means offline
+        evals, tracing, and regression gates in continuous integration, with
+        production failures and user edits turning into new eval cases. The
+        same posting lists eval dataset design, tracing, judge scoring and
+        regression testing as required skills.
+    </p>
+    <p>
+        A second wants evaluation frameworks that measure correctness,
+        reliability and safety for non-deterministic systems at scale. A third
+        owns an eval platform alongside the cost telemetry that says what the
+        answers are worth.
+    </p>
+    <p>
+        The six parts below cover that surface, and each part says which piece
+        of it the part answers. The same postings ask for least-privilege
+        access to enterprise data, agent identity and audit logging, which is
+        what part 6 is.
+    </p>
+    <p class="note">
+        One honest thing. These roles ask for production experience with
+        language models, and no course supplies that. A course can do one thing instead.
+        When somebody asks how you would measure a thing, you have already
+        measured it, on a system shaped like theirs. You can also say what the
+        number did not tell you. The gap here is reps, not years, and
+        reps are the one thing you can close on your own.
+    </p>
+
+    <h3>How a unit works</h3>
+    <ol class="how">
+        <li><b>Read</b> what goes wrong, with the measured numbers and the primary sources.</li>
+        <li><b>Predict</b> three questions, each with how sure you are, before any answer appears. Being confidently wrong costs you here the way it does in a real teardown.</li>
+        <li><b>Detect</b> by writing the measurement yourself against a fixture in this repo, then posting the number. The app checks it against the fixture's known result. It does not run your code.</li>
+        <li><b>Review</b> what you got right, where your confidence was off, and where the numbers came from.</li>
+    </ol>
+
+    <h3>What the scoreboard counts, and what it refuses to</h3>
+    <ul class="how">
+        <li>
+            <b>Only your first answer to a probe counts.</b> A probe answered
+            after you have read the explanation is not a prediction, so
+            counting it would reward rereading and call that learning. Answer
+            again as often as you like on <a href="/review">Review</a>. It
+            cannot move the number in either direction.
+        </li>
+        <li>
+            <b>Mastering a unit does not require being right.</b> It requires
+            committing every prediction and posting a detection that matched.
+            If correctness were the bar, the clever move would be to pick
+            the safest-looking option rather than the one you believe. That
+            destroys the only thing a probe is for. Being wrong is paid for in
+            calibration instead.
+        </li>
+        <li>
+            <b>Rank and calibration are never added together.</b> Rank comes
+            from parts mastered. Calibration stands on its own and can be
+            poor while your rank is high. That is a state worth seeing rather
+            than one worth hiding inside an average.
+        </li>
+        <li>
+            <b>A part stays locked until you finish the one before it.</b>
+            Every part and every unit claims what it builds on, and the lock is
+            what makes that claim true rather than decorative. Any locked unit
+            still opens if you insist.
+        </li>
+    </ul>
+
+    <h3>The six parts</h3>
+    <p class="note">
+        The order is not a filing system. Each part says what it needs from the
+        part before it. If a part cannot say that, it is in the wrong place.
+    </p>
+
+    {% for group in groups %}
+        {% set done = group.rows | selectattr("progress.exercise_passed") | list | length %}
+        <div class="part">
+            <div class="part-head">
+                <span class="part-no">Part {{ group.part.number }}</span>
+                <h4>{{ group.part.title }}</h4>
+                <span class="part-count">{{ done }} of {{ group.rows|length }} measured</span>
+            </div>
+            <p>{{ group.part.purpose }}</p>
+            <p class="note"><b>Builds on:</b> {{ group.part.builds_on }}</p>
+            <p class="note">
+                <b>What the role asks for:</b>
+                {% for ask in group.part.role_asks %}{{ ask }}{% if not loop.last %}. {% endif %}{% endfor %}.
+            </p>
+            <ul class="rows">
+                {% for row in group.rows %}
+                    <li>
+                        <span class="idx">{{ "%02d"|format(row.unit.number) }}</span>
+                        <div class="body">
+                            <h4 style="margin-top:0">
+                                <a href="/units/{{ row.unit.slug }}">{{ row.unit.title }}</a>
+                            </h4>
+                            <p class="note"><b>You learn to:</b> {{ row.unit.detection }}</p>
+                            <div class="pills">
+                                <span class="pill{% if row.progress.answered == row.progress.total %} pill-done{% endif %}">
+                                    predictions <b>{{ row.progress.answered }} of {{ row.progress.total }}</b>
+                                </span>
+                                <span class="pill{% if row.progress.exercise_passed %} pill-done{% endif %}">
+                                    detection <b>{% if row.progress.exercise_passed %}done{% else %}not yet{% endif %}</b>
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+
+    <h3>After the units</h3>
+    <p>
+        A unit gives you a fixture with a known answer. That is how you learn
+        a measurement without also arguing about whether you got it right. A
+        cycle points the same skill at a real system that nobody has graded. You
+        commit what you think is wrong with it, seal that prediction, then
+        measure and find out. That is the part you can show somebody.
+    </p>
+    <p class="onward"><a href="/cycles">How a teardown cycle works</a></p>
+{% endblock %}
