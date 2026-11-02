@@ -125,11 +125,22 @@ def test_anything_else_is_refused(host):
 
 # --- driven through the real route ---
 
+SOLVED_JUDGES = """
+import json
+from app.metrics import flip_rate
+pairs = json.load(open("fixtures/judges/ab_pairs.json"))
+print(flip_rate(pairs["first"], pairs["swapped"]))
+"""
+
+
 def test_a_run_that_matches_records_the_pass(session, client):
+    # Deliberately not the shipped starter. The starter no longer solves its
+    # own exercise, which is the point of the contract below, so a test that
+    # posts it and expects a pass is testing the old defect.
     unit = curriculum.get("judges")
     response = client.post(
         f"/units/{unit.slug}/run",
-        data={"source": unit.exercise.starter, "step": 6},
+        data={"source": SOLVED_JUDGES, "step": 6},
     )
     assert response.status_code == 200
     assert "That matches the fixture" in response.text
