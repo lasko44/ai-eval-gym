@@ -503,6 +503,20 @@
         /* Near the right edge the panel would run off the page. */
         .tip.tip-end::after { left: auto; right: 0; }
 
+        /* Above the element is the right default and the wrong one at the top
+           of the page, where the viewport clips it. These flip downward. */
+        .tip.tip-below::after { bottom: auto; top: calc(100% + 0.5rem); }
+
+        /* The masthead sits against the top edge, so every tooltip in it
+           opens downward, and the ones on the right open leftward. */
+        .masthead nav .tip::after {
+            bottom: auto;
+            top: calc(100% + 0.45rem);
+            max-width: 18rem;
+        }
+        .masthead nav li:nth-last-child(-n+3) .tip::after,
+        .masthead nav .tip:nth-last-child(-n+3)::after { left: auto; right: 0; }
+
         /* ---- The guided tour ----
 
            A query parameter the server reads, so the tour walks the real
@@ -550,6 +564,15 @@
             .tip::after { max-width: 15rem; }
         }
 
+
+        .subject {
+            margin: 0.6rem 0 0;
+            padding-left: 0.9rem;
+            border-left: 2px solid var(--line-strong);
+            color: var(--muted);
+            font-size: 0.97rem;
+            max-width: 34rem;
+        }
 
         /* ---- The step rail ----
 
@@ -769,13 +792,13 @@
         <header class="masthead">
             <span class="name"><a href="/">AI EVAL GYM</a></span>
             <nav>
-                <a href="/start">Start</a>
-                <a href="/">Path</a>
-                <a href="/units">Lessons</a>
-                <a href="/progress">Progress</a>
-                <a href="/review">Review</a>
-                <a href="/cycles">Cycles</a>
-                <a href="/glossary">Glossary</a>
+                {% for label, href in [("Start", "/start"), ("Path", "/"),
+                                       ("Lessons", "/units"), ("Progress", "/progress"),
+                                       ("Review", "/review"), ("Cycles", "/cycles"),
+                                       ("Glossary", "/glossary")] %}
+                    <a class="tip" href="{{ href }}"
+                       data-tip="{{ TOUR.NAV_TIPS[label] }}">{{ label }}</a>
+                {% endfor %}
             </nav>
             <span class="where">{% block where %}{% endblock %}</span>
         </header>

@@ -40,6 +40,7 @@ app = FastAPI(title="AI Eval Gym")
 
 templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
 templates.env.globals["TOUR"] = guide
+templates.env.globals["SYSTEM"] = curriculum.SYSTEM
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 

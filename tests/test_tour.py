@@ -151,12 +151,21 @@ def test_tips_reach_the_rendered_page(client, path, expected):
     assert fragment in body, f"the {expected} tip never reached {path}"
 
 
-def test_a_tip_is_reachable_without_a_mouse(client):
-    """Hover alone would hide every explanation from the keyboard."""
-    body = client.get("/progress").text
-    for match in re.finditer(r'<[^>]*data-tip="[^"]*"[^>]*>', body):
-        assert "tabindex=" in match.group(0), (
-            f"a tooltip is mouse-only: {match.group(0)[:90]}"
+@pytest.mark.parametrize("path", ["/progress", "/", "/units", "/start"])
+def test_a_tip_is_reachable_without_a_mouse(client, path):
+    """Hover alone would hide every explanation from the keyboard.
+
+    A link or a button is already in the tab order, and adding tabindex to
+    one is redundant rather than helpful. Anything else carrying a tooltip
+    has to opt in.
+    """
+    body = client.get(path).text
+    for match in re.finditer(r'<(\w+)[^>]*data-tip="[^"]*"[^>]*>', body):
+        tag, element = match.group(1).lower(), match.group(0)
+        if tag in {"a", "button"} and ("href=" in element or tag == "button"):
+            continue
+        assert "tabindex=" in element, (
+            f"a tooltip on <{tag}> is mouse-only: {element[:90]}"
         )
 
 

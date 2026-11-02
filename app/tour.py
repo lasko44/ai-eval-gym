@@ -80,6 +80,39 @@ TIPS: dict[str, str] = {
 }
 
 
+
+# What each thing in the navigation is. Seven words across the top with no
+# explanation is seven guesses.
+NAV_TIPS: dict[str, str] = {
+    "Start": (
+        "What this is for and how a lesson works. Read this first if you have "
+        "not before."
+    ),
+    "Path": (
+        "The job this course is built from, the skills those postings name, "
+        "and how far you are from each one."
+    ),
+    "Lessons": (
+        "Every lesson in the order you take them, grouped into the six parts."
+    ),
+    "Progress": (
+        "Your rank and your calibration, and the readout showing where your "
+        "confidence was off."
+    ),
+    "Review": (
+        "Every prediction you got wrong the first time, free to try again "
+        "without moving your score."
+    ),
+    "Cycles": (
+        "The real thing: a teardown of a system nobody prepared for you, with "
+        "no answer key waiting."
+    ),
+    "Glossary": (
+        "Every term this course uses, with its full name and what it means."
+    ),
+}
+
+
 @dataclass(frozen=True)
 class Step:
     """One stop on the tour, pinned to a real route."""

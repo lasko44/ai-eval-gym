@@ -6,8 +6,8 @@ no method, because nothing ever had to work together.
 
 So there is one system under evaluation, described here once, and every unit
 measures a different part of the same thing. Unit 01 asks whether the judge
-scoring its answers can be trusted. Unit 09 asks whether its index can reach
-the right document. Unit 16 asks what a p95 of its latency costs a person
+scoring its answers can be trusted. Unit 10 asks whether its index can reach
+the right document. Unit 17 asks what a p95 of its latency costs a person
 waiting. Same system, different instrument, and the order is the order you
 would actually have to measure it in.
 
@@ -24,6 +24,7 @@ class SystemUnderEvaluation:
     """The target. Not a product to build, a system to take apart."""
 
     name: str
+    in_one_line: str
     what_it_does: str
     why_it_is_hard: tuple[str, ...]
     what_you_are_handed: tuple[str, ...]
@@ -31,6 +32,14 @@ class SystemUnderEvaluation:
 
 SYSTEM = SystemUnderEvaluation(
     name="Ledger",
+    # Shown at the top of every unit. A reader meets a unit by its
+    # title, and the title names the system, so the system has to be
+    # explained there rather than only on a page they may not open.
+    in_one_line=(
+        "Ledger is the system you are taking apart: it answers an "
+        "underwriter's questions about loan documents by reading the "
+        "credit agreement and the amendments that changed it."
+    ),
     what_it_does=(
         "Ledger answers questions about private credit loan documents. An "
         "underwriter asks whether a borrower's covenant package permits a "
