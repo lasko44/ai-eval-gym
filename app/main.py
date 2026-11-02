@@ -11,6 +11,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, field_validator
 
 from app import glossary as vocabulary
+from app import path as career
 from app import progress as progression
 from app import lesson as lessons
 from app import runner as sandbox
@@ -639,6 +640,41 @@ def _part_is_locked(session, unit) -> dict | None:
 
 
 @app.get("/")
+def the_path(request: Request):
+    """The job, the skills it names, and where you are on each.
+
+    This is the front page because it answers the question somebody opens
+    this app with, which is how far am I from that job. The six parts still
+    order the reading; they are no longer the first thing a reader meets.
+    """
+    session = get_session()
+    try:
+        rows = career.progress(session, curriculum, progression)
+        by_part = {part.slug: [] for part, _ in curriculum.COURSE}
+        for row in rows:
+            by_part.setdefault(row["skill"].part, []).append(row)
+        grouped = [
+            {"part": part, "rows": by_part.get(part.slug, [])}
+            for part, _ in curriculum.COURSE
+        ]
+        groups = _course_rows(session)
+        return templates.TemplateResponse(
+            request,
+            "path.html",
+            {
+                "job_title": career.JOB_TITLE,
+                "job_summary": career.JOB_SUMMARY,
+                "postings": career.POSTINGS,
+                "grouped": grouped,
+                "totals": career.summary(rows),
+                "next_unit": _course_state(groups)["next_unit"],
+            },
+        )
+    finally:
+        session.close()
+
+
+@app.get("/progress")
 def course_home(request: Request):
     session = get_session()
     try:

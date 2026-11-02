@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}The path{% endblock %}
+{% block content %}
+    <div class="strip">
+        <h2>{{ job_title }}</h2>
+        <span class="stage">{{ totals.earned }} of {{ totals.total }} skills</span>
+    </div>
+    <p class="lede">{{ job_summary }}</p>
+
+    <div class="next-card">
+        <h4>{% if next_unit %}Your next lesson{% else %}You have finished every lesson{% endif %}</h4>
+        {% if next_unit %}
+            <p class="next-title">
+                <a href="/units/{{ next_unit.slug }}">
+                    {{ "%02d"|format(next_unit.number) }}. {{ next_unit.title }}
+                </a>
+            </p>
+            <p class="note">{{ next_unit.detection }}</p>
+            <a class="btn" href="/units/{{ next_unit.slug }}">Start this lesson</a>
+        {% else %}
+            <p class="note">
+                The fixtures are done. The next measurement has to come off a
+                system nobody graded for you.
+            </p>
+            <a class="btn" href="/cycles">Start a teardown cycle</a>
+        {% endif %}
+    </div>
+
+    <h3>The jobs this is built from</h3>
+    {% for posting in postings %}
+        <div class="posting">
+            <p class="posting-head">
+                <b>{{ posting.employer }}</b>, {{ posting.title }}
+            </p>
+            <p class="posting-band">{{ posting.band }}</p>
+            <p class="note">{{ posting.asks_for }}</p>
+            <p class="posting-src">{{ posting.source }}</p>
+        </div>
+    {% endfor %}
+
+    <h3>What they ask you to be able to do</h3>
+    <p class="note">
+        {{ totals.total }} skills, taken from those three postings. You earn
+        a skill by finishing every lesson that teaches it, which means
+        committing every prediction and posting a measurement that matched.
+        Being right is not the bar.
+        {% if totals.uncovered %}
+            {{ totals.uncovered }} of them have no lesson yet, and say so.
+        {% endif %}
+    </p>
+
+    {% for group in grouped %}
+        <div class="part">
+            <div class="part-head">
+                <span class="part-no">Part {{ group.part.number }}</span>
+                <h4>{{ group.part.title }}</h4>
+            </div>
+            <ul class="skills">
+                {% for row in group.rows %}
+                    <li class="{% if row.earned %}skill-done{% elif not row.covered %}skill-none{% endif %}">
+                        <span class="skill-mark"></span>
+                        <div class="skill-body">
+                            <p class="skill-name">{{ row.skill.name }}</p>
+                            {% if row.covered %}
+                                <p class="skill-units">
+                                    {% for unit, state in row.units %}
+                                        <a href="/units/{{ unit.slug }}">{{ "%02d"|format(unit.number) }}. {{ unit.title }}</a>{% if not loop.last %} &middot; {% endif %}
+                                    {% endfor %}
+                                </p>
+                                <p class="skill-count">
+                                    {{ row.done }} of {{ row.total }} finished{% if not row.unlocked %}, locked until the part before it is done{% endif %}
+                                </p>
+                            {% else %}
+                                <p class="skill-count">No lesson yet. The postings ask for it and this course does not teach it.</p>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+
+    <div class="onward">
+        <a href="/start">How this works</a>
+        <a href="/units">The lessons in order</a>
+        <a href="/progress">Your scores</a>
+    </div>
+{% endblock %}

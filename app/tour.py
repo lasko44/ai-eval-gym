@@ -94,12 +94,12 @@ STEPS: tuple[Step, ...] = (
     Step(
         slug="subject",
         route="/",
-        title="Everything here takes apart one system",
+        title="This page is the job, and your distance from it",
         body=(
-            "That system is Ledger, and the card below describes it. An "
-            "underwriter asks whether a borrower may take money out, and "
-            "Ledger reads the loan agreement plus every amendment to it and "
-            "answers.",
+            "Three real postings, and the skills they ask for. A skill goes "
+            "green when every lesson that teaches it is finished. Some have "
+            "no lesson yet and say so, because a map that hides its gaps is "
+            "not a map.",
             "A course that used a different example per lesson would teach you "
             "a bag of tricks. One system means each unit measures a different "
             "part of the same thing, in the order you would really have to "
@@ -108,7 +108,7 @@ STEPS: tuple[Step, ...] = (
     ),
     Step(
         slug="scoreboard",
-        route="/",
+        route="/progress",
         title="Two scores, and they never add together",
         body=(
             "Rank counts whole parts finished. Calibration says whether your "
@@ -121,7 +121,7 @@ STEPS: tuple[Step, ...] = (
     ),
     Step(
         slug="confidence",
-        route="/",
+        route="/progress",
         title="The one number to act on",
         body=(
             "Once you have answered a few questions, the readout under the "

@@ -92,8 +92,8 @@ def test_a_part_says_what_it_builds_on(part):
     )
 
 
-def test_the_course_home_shows_every_part_and_unit_in_order(client):
-    response = client.get("/")
+def test_the_progress_page_shows_every_part_and_unit_in_order(client):
+    response = client.get("/progress")
     assert response.status_code == 200, response.text
     body = response.text
 
@@ -116,14 +116,14 @@ def test_the_syllabus_lists_units_in_course_order(client):
     assert ordered == UNIT_IDS, f"The syllabus lists units as {ordered}."
 
 
-def test_the_course_home_points_at_the_first_unfinished_unit(client):
+def test_the_progress_page_points_at_the_first_unfinished_unit(client):
     """With no progress recorded, the next step is unit 01."""
-    body = client.get("/").text
+    body = client.get("/progress").text
     assert "Start here" in body
     assert f'/units/{ALL_UNITS[0].slug}' in body
 
 
-def test_the_course_home_stops_saying_start_once_there_is_progress(client):
+def test_the_progress_page_stops_saying_start_once_there_is_progress(client):
     """One answered probe means the reader has started, finished or not.
 
     The first version keyed this off finished units, so a reader three probes
@@ -137,7 +137,7 @@ def test_the_course_home_stops_saying_start_once_there_is_progress(client):
     )
     assert response.status_code in (200, 303), response.text
 
-    body = client.get("/").text
+    body = client.get("/progress").text
     assert "Pick up where you left off" in body
     assert "Start here" not in body
 

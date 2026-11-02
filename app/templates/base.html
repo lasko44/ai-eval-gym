@@ -688,6 +688,49 @@
         .console-bad { color: var(--warn); font-weight: 600; }
         .console pre { margin: 0; max-height: 22rem; overflow: auto; }
 
+
+        /* ---- The career path ---- */
+        .posting { padding: 0.9rem 0; border-top: 1px solid var(--line); }
+        .posting:first-of-type { border-top: 1px solid var(--line-strong); }
+        .posting-head { margin: 0 0 0.15rem; }
+        .posting-band { margin: 0 0 0.4rem; font-family: var(--mono); font-size: 0.82rem; color: var(--accent); }
+        .posting-src { margin: 0.35rem 0 0; font-family: var(--mono); font-size: 0.72rem; color: var(--line-strong); word-break: break-all; }
+
+        .skills { list-style: none; margin: 1rem 0 0; padding: 0; }
+        .skills li {
+            display: grid;
+            grid-template-columns: 1.5rem 1fr;
+            gap: 0 0.7rem;
+            padding: 0.85rem 0;
+            border-top: 1px solid var(--line);
+        }
+        .skills li:first-child { border-top: 1px solid var(--line-strong); }
+        .skill-mark {
+            width: 1.05rem; height: 1.05rem;
+            margin-top: 0.35rem;
+            border: 1px solid var(--line-strong);
+            border-radius: 50%;
+        }
+        .skill-done .skill-mark {
+            background: var(--good);
+            border-color: var(--good);
+            position: relative;
+        }
+        /* A character, not colour alone, so the state survives greyscale. */
+        .skill-done .skill-mark::after {
+            content: "\2713";
+            position: absolute; inset: 0;
+            display: grid; place-items: center;
+            color: var(--surface); font: 600 0.7rem/1 var(--mono);
+        }
+        .skill-none .skill-mark { border-style: dashed; }
+        .skill-name { margin: 0 0 0.2rem; font-size: 1.02rem; max-width: none; }
+        .skill-none .skill-name { color: var(--muted); }
+        .skill-units { margin: 0 0 0.15rem; font-size: 0.92rem; max-width: none; }
+        .skill-units a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+        .skill-units a:hover { border-bottom-color: var(--ink); }
+        .skill-count { margin: 0; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+
         @media (prefers-reduced-motion: reduce) {
             * { animation: none !important; transition: none !important; }
         }
@@ -713,8 +756,9 @@
             <span class="name"><a href="/">AI EVAL GYM</a></span>
             <nav>
                 <a href="/start">Start</a>
-                <a href="/">Course</a>
-                <a href="/units">Syllabus</a>
+                <a href="/">Path</a>
+                <a href="/units">Lessons</a>
+                <a href="/progress">Progress</a>
                 <a href="/review">Review</a>
                 <a href="/cycles">Cycles</a>
                 <a href="/glossary">Glossary</a>

@@ -17,7 +17,7 @@ import pytest
 import app.tour as guide
 import app.units as curriculum
 
-ROUTES = {"/", "/units", "/review", "/cycles", "/glossary", "/start"}
+ROUTES = {"/", "/progress", "/units", "/review", "/cycles", "/glossary", "/start"}
 
 
 # --- the tour is pinned to pages that exist ---
@@ -141,7 +141,8 @@ def test_no_tip_repeats_a_glossary_definition():
 
 @pytest.mark.parametrize(
     "path,expected",
-    [("/", "rank"), ("/", "calibration_score"), ("/", "streak"), ("/start", "fixture")],
+    [("/progress", "rank"), ("/progress", "calibration_score"),
+     ("/progress", "streak"), ("/start", "fixture")],
 )
 def test_tips_reach_the_rendered_page(client, path, expected):
     body = client.get(path).text
@@ -152,7 +153,7 @@ def test_tips_reach_the_rendered_page(client, path, expected):
 
 def test_a_tip_is_reachable_without_a_mouse(client):
     """Hover alone would hide every explanation from the keyboard."""
-    body = client.get("/").text
+    body = client.get("/progress").text
     for match in re.finditer(r'<[^>]*data-tip="[^"]*"[^>]*>', body):
         assert "tabindex=" in match.group(0), (
             f"a tooltip is mouse-only: {match.group(0)[:90]}"
@@ -186,3 +187,70 @@ def test_the_tour_and_tips_need_no_javascript():
         if "<script" in path.read_text().lower()
     ]
     assert not offenders, f"a script tag appeared in {offenders}"
+
+
+# --- the path is the front page ---
+
+def test_the_front_page_is_the_job(client):
+    """Somebody opens this asking how far they are from that job."""
+    from app import path as career
+
+    body = client.get("/").text
+    assert career.JOB_TITLE in body
+    for posting in career.POSTINGS:
+        assert posting.employer in body, f"{posting.employer} is not on the path"
+    assert "skills" in body
+
+
+def test_every_skill_on_the_path_comes_from_a_real_posting():
+    """No invented skill. parts.py holds what the postings actually said."""
+    from app import path as career
+    from app.units.parts import PARTS
+
+    declared = {ask for part in PARTS for ask in part.role_asks}
+    for skill in career.SKILLS:
+        assert skill.name in declared, (
+            f"{skill.name!r} is on the path but no part claims a posting "
+            "asked for it"
+        )
+
+
+def test_every_skill_names_a_part_that_exists():
+    from app import path as career
+    from app.units.parts import BY_SLUG
+
+    for skill in career.SKILLS:
+        assert skill.part in BY_SLUG, f"{skill.name!r} names part {skill.part!r}"
+
+
+def test_every_unit_a_skill_claims_exists():
+    import app.units as curriculum
+    from app import path as career
+
+    for skill in career.SKILLS:
+        for slug in skill.units:
+            assert curriculum.get(slug) is not None, (
+                f"{skill.name!r} claims unit {slug!r}, which is not in the course"
+            )
+
+
+def test_a_skill_with_no_lesson_says_so_rather_than_hiding(client):
+    """A map that hides its gaps is not a map."""
+    from app import path as career
+
+    uncovered = [s for s in career.SKILLS if not s.units]
+    assert uncovered, "this test is pointless if every skill is covered"
+    body = client.get("/").text
+    assert "No lesson yet" in body
+    for skill in uncovered:
+        assert skill.name in body, f"{skill.name!r} was dropped from the page"
+
+
+def test_every_unit_is_reachable_from_some_skill():
+    """A lesson no skill claims is a lesson the job did not ask for."""
+    import app.units as curriculum
+    from app import path as career
+
+    claimed = {slug for skill in career.SKILLS for slug in skill.units}
+    orphans = [u.slug for u in curriculum.UNITS if u.slug not in claimed]
+    assert not orphans, f"these lessons map to no job skill: {orphans}"
