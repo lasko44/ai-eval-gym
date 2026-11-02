@@ -283,6 +283,35 @@
                     the prediction is the point.
                 </p>
             {% endif %}
+            {% if misses %}
+                <h4>What you got wrong in this lesson</h4>
+                <p class="note">
+                    Hardest belief first. Answering again cannot move your
+                    calibration, which reads first answers only, so these are
+                    free to sit with.
+                </p>
+                <ul class="rows">
+                    {% for miss in misses %}
+                        <li>
+                            <span class="idx">{{ "%.0f"|format(miss.said * 100) }}%</span>
+                            <div class="body">
+                                <p class="asks">{{ miss.probe.asks }}</p>
+                                <div class="pills">
+                                    <span class="pill">you said <b class="num">{{ "%.0f"|format(miss.said * 100) }}%</b></span>
+                                    {% if miss.confident %}<span class="pill pill-warn">confident miss</span>{% endif %}
+                                </div>
+                                <p class="note">{{ miss.probe.because }}</p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% elif progress.answered %}
+                <p class="note">
+                    Nothing to revisit here: every prediction in this lesson
+                    was right the first time.
+                </p>
+            {% endif %}
+
             <h4>Where this came from</h4>
             <ul class="sources">
                 {% for source in unit.sources %}<li>{{ source }}</li>{% endfor %}

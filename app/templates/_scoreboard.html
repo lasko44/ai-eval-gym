@@ -1,0 +1,91 @@
+{# The two scores. Included by the path, which is where somebody looks
+   for them, rather than living on a page of its own. #}
+{% if game %}
+        <div class="card game-card">
+            <div class="game-grid">
+                <div class="stat">
+                    <span class="stat-label tip" tabindex="0" data-tip="{{ TOUR.TIPS.rank }}">Rank</span>
+                    <b class="stat-big">{{ game.rank }}</b>
+                    <span class="note">
+                        {{ game.parts_complete }} of {{ game.parts_total }} parts mastered
+                    </span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label tip" tabindex="0" data-tip="{{ TOUR.TIPS.calibration_score }}">Calibration</span>
+                    <b class="stat-big">
+                        {% if game.calibration.score is not none %}{{ game.calibration.score }}{% else %}&mdash;{% endif %}
+                    </b>
+                    <span class="note">
+                        {% if game.calibration.predictions %}
+                            over {{ game.calibration.predictions }} predictions
+                        {% else %}
+                            no predictions yet
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label tip" tabindex="0" data-tip="{{ TOUR.TIPS.streak }}">Streak</span>
+                    <b class="stat-big">{{ game.streak }}</b>
+                    <span class="note">predictions correct in a row</span>
+                </div>
+            </div>
+
+            <p class="note verdict"><b>{{ game.calibration.verdict }}</b></p>
+
+            {% if game.calibration.buckets %}
+                <h4>Where your confidence went</h4>
+                <div class="calib">
+                    {% for label, count, claimed, actual in game.calibration.buckets %}
+                        <div class="calib-row">
+                            <span class="calib-band">{{ label }}%</span>
+                            <span class="calib-track">
+                                {# The bar runs to what you delivered. The rule
+                                   marks what you claimed. Hatching between the
+                                   two is the shortfall, measured as distance
+                                   rather than left as a subtraction. #}
+                                <span class="calib-fill"
+                                      style="width: {{ "%.1f"|format(actual * 100) }}%"></span>
+                                {% if actual < claimed %}
+                                    <span class="calib-gap"
+                                          style="left: {{ "%.1f"|format(actual * 100) }}%;
+                                                 width: {{ "%.1f"|format((claimed - actual) * 100) }}%"></span>
+                                {% endif %}
+                                <span class="calib-claim"
+                                      style="left: {{ "%.1f"|format(claimed * 100) }}%"></span>
+                            </span>
+                            <span class="calib-n">{{ count }}
+                                {%- if count == 1 %} call{% else %} calls{% endif %}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+                <p class="calib-key">
+                    <span><i class="k-deliv"></i>right</span>
+                    <span><i class="k-claim"></i>claimed</span>
+                    <span class="tip tip-end" tabindex="0" data-tip="{{ TOUR.TIPS.shortfall }}"><i class="k-gap"></i>shortfall</span>
+                </p>
+                <p class="note">
+                    Hatching means you were surer than you turned out to be. It
+                    is the one thing on this page you can act on tomorrow.
+                </p>
+            {% endif %}
+
+            <p class="note"><b>Earned</b></p>
+            <ul class="badges">
+                {% for badge in game.badges %}
+                    <li class="{% if badge.earned %}badge-on{% else %}badge-off{% endif %}">
+                        <b>{{ badge.name }}</b>
+                        <span class="note">{{ badge.detail }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            {% if game.first_locked %}
+                <p class="note">
+                    <b>Part {{ game.first_locked.number }},
+                    {{ game.first_locked.title }}</b> opens once you
+                    master the part before it. That lock enforces
+                    Part.builds_on rather than asserting it.
+                </p>
+            {% endif %}
+        </div>
+    {% endif %}

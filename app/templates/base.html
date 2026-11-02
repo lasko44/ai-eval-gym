@@ -488,8 +488,11 @@
         .tip {
             position: relative;
             border-bottom: 1px dotted var(--muted);
-            cursor: help;
         }
+        /* A span carrying a tooltip is not a link, so it says so. A link
+           carrying one stays a link, with the pointer that promises it. */
+        span.tip { cursor: help; }
+        a.tip { cursor: pointer; }
         .tip::after {
             content: attr(data-tip);
             position: absolute;
@@ -517,15 +520,7 @@
            of the page, where the viewport clips it. These flip downward. */
         .tip.tip-below::after { bottom: auto; top: calc(100% + 0.5rem); }
 
-        /* The masthead sits against the top edge, so every tooltip in it
-           opens downward, and the ones on the right open leftward. */
-        .masthead nav .tip::after {
-            bottom: auto;
-            top: calc(100% + 0.45rem);
-            max-width: 18rem;
-        }
-        .masthead nav li:nth-last-child(-n+3) .tip::after,
-        .masthead nav .tip:nth-last-child(-n+3)::after { left: auto; right: 0; }
+
 
         /* ---- The guided tour ----
 
@@ -803,11 +798,9 @@
             <span class="name"><a href="/">AI EVAL GYM</a></span>
             <nav>
                 {% for label, href in [("Start", "/start"), ("Path", "/"),
-                                       ("Lessons", "/units"), ("Progress", "/progress"),
-                                       ("Review", "/review"), ("Cycles", "/cycles"),
+                                       ("Lessons", "/units"), ("Cycles", "/cycles"),
                                        ("Glossary", "/glossary")] %}
-                    <a class="tip" href="{{ href }}"
-                       data-tip="{{ TOUR.NAV_TIPS[label] }}">{{ label }}</a>
+                    <a href="{{ href }}">{{ label }}</a>
                 {% endfor %}
             </nav>
             <span class="where">{% block where %}{% endblock %}</span>

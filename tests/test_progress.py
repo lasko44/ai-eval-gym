@@ -343,11 +343,39 @@ def test_review_page_lists_a_miss_with_the_confidence_that_was_claimed(
     )
 
 
-def test_review_is_reachable_from_every_page(client):
-    for path in ("/", "/units", "/glossary"):
-        assert 'href="/review"' in client.get(path).text, (
-            f"{path} does not offer review, so a miss is only found by luck."
-        )
+def test_a_miss_comes_back_at_the_end_of_the_lesson_that_made_it(session, client):
+    """Review is per lesson now, not a pile of every miss ever made.
+
+    A global list is a chore nobody opens. The three you just got wrong, at
+    the end of the lesson that produced them, is the moment the explanation
+    is still warm.
+    """
+    unit = curriculum.UNITS[0]
+    probe = unit.probes[0]
+    wrong = next(c.key for c in probe.choices if c.key != probe.answer)
+    _probe(session, unit.slug, probe.id, 0.9, False)
+
+    close = len(__import__("app.lesson", fromlist=["steps"]).steps(unit))
+    body = client.get(
+        f"/units/{unit.slug}", params={"step": close, "anyway": 1}
+    ).text
+    assert "What you got wrong in this lesson" in body
+    assert "confident miss" in body, "a 90 percent miss was not flagged as one"
+    assert probe.because[:40] in __import__("html").unescape(body), (
+        "the explanation does not come back with the miss"
+    )
+
+
+def test_a_lesson_with_no_misses_says_so(session, client):
+    unit = curriculum.UNITS[0]
+    for offset, probe in enumerate(unit.probes):
+        _probe(session, unit.slug, probe.id, 0.8, True, minute=offset)
+
+    close = len(__import__("app.lesson", fromlist=["steps"]).steps(unit))
+    body = client.get(
+        f"/units/{unit.slug}", params={"step": close, "anyway": 1}
+    ).text
+    assert "Nothing to revisit here" in body
 
 
 # --- the confidence floor ---

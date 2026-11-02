@@ -667,6 +667,8 @@ def the_path(request: Request):
             request,
             "path.html",
             {
+                "game": _game(session),
+                "state": _course_state(groups),
                 "job_title": career.JOB_TITLE,
                 "job_summary": career.JOB_SUMMARY,
                 "postings": career.POSTINGS,
@@ -828,6 +830,7 @@ def _render_unit(request, unit, step=None, anyway=0, all=0, run=None):
                 "probe_by_id": {probe.id: probe for probe in unit.probes},
                 "peek": lessons.fixture_peek(unit.exercise.fixture_path),
                 "defined": defined,
+                "misses": progression.misses_in(session, unit),
                 "defined_failure": heading_blocks[0],
                 "run": run,
                 "can_run": sandbox.loopback_only(

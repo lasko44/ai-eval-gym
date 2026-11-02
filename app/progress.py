@@ -275,6 +275,35 @@ def review_queue(session, course) -> list[dict]:
     return sorted(misses, key=lambda m: m["error"], reverse=True)
 
 
+def misses_in(session, unit) -> list[dict]:
+    """This unit's wrong first answers, hardest belief first.
+
+    Per lesson rather than per course. A pile of every miss you have ever
+    made is a chore nobody opens; the three you just made, at the end of the
+    lesson that made them, is the moment the explanation is still warm.
+    """
+    firsts = {}
+    for attempt in (
+        session.query(ProbeAttempt)
+        .filter(ProbeAttempt.unit_slug == unit.slug)
+        .order_by(ProbeAttempt.created_at.asc(), ProbeAttempt.id.asc())
+        .all()
+    ):
+        firsts.setdefault(attempt.probe_id, attempt)
+
+    rows = []
+    for probe in unit.probes:
+        attempt = firsts.get(probe.id)
+        if attempt is None or attempt.correct:
+            continue
+        rows.append({
+            "probe": probe,
+            "said": attempt.probability,
+            "confident": attempt.probability >= 0.8,
+        })
+    return sorted(rows, key=lambda row: row["said"], reverse=True)
+
+
 def part_states(session, course) -> list[dict]:
     """Every part with its units, mastery count, and whether it is unlocked.
 
