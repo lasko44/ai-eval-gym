@@ -1,4 +1,4 @@
-"""Unit 14: Ledger's retry loop burns a budget without answering.
+"""Unit 15: Ledger's retry loop burns a budget without answering.
 
 Runaway retries and the tokens-per-resolved-question metric that catches them.
 Numbers and citations verified against primary sources; see UNIT.sources.
@@ -21,7 +21,7 @@ def solve(data: dict) -> float:
 
 UNIT = Unit(
     slug="retry-loops",
-    number=14,
+    number=15,
     part="agents",
     title="Ledger retry loops that burn a budget without answering",
     failure=(
@@ -107,7 +107,7 @@ UNIT = Unit(
         "that kind appears in this unit.",
     ),
     builds_on=(
-        "Unit 13. Routing chooses a path once. A retry chooses again, and "
+        "Unit 14. Routing chooses a path once. A retry chooses again, and "
         "scores the second attempt against a baseline that has already "
         "failed once."
     ),

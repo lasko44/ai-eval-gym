@@ -1,4 +1,4 @@
-"""Unit 15: cost per call hides what Ledger actually costs.
+"""Unit 16: cost per call hides what Ledger actually costs.
 
 Batch size, context length, and the input to output token ratio each move the
 bill in a way a single per-call number cannot show, and a lender pays per
@@ -31,7 +31,7 @@ def solve(data: dict) -> float:
 
 UNIT = Unit(
     slug="inference-economics",
-    number=15,
+    number=16,
     part="serving",
     title="Cost per call hides what Ledger actually costs",
     failure=(
@@ -124,7 +124,7 @@ UNIT = Unit(
         "of an answered question, not what one call costs in isolation.",
     ),
     builds_on=(
-        "Unit 14. Retries are where the token bill actually comes from, so "
+        "Unit 15. Retries are where the token bill actually comes from, so "
         "cost per call means nothing until you know how many calls one "
         "underwriter question takes."
     ),

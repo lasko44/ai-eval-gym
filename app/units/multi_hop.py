@@ -1,4 +1,4 @@
-"""Unit 10: an aggregate score that hides a multi-hop collapse.
+"""Unit 11: an aggregate score that hides a multi-hop collapse.
 
 One retrieval pass per question looks fine until you segment by how many
 facts the question needs chained together. Numbers and citations verified
@@ -26,7 +26,7 @@ def solve(data: dict) -> float:
 
 UNIT = Unit(
     slug="multi-hop",
-    number=10,
+    number=11,
     part="retrieval",
     title="An aggregate score that hides a multi-hop collapse",
     failure=(
@@ -123,7 +123,7 @@ UNIT = Unit(
         "memorizing this one.",
     ),
     builds_on=(
-        "Units 08 and 09. Both measure a single retrieval pass. Ledger's "
+        "Units 09 and 10. Both measure a single retrieval pass. Ledger's "
         "answer usually needs the original clause and the amendments that "
         "changed it, which is more passes than one."
     ),

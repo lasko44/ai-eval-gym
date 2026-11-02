@@ -1,4 +1,4 @@
-"""Unit 21: the fairness metrics on Ledger's decisions cannot all hold at once.
+"""Unit 22: the fairness metrics on Ledger's decisions cannot all hold at once.
 
 Demographic parity, equalized odds and calibration within groups, applied to
 the credit decisions Ledger's answers feed, and the proof that a model cannot
@@ -35,7 +35,7 @@ def solve(data: list) -> float:
 
 UNIT = Unit(
     slug="fairness-metrics",
-    number=21,
+    number=22,
     part="governance",
     title="The fairness metrics on Ledger's decisions cannot all hold at once",
     failure=(
@@ -132,9 +132,9 @@ UNIT = Unit(
         "will pick the metric, and they will not pick yours.",
     ),
     builds_on=(
-        "Units 01 and 20. A fairness metric is a grader somebody chose, so "
+        "Units 01 and 21. A fairness metric is a grader somebody chose, so "
         "it carries the same selection problem as the judge in unit 01 and "
-        "the filter in unit 20."
+        "the filter in unit 21."
     ),
     probes=(
         Probe(

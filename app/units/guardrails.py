@@ -1,4 +1,4 @@
-"""Unit 20: Ledger's guardrail reported as a single number.
+"""Unit 21: Ledger's guardrail reported as a single number.
 
 Static blocked-corpus testing and one-sided catch-rate reporting on the filter
 sitting in front of Ledger. Numbers and citations verified against primary
@@ -22,7 +22,7 @@ def solve(data: dict) -> float:
 
 UNIT = Unit(
     slug="guardrails",
-    number=20,
+    number=21,
     part="governance",
     title="Ledger's guardrail reported as a single number",
     failure=(
@@ -129,7 +129,7 @@ UNIT = Unit(
         "source does not belong here.",
     ),
     builds_on=(
-        "Unit 19. Permissions decide what Ledger may reach. A guardrail "
+        "Unit 20. Permissions decide what Ledger may reach. A guardrail "
         "decides what Ledger may say about what it reached, and the "
         "second is worthless without the first."
     ),

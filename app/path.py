@@ -103,14 +103,15 @@ class Skill:
 # Every name below appears in parts.py role_asks. The mapping from skill to
 # units is the authored part: a part groups units by the order you read them,
 # and a skill groups them by what they make you able to do, which is a
-# different cut of the same 22 units.
+# different cut of the same 23 units.
 SKILLS: tuple[Skill, ...] = (
     Skill("Judge scoring, and showing the judge itself is stable",
           "measurement", ("judges",)),
     Skill("Experimentation",
           "measurement", ("experiment-discipline", "sample-size")),
     Skill("Eval dataset design",
-          "measurement", ("eval-contamination", "sample-size", "feedback-loop")),
+          "measurement", ("eval-contamination", "sample-size", "feedback-loop",
+                          "sampling")),
     Skill("Regression gates in continuous integration",
           "measurement", ("release-gates",)),
     Skill("Evaluation frameworks for non-deterministic systems at scale",

@@ -1,4 +1,4 @@
-"""Unit 12: stale documents that poison a correct answer.
+"""Unit 13: stale documents that poison a correct answer.
 
 Retrieval handing a model a superseded passage instead of, or alongside, the
 current one, and the model following it even though its own weights had the
@@ -29,7 +29,7 @@ def solve(data: dict) -> float:
 
 UNIT = Unit(
     slug="stale-docs",
-    number=12,
+    number=13,
     part="context",
     title="Stale documents that poison a correct answer",
     failure=(
@@ -119,7 +119,7 @@ UNIT = Unit(
         "amendment changed on a known date.",
     ),
     builds_on=(
-        "Unit 11. Once you know a long context degrades, the next question "
+        "Unit 12. Once you know a long context degrades, the next question "
         "is what the model does when a retrieved passage is simply out of "
         "date. For an amended credit agreement, that is the normal case."
     ),

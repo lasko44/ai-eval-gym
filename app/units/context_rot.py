@@ -1,4 +1,4 @@
-"""Unit 11: context rot, where more context makes the answer worse.
+"""Unit 12: context rot, where more context makes the answer worse.
 
 Context length as a confound, held apart from distractor count and task
 difficulty. Numbers and citations verified against primary sources; see
@@ -23,7 +23,7 @@ def solve(data: dict) -> float:
 
 UNIT = Unit(
     slug="context-rot",
-    number=11,
+    number=12,
     part="context",
     title="Context rot, where more context makes the answer worse",
     failure=(
@@ -88,7 +88,7 @@ UNIT = Unit(
         "happens to look like it does.",
     ),
     builds_on=(
-        "Unit 10. Multi-hop retrieval is how the prompt gets long in the "
+        "Unit 11. Multi-hop retrieval is how the prompt gets long in the "
         "first place. This unit is what the length costs once it is long."
     ),
     probes=(

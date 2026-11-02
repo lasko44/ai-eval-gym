@@ -1,4 +1,4 @@
-"""Unit 22: the trace that cannot answer why Ledger said it.
+"""Unit 23: the trace that cannot answer why Ledger said it.
 
 A trace that looks healthy by volume can still fail the one question an
 examiner actually asks: why did Ledger say that, for this borrower, in March.
@@ -37,7 +37,7 @@ def solve(data: dict) -> float:
 
 UNIT = Unit(
     slug="agent-traceability",
-    number=22,
+    number=23,
     part="governance",
     title="The trace that cannot answer why Ledger said it",
     failure=(

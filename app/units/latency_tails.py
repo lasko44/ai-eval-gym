@@ -1,4 +1,4 @@
-"""Unit 16: the mean latency no underwriter experiences.
+"""Unit 17: the mean latency no underwriter experiences.
 
 Heavy-tailed service latency and the fan-out amplification Ledger creates every
 time it chases several clauses at once. Numbers and citations
@@ -27,7 +27,7 @@ def solve(data: dict) -> float:
 
 UNIT = Unit(
     slug="latency-tails",
-    number=16,
+    number=17,
     part="serving",
     title="The mean latency no underwriter experiences",
     failure=(
@@ -107,7 +107,7 @@ UNIT = Unit(
         "can check.",
     ),
     builds_on=(
-        "Unit 15. Cost and latency fall out of the same serving decisions. "
+        "Unit 16. Cost and latency fall out of the same serving decisions. "
         "Both get reported as means by people who would never accept a "
         "mean from unit 02."
     ),

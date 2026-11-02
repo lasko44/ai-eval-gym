@@ -1,4 +1,4 @@
-"""Unit 19: permissions checked above retrieval, so Ledger's prompt already escaped the check.
+"""Unit 20: permissions checked above retrieval, so Ledger's prompt already escaped the check.
 
 Ledger's access control sits in the application layer instead of in the
 retriever, and diffing retrieved chunk ids across two underwriters with
@@ -30,7 +30,7 @@ def solve(data: dict) -> float:
 
 UNIT = Unit(
     slug="permissions",
-    number=19,
+    number=20,
     part="governance",
     title="Permissions checked above retrieval, so Ledger's prompt already escaped the check",
     failure=(

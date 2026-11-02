@@ -1,4 +1,4 @@
-"""Unit 07: the Ledger score fell, and the score cannot say which step fell.
+"""Unit 08: the Ledger score fell, and the score cannot say which step fell.
 
 An aggregate number detects a regression and localises nothing. Without a
 per-step record graded on the step's own label, a ranking failure and a model
@@ -46,7 +46,7 @@ def solve(data: dict) -> float:
 
 UNIT = Unit(
     slug="tracing",
-    number=7,
+    number=8,
     part="measurement",
     title="The Ledger score fell, and the score cannot say which step fell",
     failure=(

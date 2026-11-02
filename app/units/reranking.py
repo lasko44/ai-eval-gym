@@ -1,4 +1,4 @@
-"""Unit 08: missing rerankers, and why recall at one k hides them.
+"""Unit 09: missing rerankers, and why recall at one k hides them.
 
 A retrieval pipeline can find the right documents and still fail, because
 finding them and ranking them near the top are two different jobs, done by
@@ -30,7 +30,7 @@ def solve(data: dict) -> float:
 
 UNIT = Unit(
     slug="reranking",
-    number=8,
+    number=9,
     part="retrieval",
     title="Missing rerankers, and the recall number that hides them",
     failure=(

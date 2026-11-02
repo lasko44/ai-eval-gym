@@ -1,4 +1,4 @@
-"""Unit 09: a recall number with no throughput beside it.
+"""Unit 10: a recall number with no throughput beside it.
 
 A vector index benchmark that reports recall at ten alone, with no queries
 per second, no memory figure, and no parameter setting beside it. Numbers
@@ -31,7 +31,7 @@ def solve(data: dict) -> float:
 
 UNIT = Unit(
     slug="index-tradeoff",
-    number=9,
+    number=10,
     part="retrieval",
     title="A recall number with no throughput beside it",
     failure=(
@@ -110,7 +110,7 @@ UNIT = Unit(
         "figure will not tell you.",
     ),
     builds_on=(
-        "Unit 08. Reranking fixes the ordering of whatever the index "
+        "Unit 09. Reranking fixes the ordering of whatever the index "
         "handed it, and the index decides what there is to order. You "
         "cannot score either one until you hold the other still."
     ),

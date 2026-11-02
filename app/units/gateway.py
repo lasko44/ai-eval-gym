@@ -1,4 +1,4 @@
-"""Unit 17: the gateway in front of Ledger disappears into the metrics behind it.
+"""Unit 18: the gateway in front of Ledger disappears into the metrics behind it.
 
 Multi-provider routing, failover, caching, rate limiting and token handling all
 change the answer an underwriter reads, and none of them owns a metric. Numbers
@@ -26,7 +26,7 @@ def solve(data: dict) -> float:
 
 UNIT = Unit(
     slug="gateway",
-    number=17,
+    number=18,
     part="serving",
     title="The gateway in front of Ledger disappears into the metrics behind it",
     failure=(
@@ -104,15 +104,15 @@ UNIT = Unit(
         "uncached and unthrottled. Then split every wrong or missing answer "
         "by the path that served it. Report the hit rate beside the "
         "difficulty of the questions it hit, answer quality for each "
-        "provider, and the share of requests the gateway refused. Unit 13 "
+        "provider, and the share of requests the gateway refused. Unit 14 "
         "scored a routing decision an agent makes, against what a perfect "
         "decision would have bought. This unit sits one layer under that "
         "one, and asks which component owns the regression somebody is about "
         "to blame on the model.",
     ),
     builds_on=(
-        "Unit 16. Latency, cost and hit rate are the three numbers a gateway "
-        "reports about itself, and unit 16 is where one blended number stops "
+        "Unit 17. Latency, cost and hit rate are the three numbers a gateway "
+        "reports about itself, and unit 17 is where one blended number stops "
         "counting as evidence."
     ),
     probes=(
