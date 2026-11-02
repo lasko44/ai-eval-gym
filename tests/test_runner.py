@@ -34,12 +34,13 @@ def test_it_runs_a_snippet_and_reports_what_it_printed():
     assert result.value == 2.0
 
 
-def test_the_exercise_the_unit_actually_ships_produces_the_expected_answer():
-    """The starter plus the obvious completion has to reach the known label."""
-    unit = curriculum.get("judges")
-    result = run(unit.exercise.starter, unit.exercise.fixture_path)
-    assert result.ok, result.stderr
-    assert abs(result.value - unit.exercise.expected) <= unit.exercise.tolerance
+# An earlier test here ran the judges starter unmodified and asserted it
+# reached `expected`. That read as reassuring and was the opposite: it was
+# evidence the exercise was already finished, and it directly contradicts
+# test_the_starter_does_not_already_solve_the_exercise below. The property it
+# meant to check, that `expected` is reachable from the fixture, is covered
+# by tests/test_units.py::test_the_fixture_actually_produces_the_expected_answer,
+# which runs each unit's own solve(). So it is gone rather than loosened.
 
 
 def test_the_last_number_printed_is_the_answer():
@@ -169,3 +170,51 @@ def test_a_broken_snippet_comes_back_as_a_message_not_a_500(client):
     )
     assert response.status_code == 200
     assert "It did not run" in response.text
+
+
+# --- a starter has to be an exercise ---
+# These three ran red on 16 of 22 units when first written. A starter that
+# already prints the answer is a Run button, one that crashes is a bug report,
+# and one that prints nothing gives no feedback at all. None of the three is
+# hands-on practice, which is the only reason the exercise exists.
+
+@pytest.mark.parametrize("unit", list(curriculum.UNITS),
+                         ids=[u.slug for u in curriculum.UNITS])
+def test_the_starter_does_not_already_solve_the_exercise(unit):
+    result = run(unit.exercise.starter, unit.exercise.fixture_path)
+    if result.value is None:
+        return  # covered by the test below
+    solved = abs(result.value - unit.exercise.expected) <= unit.exercise.tolerance
+    assert not solved, (
+        f"{unit.slug}'s starter already prints {unit.exercise.expected}. "
+        "There is nothing for a reader to do but press Run."
+    )
+
+
+@pytest.mark.parametrize("unit", list(curriculum.UNITS),
+                         ids=[u.slug for u in curriculum.UNITS])
+def test_the_starter_runs_without_crashing(unit):
+    result = run(unit.exercise.starter, unit.exercise.fixture_path)
+    assert not result.stderr.strip(), (
+        f"{unit.slug}'s starter fails before the reader edits it:\n"
+        f"{result.stderr.strip()[-300:]}"
+    )
+
+
+@pytest.mark.parametrize("unit", list(curriculum.UNITS),
+                         ids=[u.slug for u in curriculum.UNITS])
+def test_the_starter_prints_something_to_work_from(unit):
+    result = run(unit.exercise.starter, unit.exercise.fixture_path)
+    assert result.stdout.strip(), (
+        f"{unit.slug}'s starter prints nothing, so pressing Run tells the "
+        "reader nothing about where they are."
+    )
+
+
+@pytest.mark.parametrize("unit", list(curriculum.UNITS),
+                         ids=[u.slug for u in curriculum.UNITS])
+def test_the_starter_says_where_the_work_is(unit):
+    """A blank with no marker is a puzzle about the author's intent."""
+    assert "TODO" in unit.exercise.starter, (
+        f"{unit.slug}'s starter has no TODO marking what the reader supplies"
+    )

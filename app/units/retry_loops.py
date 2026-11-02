@@ -223,10 +223,19 @@ UNIT = Unit(
             '\n'
             'data = json.load(open("fixtures/retry_loops/agent_task_traces.json"))\n'
             'tasks = data["tasks"]\n'
+            'attempts = [count for task in tasks for count in task["attempts"]]\n'
             '\n'
-            '# tokens_per_resolved_task is not in app.metrics. Work out the\n'
-            '# numerator (every token, from every attempt, in every task) and the\n'
-            '# denominator (only the tasks that resolved), then divide.\n'
+            'print("questions in the fixture:", len(tasks))\n'
+            'print("attempts across all of them:", len(attempts))\n'
+            'print("tokens across all attempts:", sum(attempts))\n'
+            'print("tokens per call:", sum(attempts) / len(attempts))\n'
+            '\n'
+            '# TODO: tokens per call is the number printed above, and it is the\n'
+            '# number a dashboard shows, because every individual call looks\n'
+            '# ordinary. A lender is not buying calls. Decide what the denominator\n'
+            '# should be instead, keep every token the fixture spent in the\n'
+            '# numerator, and print the result in tokens. This one is not in\n'
+            '# app.metrics: the arithmetic is yours.\n'
         ),
         metric="tokens_per_resolved_task",
         expected=25168.43,

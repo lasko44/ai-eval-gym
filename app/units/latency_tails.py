@@ -258,9 +258,15 @@ UNIT = Unit(
             '    rank = max(1, min(n, math.ceil(p * n)))\n'
             '    return sorted_values[rank - 1]\n'
             '\n'
-            'mean_latency = statistics.fmean(latencies)\n'
-            'p99 = percentile(latencies, 0.99)\n'
-            'print(p99 / mean_latency)\n'
+            'print("answers recorded:", n, "with fan-out", data["fan_out"])\n'
+            'print("mean ms:", round(statistics.fmean(latencies), 1))\n'
+            'print("p50 ms:", percentile(latencies, 0.5))\n'
+            'print("p95 ms:", percentile(latencies, 0.95))\n'
+            '\n'
+            '# TODO: the mean printed above is the number on the dashboard, and no\n'
+            '# underwriter waits it. Decide which point of this distribution\n'
+            '# describes the wait the fan-out tail actually produces, and print it\n'
+            '# against the mean as a single unitless number.\n'
         ),
         metric="p99_to_mean_ratio",
         expected=5.4953,

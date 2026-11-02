@@ -173,9 +173,16 @@ UNIT = Unit(
             '\n'
             'data = json.load(open("fixtures/sample_size/model_comparison.json"))\n'
             '\n'
-            '# The baseline accuracy is part of the answer, so work it out from\n'
-            '# the fixture rather than guessing it. Then compute the floor, and\n'
-            '# only after that look at what the candidate actually scored.\n'
+            'print("covenant questions in the set:", data["items"])\n'
+            'print("conventions, power and alpha :", data["power"], data["alpha"])\n'
+            'print("the candidate build is scored too, and not read below")\n'
+            'print("production build accuracy    :",\n'
+            '      sum(data["baseline"]) / len(data["baseline"]))\n'
+            '\n'
+            '# TODO: every input the floor needs is now printed, and none of it was\n'
+            '# the candidate. Work out the smallest accuracy difference a set this\n'
+            '# size could have told apart from noise, print that, and only then go\n'
+            '# and look at what the candidate actually scored.\n'
         ),
         metric="minimum_detectable_effect",
         expected=0.149004,

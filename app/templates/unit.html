@@ -179,6 +179,12 @@
                         {% else %}
                             <p class="console-head">It ran, and the number does not match yet</p>
                             <pre><code>{{ run.stdout }}</code></pre>
+                            {% if run.misread %}
+                                <p class="misread">
+                                    <b>That looks like {{ run.misread.name }}.</b>
+                                    {{ run.misread.says }}
+                                </p>
+                            {% endif %}
                             <p class="note">
                                 {% if run.value is not none %}
                                     It printed <code class="num">{{ run.value }}</code>.

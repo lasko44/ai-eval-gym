@@ -731,6 +731,20 @@
         .skill-units a:hover { border-bottom-color: var(--ink); }
         .skill-count { margin: 0; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
 
+
+        /* A named mistake, not a verdict. Rust, because it is the same
+           signal as the overconfidence gap: you are off in a direction that
+           costs you, and here is which direction. */
+        .misread {
+            margin: 0.9rem 0;
+            padding: 0.8rem 1rem;
+            border-left: 3px solid var(--warn);
+            background: #f6e3dc;
+            color: #7a2a12;
+            font-size: 0.97rem;
+        }
+        .misread b { color: #7a2a12; }
+
         @media (prefers-reduced-motion: reduce) {
             * { animation: none !important; transition: none !important; }
         }

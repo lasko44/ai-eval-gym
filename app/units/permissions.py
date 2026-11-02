@@ -241,14 +241,32 @@ UNIT = Unit(
             'chunk_categories = fixture["chunk_categories"]\n'
             'retrievals = fixture["retrievals"][user]\n'
             '\n'
-            '# retrievals is a list of {"query_id": ..., "chunk_ids": [...]}.\n'
-            '# For every chunk id this user retrieved, look up its category and\n'
-            "# check it against allowed_categories. Work out total retrieved and\n"
-            "# how many of those fall outside the entitlement, then the ratio.\n"
-            'leaked = 0\n'
-            'total = 0\n'
-            '# ... your measurement here ...\n'
-            'print(leaked / total)\n'
+            '# retrievals is a list of {"query_id": ..., "chunk_ids": [...]},\n'
+            '# so flattening it gives every chunk id this account was handed.\n'
+            'retrieved = [\n'
+            '    chunk_id\n'
+            '    for entry in retrievals\n'
+            '    for chunk_id in entry["chunk_ids"]\n'
+            ']\n'
+            '\n'
+            'print("queries run as this account:", len(retrievals))\n'
+            'print("categories the account may read:", sorted(allowed_categories))\n'
+            "# A quick look at the other account proves the retriever cannot\n"
+            "# tell them apart, which is why a diff is not the measurement.\n"
+            'other = [\n'
+            '    chunk_id\n'
+            '    for entry in fixture["retrievals"]["fulltime_asmith"]\n'
+            '    for chunk_id in entry["chunk_ids"]\n'
+            ']\n'
+            'print("chunk ids identical to the entitled account:", retrieved == other)\n'
+            'print("categories it was actually handed:",\n'
+            '      sorted({chunk_categories[chunk_id] for chunk_id in retrieved}))\n'
+            'print("chunk ids it was handed in total:", len(retrieved))\n'
+            '\n'
+            "# TODO: those two category lists are not the same list. Decide what\n"
+            "# makes a retrieved chunk a leak for this account, and what the\n"
+            "# right denominator is for a rate you would hand an examiner: the\n"
+            "# queries, the chunks, or the index. Print that rate.\n"
         ),
         metric="leaked_chunk_rate",
         expected=0.6404,

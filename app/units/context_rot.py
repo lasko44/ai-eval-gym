@@ -186,12 +186,18 @@ UNIT = Unit(
             'import json\n'
             '\n'
             'fixture = json.load(open("fixtures/context_rot/length_sweep.json"))\n'
-            'results = fixture["results"]\n'
+            'rows = sorted(fixture["results"], key=lambda row: row["length_tokens"])\n'
             '\n'
-            '# This metric is not in app.metrics. Compute accuracy per row yourself,\n'
-            '# find the shortest and longest length_tokens, and work out the drop.\n'
-            'for row in results:\n'
-            '    print(row["length_tokens"], row["correct"], row["total"])\n'
+            'print("context lengths swept:", [row["length_tokens"] for row in rows])\n'
+            'print("trials at each length:", [row["total"] for row in rows])\n'
+            'print("correct at each length:", [row["correct"] for row in rows])\n'
+            '\n'
+            '# TODO: the question and the operative clause are identical in every\n'
+            '# row, so the only thing separating one row from another is how much\n'
+            '# text surrounds that clause. Decide what to measure at each length,\n'
+            '# pick the two lengths that bracket the sweep, and print the fall from\n'
+            '# the shorter of them to the longer as a proportion. This one is not in\n'
+            '# app.metrics: the arithmetic is yours.\n'
         ),
         metric="accuracy_drop",
         expected=0.275,

@@ -166,10 +166,14 @@ UNIT = Unit(
             'from app.metrics import flip_rate\n'
             '\n'
             'pairs = json.load(open("fixtures/judges/ab_pairs.json"))\n'
+            'print("pairs scored twice:", len(pairs["first"]))\n'
+            'print("first five, original order:", pairs["first"][:5])\n'
+            'print("first five, swapped     :", pairs["swapped"][:5])\n'
             '\n'
-            '# flip_rate is already in the library. Work out what to pass it,\n'
-            '# and what the number means once you have it.\n'
-            'print(flip_rate(pairs["first"], pairs["swapped"]))\n'
+            '# TODO: a flip is a pair whose winner changed when the two answers\n'
+            '# were exchanged. Work out the share of pairs that flipped, and print\n'
+            '# it. flip_rate() in app.metrics will do the arithmetic once you\n'
+            '# decide what to hand it.\n'
         ),
         metric="flip_rate",
         expected=0.185,

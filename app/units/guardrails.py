@@ -265,11 +265,16 @@ UNIT = Unit(
             '# directly from the counts.\n'
             '\n'
             'bypassed = sum(1 for item in mutated_blocked if not item["caught"])\n'
-            'bypass_rate = bypassed / len(mutated_blocked)\n'
-            'print("bypass_rate:", bypass_rate)\n'
+            'print("mutated attacks the filter was shown:", len(mutated_blocked))\n'
+            'print("of those, the number that got through:", bypassed)\n'
+            'print("bypass rate, the half already reported:",\n'
+            '      bypassed / len(mutated_blocked))\n'
+            'print("ordinary underwriter requests in the benign pool:", len(benign))\n'
             '\n'
-            '# Your job: the other half of the pair.\n'
-            '# false_positive_rate = ?\n'
+            '# TODO: that bypass rate is one side of a two-sided account, and a\n'
+            '# filter that blocks everything would score perfectly on it. Decide\n'
+            '# what the other side is, which pool it has to be measured over,\n'
+            '# and which outcome on a row counts against the filter. Print it.\n'
         ),
         metric="false_positive_rate",
         expected=0.07,

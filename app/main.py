@@ -2,6 +2,7 @@
 as later tasks add them.
 """
 
+import json
 import math
 from pathlib import Path
 
@@ -13,6 +14,7 @@ from pydantic import BaseModel, field_validator
 from app import glossary as vocabulary
 from app import path as career
 from app import progress as progression
+from app import diagnosis as diagnose
 from app import lesson as lessons
 from app import runner as sandbox
 from app import tour as guide
@@ -38,6 +40,7 @@ app = FastAPI(title="AI Eval Gym")
 
 templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
 templates.env.globals["TOUR"] = guide
+REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
 @app.get("/cycles")
@@ -912,6 +915,22 @@ def run_measurement(
         result.value is not None
         and abs(result.value - unit.exercise.expected) <= unit.exercise.tolerance
     )
+
+    # A miss gets named where it can be. "That does not match" is where the
+    # learning stops; the useful thing is which decision went the other way.
+    misread = None
+    if result.value is not None and not matched:
+        try:
+            with open(REPO_ROOT / unit.exercise.fixture_path) as handle:
+                population = diagnose.fixture_population(json.load(handle))
+        except (OSError, ValueError):
+            population = None
+        misread = diagnose.diagnose(
+            result.value,
+            unit.exercise.expected,
+            unit.exercise.tolerance,
+            population=population,
+        )
     if matched:
         session = get_session()
         try:
@@ -936,6 +955,7 @@ def run_measurement(
             "timed_out": result.timed_out,
             "value": result.value,
             "matched": matched,
+            "misread": misread,
         },
     )
 
