@@ -40,6 +40,19 @@ TERMS: tuple[Term, ...] = (
         ),
     ),
     Term(
+        term="ablation",
+        expansion=None,
+        definition=(
+            "An ablation removes one component of a system and then measures "
+            "how much performance drops. The drop is that component's "
+            "contribution, measured rather than argued. Allen Newell "
+            "introduced the word in a 1974 speech recognition tutorial, "
+            "borrowing it from surgery. This app's multi-hop unit cites an "
+            "ablation that removed the reranker from a retrieval pipeline."
+        ),
+        sources=("en.wikipedia.org/wiki/Ablation_(artificial_intelligence)",),
+    ),
+    Term(
         term="ACM",
         expansion="Association for Computing Machinery",
         definition=(
@@ -50,6 +63,23 @@ TERMS: tuple[Term, ...] = (
             "Barroso's 2013 paper on tail latency."
         ),
         sources=("en.wikipedia.org/wiki/Communications_of_the_ACM",),
+    ),
+    Term(
+        term="amendment",
+        expansion=None,
+        definition=(
+            "An amendment is a change to the provisions of an agreement that "
+            "already exists. A lender and a borrower amend a credit agreement "
+            "when they want different terms, and they do this repeatedly over "
+            "a loan's life. The amendment does not replace the original "
+            "document, so the language in force is the original clause as "
+            "every later amendment left it. That is why Ledger has to read "
+            "several documents together, and why retrieving only the original "
+            "produces a confident wrong answer."
+        ),
+        sources=(
+            "www.lw.com/admin/Upload/Documents/BoJ_US_Corporate_and_Bank_Finance-second-edition.pdf",
+        ),
     ),
     Term(
         term="ANN",
@@ -134,6 +164,22 @@ TERMS: tuple[Term, ...] = (
             "plain keyword baseline that a neural reranker must beat."
         ),
         sources=("en.wikipedia.org/wiki/Okapi_BM25",),
+    ),
+    Term(
+        term="borrower",
+        expansion=None,
+        definition=(
+            "A borrower is the company that borrows money under a credit "
+            "agreement. In Ledger's world the borrower is a business rather "
+            "than a person, and it carries the covenants the agreement "
+            "imposes. Every question an underwriter asks Ledger concerns one "
+            "borrower's own documents. The permissions unit turns that into a "
+            "test: a retriever that returns one borrower's clauses to a user "
+            "entitled to another has leaked."
+        ),
+        sources=(
+            "www.lw.com/admin/Upload/Documents/BoJ_US_Corporate_and_Bank_Finance-second-edition.pdf",
+        ),
     ),
     Term(
         term="Brier score",
@@ -228,6 +274,59 @@ TERMS: tuple[Term, ...] = (
         ),
     ),
     Term(
+        term="covenant",
+        expansion=None,
+        definition=(
+            "A covenant is a promise inside a credit agreement. The borrower "
+            "agrees to do something, to avoid something, or to keep a number "
+            "inside a limit. A covenant limiting distributions is the kind an "
+            "underwriter asks Ledger about. Lenders then amend covenants "
+            "repeatedly, so the promise in force today is rarely the one the "
+            "original agreement printed. That gap is what makes Ledger hard "
+            "to evaluate, because an answer built on the original clause "
+            "reads correct and is wrong."
+        ),
+        sources=(
+            "www.lw.com/admin/Upload/Documents/BoJ_US_Corporate_and_Bank_Finance-second-edition.pdf",
+            "www.occ.gov/publications-and-resources/publications/comptrollers-handbook/files/leveraged-lending/pub-ch-leveraged-lending.pdf",
+        ),
+    ),
+    Term(
+        term="credit agreement",
+        expansion=None,
+        definition=(
+            "A credit agreement is the legal document in which one or more "
+            "lenders agree to lend money to a borrower. It sets out the "
+            "mechanics of the loan and it carries the covenants, the "
+            "representations and the remedies the lenders get after a "
+            "default. It runs to hundreds of pages, and later amendments "
+            "change parts of it without reprinting it. Ledger exists to "
+            "answer questions about this document and the amendments stacked "
+            "on top of it."
+        ),
+        sources=(
+            "www.lw.com/admin/Upload/Documents/BoJ_US_Corporate_and_Bank_Finance-second-edition.pdf",
+        ),
+    ),
+    Term(
+        term="deal room",
+        expansion=None,
+        definition=(
+            "A deal room is the folder, or the website behind a login, that "
+            "holds every document for one loan. Lenders use it to share "
+            "drafts and diligence material with the people entitled to see "
+            "them. A law firm glossary prints the same idea as a data room, "
+            "the actual or virtual room that holds diligence material. The "
+            "entitlement to a deal room is what decides which clauses a given "
+            "underwriter may read. This app's permissions unit measures a "
+            "retriever that ignores that entitlement."
+        ),
+        sources=(
+            "www.lw.com/admin/Upload/Documents/BoJ_US_Corporate_and_Bank_Finance-second-edition.pdf",
+            "app/units/permissions.py",
+        ),
+    ),
+    Term(
         term="decode",
         expansion=None,
         definition=(
@@ -254,6 +353,22 @@ TERMS: tuple[Term, ...] = (
         ),
     ),
     Term(
+        term="distribution",
+        expansion=None,
+        definition=(
+            "Distribution means two different things in this course. In "
+            "Ledger's loan documents it is cash or property that a borrower "
+            "pays out to its own owners, and a dividend is one kind. In "
+            "statistics it is the shape of a set of values, which is what a "
+            "latency distribution or a label distribution means. Lenders "
+            "restrict the first kind, because money leaving the borrower is "
+            "money that cannot repay the loan."
+        ),
+        sources=(
+            "www.lw.com/admin/Upload/Documents/BoJ_US_Corporate_and_Bank_Finance-second-edition.pdf",
+        ),
+    ),
+    Term(
         term="DOI",
         expansion="Digital Object Identifier",
         definition=(
@@ -271,6 +386,23 @@ TERMS: tuple[Term, ...] = (
         sources=(
             "www.doi.org/the-identifier/what-is-a-doi/",
             "www.iso.org/standard/88862.html",
+        ),
+    ),
+    Term(
+        term="EBITDA",
+        expansion="Earnings Before Interest, Taxes, Depreciation, and Amortization",
+        definition=(
+            "Earnings before interest, taxes, depreciation, and amortization "
+            "is a rough measure of the cash a business generates from "
+            "operating. Lenders use it as the denominator of a leverage "
+            "ratio, so a covenant limit depends on it. The Office of the "
+            "Comptroller of the Currency publishes a leveraged lending "
+            "handbook that spells the letters out. That handbook measures "
+            "leverage as total debt over EBITDA. Nothing in this app computes "
+            "EBITDA, and a reader needs it only to read a leverage covenant."
+        ),
+        sources=(
+            "www.occ.gov/publications-and-resources/publications/comptrollers-handbook/files/leveraged-lending/pub-ch-leveraged-lending.pdf",
         ),
     ),
     Term(
@@ -317,6 +449,32 @@ TERMS: tuple[Term, ...] = (
         ),
     ),
     Term(
+        term="eval",
+        expansion=None,
+        definition=(
+            "An eval, short for evaluation, is one measurement of whether a "
+            "system does its job. The word names both the measurement and the "
+            "suite of cases it runs over. An eval is not a unit test: it "
+            "reports a score on real inputs, not a pass or a fail on an "
+            "assertion. Every unit in this app builds one eval of Ledger and "
+            "then attacks the number it produced."
+        ),
+    ),
+    Term(
+        term="eval set",
+        expansion=None,
+        definition=(
+            "An eval set is the fixed collection of cases an eval runs over, "
+            "each one with a known correct answer. It plays the role a test "
+            "suite plays in application code. The difference is that its "
+            "cases come from real traffic and a human supplied its answers. A "
+            "frozen eval set rots, because production keeps producing "
+            "failures the set never held. Several units in this app attack "
+            "the eval set itself, over contamination, over sampling, and over "
+            "size."
+        ),
+    ),
+    Term(
         term="FAISS",
         expansion="Facebook AI Similarity Search",
         definition=(
@@ -345,6 +503,20 @@ TERMS: tuple[Term, ...] = (
         ),
     ),
     Term(
+        term="fixture",
+        expansion=None,
+        definition=(
+            "A fixture, in this app, is the data file a unit ships so a "
+            "reader can run the unit's measurement without a running system. "
+            "Each fixture holds a known answer, so the exercise checks a "
+            "number rather than an opinion. The fixtures live in the fixtures "
+            "directory, one folder per unit, and the runner copies only the "
+            "one fixture an exercise names. The word is common in testing "
+            "generally, where it means any prepared input a test runs against."
+        ),
+        sources=("app/runner.py", "app/units/types.py"),
+    ),
+    Term(
         term="flip rate",
         expansion=None,
         definition=(
@@ -354,6 +526,19 @@ TERMS: tuple[Term, ...] = (
             "show the judge is correct. This app's judges unit uses flip "
             "rate as an upper bound on how much a judge's bias could cost "
             "an evaluation."
+        ),
+    ),
+    Term(
+        term="golden dataset",
+        expansion=None,
+        definition=(
+            "A golden dataset is a set of inputs with answers a human checked "
+            "and signed off, used as the reference an eval scores against. "
+            "The name claims more than it delivers, because the humans who "
+            "labeled it disagree with each other and with themselves. Measure "
+            "that disagreement before you treat the labels as truth. This "
+            "app's judges unit shows what happens to an agreement number once "
+            "you correct for chance."
         ),
     ),
     Term(
@@ -382,6 +567,33 @@ TERMS: tuple[Term, ...] = (
             "economics unit measures throughput and cost per request on a "
             "single GPU, the NVIDIA A100."
         ),
+    ),
+    Term(
+        term="ground truth",
+        expansion=None,
+        definition=(
+            "Ground truth is the answer you treat as correct when you score a "
+            "system. It is a decision, not a fact: somebody chose it, and "
+            "that choice can be wrong. An eval inherits every error in its "
+            "ground truth and reports those errors as the system's errors. "
+            "This app's contamination unit starts by checking the instrument "
+            "against ground truth, which is the step most teams skip."
+        ),
+    ),
+    Term(
+        term="harness",
+        expansion=None,
+        definition=(
+            "A harness, in this app, is the code a reader writes to run a "
+            "measurement and post the number back. It is the reader's own "
+            "code rather than something this app supplies, and it imports the "
+            "pure functions in app/metrics to do the arithmetic. A harness "
+            "run records what that code measured, in the reader's own words, "
+            "against one sealed cycle. A harness that cannot produce a finite "
+            "number has measured nothing, so this app refuses the run rather "
+            "than scoring it."
+        ),
+        sources=("app/models.py", "app/scoring.py"),
     ),
     Term(
         term="HNSW",
@@ -450,6 +662,21 @@ TERMS: tuple[Term, ...] = (
         ),
     ),
     Term(
+        term="judge",
+        expansion=None,
+        definition=(
+            "A judge is a model this app uses to score another model's "
+            "output. Hand grading stops scaling once Ledger answers questions "
+            "all week, so a judge takes over, and its verdict becomes your "
+            "measurement. A judge is not an instrument until you have "
+            "measured it, because it carries preferences that have nothing to "
+            "do with the answers. This app's first unit measures position "
+            "bias and chance-corrected agreement before any other number gets "
+            "trusted."
+        ),
+        sources=("app/units/judges.py",),
+    ),
+    Term(
         term="key-value cache",
         expansion=None,
         definition=(
@@ -462,6 +689,54 @@ TERMS: tuple[Term, ...] = (
             "the limit on how many requests a GPU serves at once. This "
             "app's inference economics unit works through a cache size "
             "calculation for a real model and a real request size."
+        ),
+    ),
+    Term(
+        term="Ledger",
+        expansion=None,
+        definition=(
+            "Ledger is the one system this whole course takes apart, and it "
+            "is not a product anybody shipped. It answers an underwriter's "
+            "questions about private credit loan documents by reading the "
+            "credit agreement and the amendments that changed it. Every unit "
+            "measures a different part of the same Ledger, so the course "
+            "teaches one method instead of twenty separate tricks. Ledger is "
+            "a name this project chose, and the system module describes it "
+            "once so no unit has to."
+        ),
+        sources=("app/units/system.py",),
+    ),
+    Term(
+        term="lender",
+        expansion=None,
+        definition=(
+            "A lender is the party that puts up the money in a credit "
+            "agreement and collects the repayments. In private credit the "
+            "lender is usually a fund rather than a bank. The lender writes "
+            "the covenants, grants the waivers, and signs every amendment. "
+            "Its view of the documents is the one Ledger has to reproduce. An "
+            "underwriter works for the lender."
+        ),
+        sources=(
+            "www.lw.com/admin/Upload/Documents/BoJ_US_Corporate_and_Bank_Finance-second-edition.pdf",
+        ),
+    ),
+    Term(
+        term="leverage ratio",
+        expansion=None,
+        definition=(
+            "A leverage ratio compares a company's debt to the cash it "
+            "generates, usually total debt divided by EBITDA over the last "
+            "four quarters. A credit agreement often carries a covenant "
+            "requiring the borrower to keep that ratio under a stated number. "
+            "So a question about whether the covenants permit a distribution "
+            "can turn on one computed ratio and the limit a later amendment "
+            "moved. Watch the word outside lending, where a bank's own "
+            "leverage ratio means capital over assets, a different thing."
+        ),
+        sources=(
+            "www.lw.com/admin/Upload/Documents/Books%20of%20Jargon/Book-of-Jargon-European-Capital-Markets-and-Bank-Finance-2nd-Edition.pdf",
+            "www.occ.gov/publications-and-resources/publications/comptrollers-handbook/files/leveraged-lending/pub-ch-leveraged-lending.pdf",
         ),
     ),
     Term(
@@ -583,6 +858,21 @@ TERMS: tuple[Term, ...] = (
         sources=("nvidia.com/en-us/data-center/a100",),
     ),
     Term(
+        term="operative clause",
+        expansion=None,
+        definition=(
+            "The operative clause is the language actually in force right "
+            "now, after every amendment and waiver that touched it. The "
+            "original credit agreement prints one version, and three later "
+            "amendments can leave something different standing. Ledger has to "
+            "find the operative clause, not the first one it retrieves, and "
+            "that is the whole difficulty. Several units use the phrase, and "
+            "the context rot unit holds one operative clause fixed while it "
+            "grows the prompt around it."
+        ),
+        sources=("app/units/system.py", "app/units/context_rot.py"),
+    ),
+    Term(
         term="OPT",
         expansion="Open Pre-trained Transformer",
         definition=(
@@ -643,6 +933,19 @@ TERMS: tuple[Term, ...] = (
         ),
     ),
     Term(
+        term="position bias",
+        expansion=None,
+        definition=(
+            "Position bias is a judge's tendency to prefer whichever answer "
+            "it reads first, or whichever it reads last, regardless of "
+            "content. It is a property of the judge and not of the answers, "
+            "so it adds noise to every comparison the judge makes. Measure it "
+            "by running each pair in both orders and counting how often the "
+            "verdict changes. The number that comes out is the flip rate, and "
+            "this app's first unit computes it on 200 pairs."
+        ),
+    ),
+    Term(
         term="prefill",
         expansion=None,
         definition=(
@@ -654,6 +957,23 @@ TERMS: tuple[Term, ...] = (
             "to first token rises with prompt length. This app's "
             "inference economics unit contrasts prefill against decode to "
             "explain where GPU time actually goes."
+        ),
+    ),
+    Term(
+        term="private credit",
+        expansion=None,
+        definition=(
+            "Private credit means loans that nonbank funds negotiate directly "
+            "with a business, instead of loans a bank makes or bonds a market "
+            "trades. The Federal Reserve describes it as direct loans to "
+            "mid-market companies from private debt funds and business "
+            "development companies. Nothing about these loans is public, so "
+            "the documents live in a deal room and never reach a filing. That "
+            "is why Ledger reads documents rather than a database, and why "
+            "only a few people can check its answers."
+        ),
+        sources=(
+            "www.federalreserve.gov/econres/notes/feds-notes/bank-lending-to-private-credit-size-characteristics-and-financial-stability-implications-20250523.html",
         ),
     ),
     Term(
@@ -701,6 +1021,21 @@ TERMS: tuple[Term, ...] = (
         ),
     ),
     Term(
+        term="regression gate",
+        expansion=None,
+        definition=(
+            "A regression gate is a rule that blocks a release when a "
+            "measured number falls below the one the last release scored. It "
+            "turns an eval into a deploy decision, the way a failing test "
+            "blocks a merge. A gate inherits every weakness of the eval "
+            "behind it, so a gate on a noisy number blocks good releases and "
+            "passes bad ones. The release gates unit shows a gate whose "
+            "threshold sits inside the spread of an unchanged suite, so one "
+            "run in four flips."
+        ),
+        sources=("app/units/release_gates.py",),
+    ),
+    Term(
         term="reranker",
         expansion=None,
         definition=(
@@ -713,6 +1048,22 @@ TERMS: tuple[Term, ...] = (
             "shortlist that step already found. This app's reranking unit "
             "cites BEIR results where adding a reranker improved results "
             "most of the time, but not always."
+        ),
+    ),
+    Term(
+        term="restricted payment",
+        expansion=None,
+        definition=(
+            "A restricted payment is money the borrower sends to its owners "
+            "or to junior lenders, which the credit agreement limits. "
+            "Dividends, share buybacks and early repayment of subordinated "
+            "debt all count. Nearly every credit agreement carries a covenant "
+            "capping these payments, because each one moves value away from "
+            "the lender. An underwriter who asks Ledger whether a "
+            "distribution clears the covenants is asking about this one."
+        ),
+        sources=(
+            "www.lw.com/admin/Upload/Documents/BoJ_US_Corporate_and_Bank_Finance-second-edition.pdf",
         ),
     ),
     Term(
@@ -764,6 +1115,25 @@ TERMS: tuple[Term, ...] = (
         sources=("nvlpubs.nist.gov/nistpubs/fips/nist.fips.180-4.pdf",),
     ),
     Term(
+        term="side letter",
+        expansion=None,
+        definition=(
+            "A side letter is a separate agreement that sits beside the main "
+            "contract and changes or clarifies it without rewriting it. In "
+            "lending, a lender and a borrower use one to record a waiver, a "
+            "reporting change or a fee. In principle it binds them the same "
+            "way the credit agreement does, though courts have refused to "
+            "enforce some side letters. A side letter is usually restricted, so "
+            "only some people on a deal may read it. Both the permissions "
+            "unit and the guardrails unit use a side letter as the document "
+            "that must not leak."
+        ),
+        sources=(
+            "en.wikipedia.org/wiki/Side_letter_(contract_law)",
+            "www.lw.com/admin/Upload/Documents/Books%20of%20Jargon/Book-of-Jargon-European-Capital-Markets-and-Bank-Finance-2nd-Edition.pdf",
+        ),
+    ),
+    Term(
         term="SR",
         expansion="Supervision and Regulation",
         definition=(
@@ -777,6 +1147,36 @@ TERMS: tuple[Term, ...] = (
             "the year and the sequence of that letter."
         ),
         sources=("www.federalreserve.gov/supervisionreg/srletters/srletters.htm",),
+    ),
+    Term(
+        term="syndicate",
+        expansion=None,
+        definition=(
+            "A syndicate is the group of lenders who together fund one loan, "
+            "because a single lender does not want the whole exposure. As a "
+            "verb, to syndicate means to sell parts of a loan to other banks "
+            "and funds. Each member holds the same credit agreement, and an "
+            "amendment needs a vote, which is one reason the documents "
+            "multiply. This app's guardrails unit uses a question about what "
+            "another lender in the syndicate agreed as an attempt to pull "
+            "restricted material."
+        ),
+        sources=(
+            "www.lw.com/admin/Upload/Documents/BoJ_US_Corporate_and_Bank_Finance-second-edition.pdf",
+        ),
+    ),
+    Term(
+        term="teardown",
+        expansion=None,
+        definition=(
+            "A teardown, in this app, is the act of taking a working system "
+            "apart to find out what it actually does. It is the opposite of a "
+            "demo: nothing counts until a number comes out of a measurement "
+            "you ran. This app never asks a reader to build Ledger, only to "
+            "tear it down, unit by unit. The teardown cycle entry describes "
+            "the loop that makes one teardown scoreable."
+        ),
+        sources=("app/units/types.py", "app/scoring.py"),
     ),
     Term(
         term="teardown cycle",
@@ -836,6 +1236,40 @@ TERMS: tuple[Term, ...] = (
         sources=(
             "docs.together.ai/learn/ttft-and-tps",
             "clickhouse.com/resources/engineering/llm-inference-latency",
+        ),
+    ),
+    Term(
+        term="underwriter",
+        expansion=None,
+        definition=(
+            "An underwriter is the person at a lender who decides whether a "
+            "loan works and on what terms. The Office of the Comptroller of "
+            "the Currency describes underwriting as the terms and conditions "
+            "under which a bank extends credit, including covenants. The "
+            "underwriter is Ledger's user: every question in this course "
+            "comes from one, and every wrong answer costs one. Watch the word "
+            "in securities markets, where an underwriter is an investment "
+            "bank that buys an offering, a different job."
+        ),
+        sources=(
+            "www.occ.gov/topics/supervision-and-examination/credit/commercial-credit/underwriting.html",
+            "www.lw.com/admin/Upload/Documents/BoJ_US_Corporate_and_Bank_Finance-second-edition.pdf",
+        ),
+    ),
+    Term(
+        term="waiver",
+        expansion=None,
+        definition=(
+            "A waiver is a lender's agreement not to enforce a breach that "
+            "already happened. It differs from an amendment: an amendment "
+            "changes the text going forward, while a waiver forgives one "
+            "breach and can expire. So the documents can show a breach that a "
+            "separate letter already forgave, and Ledger has to find both. "
+            "This app's sampling unit ships a draw where one waiver hides a "
+            "breach."
+        ),
+        sources=(
+            "www.lw.com/admin/Upload/Documents/Books%20of%20Jargon/Book-of-Jargon-European-Capital-Markets-and-Bank-Finance-2nd-Edition.pdf",
         ),
     ),
 )

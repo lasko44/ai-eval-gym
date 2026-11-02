@@ -475,6 +475,16 @@
            the keyboard is not a second-class way to read the interface. The
            text lives in app/tour.py, one sentence each: if a tip needs two,
            the control is doing two things. */
+        /* A defined term reads as prose with a hint of a link, not as a
+           link. Underlining every one of them would turn a briefing into a
+           field of blue. */
+        a.tip.defined {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px dotted var(--line-strong);
+        }
+        a.tip.defined:hover { border-bottom-color: var(--accent); color: var(--accent); }
+
         .tip {
             position: relative;
             border-bottom: 1px dotted var(--muted);

@@ -14,6 +14,7 @@ from pydantic import BaseModel, field_validator
 from app import glossary as vocabulary
 from app import path as career
 from app import progress as progression
+from app import define as definitions
 from app import diagnosis as diagnose
 from app import lesson as lessons
 from app import runner as sandbox
@@ -713,6 +714,7 @@ def start(request: Request):
         {
             "system": curriculum.SYSTEM,
             "tips": guide.TIPS,
+            "fixture_tip": definitions.short_for("fixture"),
             "first_unit": curriculum.UNITS[0],
             "units_total": len(curriculum.UNITS),
         },
@@ -779,6 +781,21 @@ def _render_unit(request, unit, step=None, anyway=0, all=0, run=None):
         # Track record at the confidence he used, per probe he has answered.
         # Computed here rather than in the template so the template stays a
         # template.
+        # Mark each glossary term at its first use, in reading order across
+        # the WHOLE unit rather than per step: a term defined on step 1 must
+        # not be defined again on step 4. The blocks are walked in order and
+        # only the current step's output is handed to the template.
+        seen_terms: set[str] = set()
+        defined: dict[int, list[str]] = {}
+        heading_blocks = definitions.mark(
+            [unit.failure, unit.detection], vocabulary.TERMS, seen_terms
+        )
+        for lesson_step in lessons.steps(unit):
+            if lesson_step.kind == "read":
+                defined[lesson_step.index] = definitions.mark(
+                    list(lesson_step.paragraphs), vocabulary.TERMS, seen_terms
+                )
+
         track = {
             probe_id: progression.track_record_at(session, attempt.probability)
             for probe_id, attempt in progress["attempts"].items()
@@ -810,6 +827,8 @@ def _render_unit(request, unit, step=None, anyway=0, all=0, run=None):
                 "step": lessons.step_at(unit, step),
                 "probe_by_id": {probe.id: probe for probe in unit.probes},
                 "peek": lessons.fixture_peek(unit.exercise.fixture_path),
+                "defined": defined,
+                "defined_failure": heading_blocks[0],
                 "run": run,
                 "can_run": sandbox.loopback_only(
                     request.client.host if request.client else None

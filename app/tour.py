@@ -61,10 +61,6 @@ TIPS: dict[str, str] = {
         "What this needs from what came before it. A unit that cannot name "
         "that is in the wrong place."
     ),
-    "fixture": (
-        "A file of real-shaped data shipped with the unit, with a known answer "
-        "nobody has told you."
-    ),
     "tolerance": (
         "How far your posted number may sit from the known answer. It allows "
         "for floating point, not for sloppiness."

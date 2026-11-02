@@ -208,11 +208,14 @@ def test_every_unit_page_renders(client):
         assert response.status_code == 200, (
             f"/units/{unit.slug} returned {response.status_code}"
         )
-        # Unescape before comparing. Jinja turns an apostrophe into &#39;, so
-        # a raw substring check silently requires every unit to open without
-        # one. That is a constraint on the prose invented by the test, and it
-        # fails on correct copy, which is the worst kind of test to keep.
-        assert unit.brief[0][:40] in html.unescape(response.text)
+        # Strip tags, then unescape, then compare. Two things sit between the
+        # briefing and the page: Jinja escapes an apostrophe to &#39;, and
+        # app/define.py wraps the first use of a glossary term in an anchor,
+        # which lands mid-sentence. Comparing raw markup against raw prose
+        # would make this fail on correct copy, which is the worst kind of
+        # test to keep.
+        rendered = html.unescape(re.sub(r"<[^>]+>", "", response.text))
+        assert unit.brief[0][:40] in rendered
 
 
 def test_a_locked_unit_hides_its_contents_and_says_what_it_needs(client):

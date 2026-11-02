@@ -142,7 +142,7 @@ def test_no_tip_repeats_a_glossary_definition():
 @pytest.mark.parametrize(
     "path,expected",
     [("/progress", "rank"), ("/progress", "calibration_score"),
-     ("/progress", "streak"), ("/start", "fixture")],
+     ("/progress", "streak"), ("/start", "cycle")],
 )
 def test_tips_reach_the_rendered_page(client, path, expected):
     body = client.get(path).text

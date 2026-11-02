@@ -60,13 +60,15 @@
 
         {% if step.kind == "read" %}
             {% if step.index == 1 %}
-                <p class="lede">{{ unit.failure }}</p>
+                <p class="lede">{{ defined_failure|safe }}</p>
                 {% if unit.builds_on %}
                     <p class="note"><b class="tip" tabindex="0"
                        data-tip="{{ TOUR.TIPS.builds_on }}">Builds on:</b> {{ unit.builds_on }}</p>
                 {% endif %}
             {% endif %}
-            {% for paragraph in step.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+            {% for paragraph in defined.get(step.index, step.paragraphs) %}
+                <p>{{ paragraph|safe }}</p>
+            {% endfor %}
             {% if step.index == 2 %}
                 <p class="note"><b>You will learn to:</b> {{ unit.detection }}</p>
             {% endif %}
